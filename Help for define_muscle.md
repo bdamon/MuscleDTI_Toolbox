@@ -10,19 +10,23 @@ If the user has included the optional input argument mask_size, then an alternat
 A file named mask_file, containing the mask and (if present) the alternatively sized mask, is automatically saved in the working directory.
 
 ## Syntax
-INPUT ARGUMENTS
-anat_image: A row x column x slices stack of images
-slices: A two element vector containing the first and last slices to be
-analyzed
-mask_size: If specified, this is a two element vector containing the row  
-x column size of a second mask
-plot_options: If specified, this calls the fiber_visualizer function to
-plot the mask.
 
-OUTPUT ARGUMENTS
-mask: the binary image mask, with size matching that of the original
-image
-alt_mask: a second binary image mask, with size matching that of the
-vector alt_mask_size
+[mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plot_options);
+
+## Detailed Description of Input Arguments
+
+anat_image: A row x column x slices stack of images
+
+slices: A two element vector containing the first and last slices to be analyzed
+
+mask_size: If specified, this is a two element vector containing the row x column size of a second mask
+
+plot_options: If specified, this calls the fiber_visualizer function to plot the mask. 
+
+## Detailed Description of Output Arguments
+
+mask: The binary image mask, with size matching that of the original image
+
+alt_mask: A second binary image mask, with size matching that of the vector alt_mask_size
 
 
