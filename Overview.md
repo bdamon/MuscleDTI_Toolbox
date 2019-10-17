@@ -1,4 +1,4 @@
-# MuscleDTI_Toolbox
+# Overview of the MuscleDTI_Toolbox
 ## A Matlab Toolbox for Skeletal Muscle Diffusion Tensor MRI Fiber Tractography 
 
 The MuscleDTI_Toolbox consists of a series of custom-written Matlab functions for performing diffusion-tensor MRI fiber tractography in skeletal muscle. The toolbox consists of:
