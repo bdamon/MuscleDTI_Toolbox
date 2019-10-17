@@ -1,5 +1,0 @@
-Help File for define_muscle
-
-Three figure windows are opened, each displaying a different image: the current slice (middle panel), the preceding slice with its ROI (if present), and the next slice. Using the roipoly tool, the user defines the ROI in the middle slice. For the main figure window, an interactive tool is opened that allows the user to adjust the image's window and level settings. After closing the ROI, the program advances to the next slice until all slices have been defined.
-
-A file named mask_file, containing the mask and (if present) the alternatively sized mask, is automatically saved in the working directory.
