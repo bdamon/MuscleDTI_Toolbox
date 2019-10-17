@@ -22,9 +22,7 @@ This work was supported by NIH grants NIH/NIAMS R01 AR050101 and NIH/NIAMS R01 A
 ### define_muscle
 The function define_muscle is used to define the boundary of a muscle and return the corresponding binary image mask. This mask is used in the fiber_track function of the MuscleDTI_Toolbox.
 
-Three figure windows are open, each displaying a different image: the current slice (middle panel), the preceding slice with its ROI (if present), and the next slice. Using the roipoly tool, the user defines the ROI in the middle slice. For the main figure window, an interactive tool is opened that allows the user to adjust the image's window and level settings. After closing the ROI, the program advances to the next slice until all slices have been defined.
-
-A file named mask_file, containing the mask and (if present) the alternatively sized mask, is automatically saved in the working directory.
+Follow this link for detailed help on this function, including an instructional video.
 
 ### define_roi
 
