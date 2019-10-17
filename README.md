@@ -4,10 +4,10 @@
 The MuscleDTI_Toolbox consists of a series of custom-written Matlab functions for performing diffusion-tensor MRI fiber tractography in skeletal muscle. This README file contains
   1) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#1-acknowledgements);
   2) [Information about the license](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#2-license-information);
-  3) A list of MATLAB requirements;
-  4) A list of the conventions assumed regarding data acquisition;
-  5) An overview of a typical workflow using the toolbox;
-  6) Links to other resources in the toolbox and elsewhere online.
+  3) [A list of MATLAB requirements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#3-matlab-requirements);
+  4) [A list of the conventions assumed regarding data acquisition](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#4-data-acquisition-conventions-assumed);
+  5) [An overview of a typical workflow using the toolbox](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#5-overview-of-a-typical-workflow);
+  6) [Links to other resources in the toolbox and elsewhere online](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#6-other-resources).
 
 ## 1. Acknowledgements
 This work was supported by NIH grants NIH/NIAMS R01 AR050101 and NIH/NIAMS R01 AR073831. By using this software, users agree to acknowledge the active grant (NIH/NIAMS R01 AR073831) in presentations and publications and to adhere to NIH policies regarding open access. This work reflects the collective contributions of many individuals, including: Adam Anderson, Amanda Buck, Crystal Coolbaugh, Bruce Damon, Zhaohua Ding, Hannah Kilpatrick, Anneriet Heemskerk, Melissa Hooijmans, and Justin Montenegro. Details regarding authorship and individual contributions are noted in each function.
