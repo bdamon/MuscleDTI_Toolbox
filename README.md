@@ -41,6 +41,7 @@ Fiber tracts are propagated from the seed points by following the direction indi
 Fiber tract points are subject to small errors in position because of the presence of noise and artifacts in the images. To mitigate these effects, the function fiber_smoother performs a polynomial fit to each fiber tract. This also allows the interpolation of the fiber tract positions at a resolution higher than the original tracts.  This step is not required, but is strongly recommended prior to calling the fiber_quantifier function.
 
 ### F. Quantify the tracts' structural properties using the function fiber_quantifier
+After the fiber tracts have been polynomial-fitted, their structural properties are quantified using the function fiber_quantifier.  The properties quantified include the pennation angle, curvature, and length.  
 
 ### fiber_selector
 
