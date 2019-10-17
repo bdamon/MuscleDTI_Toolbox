@@ -28,7 +28,7 @@ The functions have been tested using MATLAB v. 2019b.  The toolbox consists prim
 ### A. Pre-processing
 Before performing fiber tractography, several pre-processing steps muscle be performed.  These may include:
   1) File input;
-  2) Correction of eddy current-induced distortions in the iamges;
+  2) Correction of eddy current-induced distortions in the images;
   3) Concatenation of multiple image acqusitions into a single dataset;
   4) Image registration;
   5) De-noising; and
