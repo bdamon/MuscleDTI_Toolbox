@@ -3,7 +3,7 @@ A Matlab Toolbox for Skeletal Muscle Diffusion Tensor MRI Fiber Tractography
 
 The MuscleDTI_Toolbox consists of a series of custom-written Matlab functions for performing diffusion-tensor MRI fiber tractography in skeletal muscle. This README file contains
   1) Acknowledgements;
-  2) A link to the license
+  2) Information about the license;
   3) A list of MATLAB requirements;
   4) A list of the conventions assumed regarding data acquisition;
   5) An overview of a typical workflow using the toolbox;
@@ -35,16 +35,18 @@ Real muscle fibers are assumed to be contained entirely within a single muscle o
 Fiber tracts are propagated from a set of points, commonly called "seed points." In the MuscleDTI_Toolbox, the tendinous structure into which the muscle fibers insert is used to define these points. The function define_roi is used to digitize the {row, column, slice} coordinates of the tendon; these points are used to define the seed surface. Follow this link for detailed help on this function, including an instructional video.
 
 ### D. Generate the fiber tracts using the function fiber_track
-Fiber tracts are propagated from the seed points by following the direction indicated by the first eigenvector of the diffusion tensor. The function fiber_track is used to perform this integration. The user can select from several propagation algorithms and several methods for determining when to stop propagating a tract. The major output of this function is a matrix containing the {row, column, slice} coordinates of each fiber tract.  fiber_track calls the function retrieve_tensor, which finds the diffusion tensor in each voxel of the image.
+Fiber tracts are propagated from the seed points by following the direction indicated by the first eigenvector of the diffusion tensor. The function fiber_track is used to perform this integration. The user can select from several propagation algorithms and several methods for determining when to stop propagating a tract. The major output of this function is a matrix containing the {row, column, slice} coordinates of each fiber tract.  fiber_track calls the function retrieve_tensor, which finds the diffusion tensor in each voxel of the image. Follow this link for detailed help on this function, including an instructional video.
 
 ### E. Smooth the fiber tracts using the function fiber_smoother
-Fiber tract points are subject to small errors in position because of the presence of noise and artifacts in the images. To mitigate these effects, the function fiber_smoother performs a polynomial fit to each fiber tract. This also allows the interpolation of the fiber tract positions at a resolution higher than the original tracts.  This step is not required, but is strongly recommended prior to calling the fiber_quantifier function.
+Fiber tract points are subject to errors in position because of the presence of noise and artifacts in the images. To mitigate these effects, the function fiber_smoother performs a polynomial fit to each fiber tract. This also allows the interpolation of the fiber tract positions at a resolution higher than the original tracts.  This step is not required, but is strongly recommended prior to calling the fiber_quantifier function. Follow this link for detailed help on this function.
 
 ### F. Quantify the tracts' structural properties using the function fiber_quantifier
-After the fiber tracts have been polynomial-fitted, their structural properties are quantified using the function fiber_quantifier.  The properties quantified include the pennation angle, curvature, and length.  
+After the fiber tracts have been polynomial-fitted, their structural properties are quantified using the function fiber_quantifier.  The properties quantified include the pennation angle, curvature, and length. These properties are calculated in a pointwise manner along the fiber tracts. Follow this link for detailed help on this function.
 
-### fiber_selector
+### G. Eliminate erroneuous results using the function fiber_selector
+Finally, the quantitative results are examined and obviously wrong results are eliinated from the dataset. The function fiber_selector eliminates tracts that lack more than 2 nearest neighbors; that have architectural properties that exceed certain limits; or that vary greatly fromtheir neighbors. A final dataset is calulated, including the mean properties for each tract and for the entire muscle. Follow this link for detailed help on this function.
 
-### fiber_visualizer
+### H. Visualize the results using the function fiber_visualizer
+At any stage, the results can be visualized using the function fiber_visualizer. The user can select the mask, seed surface, and/or fiber tracts for display.  The user can also select which image slices to display for anatomical reference.
 
 ## 6. Other Resources
