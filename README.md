@@ -8,8 +8,12 @@ The MuscleDTI_Toolbox consists of a series of custom-written Matlab functions fo
   4) Links to other resources in the toolbox and elsewhere online.
 
 ## Acknowledgements
-This work was supported by NIH grants NIH/NIAMS R01 AR050101 and NIH/NIAMS R01 AR073831. By using this software, users agree to acknowledge the active grant (NIH/NIAMS R01 AR073831) in presentations and publications; to adhere to NIH policies regarding open access; and to abide by the terms of the GNU General Public License. This work reflects the collective contributions of many individuals, including: Adam Anderson, Amanda Buck, Crystal Coolbaugh, Bruce Damon, Zhaohua Ding, Hannah Kilpatrick, Anneriet Heemskerk, Melissa Hooijmans, and Justin Montenegro. Details regarding authorship and specific contributions are noted in each function.
-  
+This work was supported by NIH grants NIH/NIAMS R01 AR050101 and NIH/NIAMS R01 AR073831. By using this software, users agree to acknowledge the active grant (NIH/NIAMS R01 AR073831) in presentations and publications and to adhere to NIH policies regarding open access. This work reflects the collective contributions of many individuals, including: Adam Anderson, Amanda Buck, Crystal Coolbaugh, Bruce Damon, Zhaohua Ding, Hannah Kilpatrick, Anneriet Heemskerk, Melissa Hooijmans, and Justin Montenegro. Details regarding authorship and specific contributions are noted in each function.
+
+## License Information
+
+This work is covered under a [GNU General Public License, v. 3](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/LICENSE.md) or later.
+
 ## MATLAB Requirements
 
 ## Data Acquisition Conventions Assumed 
