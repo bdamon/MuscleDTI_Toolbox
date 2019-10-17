@@ -1,2 +1,3 @@
 # Muscle-DTI
-Functions for skeletal muscle diffusion tensor imaging 
+Matlab Toolbox for Skeletal Muscle Diffusion Tensor Imaging 
+  The MuscleDTI_Toolbox consists of a series of custom-written Matlab functions for performing diffusion-tensor MRI fiber tractography in skeletal muscle. 
