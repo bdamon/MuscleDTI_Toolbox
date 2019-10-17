@@ -1,5 +1,5 @@
 # MuscleDTI_Toolbox
-A Matlab Toolbox for Skeletal Muscle Diffusion Tensor MRI Fiber Tractography 
+## A Matlab Toolbox for Skeletal Muscle Diffusion Tensor MRI Fiber Tractography 
 
 The MuscleDTI_Toolbox consists of a series of custom-written Matlab functions for performing diffusion-tensor MRI fiber tractography in skeletal muscle. This README file contains
   1) Acknowledgements;
@@ -26,7 +26,14 @@ The functions have been tested using MATLAB v. 2019b.  The toolbox consists prim
 ## 5. Overview of a Typical Workflow
 
 ### A. Pre-processing
-
+Before performing fiber tractography, several pre-processing steps muscle be performed.  These may include:
+  1) File input;
+  2) Correction of eddy current-induced distortions in the iamges;
+  3) Concatenation of multiple image acqusitions into a single dataset;
+  4) Image registration;
+  5) De-noising; and
+  6) Calculation of the diffusion tensor throughout the muscle of interest.
+Follow this link for help on these steps, including a MATLAB script that performs many of these tasks.
 
 ### B. Define muscle boundaries using the function define_muscle
 Real muscle fibers are assumed to be contained entirely within a single muscle of interest. The fiber_track function therefore requires the user to input a binary image mask demarcating the muscle boundaries; this mask is used to prevent fiber tracts from exiting the muscle of interest. The function define_muscle is used to define this mask. Follow this link for detailed help on this function, including an instructional video.
