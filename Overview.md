@@ -7,7 +7,7 @@ The MuscleDTI_Toolbox consists of a series of custom-written Matlab functions fo
   3) Functions for generating and quantifying the fiber tracts and a sample script that calls the functions.
 Further information about each of the scripts/functions, including video tutorials, appears below.
 
-This work was supported by NIH grants NIH/NIAMS R01 AR050101 and NIH/NIAMS R01 AR073831. By using this software, users agree to acknowledge the active grant (NIH/NIAMS R01 AR073831) in presentations and publications and to adhere to NIH policies regarding open access. Most of the functions were written by Bruce Damon, but reflect the collective contributions of many individuals, including: Adam Anderson, Amanda Buck, Crystal Coolbaugh, Zhaohua Ding, Hannah Kilpatrick, Anneriet Heemskerk, Melissa Hooijmans, and Justin Montenegro. 
+This work was supported by NIH grants NIH/NIAMS R01 AR050101 and NIH/NIAMS R01 AR073831. By using this software, users agree to acknowledge the active grant (NIH/NIAMS R01 AR073831) in presentations and publications and to adhere to NIH policies regarding open access. This work reflects the collective contributions of many individuals, including: Adam Anderson, Amanda Buck, Crystal Coolbaugh, Bruce Damon, Zhaohua Ding, Hannah Kilpatrick, Anneriet Heemskerk, Melissa Hooijmans, and Justin Montenegro. Details regarding authorship and specific contributions are noted in each function.
   
 ## Conventions Assumed Regarding Data Acquisition
   1) Slices cover the entire muscle of interest and are numbered from distal to proximal;
