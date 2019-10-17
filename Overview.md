@@ -20,7 +20,7 @@ This work was supported by NIH grants NIH/NIAMS R01 AR050101 and NIH/NIAMS R01 A
 ## Fiber-tracking Functions
 
 ### define_muscle
-The function define_muscle is used to define the boundary of a muscle and return the corresponding binary image mask. This mask is used in the fiber_track function of the MuscleDTI_Toolbox.  Follow this link for detailed help on this function, including an instructional video.
+The function define_muscle is used to define the boundary of a muscle and return the corresponding binary image mask. This mask is used in the fiber_track function of the MuscleDTI_Toolbox.  Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help%20for%20define_muscle) for detailed help on this function, including an instructional video.
 
 ### define_roi
 
