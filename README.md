@@ -33,6 +33,7 @@ Before performing fiber tractography, several pre-processing steps muscle be per
   4) Image registration;
   5) De-noising; and
   6) Calculation of the diffusion tensor throughout the muscle of interest.
+
 Follow this link for help on these steps, including a MATLAB script that performs many of these tasks.
 
 ### B. Define muscle boundaries using the function define_muscle
