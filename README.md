@@ -58,3 +58,6 @@ Finally, the quantitative results are examined and obviously wrong results are e
 At any stage, the results can be visualized using the function fiber_visualizer. The user can select the mask, seed surface, and/or fiber tracts for display.  The user can also select which image slices to display for anatomical reference.
 
 ## 6. Other Resources
+Several recent review on muscle DTMRI include:
+[Skeletal muscle DT-MRI fiber tracking: Rationale, data acquisition and analysis methods, applications, and future directions](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5136336/)
+[Techniques and applications of skeletal muscle diffusion tensor imaging: A review](https://www.ncbi.nlm.nih.gov/pubmed/26221741)
