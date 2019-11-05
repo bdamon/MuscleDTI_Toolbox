@@ -7,8 +7,9 @@ This Help file contain information about
 2) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#2-Syntax);
 3) [Input Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#3-Input-Arguments);
 4) [Output Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#4-Output-Arguments);
-5) [Output Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#4-Output-Arguments);
-6) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#4-Output-Arguments);
+5) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#5-Acknowledgements);
+6) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#6-Example-Code);
+
 
 ## 1. Usage
 
@@ -19,6 +20,7 @@ In the main figure window, the user uses the roipoly tool to define an ROI. Afte
 By default, the program returns a mask of the same dimensions as the image used to select the ROIs.  If desired, the user can also create an alternatively sized mask.  This would be useful if the structural images and the DTI images had different matrix sizes.  
    
 A file named mask_file, containing the mask and (if present) the alternatively sized mask, is automatically saved in the working directory.
+
 
 ## 2. Syntax
 
@@ -34,11 +36,13 @@ alt_mask_size: If specified, this is a two element vector containing the row x c
 
 plot_options: If specified, this calls the fiber_visualizer function to plot the mask.
 
+
 ## 4. Output Arguments
 
 mask: the binary image mask, with size matching that of the original image
 
 alt_mask: a second binary image mask, with size matching that of the vector alt_mask_size
+
 
 ## 5. Acknowledgements
 
