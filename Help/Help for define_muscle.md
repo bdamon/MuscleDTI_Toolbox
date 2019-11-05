@@ -7,6 +7,8 @@ This Help file contain information about
 2) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#2-Syntax);
 3) [Input Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#3-Input-Arguments);
 4) [Output Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#4-Output-Arguments);
+5) [Output Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#4-Output-Arguments);
+6) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#4-Output-Arguments);
 
 ## 1. Usage
 
@@ -38,13 +40,13 @@ mask: the binary image mask, with size matching that of the original image
 
 alt_mask: a second binary image mask, with size matching that of the vector alt_mask_size
 
-## ACKNOWLEDGMENTS
+## 5. Acknowledgements
 
 Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
 
 
 
-## EXAMPLE CODE
+## 6. Example code
 
 ### %% Example 1:
 
