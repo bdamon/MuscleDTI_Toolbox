@@ -3,10 +3,10 @@
 ## Introduction
 
 This Help file contain information about
-1) [Usage of the program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#1.-usage);
-2) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#2.-Syntax);
-3) [Input Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#3.-Input-Arguments);
-4) [Output Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#4.-Output-Arguments);
+1) [Usage of the program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#1-usage);
+2) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#2-Syntax);
+3) [Input Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#3-Input-Arguments);
+4) [Output Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#4-Output-Arguments);
 
 ## 1. Usage
 
