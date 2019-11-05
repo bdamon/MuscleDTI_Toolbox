@@ -51,6 +51,8 @@ plot_options.mask_dims=[192 6];
 
 plot_options.mask_color=[1 0 0];
 
+[mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plot_options);
+
 VERSION INFORMATION
 
 v. 0.5
