@@ -3,7 +3,7 @@
 ## Introduction
 
 This Help file contain information about
-1) [Usage of the program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#1. Usage);
+1) [Usage of the program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md#1.-Usage);
 ## 1. Usage
 
 The function define_muscle is used to define the boundary of a muscle and return its binary image mask. This mask is needed for muscle fiber tracking using the MuscleDTI_Toolbox. Three images are displayed: the current slice (main panel), the preceding slice with its region of interest (ROI; if present), and the next slice. For the main figure window, an interactive tool is opened that allows the user to adjust the image's window and level settings. 
