@@ -44,7 +44,9 @@ A) Given an image with matrix size 256 x 256 x 50, field of view 192 x 192 mm, a
   3) Automatically visualize the result using fiber_visualizer, using slices 15, 25, 35, and 45 for anatomical reference
 
 %% Set options for plotting:
+
 plot_options.plot_fibers=0;                  %don't plot any fiber tracts
+
 plot_options.plot_mesh=0;                    %don't plot an aponeurosis mesh
 
 plot_options.plot_mask=1;                    %do plot the mask
