@@ -40,29 +40,35 @@ alt_mask: a second binary image mask, with size matching that of the vector alt_
 
 ### Example 1:
 
-Given an image with matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to 
+Given an image with variable name anat_image and having matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to 
   1) Define the muscle mask in slices 15-40
 
-%% call the function
-
+% call the function
+slices = [15 40];
 [mask, ~] = define_muscle(anat_image, slices, [], []);
 
 
 
 ### Example 2:
 
-Given an image with matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to 
+Given an image with variable name anat_image and having matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to 
   1) Define the muscle mask in slices 15-40; and
   2) Return a second mask of size 192 x 192 x 50
 
-%% call the function
+% define the size of the alternative mask:
+
+alt_mask_size = [192 192]
+
+% call the function
+
+slices = [15 40];
 
 [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, []);
 
 
 ### Example 3: 
 
-Given an image with matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to 
+Given an image with variable name anat_image and having matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to 
   1) Define the muscle mask in slices 15-40;
   2) Return a mask of size 192 x 192 x 50; and
   3) Automatically visualize the result using fiber_visualizer, using slices 15, 25, 35, and 45 for anatomical reference
@@ -85,7 +91,14 @@ plot_options.mask_dims=[192 6];              %FOV and slice thickness of the ima
 
 plot_options.mask_color=[1 0 0];             %make the mask a red, semi-transparent overlay
 
-%% call the function
+
+% define the size fo the alternative mask:
+
+alt_mask_size = [192 192];
+
+% call the function
+
+slices = [15 40];
 
 [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plot_options);
 
