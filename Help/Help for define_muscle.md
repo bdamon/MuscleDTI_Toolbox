@@ -52,7 +52,7 @@ Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
 
 ## 6. Example code
 
-### %% Example 1:
+### Example 1:
 
 Given an image with variable name anat_image and having matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to 
   1) Define the muscle mask in slices 15-40
@@ -63,7 +63,7 @@ slices = [15 40];
 
 
 
-### %% Example 2:
+### Example 2:
 
 Given an image with variable name anat_image and having matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to 
   1) Define the muscle mask in slices 15-40; and
@@ -80,7 +80,7 @@ slices = [15 40];
 [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, []);
 
 
-### %% Example 3: 
+### Example 3: 
 
 Given an image with variable name anat_image and having matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to 
   1) Define the muscle mask in slices 15-40;
