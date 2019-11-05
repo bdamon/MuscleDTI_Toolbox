@@ -28,31 +28,6 @@ mask: the binary image mask, with size matching that of the original image
 
 alt_mask: a second binary image mask, with size matching that of the vector alt_mask_size
 
-EXAMPLE USAGE
-
-Given an image with matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to 
-  1) Define the muscle mask in slices 15-40;
-  2) Return a mask of size 192 x 192 x 50; and
-  3) Automatically visualize the result using fiber_visualizer, using slices 15, 25, 35, and 45 for anatomical reference and displaying the mask as a semi-transparent red structure (RGB scale = [1 0 0])
-
-plot_options.plot_fibes=0;
-
-plot_options.plot_mesh=0;
-
-plot_options.plot_mask=1;
-
-plot_options.anat_dims=[192 6];
-
-plot_options.anat_slices=15:10:45;
-
-plot_options.mask_size=[256 256];
-
-plot_options.mask_dims=[192 6];
-
-plot_options.mask_color=[1 0 0];
-
-[mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plot_options);
-
 VERSION INFORMATION
 
 v. 0.5
@@ -60,3 +35,32 @@ v. 0.5
 ACKNOWLEDGMENTS
 
 Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
+
+EXAMPLE USAGE
+
+A) Given an image with matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to 
+  1) Define the muscle mask in slices 15-40;
+  2) Return a mask of size 192 x 192 x 50; and
+  3) Automatically visualize the result using fiber_visualizer, using slices 15, 25, 35, and 45 for anatomical reference
+
+%% Set options for plotting:
+plot_options.plot_fibers=0;                  %don't plot any fiber tracts
+plot_options.plot_mesh=0;                    %don't plot an aponeurosis mesh
+
+plot_options.plot_mask=1;                    %do plot the mask
+
+plot_options.anat_dims=[192 6];              %FOV and slice thickness of the images to be displayed, in mm
+
+plot_options.anat_slices=15:10:45;           %slices to display for anatomical reference in fiber_visualizer
+
+plot_options.mask_size=[256 256];            %in-plane matrix size of the images used to generate the mask
+
+plot_options.mask_dims=[192 6];              %FOV and slice thickness of the images used to generate the mask, in mm
+
+plot_options.mask_color=[1 0 0];             %make the mask a red, semi-transparent overlay
+
+%% call the function
+[mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plot_options);
+
+
+
