@@ -36,7 +36,7 @@ Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
 
 
 
-## EXAMPLE USAGE
+## EXAMPLE CODE
 
 ### %% Example 1:
 
