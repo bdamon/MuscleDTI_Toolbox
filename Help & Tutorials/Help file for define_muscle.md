@@ -36,12 +36,19 @@ Given an image with matrix size 256 x 256 x 50, field of view 192 x 192 mm, and 
   3) Automatically visualize the result using fiber_visualizer, using slices 15, 25, 35, and 45 for anatomical reference and displaying the mask as a semi-transparent red structure (RGB scale = [1 0 0])
 
 plot_options.plot_fibes=0;
+
 plot_options.plot_mesh=0;
+
 plot_options.plot_mask=1;
+
 plot_options.anat_dims=[192 6];
+
 plot_options.anat_slices=15:10:45;
+
 plot_options.mask_size=[256 256];
+
 plot_options.mask_dims=[192 6];
+
 plot_options.mask_color=[1 0 0];
 
 VERSION INFORMATION
