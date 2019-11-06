@@ -1,4 +1,4 @@
-# Help for the function define_muscle, v. 0.1
+# Help for the function <i>define_muscle</i>, v. 0.1
 
 ## Introduction
 
@@ -84,9 +84,10 @@ slices = [15 40];
 
 ### Example 3: 
 
-Given an image with variable name anat_image and having matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to 
-  1) Define the muscle mask in slices 15-40;
-  2) Return a mask of size 192 x 192 x 50; and
+Given an image with variable name anat_image and having matrix size 192 x 192 x 44, field of view 192 x 192 mm, and slice thickness = 7 mm, the code below will allow the user to 
+  1) Define the muscle mask in slices 4-41;
+  2) Return a mask of size 192 x 192 x 50; 
+  3) Return a second mask of size 128 x 128; and
   3) Automatically visualize the result using fiber_visualizer, using slices 15, 25, 35, and 45 for anatomical reference
 
 % Set options for plotting:
@@ -97,20 +98,20 @@ plot_options.plot_mesh=0;                    %don't plot an aponeurosis mesh
 
 plot_options.plot_mask=1;                    %do plot the mask
 
-plot_options.anat_dims=[192 6];              %FOV and slice thickness of the images to be displayed, in mm
+plot_options.anat_dims=[192 7];              %FOV and slice thickness of the images to be displayed, in mm
 
 plot_options.anat_slices=15:10:45;           %display slices 15, 25, 35, and 45 for anatomical reference in fiber_visualizer
 
-plot_options.mask_size=[256 256];            %in-plane matrix size of the images used to generate the mask
+plot_options.mask_size=[192 192];            %in-plane matrix size of the images used to generate the mask
 
-plot_options.mask_dims=[192 6];              %FOV and slice thickness of the images used to generate the mask, in mm
+plot_options.mask_dims=[192 7];              %FOV and slice thickness of the images used to generate the mask, in mm
 
 plot_options.mask_color=[1 0 0];             %make the mask a red, semi-transparent overlay
 
 
 % define the size of the alternative mask:
 
-alt_mask_size = [192 192];
+alt_mask_size = [128 128];
 
 % call the function
 
