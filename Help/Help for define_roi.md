@@ -55,3 +55,60 @@ Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
 
 ## 6. Example Code
 
+
+### Example 1:
+
+Given 1) an anatomical image with variable name anat_image and having matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm and 2) DTI images with variable name dti_images and having matrix size 192 x 192 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to 
+  1) Use automated selection of the aponeurosis;
+  2) Define the muscle aponeurosis in slices 15-30; and
+  3) Create a mesh of size 175 rows x 50 columns
+
+% Set mesh options:
+
+defroi_options.slices = [15 30];
+
+defroi_options.dti_size = [192 192 50];
+
+defroi_options.mesh_size = [175 50];
+
+defroi_options.method='auto';
+
+% call the function:
+
+roi_mesh=define_roi(anat_image, mask, defroi_options, []);
+
+### Example 2
+
+Example 2 matches Example 1, except that the mesh is automatically called from within the define_roi function:
+
+% Set mesh options:
+
+defroi_options.slices = [15 30];
+
+defroi_options.dti_size = [192 192 50];
+
+defroi_options.mesh_size = [175 50];
+
+defroi_options.method='auto';
+
+% Set options for plotting:
+
+plot_options.plot_fibers=0;                  %don't plot any fiber tracts
+
+plot_options.plot_mesh=1;                    %don't plot an aponeurosis mesh
+
+plot_options.plot_mask=0;                    %do plot the mask
+
+plot_options.anat_dims=[192 6];              %FOV and slice thickness of the images to be displayed, in mm
+
+plot_options.anat_slices=15:10:45;           %slices to display for anatomical reference in fiber_visualizer
+
+plot_options.mesh_size=[256 256];            %in-plane matrix size of the images used to generate the mask
+
+plot_options.mesh_dims=[192 6];              %FOV and slice thickness of the images used to generate the mask, in mm
+
+plot_options.mesh_color=[.75 .75 .75];       %make the mesh gray
+
+% call the function:
+
+roi_mesh=define_roi(anat_image, mask, defroi_options, []);
