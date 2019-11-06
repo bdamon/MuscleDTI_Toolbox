@@ -25,7 +25,7 @@ A file named mask_file, containing the mask and (if present) the alternatively s
 ## 2. Syntax
 
 [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plot_options);
-
+ 
 ## 3. Input Arguments
 
 anat_image: A row x column x slices stack of images, to be used for selecting the ROIs
