@@ -42,13 +42,13 @@ plot_options: If specified, this calls the fiber_visualizer function to plot the
 mask: the binary image mask, with size matching that of the original image
 
 alt_mask: a second binary image mask, with size matching that of the vector alt_mask_size
-
-
+ 
+ 
 ## 5. Acknowledgements
 
 Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
 
-
+ 
 
 ## 6. Example code
 
@@ -58,7 +58,9 @@ Given an image with variable name anat_image and having matrix size 256 x 256 x 
   1) Define the muscle mask in slices 15-40
 
 % call the function
+
 slices = [15 40];
+
 [mask, ~] = define_muscle(anat_image, slices, [], []);
 
 
