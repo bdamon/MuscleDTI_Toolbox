@@ -68,7 +68,7 @@ function roi_mesh=define_roi(anat_image, mask, defroi_options, plot_options)
 %  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %
 %VERSION INFORMATION
-%  In beta-testing mode
+%  v 0.1
 %
 %ACKNOWLEDGMENTS
 %  People: Zhaohua Ding
