@@ -13,7 +13,7 @@ This Help file contain information about
 
 ## 1. Usage
 
-The function define_muscle is used to define the boundary of a muscle and return its binary image mask. This mask is needed for muscle fiber tracking using the MuscleDTI_Toolbox. Three images are displayed: the current slice (main panel), the preceding slice with its region of interest (ROI; if present), and the next slice. For the main figure window, an interactive tool is opened that allows the user to adjust the image's window and level settings. 
+The function define_muscle is used to define the boundary of a muscle and return its binary image mask. This mask is needed as an input to the function fiber_track. Upon calling the function, three images are displayed: the current slice (main panel); the preceding slice with its region of interest (ROI) (if present); and the next slice. For the main figure window, an interactive tool is opened that allows the user to adjust the image's window and level settings. 
 
 In the main figure window, the user uses the roipoly tool to define an ROI. After closing the ROI, the user may adjust the position of the vertices. After completing the ROI selection, the program advances to the next slice. ROI selection continues in this manner until all slices have been defined.
 
