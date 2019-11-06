@@ -1,4 +1,4 @@
-# Help for the function define_roi, v. 0.1
+# Help for the function <i>define_roi</i>, v. 0.1
 
 ## Introduction
 
@@ -27,24 +27,24 @@ If the input argument plot_options is included, the mesh and mask are plotted us
 roi_mesh=define_roi(anat_image, mask, defroi_options, plot_options);
 
 ## 3. Input Arguments
-anat_image: The imaging data. If input as a structure, then the imaging data are assumed to exist in a field called anat_image.Data.  If specified as a matrix, the data are used directly.
+<i>anat_image: The imaging data. If input as a structure, then the imaging data are assumed to exist in a field called anat_image.Data.  If specified as a matrix, the data are used directly.
 
-mask: The mask, as defined by the function define_mask or other method.
+<i>mask</i>: The mask, as defined by the function define_mask or other method.
 
-defroi_options: A structure containing the following fields:
+<i>defroi_options</i>: A structure containing the following fields:
 
-  .slices: A two-element vector containing the first and last slices that the user wishes to digitize.
+  <i>.slices</i>: A two-element vector containing the first and last slices that the user wishes to digitize.
   
-  .dti_size: The size of the DTI image dataset (rows x columns x slices), input as a three element vector.
+  <i>.dti_size</i>: The size of the DTI image dataset (rows x columns x slices), input as a three element vector.
   
-  .mesh_size: A two-element vector containing the numbers of rows (n_row) and columns (n_col) desired in the output mesh.
+  <i>.mesh_size</i>: A two-element vector containing the numbers of rows (n_row) and columns (n_col) desired in the output mesh.
   
-  .method: a string variable set either to 'manual' or 'auto'. The manual and automatic options are described above.
+  <i>.method</i>: a string variable set either to 'manual' or 'auto'. The manual and automatic options are described above.
 
-plot_options: Optional. If specified, this calls the fiber_visualizer function to plot the mask and roi mesh.
+<i>plot_options</i>: Optional. If specified, this calls the fiber_visualizer function to plot the mask and roi mesh.
 
 ## 4. Output Arguments
-roi_mesh: a 3D matrix containing the reconstructed mesh with size rows x columns x 6. In the 3rd dimension, levels 1-3 hold the row-column-slice data and levels 4-6 hold the normal vector to the roi surface at the point {row column slice}.
+<i>roi_mesh</i>: a 3D matrix containing the reconstructed mesh with size rows x columns x 6. In the 3rd dimension, levels 1-3 hold the row-column-slice data and levels 4-6 hold the normal vector to the roi surface at the point {row column slice}.
    
    
 ## 5. Acknowledgements
@@ -79,7 +79,7 @@ roi_mesh=define_roi(anat_image, mask, defroi_options, []);
 
 ### Example 2
 
-Example 2 matches Example 1, except that the mesh is automatically called from within the define_roi function:
+Example 2 matches Example 1, except that the mesh is automatically called from within the <i>define_roi</i> function:
 
 % Set mesh options:
 
