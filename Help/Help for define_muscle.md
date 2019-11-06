@@ -87,7 +87,7 @@ Given an image with variable name anat_image and having matrix size 256 x 256 x 
   2) Return a mask of size 192 x 192 x 50; and
   3) Automatically visualize the result using fiber_visualizer, using slices 15, 25, 35, and 45 for anatomical reference
 
-%% Set options for plotting:
+% Set options for plotting:
 
 plot_options.plot_fibers=0;                  %don't plot any fiber tracts
 
@@ -106,7 +106,7 @@ plot_options.mask_dims=[192 6];              %FOV and slice thickness of the ima
 plot_options.mask_color=[1 0 0];             %make the mask a red, semi-transparent overlay
 
 
-% define the size fo the alternative mask:
+% define the size of the alternative mask:
 
 alt_mask_size = [192 192];
 
