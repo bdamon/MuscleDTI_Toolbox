@@ -1,4 +1,4 @@
-# Help for the function define_muscle, v. 0.5
+# Help for the function define_muscle, v. 0.1
 
 ## Introduction
 
