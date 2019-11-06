@@ -44,7 +44,7 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plo
 %  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %
 % VERSION INFORMATION
-%  v. 0.5
+%  v. 0.1
 %
 % ACKNOWLEDGMENTS
 %  Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
