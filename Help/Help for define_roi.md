@@ -20,11 +20,11 @@ There are two options for defining the aponeurosis:
 
 The mesh is initially formed at the resolution specified by the user as partof the defroi_options structure.  To smooth the mesh, it is then downsampled by a size factor of four. Finally, the smoothed mesh is used to create a high resolution mesh at the desired size. A file called roi_mesh_file.mat is automatically saved in the working directory. 
 
-If the input argument plot_options is included, the mesh and mask are plotted using the function fiber_visualizer.
+If the input argument plot_options is included, the mesh and mask are automatically plotted using the function <i>fiber_visualizer</i>.
 
 ## 2. Syntax
 
-roi_mesh=define_roi(anat_image, mask, defroi_options, plot_options);
+roi_mesh = define_roi(anat_image, mask, defroi_options, plot_options);
 
 ## 3. Input Arguments
 <i>anat_image</i>: The imaging data. If input as a structure, then the imaging data are assumed to exist in a field called anat_image.Data.  If specified as a matrix, the data are used directly.
