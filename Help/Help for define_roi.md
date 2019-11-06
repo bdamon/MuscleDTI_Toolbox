@@ -95,9 +95,9 @@ defroi_options.method='auto';
 
 plot_options.plot_fibers=0;                  %don't plot any fiber tracts
 
-plot_options.plot_mesh=1;                    %don't plot an aponeurosis mesh
+plot_options.plot_mesh=1;                    %do plot an aponeurosis mesh
 
-plot_options.plot_mask=0;                    %do plot the mask
+plot_options.plot_mask=0;                    %don't plot the mask
 
 plot_options.anat_dims=[192 6];              %FOV and slice thickness of the images to be displayed, in mm
 
