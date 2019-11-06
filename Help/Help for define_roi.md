@@ -12,7 +12,7 @@ This help file contains information about
 
 ## 1. Usage
 
-The function define_roi is used to digitize the aponeurosis of muscle fiber insertion in the MuscleDTI_Toolbox.  The digitized points are used to reconstruct a mesh; the mesh is used as the seed surface for fiber tracking.
+The function <i>define_roi</i> is used to digitize the aponeurosis of muscle fiber insertion in the MuscleDTI_Toolbox.  The digitized points are used to reconstruct a mesh; the mesh is used as the seed surface for fiber tracking.
 
 There are two options for defining the aponeurosis:
 1) Manual: The user is prompted initially to select two points, which define the level of zoom to be used throughout the entire process. Then the user advances through the slices to select the aponeurosis. The selected points can form a line or close to form a polygon. At each slice, the user is given the option of repeating the procedure in case of error.  For each figure window, an interactive tool is opened that allows the user to adjust the image's window and level settings.  Eventually, the manual option will be removed.
