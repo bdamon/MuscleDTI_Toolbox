@@ -1,6 +1,16 @@
-# Help for define_roi, v. 0.5
+# Help for the function define_roi, v. 0.5
 
-## Usage
+## Introduction
+
+This help file contains information about
+1) [Usage of the program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_roi.md#1-usage)
+2) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_roi.md#2-Syntax)
+3) [Input Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_roi.md#3-Input-Arguments)
+4) [Output Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_roi.md#4-Output-Arguments)
+5) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_roi.md#5-Acknowledgements)
+6) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_roi.md#6-Example-Code)
+
+## 1. Usage
 
 The function define_roi is used to digitize the aponeurosis of muscle fiber insertion in the MuscleDTI_Toolbox.  The digitized points are used to reconstruct a mesh; the mesh is used as the seed surface for fiber tracking.
 
@@ -12,7 +22,10 @@ The mesh is initially formed with resolution n_row x n_col.  To smooth the mesh,
 
 If the input argument plot_options is included, the mesh and mask are plotted using the function fiber_visualizer.
 
-## Input Arguments
+## 2. Syntax
+
+
+## 3. Input Arguments
 anat_image: The imaging data. If input as a structure, then the imaging data are assumed to exist in a field called anat_image.Data.  If specified as a matrix, the data are used directly.
 
 mask: The mask, as defined by the function define_mask or other method.
@@ -29,12 +42,15 @@ defroi_options: A structure containing the following fields:
 
 plot_options: Optional. If specified, this calls the fiber_visualizer function to plot the mask and roi mesh.
 
-## Output Arguments
+## 4. Output Arguments
 roi_mesh: a 3D matrix containing the reconstructed mesh with size rows x columns x 6. In the 3rd dimension, levels 1-3 hold the row-column-slice data and levels 4-6 hold the normal vector to the roi surface at the point {row column slice}.
    
    
-## Acknowledgements
+## 5. Acknowledgements
 
 People: Zhaohua Ding
 
 Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
+
+## 6. Example Code
+
