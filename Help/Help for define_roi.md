@@ -5,15 +5,17 @@
 The function define_roi is used to digitize the aponeurosis of muscle fiber insertion in the MuscleDTI_Toolbox.  The digitized points are used to reconstruct a mesh; the mesh is used as the seed surface for fiber tracking.
 
 There are two options for defining the aponeurosis:
-1) Manual: The user is prompted initially to select two points, which define the level of zoom to be used throughout the entire process. Then the user advances through the slices to select the aponeurosis. The mask is provided as a guide; the aponeurosis must fall within its boundaries. The selected points can form a line or close to form a polygon. At each slice, the user is given the option of repeating the procedure in case of error.  For each figure window, an interactive tool is opened that allows the user to adjust the image's window and level settings.
-2) Automatic: The aponeurosis is automatically segmented from within the region of the image represented by the muscle mask. TWo segmentation methods (edge detection and k-means clustering) are used, and the segmented region is defined as the consensus of the two results. The region is displayed and the user is allowed to correct misassignments. The boundaries of the segmented region are smoothed using a Savitsky-Golay filter and used to form the mesh. 
+1) Manual: The user is prompted initially to select two points, which define the level of zoom to be used throughout the entire process. Then the user advances through the slices to select the aponeurosis. The selected points can form a line or close to form a polygon. At each slice, the user is given the option of repeating the procedure in case of error.  For each figure window, an interactive tool is opened that allows the user to adjust the image's window and level settings.  Eventually, the manual option will be removed.
+2) Automatic: The aponeurosis is automatically segmented from within the region of the image represented by the muscle mask. Two automated segmentation methods (edge detection and k-means clustering) are applied. In addition, the region fromthe preceding slice, if available, is used.  The consensus region from these three methods is presented to the user; the user is allowed to correct misassignments by adding points (right mouse button) or deleting points (left mouse button). The boundaries of the segmented region are smoothed using a Savitsky-Golay filter and used to form the mesh. These points are previwed, and the user can further correct points before advancing to the next slice.
 
-The mesh is initially formed with resolution n_row x n_col.  To smooth the mesh, it is then downsampled by a size factor of four. Finally, the smoothed mesh is used to create a high resolution mesh at the desired size. A file called roi_mesh_file.mat is automatically saved in the working directory. If the input argument plot_options is included, the mesh and mask are plotted using the function fiber_visualizer.
+The mesh is initially formed with resolution n_row x n_col.  To smooth the mesh, it is then downsampled by a size factor of four. Finally, the smoothed mesh is used to create a high resolution mesh at the desired size. A file called roi_mesh_file.mat is automatically saved in the working directory. 
+
+If the input argument plot_options is included, the mesh and mask are plotted using the function fiber_visualizer.
 
 ## Input Arguments
-anat_image: The imaging data.  If input as a structure, then the imaging data are assumed to exist in a field called anat_image.Data.  If specified as a matrix, the data are used directly.
+anat_image: The imaging data. If input as a structure, then the imaging data are assumed to exist in a field called anat_image.Data.  If specified as a matrix, the data are used directly.
 
-mask: The mask, as defined by the function define_mask
+mask: The mask, as defined by the function define_mask or other method.
 
 defroi_options: A structure containing the following fields:
 
@@ -32,5 +34,7 @@ roi_mesh: a 3D matrix containing the reconstructed mesh with size rows x columns
    
    
 ## Acknowledgements
- People: Zhaohua Ding
- Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
+
+People: Zhaohua Ding
+
+Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
