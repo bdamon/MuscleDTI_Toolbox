@@ -33,13 +33,13 @@ mask: The mask, as defined by the function define_mask or other method.
 
 defroi_options: A structure containing the following fields:
 
-  -slices: A two-element vector containing the first and last slices that the user wishes to digitize.
+  .slices: A two-element vector containing the first and last slices that the user wishes to digitize.
   
-  -dti_size: The size of the DTI image dataset (rows x columns x slices), input as a three element vector.
+  .dti_size: The size of the DTI image dataset (rows x columns x slices), input as a three element vector.
   
-  -mesh_size: A two-element vector containing the numbers of rows (n_row) and columns (n_col) desired in the output mesh.
+  .mesh_size: A two-element vector containing the numbers of rows (n_row) and columns (n_col) desired in the output mesh.
   
-  -method: a string variable set either to 'manual' or 'auto'. The manual and automatic options are described above.
+  .method: a string variable set either to 'manual' or 'auto'. The manual and automatic options are described above.
 
 plot_options: Optional. If specified, this calls the fiber_visualizer function to plot the mask and roi mesh.
 
@@ -107,7 +107,7 @@ plot_options.mesh_size=[256 256];            %in-plane matrix size of the images
 
 plot_options.mesh_dims=[192 6];              %FOV and slice thickness of the images used to generate the mask, in mm
 
-plot_options.mesh_color=[.75 .75 .75];       %make the mesh gray
+plot_options.mesh_color=[.5 .5 .5];          %make the mesh gray
 
 % call the function:
 
