@@ -1,4 +1,4 @@
-# Help for the function define_roi, v. 0.5
+# Help for the function define_roi, v. 0.1
 
 ## Introduction
 
@@ -24,6 +24,7 @@ If the input argument plot_options is included, the mesh and mask are plotted us
 
 ## 2. Syntax
 
+roi_mesh=define_roi(anat_image, mask, defroi_options, plot_options);
 
 ## 3. Input Arguments
 anat_image: The imaging data. If input as a structure, then the imaging data are assumed to exist in a field called anat_image.Data.  If specified as a matrix, the data are used directly.
