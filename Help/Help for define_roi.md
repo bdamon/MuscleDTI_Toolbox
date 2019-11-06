@@ -58,10 +58,10 @@ Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
 
 ### Example 1:
 
-Given 1) an anatomical image with variable name anat_image and having matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm and 2) DTI images with variable name dti_images and having matrix size 192 x 192 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to 
+Given 1) an anatomical image with variable name anat_image and having matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness 6 mm and 2) DTI images having matrix size 192 x 192 x 50, field of view 192 x 192 mm, and slice thickness 6 mm, the code below will allow the user to:
   1) Use automated selection of the aponeurosis;
   2) Define the muscle aponeurosis in slices 15-30; and
-  3) Create a mesh of size 175 rows x 50 columns
+  3) Create a mesh of size 150 rows x 50 columns
 
 % Set mesh options:
 
@@ -69,7 +69,7 @@ defroi_options.slices = [15 30];
 
 defroi_options.dti_size = [192 192 50];
 
-defroi_options.mesh_size = [175 50];
+defroi_options.mesh_size = [150 50];
 
 defroi_options.method='auto';
 
@@ -87,7 +87,7 @@ defroi_options.slices = [15 30];
 
 defroi_options.dti_size = [192 192 50];
 
-defroi_options.mesh_size = [175 50];
+defroi_options.mesh_size = [150 50];
 
 defroi_options.method='auto';
 
