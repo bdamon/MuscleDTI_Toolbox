@@ -8,8 +8,9 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plo
 %  and return the corresponding binary image mask, for use in the MuscleDTI_Toolbox.  
 %  A mask defining the muscle boundaries is a required input to define_roi and
 %  fiber_track, and it may be used in fiber_visualizer. The mask has the same 
-%  dimensions as the input image, but an alternatively sized mask may also 
-%  be calculated.
+%  dimensions as the input image. An alternatively sized mask may also 
+%  be calculated, for example if the DTI images and structural images have 
+%  different dimensions.
 %    After calling the function, three windows are opened: the current slice  
 %  (middle window), the preceding slice with its ROI (if present), and the next   
 %  slice. Initially, the zoom feature is enabled so that the user can view the 
@@ -44,7 +45,7 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plo
 %OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
 %  For help defining the ROI, see <a href="matlab: help define_roi">define_roi</a>.
 %  For help with the fiber tracking program, see <a href="matlab: help fiber_track">fiber_track</a>.
-%  For help smoothing fiber tracts, see <a href="matlab: help fiber_fitter">fiber_fitter</a>.
+%  For help fitting the fiber tracts, see <a href="matlab: help fiber_fitter">fiber_fitter</a>.
 %  For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
 %  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_selector">fiber_selector</a>.
 %  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
