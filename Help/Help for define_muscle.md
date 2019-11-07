@@ -13,9 +13,9 @@ This help file contains information about
 
 ## 1. Usage
 
-The function <i>define_muscle</i> is used to define the boundary of a muscle and return its binary image mask. This mask is needed as an input to the functions <i>define_roi</i> and <i>fiber_track</i>. Upon calling <i>define_muscle</i>, three images are displayed: the current slice (main window); the preceding slice with its region of interest (ROI) (if present); and the next slice. For the main figure window, an interactive tool is opened that allows the user to adjust the image's window and level settings. 
+The function <i>define_muscle</i> is used to define the boundary of a muscle and return its binary image mask. This mask is needed as an input to the functions <i>define_roi</i> and <i>fiber_track</i>. Upon calling <i>define_muscle</i>, three images are displayed: the current slice (main window); the preceding slice with its region of interest (ROI) (if present); and the next slice. For the main figure window, an interactive tool is opened that allows the user to adjust the image's window and level settings. Also, the zoom tool is enabled and the user selects the region of the image to be analyzed. To close the zoom tool, the user selects Enter on their keyboard.
 
-In the main figure window, the user uses the roipoly tool to define an ROI. After closing the ROI, the user may adjust the position of the vertices. After completing the ROI selection, the program advances to the next slice. ROI selection continues in this manner until all slices have been defined.
+In the main figure window, the user uses the roipoly tool to define an ROI. After closing the ROI, the user may adjust the position of the vertices. After completing the ROI selection, the program advances to the next slice. The level of zoom is automatically set. In the lefthand figure, the preceding slice and its ROI is shown.  The righthand figure, the next slice is shown.  ROI selection continues in this manner until all slices of interest have been defined.
 
 By default, the program returns a mask of the same dimensions as the image used to select the ROIs. If desired, the user can also create an alternatively sized mask.  This would be useful if the structural images and the DTI images had different matrix sizes.  
    
@@ -54,12 +54,12 @@ Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
 
 ### Example 1:
 
-Given an image with variable name anat_image and having matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to:
-  1) Define the muscle mask in slices 15-40
+Given an image with variable name anat_image and having matrix size 192 x 192 x 44, field of view 192 x 192 mm, and slice thickness = 7 mm, the code below will allow the user to:
+  1) Define the muscle mask in slices 5-40
 
-% call the function
+% define the slices of interest and call the function
 
-slices = [15 40];
+slices = [5 40];
 
 [mask, ~] = define_muscle(anat_image, slices, [], []);
 
@@ -67,17 +67,17 @@ slices = [15 40];
 
 ### Example 2:
 
-Given an image with variable name anat_image and having matrix size 256 x 256 x 50, field of view 192 x 192 mm, and slice thickness = 6 mm, the code below will allow the user to 
-  1) Define the muscle mask in slices 15-40; and
-  2) Return a second mask of size 192 x 192 x 50
+Given an image with variable name anat_image and having matrix size 192 x 192 x 44, field of view 192 x 192 mm, and slice thickness = 7 mm, the code below will allow the user to 
+  1) Define the muscle mask in slices 5-40; and
+  2) Return a second mask of size 128 x 128 x 44
 
 % define the size of the alternative mask:
 
-alt_mask_size = [192 192];
+alt_mask_size = [128 128];
 
-% call the function
+% define the slices of interest and call the function
 
-slices = [15 40];
+slices = [5 40];
 
 [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, []);
 
@@ -85,10 +85,10 @@ slices = [15 40];
 ### Example 3: 
 
 Given an image with variable name anat_image and having matrix size 192 x 192 x 44, field of view 192 x 192 mm, and slice thickness = 7 mm, the code below will allow the user to 
-  1) Define the muscle mask in slices 4-41;
-  2) Return a mask of size 192 x 192 x 50; 
-  3) Return a second mask of size 128 x 128; and
-  3) Automatically visualize the result using fiber_visualizer, using slices 15, 25, 35, and 45 for anatomical reference
+  1) Define the muscle mask in slices 5-40;
+  2) Return a mask of size 192 x 192 x 44; 
+  3) Return a second mask of size 128 x 128 x 44; and
+  3) Automatically visualize the result using fiber_visualizer, using slices 14, 24, 34, and 44 for anatomical reference
 
 % Set options for plotting:
 
@@ -100,7 +100,7 @@ plot_options.plot_mask=1;                    %do plot the mask
 
 plot_options.anat_dims=[192 7];              %FOV and slice thickness of the images to be displayed, in mm
 
-plot_options.anat_slices=15:10:45;           %display slices 15, 25, 35, and 45 for anatomical reference in fiber_visualizer
+plot_options.anat_slices=14:10:44;           %display slices 15, 25, 35, and 45 for anatomical reference in fiber_visualizer
 
 plot_options.mask_size=[192 192];            %in-plane matrix size of the images used to generate the mask
 
@@ -115,6 +115,6 @@ alt_mask_size = [128 128];
 
 % call the function
 
-slices = [15 40];
+slices = [5 40];
 
 [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plot_options);
