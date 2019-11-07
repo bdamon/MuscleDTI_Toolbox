@@ -6,12 +6,18 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plo
 %USAGE
 %    The function define_muscle is used to define the boundary of a muscle
 %  and return the corresponding binary image mask, for use in the MuscleDTI_Toolbox.  
-%  Three images are displayed: the current slice (middle panel), the preceding 
-%  slice with its ROI (if present), and the next slice. Using the roipoly 
-%  tool, the user defines the ROI in the middle slice. For the main figure window,
-%  an interactive tool is opened that allows the user to adjust the image's
-%  window and level settings. After closing the ROI, the program advances
-%  to the next slice until all slices have been defined.
+%  A mask defining the muscle boundaries is a required input to define_roi and
+%  fiber_track, and it may be used in fiber_visualizer. The mask has the same 
+%  dimensions as the input image, but an alternatively sized mask may also 
+%  be calculated.
+%    After calling the function, three windows are opened: the current slice  
+%  (middle window), the preceding slice with its ROI (if present), and the next   
+%  slice. Initially, the zoom feature is enabled so that the user can view the 
+%  muscle of interest more closely. After that, the level of zoom is automatically 
+%  set. Using the roipoly tool, the user defines the ROI in the middle window.   
+%  For the main figure window, an interactive tool is opened that allows the user   
+%  to adjust the image's window and level settings. After closing the ROI, the  
+%  program advances to the next slice until all slices have been defined.
 %    A file named mask_file, containing the mask and (if present) the
 %  alternatively sized mask, is automatically saved in the working
 %  directory.
@@ -51,41 +57,86 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plo
 
 %% display current, preceding, and next slices in three windows; open toolbar to adjust contrast of current slice
 
+% initialize the mask
 mask = zeros(size(anat_image));
 
-figure('position', [100 200 500 500], 'name', 'Previous Slice')
-figure('position', [400 100 700 700], 'name', 'Current Slice')
-figure('position', [700 200 500 500], 'name', 'Next Slice')
+% create the figure windows
+figure('position', [100 200 400 400], 'name', 'Previous Slice')
+figure('position', [500 50 700 700], 'name', 'Current Slice')
+figure('position', [1200 200 400 400], 'name', 'Next Slice')
+
+% create a loop counter to index values separately from s
 n=1;
+
+% ROI selection loop
 for s=slices(1):slices(2)
     
-    if s>1
-        figure(1)
-        imagesc(anat_image(:,:,s-1))
-        colormap gray
-        title(['Slice #' num2str(s-1)])
-        axis off
-        if n>1
-            hold on
-            plot(x_points, y_points, 'c')
-        end
-    end
-    
-    if s<=length(anat_image(1,1,:))
-        figure(3)
-        imagesc(anat_image(:,:,s+1))
-        colormap gray
-        title(['Slice #' num2str(s+1)])
-        axis off
-    end
-    
-    figure(2)
-    imagesc(anat_image(:,:,s))
+    %figure has preceding slice
+    figure(1)
+    slice1=max([(s-1) 1]);
+    imagesc(anat_image(:,:, slice1))
     colormap gray
-    title(['Slice #' num2str(s)])
+    title(['Slice #' num2str(slice1)])
     axis off
-    imcontrast
+    if n>1
+        hold on
+        plot(x_points, y_points, 'c')
+        set(gca, 'xlim', [min_col max_col], 'ylim', [min_row max_row]);
+    end
+    
+    %figure 3 has upcoming slice
+    figure(3)
+    slice3=min([(s+1) length(anat_image(1,1,:))]);
+    imagesc(anat_image(:,:,slice3))
+    colormap gray
+    title(['Slice #' num2str(slice3)])
+    axis off
+    if n>1
+        set(gca, 'xlim', [min_col max_col], 'ylim', [min_row max_row]);
+    end
+    
+    %figure 2 has current slice
+    figure(2)
+    slice2=s;
+    imagesc(anat_image(:,:,slice2))
+    colormap gray
+    title(['Slice #' num2str(slice2)])
+    axis off
+    imcontrast                                                          %image contrast tool
+    
+    if n==1                                                             %first time, user select the level of zoom
+        text(5, 5, 'Zoom image and then select Enter to continue', 'color', 'y')
+        zoom on
+        pause
+        
+        xlim=get(gca, 'xlim');
+        ylim=get(gca, 'ylim');
+        min_col = min(xlim);
+        max_col = max(xlim);
+        min_row = min(ylim);
+        max_row = max(ylim);
+        
+        figure(1)
+        set(gca, 'xlim', [min_col max_col], 'ylim', [min_row max_row]);
+        figure(3)
+        set(gca, 'xlim', [min_col max_col], 'ylim', [min_row max_row]);
+        
+    else                                                                %after that, set automatically based on previous slice mask
+        
+        prev_mask=mask(:,:,s-1);
+        min_row = find(sum(prev_mask,2), 1 ) - 5;
+        max_row = find(sum(prev_mask,2), 1, 'last') + 5;
+        min_col = find(sum(prev_mask,1), 1 ) - 5;
+        max_col = find(sum(prev_mask,1), 1, 'last') + 5;
+        set(gca, 'xlim', [min_col max_col], 'ylim', [min_row max_row]);
+        
+    end
+    
+    % get the ROI
+    figure(2)
     [mask(:,:,s), x_points, y_points] = roipoly;
+    
+    %advance the loop counter
     n=n+1;
 end
 
@@ -101,6 +152,10 @@ if form_alt_mask==1
         alt_mask(:,:,s) = imresize(squeeze(mask(:,:,s)), alt_mask_size);
     end
     
+else                            % form a throwaway variable so that the program doesn't crash
+    
+    alt_mask=1;
+    
 end
 
 %% save masks
@@ -113,11 +168,14 @@ end
 
 %% plot mask, if desired
 
-if exist('plot_options', 'var')
-    
+plot_mask = isfield(plot_options, 'plot_mask');
+
+if plot_mask==1
+
     % be sure not to plot unneeded stuff
     plot_options.plot_fibers=0;
     plot_options.plot_mesh=0;
+    plot_options.plot_mask=1;
     
     fiber_visualizer(anat_image, plot_options, [], mask, []);
     
