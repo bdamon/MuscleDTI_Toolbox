@@ -21,7 +21,9 @@ Fibers are tracked from the mesh according to the selected propogation algorithm
    
 The outputs include the fiber tracts, several variables describing the outcomes of the tracking, and selected data about the tracts.
 
-## 2. Input Arguments
+## 2. Syntax
+
+## 3. Input Arguments
 
 <i>tensor_m</i>: A 5D matrix containing rows, columns, slices, and the 3x3 diffusion tensor, calculated from pre-processing steps
 
