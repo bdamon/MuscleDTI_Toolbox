@@ -21,7 +21,7 @@ By default, the program returns a mask of the same dimensions as the image used 
    
 A file named mask_file, containing the mask and (if present) the alternatively sized mask, is automatically saved in the working directory.
 
-An instructional video is available by following [this link](https://youtu.be/4iqXSmQHchQ).
+An instructional video is available by following [this link](https://youtu.be/5zjER-m3ggU).
 
 
 ## 2. Syntax
