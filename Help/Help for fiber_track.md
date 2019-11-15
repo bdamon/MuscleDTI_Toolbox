@@ -1,47 +1,41 @@
+# Help for the function <i>fiber_track</i>, v. 0.1
 
-FUNCTION fiber_track
- [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all]=...
-    fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
+## Introduction
 
-USAGE
-   The function fiber_track is used to fiber-track a muscle DTI dataset in
- the MuscleDTI_Toolbox. 
-   The required inputs include a 5D matrix containing the diffusion tensor; 
- the mask delimiting the muscle of interest, the mesh reconstruction of the
- aponeurosis of muscle fiber insertion, and a structure called ft_options.  
- This structure allows the user to set options such as the tracking algorithm, 
- step size, frame of reference for the images and diffusion encoding gradients,
- and tract termination method. 
-   Fibers are tracked from the mesh according to the selected propogation 
- algorithm until they reach the edge of the mask or meet another stop criterion.
- Stop criteria are set in the ft_options structure. See the description of 
- the input arguments for additional information on these variables.
-   The outputs include the fiber tracts, variables describing the outcomes 
- of the tracking, and selected data about the tracts.
+This help file contains information about
+1) [Usage of the program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_track.md#1-usage)
+2) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_track.md#2-Syntax)
+3) [Input Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_track.md#3-Input-Arguments)
+4) [Output Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_track.md#4-Output-Arguments)
+5) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_track.md#5-Acknowledgements)
+6) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_track.md#6-Example-Code)
 
-INPUT ARGUMENTS
- tensor_m: A 5D matrix containing rows, columns, slices, and the 3x3
-   diffusion tensor, calculated from pre-processing steps
 
- mask: The mask delimiting the muscle to be fiber-tracked. It could be
-   the output of define_muscle or any other image analysis program that
-   creates a binary mask of the same size as the imaging data.   
+## 1. Usage
+
+The function fiber_track is used to fiber-track a muscle DTI dataset in the MuscleDTI_Toolbox. 
+   
+The required inputs include a 5D matrix containing the diffusion tensor; the mask delimiting the muscle of interest, the mesh reconstruction of the aponeurosis of muscle fiber insertion, and a structure called ft_options.  This structure allows the user to set options such as the tracking algorithm, step size, frame of reference for the images and diffusion encoding gradients, and tract termination method. 
+   
+Fibers are tracked from the mesh according to the selected propogation algorithm until they reach the edge of the mask or meet another stop criterion.  Stop criteria are set in the ft_options structure. See the description of the input arguments for additional information on these variables. 
+   
+The outputs include the fiber tracts, several variables describing the outcomes of the tracking, and selected data about the tracts.
+
+## 2. Input Arguments
+
+tensor_m: A 5D matrix containing rows, columns, slices, and the 3x3 diffusion tensor, calculated from pre-processing steps
+
+mask: The mask delimiting the muscle to be fiber-tracked. It could be the output of define_muscle or any other image analysis program that creates a binary mask of the same size as the imaging data.   
 
  roi_mesh: The roi mesh, output from define_roi.  
 
- ft_options: A structure containing the following fields:
-   ref_frame: The frame of reference in which the diffusion directions
-     are specified. For example, set ft_options.ref_frame='LPS'; if the
-     left, posterior, and superior anatomical positions are (+).
+ft_options: A structure containing the following fields:
 
-   image_orient: The orientation of the images. Specify the anatomical
-     positions at the north and east edges of the image as A (anterior) or 
-     P (posterior) and right (R) or left (L).  Input the result as a 2-element
-     string variable (ft_options.image_orient='RA', 'AL', etc.).
+ref_frame: The frame of reference in which the diffusion directions are specified. For example, set ft_options.ref_frame='LPS'; if the left, posterior, and superior anatomical positions are (+).
 
-   mesh_dist: The number of pixels to shift the mesh into the muscle,
-     prior to fiber tracking. This can be a (+) or (-) number, depending
-     on the desired direction of the shift.
+image_orient: The orientation of the images. Specify the anatomical positions at the north and east edges of the image as A (anterior) or P (posterior) and right (R) or left (L).  Input the result as a 2-element string variable (ft_options.image_orient='RA', 'AL', etc.).
+
+   mesh_dist: The number of pixels to shift the mesh into the muscle, prior to fiber tracking. This can be a (+) or (-) number, depending on the desired direction of the shift.
 
    prop_algo: A string variable that specifies the method for determining
      the direction of fiber tract propagation. The available options
