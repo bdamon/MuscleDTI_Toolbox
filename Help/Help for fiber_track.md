@@ -25,7 +25,7 @@ The outputs include the fiber tracts, several variables describing the outcomes 
 
 ## 3. Input Arguments
 
-<i>tensor_m</i>: A 5D matrix containing rows, columns, slices, and the 3x3 diffusion tensor, calculated from pre-processing steps
+<ib>tensor_m</ib>: A 5D matrix containing rows, columns, slices, and the 3x3 diffusion tensor, calculated from pre-processing steps
 
 <i>mask</i>: The mask delimiting the muscle to be fiber-tracked. It could be the output of define_muscle or any other image analysis program that creates a binary mask of the same size as the imaging data.   
 
