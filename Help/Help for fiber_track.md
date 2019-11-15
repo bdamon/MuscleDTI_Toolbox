@@ -29,7 +29,7 @@ The outputs include the fiber tracts, several variables describing the outcomes 
 
 <i>roi_mesh</i>: The roi mesh, output from define_roi.  
 
-<i>ft_options<i/>: A structure containing the following fields:
+<i>ft_options</i>: A structure containing the following fields:
 
 <i>.ref_frame</i>: The frame of reference in which the diffusion directions are specified. For example, set ft_options.ref_frame='LPS'; if the left, posterior, and superior anatomical positions are (+).
 
