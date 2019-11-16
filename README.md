@@ -38,25 +38,25 @@ Before performing fiber tractography, several pre-processing steps muscle be per
 
 Follow this link for help on these steps, including a MATLAB script that performs many of these tasks.
 
-### B. Define muscle boundaries using the function define_muscle
+### B. Define muscle boundaries using the function <i><b>define_muscle</i></b>
 Real muscle fibers are assumed to be contained entirely within a single muscle of interest. The fiber_track function therefore requires the user to input a binary image mask demarcating the muscle boundaries; this mask is used to prevent fiber tracts from exiting the muscle of interest. The function <i>define_muscle</i> is used to define this mask. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md) for detailed help on this function, including an instructional video.
 
-### C. Define the initial using the function define_roi
+### C. Define the initial using the function <i>define_roi</i>
 Fiber tracts are propagated from a set of points, commonly called "seed points." In the MuscleDTI_Toolbox, the tendinous structure into which the muscle fibers insert is used to define these points. The function <i>define_roi</i> is used to digitize the {row, column, slice} coordinates of the tendon; these points are used to define the seed surface. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_roi.md) for detailed help on this function, including an instructional video.
 
-### D. Generate the fiber tracts using the function fiber_track
+### D. Generate the fiber tracts using the function <i>fiber_track</i>
 Fiber tracts are propagated from the seed points by following the direction indicated by the first eigenvector of the diffusion tensor. The function <i>fiber_track</i> is used to perform this integration. The user can select from several propagation algorithms and several methods for determining when to stop propagating a tract. The major output of this function is a matrix containing the {row, column, slice} coordinates of each fiber tract.  <i>fiber_track</i> calls the function retrieve_tensor, which finds the diffusion tensor in each voxel of the image. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_track.md) for detailed help on this function.
 
-### E. Smooth the fiber tracts using the function fiber_smoother
+### E. Smooth the fiber tracts using the function <i>fiber_smoother</i>
 Fiber tract points are subject to errors in position because of the presence of noise and artifacts in the images. To mitigate these effects, the function <i>fiber_smoother</i> performs a polynomial fit to each fiber tract. This also allows the interpolation of the fiber tract positions at a resolution higher than the original tracts.  This step is not required, but is strongly recommended prior to calling the <i>fiber_quantifier</i> function. Follow this link for detailed help on this function.
 
-### F. Quantify the tracts' structural properties using the function fiber_quantifier
+### F. Quantify the tracts' structural properties using the function <i>fiber_quantifier</i>
 After the fiber tracts have been polynomial-fitted, their structural properties are quantified using the function <i>fiber_quantifier</i>.  The properties quantified include the pennation angle, curvature, and length. These properties are calculated in a pointwise manner along the fiber tracts. Follow this link for detailed help on this function.
 
-### G. Eliminate erroneuous results using the function fiber_selector
+### G. Eliminate erroneuous results using the function <i>fiber_selector</i>
 Finally, the quantitative results are examined and obviously wrong results are eliminated from the dataset. The function <i>fiber_selector</i> eliminates tracts that ascend and descend (an error due to overfitting); that have architectural properties that exceed certain limits; or that vary greatly from their neighbors. A final dataset is calulated, including the mean properties for each tract and for the entire muscle. Follow this link for detailed help on this function.
 
-### H. Visualize the results using the function fiber_visualizer
+### H. Visualize the results using the function <i>fiber_visualizer</i>
 At any stage, the results can be visualized using the function <i>fiber_visualizer</i>. The user can select the mask, seed surface, and/or fiber tracts for display.  The user can also select which image slices to display for anatomical reference.
 
 ## 6. Other Resources
