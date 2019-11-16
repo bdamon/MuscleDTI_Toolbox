@@ -33,18 +33,18 @@ roi_mesh = define_roi(anat_image, mask, defroi_options, plot_options);
 
 * <i>defroi_options</i>: A structure containing the following fields:
 
-  ** <i>.slices</i>: A two-element vector containing the first and last slices that the user wishes to digitize.
+    <i>.slices</i>: A two-element vector containing the first and last slices that the user wishes to digitize.
   
-  <i>.dti_size</i>: The size of the DTI image dataset (rows x columns x slices), input as a three element vector.
+    <i>.dti_size</i>: The size of the DTI image dataset (rows x columns x slices), input as a three element vector.
   
-  <i>.mesh_size</i>: A two-element vector containing the numbers of rows (n_row) and columns (n_col) desired in the output mesh.
+    <i>.mesh_size</i>: A two-element vector containing the numbers of rows (n_row) and columns (n_col) desired in the output mesh.
   
-  <i>.method</i>: a string variable set either to 'manual' or 'auto'. The manual and automatic options are described above.
+    <i>.method</i>: a string variable set either to 'manual' or 'auto'. The manual and automatic options are described above.
 
-<i>plot_options</i>: Optional. If specified, this calls the <i>fiber_visualizer</i> function to plot the mask and roi mesh.
+* <i>plot_options</i>: Optional. If specified, this calls the <i>fiber_visualizer</i> function to plot the mask and roi mesh.
 
 ## 4. Output Arguments
-<i>roi_mesh</i>: A 3D matrix containing the reconstructed mesh with size rows x columns x 6. In the 3rd dimension, levels 1-3 hold {row column slice} coordinates and levels 4-6 hold the {row column slice} components of the normal vector to the mesh surface at the point {row column slice}.
+* <i>roi_mesh</i>: A 3D matrix containing the reconstructed mesh with size rows x columns x 6. In the 3rd dimension, levels 1-3 hold {row column slice} coordinates and levels 4-6 hold the {row column slice} components of the normal vector to the mesh surface at the point {row column slice}.
    
    
 ## 5. Acknowledgements
