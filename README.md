@@ -21,20 +21,20 @@ This work is covered under a [GNU General Public License](https://github.com/bda
 The functions have been tested using MATLAB v. 2019b.  The toolbox consists primarily of custom-written functions, but also calls functions contained within MATLAB's Image Processing Toolbox.
 
 ## 4. Data Acquisition Conventions Assumed 
-  1) Slices cover the entire muscle of interest and are numbered in ascending order from distal to proximal;
-  2) The in-plane field of view is square; and
-  3) The in-plane reconstructed matrix is square.
+  * Slices cover the entire muscle of interest and are numbered in ascending order from distal to proximal;
+  * The in-plane field of view is square; and
+  * The in-plane reconstructed matrix is square.
 
 ## 5. Overview of a Typical Workflow
 
 ### A. Pre-processing
 Before performing fiber tractography, several pre-processing steps muscle be performed.  These may include:
-  1) File input;
-  2) Correction of eddy current-induced distortions in the images;
-  3) Concatenation of multiple image acqusitions into a single dataset;
-  4) Image registration;
-  5) De-noising; and
-  6) Calculation of the diffusion tensor throughout the muscle of interest.
+  * File input;
+  * Correction of eddy current-induced distortions in the images;
+  * Concatenation of multiple image acqusitions into a single dataset;
+  * Image registration;
+  * De-noising; and
+  * Calculation of the diffusion tensor throughout the muscle of interest.
 
 Follow this link for help on these steps, including a MATLAB script that performs many of these tasks.
 
