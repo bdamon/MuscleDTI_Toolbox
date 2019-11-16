@@ -38,7 +38,7 @@ Before performing fiber tractography, several pre-processing steps muscle be per
 
 Follow this link for help on these steps, including a MATLAB script that performs many of these tasks.
 
-### B. Define muscle boundaries using the function <i><b>define_muscle</i></b>
+### B. Define muscle boundaries using the function <i>define_muscle</i>
 Real muscle fibers are assumed to be contained entirely within a single muscle of interest. The fiber_track function therefore requires the user to input a binary image mask demarcating the muscle boundaries; this mask is used to prevent fiber tracts from exiting the muscle of interest. The function <i>define_muscle</i> is used to define this mask. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_muscle.md) for detailed help on this function, including an instructional video.
 
 ### C. Define the initial using the function <i>define_roi</i>
