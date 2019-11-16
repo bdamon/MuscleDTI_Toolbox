@@ -14,9 +14,9 @@ This help file contains information about
 
 The function <i>define_roi</i> is used to digitize the aponeurosis of muscle fiber insertion in the MuscleDTI_Toolbox.  The digitized points are used to reconstruct a mesh; the {row, column, slice} coordinates on the mesh are used as the seed points for fiber tracking using <i>fiber_track</i>.
 
-There are two options for defining the aponeurosis:
-1) <i>Manual</i>: The user is prompted initially to select two points, which define the level of zoom to be used throughout the entire process. Then the user advances through the slices to select the aponeurosis. The selected points can form a line or close to form a polygon. At each slice, the user is given the option of repeating the procedure in case of error.  For each figure window, an interactive tool is opened that allows the user to adjust the image's window and level settings.  Eventually, the manual option will be removed.
-2) <i>Automatic</i>: The aponeurosis is automatically segmented from within the region of the image represented by the muscle mask. Two automated segmentation methods (edge detection and k-means clustering) are applied. In addition, the region fromthe preceding slice, if available, is used.  The consensus region from these three methods is presented to the user; the user is allowed to correct misassignments by adding points (right mouse button) or deleting points (left mouse button). The boundaries of the segmented region are smoothed using a Savitsky-Golay filter and used to form the mesh. These points are previewed, and the user can further correct points before advancing to the next slice.
+There are two options for defining the aponeurosis. 
+1) <i>Manual</i>: Three windows are opened: the middle (main) window displaying the current slice, the left window displayoing the preceding slice, and the right window displaying the upcomin slice. In the first slice, the user is prompted to zoom the window.  The user can also adjust the contrast and brightness of the image in the main figure window.  The user then uses the left mouse button to select points along the aponeurosis. The selected points can form a line, or they can close to form a polygon. The right mouse button coompletes the selection. At each slice, the user is given the option of repeating the procedure in case of error.  After the user is satisfied with the outcome, the program advances to the next slice.  Selection continues in this manner until all slices of interest have been define.  The manual option is the current best approach for digitizing only a single side of the aponeurosis (such as for unipennate muscles).
+2) <i>Automatic</i>: The aponeurosis is automatically segmented from within the region of the image represented by the muscle mask. Two automated segmentation methods (edge detection and k-means clustering) are applied. In addition, the region from the preceding slice, if available, is used.  The consensus region from these three methods is presented to the user; the user is allowed to correct misassignments by adding points (right mouse button) or deleting points (left mouse button). The boundaries of the segmented region are then smoothed using a Savitsky-Golay filter and used to form the mesh. These points are previewed, and the user can correct points before advancing to the next slice.
 
 Initially, the mesh is formed at the resolution specified by the user in the defroi_options structure.  To smooth the mesh, it is then downsampled by a size factor of four. Finally, the smoothed mesh is used to create a high resolution mesh at the desired size. A file called roi_mesh_file.mat is automatically saved in the working directory. The user is advised to rename the file.
 
@@ -29,11 +29,11 @@ roi_mesh = define_roi(anat_image, mask, defroi_options, plot_options);
 ## 3. Input Arguments
 <i>anat_image</i>: The imaging data. If input as a structure, then the imaging data are assumed to exist in a field called anat_image.Data.  If specified as a matrix, the data are used directly.
 
-<i>mask</i>: The mask, as defined by the function define_mask or other method.
+* <i>mask</i>: The mask, as defined by the function define_mask or other method.
 
-<i>defroi_options</i>: A structure containing the following fields:
+* <i>defroi_options</i>: A structure containing the following fields:
 
-  <i>.slices</i>: A two-element vector containing the first and last slices that the user wishes to digitize.
+  ** <i>.slices</i>: A two-element vector containing the first and last slices that the user wishes to digitize.
   
   <i>.dti_size</i>: The size of the DTI image dataset (rows x columns x slices), input as a three element vector.
   
@@ -65,18 +65,28 @@ Given 1) an anatomical image with variable name anat_image and having matrix siz
 
 % Set mesh options:
 defroi_options.slices = [6 30];                     %analyze slices 6-30
+
 defroi_options.dti_size = [192 192 44];             %matrix size and # of slices in DTI images
+
 defroi_options.mesh_size = [150 30];                %mesh will have 150 rows and 30 columns
+
 defroi_options.method='manual';                     %digitize it manually
 
 % Set plotting options:
 plot_options.plot_fibers=0;                         %don't plot any fiber tracts
+
 plot_options.plot_mesh=1;                           %do plot an aponeurosis mesh
+
 plot_options.plot_mask=0;                           %don't plot the mask
+
 plot_options.anat_dims=[192 7];                     %FOV and slice thickness of the images to be displayed, in mm
+
 plot_options.anat_slices=14:10:44;                  %display slices 14, 24, 34, and 44 when viewingthe mesh in fiber_visualizer
+
 plot_options.mesh_size=[192 192];                   %in-plane matrix size of the images used to generate the mask
+
 plot_options.mesh_dims=[192 7];                     %FOV and slice thickness of the images used to generate the mask, in mm
+
 plot_options.mesh_color=[.75 .75 .75];              %make the mesh gray
 
 % call the function:
@@ -88,18 +98,28 @@ Example 2 matches Example 1, except that the mesh is automatically segmented:
 
 % Set mesh options:
 defroi_options.slices = [6 30];                     %analyze slices 6-30
+
 defroi_options.dti_size = [192 192 44];             %matrix size and # of slices in DTI images
+
 defroi_options.mesh_size = [150 30];                %mesh will have 150 rows and 30 columns
-defroi_options.method='auto';                     %digitize it manually
+
+defroi_options.method='auto';                       %digitize it manually
 
 % Set plotting options:
 plot_options.plot_fibers=0;                         %don't plot any fiber tracts
+
 plot_options.plot_mesh=1;                           %do plot an aponeurosis mesh
+
 plot_options.plot_mask=0;                           %don't plot the mask
+
 plot_options.anat_dims=[192 7];                     %FOV and slice thickness of the images to be displayed, in mm
+
 plot_options.anat_slices=14:10:44;                  %display slices 14, 24, 34, and 44 when viewingthe mesh in fiber_visualizer
+
 plot_options.mesh_size=[192 192];                   %in-plane matrix size of the images used to generate the mask
+
 plot_options.mesh_dims=[192 7];                     %FOV and slice thickness of the images used to generate the mask, in mm
+
 plot_options.mesh_color=[.75 .75 .75];              %make the mesh gray
 
 % call the function:
