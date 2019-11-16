@@ -61,10 +61,13 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plo
 % initialize the mask
 mask = zeros(size(anat_image));
 
+
 % create the figure windows
-figure('position', [100 200 400 400], 'name', 'Previous Slice')
-figure('position', [500 50 700 700], 'name', 'Current Slice')
-figure('position', [1200 200 400 400], 'name', 'Next Slice')
+screen_size = get(0,'ScreenSize');
+screen_aspect_ratio = screen_size(3) / screen_size(4);
+figure('units', 'normalized', 'position', [.05 (1-.3*screen_aspect_ratio) .25 .25*screen_aspect_ratio], 'name', 'Previous Slice')
+figure('units', 'normalized', 'position', [.3 .2 .4 .4*screen_aspect_ratio], 'name', 'Current Slice')
+figure('units', 'normalized', 'position', [.7 (1-.3*screen_aspect_ratio) .25 .25*screen_aspect_ratio], 'name', 'Next Slice')
 
 % create a loop counter to index values separately from s
 n=1;
