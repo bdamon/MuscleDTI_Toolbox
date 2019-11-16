@@ -61,7 +61,6 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plo
 % initialize the mask
 mask = zeros(size(anat_image));
 
-
 % create the figure windows
 screen_size = get(0,'ScreenSize');
 screen_aspect_ratio = screen_size(3) / screen_size(4);
