@@ -32,7 +32,7 @@ An instructional video is available by following [this link](https://youtu.be/EN
  
 ## 3. Input Arguments
 
-<i>* anat_image</i>: A row x column x slices stack of images, to be used for selecting the ROIs
+* <i>anat_image</i>: A row x column x slices stack of images, to be used for selecting the ROIs
 
 <i>slices</i>: A two element vector containing the first and last slices to be analyzed
 
