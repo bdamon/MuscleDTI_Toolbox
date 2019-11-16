@@ -13,15 +13,17 @@ This help file contains information about
 
 ## 1. Usage
 
-The function <i>define_muscle</i> is used to define the boundary of a muscle and return its binary image mask. This mask is needed as an input to the functions <i>define_roi</i> and <i>fiber_track</i>. Upon calling <i>define_muscle</i>, three images are displayed: the current slice (main window); the preceding slice with its region of interest (ROI) (if present); and the next slice. For the main figure window, an interactive tool is opened that allows the user to adjust the image's window and level settings. Also, the zoom tool is enabled and the user selects the region of the image to be analyzed. To close the zoom tool, the user selects Enter on their keyboard.
+The function <i>define_muscle</i> is used to define the boundary of a muscle and return its binary image mask. An image mask is a matrix of zeros and ones having the same matrix size as the original image. The ones indicate the location of the muscle in the image stack.
 
-In the main figure window, the user uses the roipoly tool to define an ROI. After closing the ROI, the user may adjust the position of the vertices. After completing the ROI selection, the program advances to the next slice. The level of zoom is automatically set. In the lefthand figure, the preceding slice and its ROI is shown.  The righthand figure, the next slice is shown.  ROI selection continues in this manner until all slices of interest have been defined.
+This mask is needed as an input to the functions <i>define_roi</i> and <i>fiber_track</i>. Upon calling <i>define_muscle</i>, three images are displayed: the current slice (main window); the preceding slice with its region of interest (ROI) (if present); and the next slice. For the main figure window, an interactive tool is opened that allows the user to adjust the image's contrast and brightness levels. Also, the zoom tool is enabled and the user selects the region of the image to be analyzed. To close the zoom tool, the user selects Enter on their keyboard.
+
+In the main figure window, the user uses the roipoly tool to define an ROI. After closing the ROI, the user may adjust the position of the vertices. Then the user right-clicks the mouse to bring up a menu, selecting Create Mask to complete the ROI selection. Then the program advances to the next slice. The level of zoom is automatically set. In the lefthand figure, the preceding slice and its ROI is shown.  The righthand figure, the next slice is shown.  ROI selection continues in this manner until all slices of interest have been defined.
 
 By default, the program returns a mask of the same dimensions as the image used to select the ROIs. If desired, the user can also create an alternatively sized mask.  This would be useful if the structural images and the DTI images had different matrix sizes.  
    
 A file named mask_file, containing the mask and (if present) the alternatively sized mask, is automatically saved in the working directory.
 
-An instructional video is available by following [this link](https://youtu.be/5zjER-m3ggU).
+An instructional video is available by following [this link](https://youtu.be/ENgt-kDvoeg).
 
 
 ## 2. Syntax
