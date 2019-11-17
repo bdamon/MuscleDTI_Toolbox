@@ -21,7 +21,7 @@ In the main figure window, the user uses the roipoly tool to define a region of 
 
 By default, the program returns a mask of the same dimensions as the image used to select the ROIs. If desired, the user can also create an alternatively sized mask.  This is necessary if the structural images and the DTI images had different matrix sizes.  
    
-A MATLAD data file named mask_file.mat, containing the mask and (if present) the alternatively sized mask, is automatically saved in the working directory. The user is advised to rename this file to replace the generic name with more informative name.
+A MATLAB data file named mask_file.mat, containing the mask and (if present) the alternatively sized mask, is automatically saved in the working directory. The user is advised to rename this file to replace the generic name with more informative name.
 
 An [instructional video](https://youtu.be/Ot-cvL3oRso) is available.
 
