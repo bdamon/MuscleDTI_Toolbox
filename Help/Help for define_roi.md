@@ -63,8 +63,29 @@ Given 1) an anatomical image with variable name anat_image and having matrix siz
   2) Create a mesh of size 150 rows x 30 column; and
   3) Visualize the outcome, using slices 14, 24, 34, and 44 of teh anatomical image stack for reference.
 
+%% Example 1 in the define_roi help page:
+
+% Set plotting options:
+
+plot_options.plot_fibers=0;                         %don't plot any fiber tracts
+
+plot_options.plot_mesh=1;                           %do plot an aponeurosis mesh
+
+plot_options.plot_mask=0;                           %don't plot the mask
+
+plot_options.anat_dims=[192 7];                     %FOV and slice thickness of the images to be displayed, in mm
+
+plot_options.anat_slices=14:10:44;                  %display slices 14, 24, 34, and 44 when viewingthe mesh in fiber_visualizer
+
+plot_options.mesh_size=[192 192];                   %in-plane matrix size of the images used to generate the mask
+
+plot_options.mesh_dims=[192 7];                     %FOV and slice thickness of the images used to generate the mask, in mm
+
+plot_options.mesh_color=[.75 .75 .75];              %make the mesh light gray
+
 % Set mesh options:
-defroi_options.slices = [6 30];                     %analyze slices 6-30
+
+defroi_options.slices = [4 31];                    %analyze slices 4-31
 
 defroi_options.dti_size = [192 192 44];             %matrix size and # of slices in DTI images
 
@@ -72,40 +93,19 @@ defroi_options.mesh_size = [150 30];                %mesh will have 150 rows and
 
 defroi_options.method='manual';                     %digitize it manually
 
-% Set plotting options:
-plot_options.plot_fibers=0;                         %don't plot any fiber tracts
-
-plot_options.plot_mesh=1;                           %do plot an aponeurosis mesh
-
-plot_options.plot_mask=0;                           %don't plot the mask
-
-plot_options.anat_dims=[192 7];                     %FOV and slice thickness of the images to be displayed, in mm
-
-plot_options.anat_slices=14:10:44;                  %display slices 14, 24, 34, and 44 when viewingthe mesh in fiber_visualizer
-
-plot_options.mesh_size=[192 192];                   %in-plane matrix size of the images used to generate the mask
-
-plot_options.mesh_dims=[192 7];                     %FOV and slice thickness of the images used to generate the mask, in mm
-
-plot_options.mesh_color=[.75 .75 .75];              %make the mesh gray
-
 % call the function:
+
 roi_mesh=define_roi(anat_image, mask, defroi_options, plot_options);
+
 
 ### Example 2
 
 Example 2 matches Example 1, except that the mesh is automatically segmented:
 
-% Set mesh options:
-defroi_options.slices = [6 30];                     %analyze slices 6-30
-
-defroi_options.dti_size = [192 192 44];             %matrix size and # of slices in DTI images
-
-defroi_options.mesh_size = [150 30];                %mesh will have 150 rows and 30 columns
-
-defroi_options.method='auto';                       %digitize it manually
+%% Example 1 in the define_roi help page:
 
 % Set plotting options:
+
 plot_options.plot_fibers=0;                         %don't plot any fiber tracts
 
 plot_options.plot_mesh=1;                           %do plot an aponeurosis mesh
@@ -120,7 +120,18 @@ plot_options.mesh_size=[192 192];                   %in-plane matrix size of the
 
 plot_options.mesh_dims=[192 7];                     %FOV and slice thickness of the images used to generate the mask, in mm
 
-plot_options.mesh_color=[.75 .75 .75];              %make the mesh gray
+plot_options.mesh_color=[.75 .75 .75];              %make the mesh light gray
+
+% Set mesh options:
+
+defroi_options.slices = [4 31];                    %analyze slices 4-31
+
+defroi_options.dti_size = [192 192 44];             %matrix size and # of slices in DTI images
+
+defroi_options.mesh_size = [150 30];                %mesh will have 150 rows and 30 columns
+
+defroi_options.method='auto';                     %digitize it manually
 
 % call the function:
+
 roi_mesh=define_roi(anat_image, mask, defroi_options, plot_options);
