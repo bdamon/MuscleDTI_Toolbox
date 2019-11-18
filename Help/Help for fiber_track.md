@@ -70,15 +70,11 @@ The outputs include the fiber tracts, several variables describing the outcomes 
 * <i>anat_image</i>: The structural images, of the same size as the DTI images.  These are required only if the user wishes to plot the fiber tracts.
 
 ## 4. Output Arguments
-* <i>fiber_all</i>: the fiber tracts, with units of pixels. The rows and columns
-   correspond to locations on the roi_mesh. Dimension 3 gives point numbers
-   on the tract, and the fourth dimension has row, column, and slice coordinates.
+* <i>fiber_all</i>: the fiber tracts, with units of pixels. The rows and columns correspond to locations on the roi_mesh. Dimension 3 gives point numbers on the tract, and the fourth dimension has row, column, and slice coordinates.
 
-* <i>roi_flag</i>: matrix indicating the presence of fibers that propagated at
-   least 1 point
+* <i>roi_flag</i>: matrix indicating the presence of fibers that propagated at least 1 point
 
-* <i>stop_list</i>: matrix containing the reason for fiber tract termination
-   (4=mask, 3=curvature, 2=FA, 1=R (for FACT only))
+* <i>stop_list</i>: matrix containing the reason for fiber tract termination (4=mask, 3=curvature, 2=FA, 1=R (for FACT only))
 
 * <i>fiber_len</i>: the length, in points, of each fiber tract. 
 
@@ -86,22 +82,11 @@ The outputs include the fiber tracts, several variables describing the outcomes 
 
 * <i>md_all</i>: the pointwise mean diffusivities along each tract
 
-## 5. Other Functions in the MuscleDTI_Toolbox
-
- For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
- 
- For help defining the ROI, see <a href="matlab: help define_roi">define_roi</a>.
- 
- For help smoothing fiber tracts, see <a href="matlab: help fiber_smoother">fiber_smoother</a>.
- 
- For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
- 
- For help selecting fiber tracts following quantification, see <a href="matlab: help fiber_selector">fiber_selector</a>.
- 
- For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
-
-## 6. Acknowledgements
+## 5. Acknowledgements
 
  People: Zhaohua Ding, Adam Anderson, Amanda Buck, Anneriet Heemskerk, and Justin Montenegro
  
  Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
+
+## 6. Example Code
+
