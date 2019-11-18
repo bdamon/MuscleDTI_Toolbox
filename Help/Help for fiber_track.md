@@ -24,6 +24,7 @@ The outputs include the fiber tracts, several variables describing the outcomes 
 ## 2. Syntax
 
 [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = ...
+
   fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image)
 
 ## 3. Input Arguments
