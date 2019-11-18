@@ -39,9 +39,9 @@ The outputs include the fiber tracts, several variables describing the outcomes 
 
   <i>.mesh_dist</i>: The number of pixels to shift the mesh into the muscle, prior to fiber tracking. This can be a (+) or (-) number, depending on the desired direction of the shift.
 
-  <i>.prop_alg</i>: A string variable that specifies the method for determining the direction of fiber tract propagation. The available options include:
+  <i>.prop_alg</i>: A string variable that specifies the method for determining the direction of fiber tract propagation. The available options include 'euler', 'tnsrln', 'rk4', and 'fact'.  These algorithms are described below:
 
-  -<i>euler</i>: Diagonalization of the observed diffusion tensor D at the current fiber tracking point, followed by Euler integration of the first eigenvector. The user must specify the step size in the field ft_options.step_size.
+  ** euler: Diagonalization of the observed diffusion tensor D at the current fiber tracking point, followed by Euler integration of the first eigenvector. The user must specify the step size in the field ft_options.step_size.
   
   -<i>tnsrln</i>: The tensorlines algorithm (Lazar et al, Human Brain Mapping, 2003). The tensorlines algorithm combines streamline and tensor deflection components when calculating the propagation direction. The tensor deflection component can be weighted between deflected and non-deflected terms using the parameter w_punct. w_punct can vary from 0 to 1, where 1 provides full weighting for the deflected component. To set w_punct, create a field called ft_options.w_punct. The user must also specify the value of the largest eigenvalue throughout the muscle. To do so, create a field called ft_options.eigvalue1_max and set it to the largest eigenvalue observed in the muscle of interest.
   
