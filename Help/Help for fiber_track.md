@@ -37,9 +37,9 @@ The outputs include the fiber tracts, several variables describing the outcomes 
 
   <i>.image_orient</i>: The orientation of the images. Specify the anatomical positions at the north and east edges of the image as A (anterior) or P (posterior) and right (R) or left (L).  Input the result as a 2-element string variable (ft_options.image_orient='RA', 'AL', etc.).
 
-* <i>.mesh_dist</i>: The number of pixels to shift the mesh into the muscle, prior to fiber tracking. This can be a (+) or (-) number, depending on the desired direction of the shift.
+  <i>.mesh_dist</i>: The number of pixels to shift the mesh into the muscle, prior to fiber tracking. This can be a (+) or (-) number, depending on the desired direction of the shift.
 
-* <i>.prop_alg</i>: A string variable that specifies the method for determining the direction of fiber tract propagation. The available options include:
+  <i>.prop_alg</i>: A string variable that specifies the method for determining the direction of fiber tract propagation. The available options include:
 
   -<i>euler</i>: Diagonalization of the observed diffusion tensor D at the current fiber tracking point, followed by Euler integration of the first eigenvector. The user must specify the step size in the field ft_options.step_size.
   
