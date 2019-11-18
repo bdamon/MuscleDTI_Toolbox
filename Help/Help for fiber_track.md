@@ -49,19 +49,19 @@ The outputs include the fiber tracts, several variables describing the outcomes 
   
   * <i>fact</i>: The FACT algorithm, as described by Mori et al (Ann Neurol, 1999). FACT is similar to Euler integration, except that the direction is changed as soon as the tract enters a new voxel. The step size does not need to be included in the ft_options structure.
 
-* <i>.step_size</i>: The fiber-tracking step size, in pixels. A step size of 1 reflects the voxel width. This is not used for FACT, but is required for other algorithms.
+  <i>.step_size</i>: The fiber-tracking step size, in pixels. A step size of 1 reflects the voxel width. This is not used for FACT, but is required for other algorithms.
 
-* <i>.term_mthd</i>: A string variable that specifies the method for determining whether or not to terminate a fiber tract. Any fiber tracking point that falls outside of the image mask will terminate the tract. Other available options include 'bin1' and 'bin2'. 
+  <i>.term_mthd</i>: A string variable that specifies the method for determining whether or not to terminate a fiber tract. Any fiber tracking point that falls outside of the image mask will terminate the tract. Other available options include 'bin1' and 'bin2'. 
 
   * In 'bin1', the angle and FA data from the current fiber tracking point are used to decide whether or not to terminate the tract. The angle used is the angle formed by two fiber tracking steps. The user can decide whether to calculate this angle between a step and a step N points earlier. 
   * In 'bin2', the angle and FA criteria from the current fiber tracking point are combined with those of a preceding point. The user sets the FA criteria as for bin1. If the two consecutive points have a disallowed FA value, then the tract terminates. For the angle criterion, the step angle is calculated for the current point and for one looking back N points (N must be > 1). If the current step and the preceding step queried have steps that exceed the the angle threshold, then the tract terminates. This option provides greater tolerance for errors in individual voxels.
   * Note that the FACT algorithm uses its own method for tract termination. Thus, when the propogation algorithm is set to FACT, the user does not need to define term_mthd; however the user must create fields in ft_options called .r_crit and .num_fact_voxels. These are used to terminate tracts based on local variability in the first eigenvector.
 
-* <i>.angle_thrsh</i>: A two-element vector containing the angle threshold in degrees and the number of look-back steps (used as described under term_mthd)
+  <i>.angle_thrsh</i>: A two-element vector containing the angle threshold in degrees and the number of look-back steps (used as described under term_mthd)
 
-* <i>.fa_thrsh</i>: a two-element vector containing the lower and upper bounds of allowable FA values (used as described under term_mthd)
+  <i>.fa_thrsh</i>: a two-element vector containing the lower and upper bounds of allowable FA values (used as described under term_mthd)
 
-* <i>.depth_ratio</i>: ratio of slice thickness/in-plane resolution. Note that the function assumes equal in-plane voxel dimensions.
+  <i>.depth_ratio</i>: ratio of slice thickness/in-plane resolution. Note that the function assumes equal in-plane voxel dimensions.
 
 * <i>plot_options</i>: If specified, this calls the fiber_visualizer function to plot the fiber, mask, and roi mesh.
  
