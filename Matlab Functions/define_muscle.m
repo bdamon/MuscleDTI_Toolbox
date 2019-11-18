@@ -9,16 +9,17 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plo
 %  A mask defining the muscle boundaries is a required input to define_roi and
 %  fiber_track, and it may be used in fiber_visualizer. The mask has the same 
 %  dimensions as the input image. An alternatively sized mask may also 
-%  be calculated, for example if the DTI images and structural images have 
+%  be calculated. This is needed if the DTI images and structural images have 
 %  different dimensions.
 %    After calling the function, three windows are opened: the current slice  
-%  (middle window), the preceding slice with its ROI (if present), and the next   
-%  slice. Initially, the zoom feature is enabled so that the user can view the 
-%  muscle of interest more closely. After that, the level of zoom is automatically 
-%  set. Using the roipoly tool, the user defines the ROI in the middle window.   
+%  (middle window), the preceding slice, and the next slice. Initially, the   
+%  zoom feature is enabled so that the user can view the muscle of interest more 
+%  closely. Using the roipoly tool, the user defines the ROI in the middle window.   
 %  For the main figure window, an interactive tool is opened that allows the user   
 %  to adjust the image's window and level settings. After closing the ROI, the  
-%  program advances to the next slice until all slices have been defined.
+%  program advances to the next slice. In this and future slices, the level of
+%  zoom is automatically set.  This procedure continues until all slices have
+%  been defined.
 %    A file named mask_file, containing the mask and (if present) the
 %  alternatively sized mask, is automatically saved in the working
 %  directory.
@@ -32,8 +33,8 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plo
 %  alt_mask_size: If specified, this is a two element vector containing the row  
 %    x column size of a second mask; the same number of slices is assumed.
 %
-%  plot_options: If specified, this calls the fiber_visualizer function to
-%    plot the mask.
+%  plot_options: If included, this calls the fiber_visualizer function to plot 
+%    the mask.
 %
 %OUTPUT ARGUMENTS
 %  mask: the binary image mask, with size matching that of the original
@@ -187,4 +188,3 @@ end
 %% end the function
 
 return
-
