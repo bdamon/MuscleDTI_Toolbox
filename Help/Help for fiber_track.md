@@ -57,11 +57,11 @@ The outputs include the fiber tracts, several variables describing the outcomes 
   * In 'bin2', the angle and FA criteria from the current fiber tracking point are combined with those of a preceding point. The user sets the FA criteria as for bin1. If the two consecutive points have a disallowed FA value, then the tract terminates. For the angle criterion, the step angle is calculated for the current point and for one looking back N points (N must be > 1). If the current step and the preceding step queried have steps that exceed the the angle threshold, then the tract terminates. This option provides greater tolerance for errors in individual voxels.
   * Note that the FACT algorithm uses its own method for tract termination. Thus, when the propogation algorithm is set to FACT, the user does not need to define term_mthd; however the user must create fields in ft_options called .r_crit and .num_fact_voxels. These are used to terminate tracts based on local variability in the first eigenvector.
 
-  * <i>.angle_thrsh</i>: A two-element vector containing the angle threshold in degrees and the number of look-back steps (used as described under term_mthd)
+* <i>.angle_thrsh</i>: A two-element vector containing the angle threshold in degrees and the number of look-back steps (used as described under term_mthd)
 
-  * <i>.fa_thrsh</i>: a two-element vector containing the lower and upper bounds of allowable FA values (used as described under term_mthd)
+* <i>.fa_thrsh</i>: a two-element vector containing the lower and upper bounds of allowable FA values (used as described under term_mthd)
 
-  * <i>.depth_ratio</i>: ratio of slice thickness/in-plane resolution. Note that the function assumes equal in-plane voxel dimensions.
+* <i>.depth_ratio</i>: ratio of slice thickness/in-plane resolution. Note that the function assumes equal in-plane voxel dimensions.
 
 * <i>plot_options</i>: If specified, this calls the fiber_visualizer function to plot the fiber, mask, and roi mesh.
  
