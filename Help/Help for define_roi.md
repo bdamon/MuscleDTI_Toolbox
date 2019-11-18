@@ -1,4 +1,4 @@
-# Help for the function <i>define_roi</i>, v. 0.1
+# Help for the function <i>define_roi</i>, v. 0.1.x
 
 ## Introduction
 
