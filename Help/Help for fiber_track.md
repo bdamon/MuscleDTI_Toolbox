@@ -54,7 +54,9 @@ The outputs include the fiber tracts, several variables describing the outcomes 
   <i>.term_mthd</i>: A string variable that specifies the method for determining whether or not to terminate a fiber tract. Any fiber tracking point that falls outside of the image mask will terminate the tract. Other available options include 'bin1' and 'bin2'. 
 
   * In 'bin1', the angle and FA data from the current fiber tracking point are used to decide whether or not to terminate the tract. The angle used is the angle formed by two fiber tracking steps. The user can decide whether to calculate this angle between a step and a step N points earlier. 
+  
   * In 'bin2', the angle and FA criteria from the current fiber tracking point are combined with those of a preceding point. The user sets the FA criteria as for bin1. If the two consecutive points have a disallowed FA value, then the tract terminates. For the angle criterion, the step angle is calculated for the current point and for one looking back N points (N must be > 1). If the current step and the preceding step queried have steps that exceed the the angle threshold, then the tract terminates. This option provides greater tolerance for errors in individual voxels.
+  
   * Note that the FACT algorithm uses its own method for tract termination. Thus, when the propogation algorithm is set to FACT, the user does not need to define term_mthd; however the user must create fields in ft_options called .r_crit and .num_fact_voxels. These are used to terminate tracts based on local variability in the first eigenvector.
 
   <i>.angle_thrsh</i>: A two-element vector containing the angle threshold in degrees and the number of look-back steps (used as described under term_mthd)
