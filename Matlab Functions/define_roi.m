@@ -16,10 +16,11 @@ function roi_mesh=define_roi(anat_image, mask, defroi_options, plot_options)
 %     points can form a line or close to form a polygon. At each slice, the
 %     user is given the option of repeating the procedure in case of error.
 %     For each figure window, an interactive tool is opened that allows the user
-%     to adjust the image's window and level settings.
+%     to adjust the image's window and level settings. This is the current
+%     method to use for unipennate muscles.
 %
 %    -Automatic: The aponeurosis is automatically segmented from within the
-%     region of the image represented by the muscle mask. TWo segmentation
+%     region of the image represented by the muscle mask. Two segmentation
 %     methods (edge detection and k-means clustering) are used, and the
 %     segmented region is defined as the consensus of the two results. The
 %     region is displayed and the user is allowed to correct misassignments.
@@ -71,7 +72,7 @@ function roi_mesh=define_roi(anat_image, mask, defroi_options, plot_options)
 %  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %
 % VERSION INFORMATION
-%  In beta-testing mode
+%  v. 0.1
 %
 % ACKNOWLEDGMENTS
 %  People: Zhaohua Ding
