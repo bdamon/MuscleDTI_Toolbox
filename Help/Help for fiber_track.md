@@ -25,21 +25,21 @@ The outputs include the fiber tracts, several variables describing the outcomes 
 
 ## 3. Input Arguments
 
-<i><b>tensor_m</i></b>: A 5D matrix containing rows, columns, slices, and the 3x3 diffusion tensor, calculated from pre-processing steps
+* <i>tensor_m</i>: A 5D matrix containing rows, columns, slices, and the 3x3 diffusion tensor, calculated from pre-processing steps
 
-<i>mask</i>: The mask delimiting the muscle to be fiber-tracked. It could be the output of define_muscle or any other image analysis program that creates a binary mask of the same size as the imaging data.   
+* <i>mask</i>: The mask delimiting the muscle to be fiber-tracked. It could be the output of define_muscle or any other image analysis program that creates a binary mask of the same size as the imaging data.   
 
-<i>roi_mesh</i>: The roi mesh, output from define_roi.  
+* <i>roi_mesh</i>: The roi mesh, output from define_roi.  
 
-<i>ft_options</i>: A structure containing the following fields:
+* <i>ft_options</i>: A structure containing the following fields:
 
-<i>.ref_frame</i>: The frame of reference in which the diffusion directions are specified. For example, set ft_options.ref_frame='LPS'; if the left, posterior, and superior anatomical positions are (+).
+  <i>.ref_frame</i>: The frame of reference in which the diffusion directions are specified. For example, set ft_options.ref_frame='LPS'; if the left, posterior, and superior anatomical positions are (+).
 
-<i>.image_orient</i>: The orientation of the images. Specify the anatomical positions at the north and east edges of the image as A (anterior) or P (posterior) and right (R) or left (L).  Input the result as a 2-element string variable (ft_options.image_orient='RA', 'AL', etc.).
+  <i>.image_orient</i>: The orientation of the images. Specify the anatomical positions at the north and east edges of the image as A (anterior) or P (posterior) and right (R) or left (L).  Input the result as a 2-element string variable (ft_options.image_orient='RA', 'AL', etc.).
 
-<i>.mesh_dist</i>: The number of pixels to shift the mesh into the muscle, prior to fiber tracking. This can be a (+) or (-) number, depending on the desired direction of the shift.
+* <i>.mesh_dist</i>: The number of pixels to shift the mesh into the muscle, prior to fiber tracking. This can be a (+) or (-) number, depending on the desired direction of the shift.
 
-<i>.prop_alg</i>: A string variable that specifies the method for determining the direction of fiber tract propagation. The available options include:
+* <i>.prop_alg</i>: A string variable that specifies the method for determining the direction of fiber tract propagation. The available options include:
 
   -<i>euler</i>: Diagonalization of the observed diffusion tensor D at the current fiber tracking point, followed by Euler integration of the first eigenvector. The user must specify the step size in the field ft_options.step_size.
   
@@ -65,26 +65,26 @@ The FACT algorithm uses its own method for tract termination. Thus, when the pro
 
 <i>.depth_ratio</i>: ratio of slice thickness/in-plane resolution. Note that the function assumes equal in-plane voxel dimensions.
 
-<i>plot_options</i>: If specified, this calls the fiber_visualizer function to plot the fiber, mask, and roi mesh.
+* <i>plot_options</i>: If specified, this calls the fiber_visualizer function to plot the fiber, mask, and roi mesh.
  
-<i>anat_image</i>: The structural images, of the same size as the DTI images.  These are required only if the user wishes to plot the fiber tracts.
+* <i>anat_image</i>: The structural images, of the same size as the DTI images.  These are required only if the user wishes to plot the fiber tracts.
 
 OUTPUT ARGUMENTS
- fiber_all: the fiber tracts, with units of pixels. The rows and columns
+* <i>fiber_all</i>: the fiber tracts, with units of pixels. The rows and columns
    correspond to locations on the roi_mesh. Dimension 3 gives point numbers
    on the tract, and the fourth dimension has row, column, and slice coordinates.
 
- roi_flag: matrix indicating the presence of fibers that propagated at
+* <i>roi_flag</i>: matrix indicating the presence of fibers that propagated at
    least 1 point
 
- stop_list: matrix containing the reason for fiber tract termination
+* <i>stop_list</i>: matrix containing the reason for fiber tract termination
    (4=mask, 3=curvature, 2=FA, 1=R (for FACT only))
 
- fiber_len: the length, in points, of each fiber tract. 
+* <i>fiber_len</i>: the length, in points, of each fiber tract. 
 
- fa_all: the pointwise FA values on each fiber tract.
+* <i>fa_all</i>: the pointwise FA values on each fiber tract.
 
- md_all: the pointwise mean diffusivities along each tract
+* <i>md_all</i>: the pointwise mean diffusivities along each tract
 
 OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
