@@ -1,4 +1,4 @@
-# Help for the function <i>fiber_track</i>, v. 0.1
+# Help for the function <i>fiber_track</i>, v. 0.1.x
 
 ## Introduction
 
@@ -15,8 +15,8 @@ This help file contains information about
 
 The function fiber_track is used to fiber-track a muscle DTI dataset in the MuscleDTI_Toolbox. 
    
-The required inputs include a 5D matrix containing the diffusion tensor; the mask delimiting the muscle of interest, the mesh reconstruction of the aponeurosis of muscle fiber insertion, and a structure called ft_options.  This structure allows the user to set options such as the tracking algorithm, step size, frame of reference for the images and diffusion encoding gradients, and tract termination method. 
-   
+The required inputs include a 5D matrix containing the diffusion tensor; the mask delimiting the muscle of interest, the mesh reconstruction of the aponeurosis of muscle fiber insertion, and a structure called ft_options.  This structure allows the user to set options such as the tracking algorithm, step size, frame of reference for the images and diffusion encoding gradients, and tract termination method. See the description of the input arguments for additional information on these variables.
+
 Fibers are tracked from the mesh according to the selected propogation algorithm until they reach the edge of the mask or meet another stop criterion.  Stop criteria are set in the ft_options structure. See the description of the input arguments for additional information on these variables. 
    
 The outputs include the fiber tracts, several variables describing the outcomes of the tracking, and selected data about the tracts.
@@ -69,7 +69,7 @@ The FACT algorithm uses its own method for tract termination. Thus, when the pro
  
 * <i>anat_image</i>: The structural images, of the same size as the DTI images.  These are required only if the user wishes to plot the fiber tracts.
 
-OUTPUT ARGUMENTS
+## 4. Output Arguments
 * <i>fiber_all</i>: the fiber tracts, with units of pixels. The rows and columns
    correspond to locations on the roi_mesh. Dimension 3 gives point numbers
    on the tract, and the fourth dimension has row, column, and slice coordinates.
@@ -86,18 +86,22 @@ OUTPUT ARGUMENTS
 
 * <i>md_all</i>: the pointwise mean diffusivities along each tract
 
-OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+## 5. Other Functions in the MuscleDTI_Toolbox
+
  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
+ 
  For help defining the ROI, see <a href="matlab: help define_roi">define_roi</a>.
+ 
  For help smoothing fiber tracts, see <a href="matlab: help fiber_smoother">fiber_smoother</a>.
+ 
  For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
+ 
  For help selecting fiber tracts following quantification, see <a href="matlab: help fiber_selector">fiber_selector</a>.
+ 
  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 
-VERSION INFORMATION
- v. 0.1
+## 6. Acknowledgements
 
-ACKNOWLEDGEMENTS
- People: Zhaohua Ding, Adam Anderson, Amanda Buck, Anneriet Heemskerk, 
-   and Justin Montenegro
+ People: Zhaohua Ding, Adam Anderson, Amanda Buck, Anneriet Heemskerk, and Justin Montenegro
+ 
  Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
