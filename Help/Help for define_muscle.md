@@ -19,7 +19,7 @@ This mask is needed as an input to the functions [<i>define_roi</i>](https://git
 
 In the main figure window, the user uses the roipoly tool to define a region of interest (ROI). After closing the ROI, the user may adjust the position of the vertices. When satisfied with the ROI, the user should right-click the mouse to bring up a menu and select Create Mask to complete the ROI selection. Then the program displays the next slice in the main window; the level of zoom is automatically set. In the left figure, the preceding slice and its ROI are shown.  The righthand figure, the next slice is shown. Examining these windows can help to maintain consistency in ROI selection. ROI selection continues in this manner until all slices of interest have been defined.
 
-By default, the program returns a mask of the same dimensions as the image used to select the ROIs. If desired, the user can also create an alternatively sized mask.  This is necessary if the structural images and the DTI images had different matrix sizes.  
+By default, the program returns a mask of the same dimensions as the image used to select the ROIs. If desired, the user can also create an alternatively sized mask.  This is necessary if the structural images and the DTI images have different matrix sizes.  
    
 A MATLAB data file named mask_file.mat, containing the mask and (if present) the alternatively sized mask, is automatically saved in the working directory. The user is advised to rename this file to replace the generic name with something more informative.
 
