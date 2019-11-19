@@ -23,7 +23,7 @@ By default, the program returns a mask of the same dimensions as the image used 
    
 A MATLAB data file named mask_file.mat, containing the mask and (if present) the alternatively sized mask, is automatically saved in the working directory. The user is advised to rename this file to replace the generic name with something more informative.
 
-An [instructional video](https://youtu.be/Ot-cvL3oRso) is available.
+An [instructional video](https://youtu.be/TWTZvgVWoB4) is available.
 
 
 ## 2. Syntax
