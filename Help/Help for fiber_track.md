@@ -43,7 +43,7 @@ The outputs include the fiber tracts, several variables describing the outcomes 
 
   <i>.mesh_dist</i>: The number of pixels to shift the mesh into the muscle, prior to fiber tracking. This can be a (+) or (-) number, depending on the desired direction of the shift.  This is most helpful in unipennate muscles in cases where it's necessary to shift the mesh by a small amount to ensure that the seed points lies within the muscle of interest.
 
- <i>.depth_ratio</i>: The ratio of slice thickness/in-plane resolution. Note that the function assumes equal in-plane voxel dimensions.
+  <i>.depth_ratio</i>: The ratio of slice thickness/in-plane resolution. Note that the function assumes equal in-plane voxel dimensions.
 
   <i>.prop_alg</i>: A string variable that specifies the method for determining the direction of fiber tract propagation. The available options include 'euler', 'tnsrln', 'rk4', and 'fact'.  These algorithms are described below:
 
