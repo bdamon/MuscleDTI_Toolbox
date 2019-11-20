@@ -15,11 +15,11 @@ This help file contains information about
 The function <i>define_roi</i> is used to digitize the aponeurosis of muscle fiber insertion in the MuscleDTI_Toolbox.  The digitized points are used to form a mesh reconstruction of the aponeurosis (that is, a matrix holding {row, column, slice} coordinates that indicate teh aponeurosis's position in the image stack). These coordinates are used as the seed points for fiber tracking using <i>fiber_track</i>.  The mesh is also required in <i>fiber_quantifier</i>, where it is used as a reference structure for pennation angle measurements.
 
 There are two options for defining the aponeurosis. 
-1) <i>Manual</i>: Three windows are opened: the middle (main) window displaying the current slice, the left window displaying the preceding slice, and the right window displaying the upcoming slice. In the first slice, the user is prompted to zoom the window; the user should select Enter on their keyboard when the zoom level is set.  The user can also adjust the contrast and brightness of the image in the main figure window.  The user then uses the left mouse button to select points along the aponeurosis. The selected points can form a line, or they can close to form a polygon. The right mouse button completes the selection. At each slice, the user is given the option of repeating the procedure in case of error (righr mouse button) or advancing to the next slice (left mouse button).  Selection continues in this manner until all slices of interest have been define. The final set of points is used to form the mesh (see below). The manual option is the current best approach for digitizing only a single side of the aponeurosis (such as for unipennate muscles). An [instructional video](https://youtu.be/HfQeS_bruQM) is available.
+1) <i>Manual</i>: Three windows are opened: the middle (main) window displaying the current slice; the left window displaying the preceding slice; and the right window displaying the upcoming slice. In the first slice, the user is prompted to zoom the window; after setting the zoom level, the user should select Enter on their keyboard.  The user can also adjust the contrast and brightness of the image in the main figure window.  The user then uses the left mouse button to select points along the aponeurosis. The selected points can form a line or they can close to form a polygon. The right mouse button completes the selection. At each slice, the user is given the option of repeating the procedure in case of error (by clicking the right mouse button) or advancing to the next slice (left mouse button).  Selection continues in this manner until all slices of interest have been defined. The final set of points is used to form the mesh (see below). The manual option is the current best approach for digitizing only a single side of the aponeurosis (such as for unipennate muscles). An [instructional video](https://youtu.be/HfQeS_bruQM) is available.
 
-2) <i>Automatic</i>: The aponeurosis is automatically segmented from within the region of the image represented by the muscle mask. Two automated segmentation methods (edge detection and k-means clustering) are applied. In addition, the region from the preceding slice, if available, is used.  The consensus region from these three methods is presented to the user in the middle of three windows; the user is allowed to correct misassignments by adding points (right mouse button) or deleting points (left mouse button). The lefthand window shows the selected pixels as points; this is a helpful way to preview the image intensity data and ensure consistent selection criteria for the apoenurosis. The boundaries of the segmented region are smoothed using a Savitsky-Golay filter and previewed in the righthand window; these are the points that will be used to form the mesh (see next paragraph).  The user can correct points before advancing to the next slice.
+2) <i>Automatic</i>: The aponeurosis is automatically segmented from within the region of the image represented by the muscle mask. Two automated segmentation methods (edge detection and k-means clustering) are applied. If available, the region from the preceding slice is also used.  The consensus region from these three methods is presented to the user in the middle of three windows; the user is allowed to correct misassignments by adding points (right mouse button) or deleting points (left mouse button). The lefthand window shows the selected pixels as points; this is a helpful way to preview the image intensity data and ensure consistent selection criteria for the aponeurosis. The boundaries of the segmented region are smoothed using a Savitsky-Golay filter and previewed in the righthand window; these are the points that will be used to form the mesh (see next paragraph).  The user can correct points before advancing to the next slice.
 
-Initially, the mesh is formed at the resolution specified by the user in the defroi_options structure.  To smooth the mesh, it is then downsampled by a size factor of four. Finally, the smoothed mesh is used to create a high resolution mesh at the desired size. A file called roi_mesh_file.mat is automatically saved in the working directory. The user is advised to rename the file.
+Initially, the mesh is formed at the resolution specified by the user in the defroi_options structure.  To smooth the mesh, it is then downsampled by a factor of four. Finally, the smoothed mesh is used to create a high resolution mesh at the desired size. A file called roi_mesh_file.mat is automatically saved in the working directory. The user is advised to rename the file after completing hte mesh selection process.
 
 If the input argument plot_options is included, the mesh is automatically plotted using the function <i>fiber_visualizer</i>.
 
@@ -28,9 +28,9 @@ If the input argument plot_options is included, the mesh is automatically plotte
 roi_mesh = define_roi(anat_image, mask, defroi_options, plot_options);
 
 ## 3. Input Arguments
-<i>anat_image</i>: The imaging data. If input as a structure, then the imaging data are assumed to exist in a field called anat_image.Data.  If specified as a matrix, the data are used directly.
+<i>anat_image</i>: The imaging data. If input as a structure, then the imaging data are assumed to exist in a field called anat_image.Data. If anat_image is specified as a matrix, the data are used directly.
 
-* <i>mask</i>: The mask, as defined by the function define_mask or other method.
+* <i>mask</i>: A binary image mask indicate the muscle's location in the image stack, as defined by the function define_mask or other method.
 
 * <i>defroi_options</i>: A structure containing the following fields:
 
@@ -47,7 +47,6 @@ roi_mesh = define_roi(anat_image, mask, defroi_options, plot_options);
 ## 4. Output Arguments
 * <i>roi_mesh</i>: A 3D matrix containing the reconstructed mesh with size n_row x n_col x 6. In the 3rd dimension, levels 1-3 hold {row column slice} coordinates and levels 4-6 hold the {row column slice} components of the normal vector to the mesh surface at the point {row column slice}.
    
-   
 ## 5. Acknowledgements
 
 People: Zhaohua Ding
@@ -55,7 +54,6 @@ People: Zhaohua Ding
 Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
 
 ## 6. Example Code
-
 
 ### Example 1:
 
