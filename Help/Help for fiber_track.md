@@ -67,7 +67,7 @@ The outputs include the fiber tracts, several variables describing the outcomes 
 
   <i>.fa_thrsh</i>: a two-element vector containing the lower and upper bounds of allowable FA values (used as described under term_mthd)
   
-The FACT algorithm uses its own method for tract termination. Thus, when the propogation algorithm is set to FACT, the user does not need to define term_mthd; however the user must create fields in ft_options called ft_options.r_crit and ft_options.num_fact_voxels. These are used to terminate tracts based on local variability in the first eigenvector. The reader is referred to the Mori paper to learn more about these parameters.
+  The FACT algorithm uses its own method for tract termination. Thus, when the propogation algorithm is set to FACT, the user does not need to define term_mthd; however the user must create fields in ft_options called ft_options.r_crit and ft_options.num_fact_voxels. These are used to terminate tracts based on local variability in the first eigenvector. The reader is referred to the Mori paper to learn more about these parameters.
 
   <i>.r_crit</i>: A scalar quantity ranging from 0-1 that defines the allowable level of local variability in the direction of the first eigenvector.
   
