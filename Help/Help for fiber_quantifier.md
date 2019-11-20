@@ -71,6 +71,7 @@ fq_options.dwi_res = [192 192 7];            %images have 192x192 FOV, 192x192 m
 fq_options.filt_kernel = 5;                  %kernel size
 
 %% call the function:
+
 angle_list, distance_list, curvature_list, fiber_all_mm, n_points, apo_area] = ...
 
    fiber_quantifier(fiber_all, roi_mesh, fq_options);
