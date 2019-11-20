@@ -55,7 +55,7 @@ Fiber tracts are propagated from a set of points, commonly called "seed points."
 ### D. Generate the fiber tracts using the function <i>fiber_track</i>
 Fiber tracts are propagated from the seed points by following the direction indicated by the first eigenvector of the diffusion tensor. The function <i>fiber_track</i> is used to perform this integration. The user can select from several propagation algorithms and several methods for determining when to stop propagating a tract. The major output of this function is a matrix containing the {row, column, slice} coordinates of each point along each fiber tract.  <i>fiber_track</i> calls the function <i>retrieve_tensor</i>, which finds the diffusion tensor in each voxel of the image. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_track.md) for detailed help on this function.
 
-### E. Smooth the fiber tracts using the function <i>fiber_smoother</i>
+### E. Smooth the fiber tracts using the function <i>fiber_fitter</i>
 Fiber tract points are subject to errors in position because of the presence of noise and artifacts in the images. To mitigate these effects, the function <i>fiber_smoother</i> performs a polynomial fit to each fiber tract. This also allows the interpolation of the fiber tract positions at a resolution higher than the original tracts.  This step is not required, but is strongly recommended prior to calling the <i>fiber_quantifier</i> function. Follow this link for detailed help on this function.
 
 ### F. Quantify the tracts' structural properties using the function <i>fiber_quantifier</i>
