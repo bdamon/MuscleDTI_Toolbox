@@ -11,7 +11,7 @@ This help file contains information about
 6) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_quantifier.md#6-Example-Code)
 
 ## 1. Usage
-
+ 
 The function <i>fiber_quantifier</i> is used to calculate the muscle architectural parameters pennation angle, fiber tract length, and curvature in the MuscleDTI_Toolbox. Calculations are only made for fiber tracts having 10 or more points. Information about each measurement follows:
 
 * <i>Fiber tract length</i>: this is measured by summing the inter-point distances along the tract.
