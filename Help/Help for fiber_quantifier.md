@@ -22,7 +22,7 @@ The function fiber_quantifier is used to calculate the muscle architectural para
 
      dT/ds = K N
      
-  where T is the tangent line to points along the curve, s is the step length between points, and N is the normal vector. In <i>fiber_quantifier</i>, K is calculated by multiplyign each side of this equation by the Moore-Penrose pseudoinverse matrix of N.
+  where T is the tangent line to points along the curve, s is the step length between points, and N is the normal vector. In <i>fiber_quantifier</i>, K is calculated by multiplying each side of this equation by the Moore-Penrose pseudoinverse matrix of N.
 
 For curvature, the best results are obtained with polynomial-fitted fiber tracts, calculated using <i>fiber_fitter</i>. Fiber tract length and pennation angle are unaffected by polynomial fitting.
 
