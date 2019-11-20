@@ -43,6 +43,8 @@ The outputs include the fiber tracts, several variables describing the outcomes 
 
   <i>.mesh_dist</i>: The number of pixels to shift the mesh into the muscle, prior to fiber tracking. This can be a (+) or (-) number, depending on the desired direction of the shift.  This is most helpful in unipennate muscles in cases where it's necessary to shift the mesh by a small amount to ensure that the seed points lies within the muscle of interest.
 
+ <i>.depth_ratio</i>: The ratio of slice thickness/in-plane resolution. Note that the function assumes equal in-plane voxel dimensions.
+
   <i>.prop_alg</i>: A string variable that specifies the method for determining the direction of fiber tract propagation. The available options include 'euler', 'tnsrln', 'rk4', and 'fact'.  These algorithms are described below:
 
   * <i>Euler</i>: The observed diffusion tensor D is diagonalized at the current fiber tracking point to find the direction indicated by the first eigenvector. Euler integration occurs as this direction is multiplied by the step size and added to the current point. The user must specify the step size in the field ft_options.step_size.
@@ -61,18 +63,16 @@ The outputs include the fiber tracts, several variables describing the outcomes 
   
   * <i>bin2</i>: The angle and FA criteria from the current fiber tracking point are combined with those of a preceding point. The user sets the FA criteria as for bin1. If the two consecutive points have a disallowed FA value, then the tract terminates. For the angle criterion, the step angles are calculated 1) between the current step and its immediate predecessor and 2) between the current step and one looking back N points (N must be > 1). If both steps exceed the angle threshold, then the tract terminates. This option provides greater tolerance for errors in individual voxels than bin1.
   
-  The FACT algorithm uses its own method for tract termination. Thus, when the propogation algorithm is set to FACT, the user does not need to define term_mthd; however the user must create fields in ft_options called ft_options.r_crit and ft_options.num_fact_voxels. These are used to terminate tracts based on local variability in the first eigenvector. The reader is referred to the Mori paper to learn more about these parameters.
-
   <i>.angle_thrsh</i>: A two-element vector containing the angle threshold in degrees and the number of look-back steps (used as described under term_mthd)
 
   <i>.fa_thrsh</i>: a two-element vector containing the lower and upper bounds of allowable FA values (used as described under term_mthd)
   
+The FACT algorithm uses its own method for tract termination. Thus, when the propogation algorithm is set to FACT, the user does not need to define term_mthd; however the user must create fields in ft_options called ft_options.r_crit and ft_options.num_fact_voxels. These are used to terminate tracts based on local variability in the first eigenvector. The reader is referred to the Mori paper to learn more about these parameters.
+
   <i>.r_crit</i>: A scalar quantity ranging from 0-1 that defines the allowable level of local variability in the direction of the first eigenvector.
   
   <i>.num_fact_voxels</i>: The number of local neighboring voxels to include in the calculation of r.
-
-  <i>.depth_ratio</i>: The ratio of slice thickness/in-plane resolution. Note that the function assumes equal in-plane voxel dimensions.
-
+ 
 * <i>plot_options</i>: If specified, this calls the fiber_visualizer function to plot the fiber, mask, and roi mesh.
  
 * <i>anat_image</i>: The structural images, of the same size as the DTI images.  These are required only if the user wishes to plot the fiber tracts.
