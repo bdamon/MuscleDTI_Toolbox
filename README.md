@@ -29,8 +29,8 @@ The functions have been tested using MATLAB v. 2019b.  The toolbox consists prim
 
 ## 5. Overview of a Typical Workflow
 The figure below provides an overview of processing using the MuscleDTI_Toolbox: 
-<a><img src=https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/Overview.png" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+<img src="https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/Overview.png" 
+alt=MuscleDTI_Toolbox Overview" width="240" height="180" border="10" />
 
 ### A. Pre-processing
 Before performing fiber tractography, several pre-processing steps muscle be performed.  These may include:
