@@ -21,7 +21,9 @@ This work is covered under a [GNU General Public License](https://github.com/bda
 The functions have been tested using MATLAB v. 2019b.  The toolbox consists primarily of custom-written functions, but also calls functions contained within MATLAB's Image Processing Toolbox.
 
 ## 4. Data Acquisition Conventions Assumed 
-  * Slices cover the entire muscle of interest and are numbered in ascending order from distal to proximal;
+  * The slices were acquired in the axial anatomical plane;
+  * The slices cover the entire muscle of interest ;
+  * The slices are numbered in ascending order from distal to proximal;
   * The in-plane field of view is square; and
   * The in-plane reconstructed matrix is square.
 
