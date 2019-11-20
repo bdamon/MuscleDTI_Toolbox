@@ -12,15 +12,15 @@ This help file contains information about
 
 ## 1. Usage
 
-The function fiber_quantifier is used to calculate the muscle architectural parameters pennation angle, fiber tract length, and curvature in the MuscleDTI_Toolbox. Calculations are only made for fiber tracts having 10 or more points. 
+The function fiber_quantifier is used to calculate the muscle architectural parameters pennation angle, fiber tract length, and curvature in the MuscleDTI_Toolbox. Calculations are only made for fiber tracts having 10 or more points. Information about the measurements follows:
 
-Fiber tract length is measured by summing the inter-point distances along the tract.
+* Fiber tract length: this is measured by summing the inter-point distances along the tract.
 
-The method for pennation measurements is essentially as described in Lansdown et al, J Appl Physiol 2007. The approach to measuring pennation angle traditionally used in ultrasound imaging is to manually specify the line tangent to a muscle fascicle at the point of its insertion into the aponeurosis and a second line tangent to the aponeurosis. The angle formed by these lines is measured. In Lansdown et al., this concept was extended into 3D space by defining the plane tangent to the seed point and its normal vector. Also, position vectors between the seed point and points along thetract were defined.  Pennation angle was defined as the complement to the angel formed by the normal vector and the position vectors.  In the toolbox, this is modified slightly to calculated the normal vector as the cross product between two tangent lines to the seed point (one lying in the row direction of the aponeurosis mesh and one lying in the column direction). This change improves computational efficiency. 
+* Pennation: The method for pennation measurements is essentially as described in Lansdown et al, J Appl Physiol 2007. The approach to measuring pennation angle traditionally used in ultrasound imaging is to manually specify the line tangent to a muscle fascicle at the point of its insertion into the aponeurosis and a second line tangent to the aponeurosis. The angle formed by these lines is measured. In Lansdown et al., this concept was extended into 3D space by defining the plane tangent to the seed point and its normal vector. Also, position vectors between the seed point and points along thetract were defined.  Pennation angle was defined as the complement to the angel formed by the normal vector and the position vectors.  In the toolbox, this is modified slightly to calculated the normal vector as the cross product between two tangent lines to the seed point (one lying in the row direction of the aponeurosis mesh and one lying in the column direction). This change improves computational efficiency. 
 
-The method for curvature measurements is described in Damon et al, Magn Reson Imaging 2012. Briefly, these use a discrete implementation of the Frenet-Serret equations. Specifically, the curvature K is defined in 
-  dT/ds = K N
-where T is the tangent line to points along the curve, s is the step length between points, and N is the normal vector. In <i>fiber_quantifier</i>, K is calculated by multiplyign each side of this equation by the Moore-Penrose pseudoinverse matrix of N.
+* Curvature: The method for curvature measurements is described in Damon et al, Magn Reson Imaging 2012. Briefly, these use a discrete implementation of the Frenet-Serret equations. Specifically, the curvature K is defined in 
+     dT/ds = K N
+  where T is the tangent line to points along the curve, s is the step length between points, and N is the normal vector. In <i>fiber_quantifier</i>, K is calculated by multiplyign each side of this equation by the Moore-Penrose pseudoinverse matrix of N.
 
 For curvature, the best results are obtained with polynomial-fitted fiber tracts, calculated using <i>fiber_fitter</i>. Fiber tract length and pennation angle are unaffected by polynomial fitting.
 
