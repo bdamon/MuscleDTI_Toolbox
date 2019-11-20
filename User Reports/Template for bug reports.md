@@ -6,7 +6,9 @@ Date of report:
 
 ## Your name and institution
 Name:
+
 Institution:
+
 Email address:
 
 ## Description of the problem:
@@ -20,7 +22,9 @@ Email address:
 
 ## Version information
 Operating system:
+
 MATLAB version:
+
 Functions that gave you problems and their versions:
 
 ## Other information
