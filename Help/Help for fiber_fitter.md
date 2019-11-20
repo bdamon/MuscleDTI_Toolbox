@@ -11,10 +11,9 @@ This help file contains information about
 6) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_fitter.md#6-Example-Code)
 
 ## 1. Usage
-The function <i>fiber_fitter</i> is used to smooth fiber tracts and increase the spatial resolution of fiber tracts generated using the MuscleDTI_Toolbox. The x, y, and z positions are separately fitted to Nth order polynomials as functions of distance along the tract and are uniformly solved at interpolation distances of interpolation_step. The user selects the polynomial order.  This procedure is modified from Damon et al, Magn Reson Imaging, 2012 to: 
-   1) fit the tract positions as functions of distance rather than point number. This is required for tracking algorithms that use variable step sizes, such as FACT.
-   2) allow selection of the polynomial order, including different polynomial orders for the X, Y, and X points.  
-Future development will included automated selection of the most appropriate polynomial order.
+The function <i>fiber_fitter</i> is used to smooth fiber tracts and increase the spatial resolution of fiber tracts generated using the MuscleDTI_Toolbox. The x, y, and z positions are separately fitted to Nth order polynomials as functions of distance along the tract and are uniformly solved at interpolation distances of interpolation_step. The user selects the polynomial order.  The coefficients are estimated using the MATLAB function <i>polyfit</i> and smoothed tracts are generated using the function <i>polyval</i>. This procedure is modified from Damon et al, Magn Reson Imaging, 2012 in two ways. First, the tract positions are fitted to distance rather than point number. This is required for tracking algorithms that use variable step sizes, such as FACT.  Second, <i>fiber_fitter</i> allows the user to select the polynomial order separately for the X, Y,and Z coordinates. 
+
+In the current version, it is the user's responsibility to select the polynomial order appropriately.  One way to do this would be to plot the points for an individual fiber tract and then plot the fitted results over that. Sample code for doing this is included below. However, future development will included automated selection of the most appropriate polynomial order.
 
 ## 2. Syntax
 [angle_list, distance_list, curvature_list, fiber_all_mm, n_points, apo_area] = ...
@@ -22,23 +21,23 @@ fiber_quantifier(fiber_all, roi_mesh, fq_options);
 
 ## 3. Input Arugments
 
-* fiber_all: The original fiber tracts, output from fiber_track
+* <i>fiber_all</i>: The original fiber tracts, output from fiber_track
 
-* ff_options: A structure containing the following fields:
+* <i>ff_options</i>: A structure containing the following fields:
 
-   .interpolation_step: an interpolation interval for the fitted fiber tract, in units of pixels.  For example, setting interpolation_step to 0.25 would interpolate the fiber tract at intervals of 0.25 pixels.
+   <i>.interpolation_step</i>: An interpolation interval for the fitted fiber tract, in units of pixels.  For example, setting interpolation_step to 0.25 would interpolate the fiber tract at intervals of 0.25 pixels.
 
-   <i>.p_order</i>: A 3 element vector containing the polynomial orders, [Nx Ny Nz], to use when fitting the tracts. If a single number is entered (i.e., ff_options.p_order=N), then this order is used to fit the points in the X, Y and Z directions.
+   <i>.p_order</i></i>: A 3 element vector containing the polynomial orders, [Nx Ny Nz], to use when fitting the tracts. If a single number is entered (i.e., ff_options.p_order=N), then this order is used to fit the points in the X, Y and Z directions.
 
 ## 4. Output Arguments
 
-* fitted_fiber_all: the fiber tracts following Nth order polynomial fitting
+* <i>fitted_fiber_all</i>: The fiber tracts following Nth order polynomial fitting
 
-* pcoeff_x: a matrix of the polynomial coefficients for the tracts' x positions 
+* <i>pcoeff_x</i>: A matrix of the polynomial coefficients for the tracts' x positions. The user is referred to help for the <i>polyfit</i> function to understand how to interpret these coefficients.
 
-* pcoeff_y: a matrix of the polynomial coefficients for the tracts' y positions 
+* <i>pcoeff_y</i>: A matrix of the polynomial coefficients for the tracts' y positions 
 
-* pcoeff_z: a matrix of the polynomial coefficients for the tracts' z positions 
+* <i>pcoeff_z</i>: A matrix of the polynomial coefficients for the tracts' z positions 
 
 ## 5. Acknowledgements
 People: Zhaohua Ding, Anneriet Heemskerk
