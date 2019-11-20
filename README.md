@@ -28,6 +28,8 @@ The functions have been tested using MATLAB v. 2019b.  The toolbox consists prim
   * The in-plane reconstructed matrix is square.
 
 ## 5. Overview of a Typical Workflow
+The figure below provides an overview of processing using the MuscleDTI_Toolbox: 
+
 
 ### A. Pre-processing
 Before performing fiber tractography, several pre-processing steps muscle be performed.  These may include:
