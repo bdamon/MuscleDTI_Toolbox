@@ -33,28 +33,28 @@ For curvature, the best results are obtained with polynomial-fitted fiber tracts
 
 ## 3. Input Arguments
  
-* fiber_all: A 4D matrix containing the fiber tract points, with units of pixels (in X and Y) or slice number (in Z). This matrix could be substituted with fitted_fiber_all (the output of <i>fiber_fitter</i>)
+* <i>fiber_all</i>: A 4D matrix containing the fiber tract points, with units of pixels (in X and Y) or slice number (in Z). This matrix could be substituted with fitted_fiber_all (the output of <i>fiber_fitter</i>)
 
-* roi_mesh: The mesh reconstruction of the aponeurosis that was used as the seed surface for fiber tracking, output from <i>define_roi</i>.
+* <i>roi_mesh</i>: The mesh reconstruction of the aponeurosis that was used as the seed surface for fiber tracking, output from <i>define_roi</i>.
 
-* fq_options: A user-defined structure containing the following fields:
+* <i>fq_options</i>: A user-defined structure containing the following fields:
 
-   .dwi_res: a three element vector with the FOV, (assumed to be the same for the x and y directions), in-plane matrix size, and the slice thickness. The FOV and slice thickness must be specified in mm.
+   <i>.dwi_res</i>: a three element vector with the FOV, (assumed to be the same for the x and y directions), in-plane matrix size, and the slice thickness. The FOV and slice thickness must be specified in mm.
 
-   .filt_kernel: As noted above, the pennation angle calculation relies on the measurement of two tangent lines along the roi_mesh. When determining these lines, their slopes are median-filtered over an NxN window as a way to mitigate the effects of digitization errors. The size of the median filter is specified in filt_kernel; enter this as a single odd integer, e.g. fq_options.filt_kernel = N.  Note that median filtering results in a loss of edge information; the number of rows and columns that will be lost increases with the size of the filter kernel.
+   <i>.filt_kernel</i>: As noted above, the pennation angle calculation relies on the measurement of two tangent lines along the roi_mesh. When determining these lines, their slopes are median-filtered over an NxN window as a way to mitigate the effects of digitization errors. The size of the median filter is specified in filt_kernel; enter this as a single odd integer, e.g. fq_options.filt_kernel = N.  Note that median filtering results in a loss of edge information; the number of rows and columns that will be lost increases with the size of the filter kernel.
 
 ## 4. Output Arguments
-* angle_list: The pennation angles, for fiber tracking point numbers 2-end. Pennation angles are reported in degrees.
+* <i>angle_list</i>: The pennation angles, for fiber tracking point numbers 2-end. Pennation angles are reported in degrees.
 
-* distance_list: Distances along the fiber tracts, for fiber tracking point numbers 1-end. Distances are reported in mm.
+* <i>distance_list</i>: Distances along the fiber tracts, for fiber tracking point numbers 1-end. Distances are reported in mm.
 
-* curvature_list: The curvature values at each fiber tracking point, for fiber tracking point numbers starting at 2 and ending 3 points before the tract's end. The latter is to avoid abrupt changes in tract position.  Curvature values are reported in 1/m.
+* <i>curvature_list</i>: The curvature values at each fiber tracking point, for fiber tracking point numbers starting at 2 and ending 3 points before the tract's end. The latter is to avoid abrupt changes in tract position.  Curvature values are reported in 1/m.
 
-* fiber_all_mm: The fiber tract points converted to units of mm.
+* <i>fiber_all_mm</i>: The fiber tract points converted to units of mm.
 
-* n_points: A 3D matrix (rows x columns x 3) containing the number of points used to quantify length, pennation, and curvature in each tract
+* <i>n_points</i>: A 3D matrix (rows x columns x 3) containing the number of points used to quantify length, pennation, and curvature in each tract
 
-* apo_area: A 2D matrix (rows x columns) containing the amount of apoeurosis area represented by each fiber tract
+* <i>apo_area</i>: A 2D matrix (rows x columns) containing the amount of apoeurosis area represented by each fiber tract
 
 ## 5. Acknowledgements
  People: Zhaohua Ding, Adam Anderson, Anneriet Heemskerk
