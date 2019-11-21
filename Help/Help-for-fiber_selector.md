@@ -17,14 +17,15 @@ The function fiber_selector is used to sample from a set of quantified fiber tra
 
      a. Monotonically increasing values in the Z direction. This prevents errors due to overfitting in the Z direction; 
    
-     b. A reasonable minimum length (in mm, specified by the user based on their knowledge of the expected muscle geometry);
+     b. A minimum length (in mm);
    
-     c. A reasonable range of pennation angles (in degrees, specified by user based on their knowledge of the expected muscle geometry);
+     c. A range of pennation angles (in degrees);
    
-     d. A reasonable maximum curvature value (in m^-1, specified by user based on their knowledge of the expected muscle geometry); and
+     d. A maximum curvature value (in 1/m); and
    
      e. Values that lie within the 95% confidence interval for length, pennation angle, and curvature set by the surrounding 24 tracts.
 
+Items b-d require the user to use their knowledge of the expected patterns of muscle geometry to supply values that are reasonable but will not imappropriately bias the results.
   
 ## 2. Syntax
  [final_fibers, final_curvature, final_angle, final_distance, qual_mask, num_tracked, mean_fiber_properties, mean_apo_properties] = ...
