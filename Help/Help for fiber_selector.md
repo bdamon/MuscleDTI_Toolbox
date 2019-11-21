@@ -11,12 +11,18 @@ This help file contains information about
 6) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_selector.md#6-Example-Code)
 
 ## 1. Usage
- The function fiber_selector is used to reject outlying fiber tract data in the MuscleDTI_Toolbox. The quality algorithm described in Heemskerk et al, 2008 is implemented, but updated to account for the inclusion of curvature in the architectural computations. Specifically, the fibers are selected for having:
-   a. monotonically increasing values in the Z direction. This prevents errors due to overfitting in the Z direction; 
-   b. minimum length (in mm, specified by the user based on their knowledge of the expected muscle geometry);
-   c. reasonable pennation angles (in degrees, specified by user; a value of 0 (zero) is suggested;
-   d. reasonable curvature values (in m^-1, specified by user based on their knowledge of the expected muscle geometry); and
-   e. within the 95% confidence interval for length, pennation angle, and curvature set by the surrounding 24 tracts.
+The function fiber_selector is used to sample from a set of quantified fiber tracts geerated using the MuscleDTI_Toolbox in a way that uniformly and optimally characterizes the muscle's architectural properties. A two stage selection process is used:
+  a. First, the quality algorithm described in Heemskerk et al, 2008 is implemented, but updated to account for the inclusion of curvature in the architectural computations. Specifically, the fibers are selected for having:
+
+   * monotonically increasing values in the Z direction. This prevents errors due to overfitting in the Z direction; 
+   
+   * minimum length (in mm, specified by the user based on their knowledge of the expected muscle geometry);
+   
+   * reasonable pennation angles (in degrees, specified by user; a value of 0 (zero) is suggested;
+   
+   * reasonable curvature values (in m^-1, specified by user based on their knowledge of the expected muscle geometry); and
+   
+   * within the 95% confidence interval for length, pennation angle, and curvature set by the surrounding 24 tracts.
 
 ## 2. Syntax
  [final_fibers, final_curvature, final_angle, final_distance, qual_mask, num_tracked, mean_fiber_properties, mean_apo_properties] = ...
