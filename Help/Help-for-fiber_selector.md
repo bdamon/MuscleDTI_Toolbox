@@ -48,11 +48,16 @@ The second step of the selection process is optional; it is engaged by including
  * <i>roi_flag</i>: A mask indicating fiber tracts that propagated at least one point in the function fiber_track, derived from <i>fiber_track</i>;
 
  * <i>fs_options</i>: A structure containing user-specified criteria for selecting the tracts:
+ 
      <i>.min_distance</i>: minimum distance for selected tracts, in mm
+     
      <i>.min_pennation</i>: minimum pennation angle, in degrees 
+     
      <i>.max_pennation</i>: maximum pennation angle, in degrees 
+     
      <i>.max_curvature</i>: maximum curvature, in m<sup>-1</sup>
-     <i>.sampling_density</>: 
+     
+     <i>.sampling_density</i>: 
 
 ## 4. Output Arguments
  * <i>final_fibers</i>: the fiber tracts that passed all selection criteria
