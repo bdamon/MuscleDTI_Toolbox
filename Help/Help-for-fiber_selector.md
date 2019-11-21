@@ -11,20 +11,21 @@ This help file contains information about
 6) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_selector.md#6-Example-Code)
 
 ## 1. Usage
-The function fiber_selector is used to sample from a set of quantified fiber tracts geerated using the MuscleDTI_Toolbox in a way that uniformly and optimally characterizes the muscle's architectural properties. A two stage selection process is used:
+The function fiber_selector is used to sample from a set of quantified fiber tracts geerated using the MuscleDTI_Toolbox in a way that uniformly and optimally characterizes the muscle's architectural properties.Two stages of selection are possible. The first, required, step is to implement an updated version of the quality algorithm described in Heemskerk et al, Magn Reson Med, 2008. Specifically, the fiber tracts are selected for having:
 
-  1. First, the quality algorithm described in Heemskerk et al, 2008 is implemented; however it has been updated in several ways. Specifically, the fiber tracts are selected for having:
-
-     a. Monotonically increasing values in the Z direction. This prevents errors due to overfitting in the Z direction; 
+   a. Monotonically increasing values in the Z direction. This prevents errors due to overfitting in the Z direction; 
    
-     b. A minimum length (in mm);
+   b. A minimum length (in mm);
    
-     c. A range of acceptable pennation angles (in degrees);
+   c. A range of acceptable pennation angles (in degrees);
    
-     d. A maximum curvature value (in 1/m); and
+   d. A maximum curvature value (in m<sup>-1</sup>); and
    
-     e. Values within the 95% confidence intervals for length, pennation angle, and curvature of the surrounding 24 tracts.
-  Items b-d require the user to use their knowledge of the expected patterns of muscle geometry to supply values that are reasonable but will not inappropriately bias the results.
+   e. Values within the 95% confidence intervals for length, pennation angle, and curvature of the surrounding 24 tracts.
+  
+Items b-d require the user to use their knowledge of the expected patterns of muscle geometry to supply values that are reasonable but will not inappropriately bias the results.
+  
+The second step of the selection process is optional; it is engaged by including a field .sampling_density in the fs_options structure described below. The desirability of the second-stage process is derived from the fact that the roi_mesh is required to have a fixed number of rows and columns throughout; but the aponeurosis itself varies in width.  Thus, the fiber tract density, in 1/mm<sup>2</sup>, varies throughout the mesh. To account for this, the fiber tracts that pass the first stage of the selection process are selected so that they occur at a uniform spatial frequency.  The user sets this frequency in fs_options.sampling_density.
   
 ## 2. Syntax
  [final_fibers, final_curvature, final_angle, final_distance, qual_mask, num_tracked, mean_fiber_properties, mean_apo_properties] = ...
@@ -34,23 +35,24 @@ The function fiber_selector is used to sample from a set of quantified fiber tra
 ## 3. Input Arguments
  * <i>fitted_fiber_all</i>: the smoothed fiber tracts
 
- * <i>angle_list</i>: pennation angles for smoothed fiber tracts 
+ * <i>angle_list</i>: Pennation angles for smoothed fiber tracts, derived from <i>fiber_quantifier</i>;
 
- * <i>distance_list</i>: distance measures for smoothed fiber tracts 
+ * <i>distance_list</i>: Distance measures for smoothed fiber tracts, derived from <i>fiber_quantifier</i>;
 
- * <i>curvature_list</i>: curvature measures for smoothed fiber tracts 
+ * <i>curvature_list</i>: Curvature measures for smoothed fiber tracts, derived from <i>fiber_quantifier</i>;
 
- * <i>n_points</i>: the number of points quantified per fiber tract 
+ * <i>n_points</i>: The number of points quantified per fiber tract, derived from <i>fiber_quantifier</i>;
 
- * <i>apo_area</i>: a matrix indicating the amount of aponeurosis area associated with each fiber tract
+ * <i>apo_area</i>: A matrix indicating the amount of aponeurosis area associated with each fiber tract, derived from <i>fiber_quantifier</i>;
 
- * <i>roi_flag</i>: a mask indicating fiber tracts that propagated at least one point in the function fiber_track.
+ * <i>roi_flag</i>: A mask indicating fiber tracts that propagated at least one point in the function fiber_track, derived from <i>fiber_track</i>;
 
- * <i>fs_options</i>: a structure containing user-specified criteria for rejecting tracts:
-     min_distance: minimum distance for selected tracts, in mm
-     min_pennation: minimum pennation angle, in degrees 
-     max_pennation: maximum pennation angle, in degrees 
-     max_curvature: maximum curvature, in m^-1
+ * <i>fs_options</i>: A structure containing user-specified criteria for selecting the tracts:
+     <i>.min_distance</i>: minimum distance for selected tracts, in mm
+     <i>.min_pennation</i>: minimum pennation angle, in degrees 
+     <i>.max_pennation</i>: maximum pennation angle, in degrees 
+     <i>.max_curvature</i>: maximum curvature, in m<sup>-1</sup>
+     <i>.sampling_density</>: 
 
 ## 4. Output Arguments
  * <i>final_fibers</i>: the fiber tracts that passed all selection criteria
