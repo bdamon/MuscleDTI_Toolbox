@@ -68,3 +68,5 @@ This help file contains information about
  People: Zhaohua Ding, Anneriet Heemskerk
  
  Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
+
+## 6. Example Code
