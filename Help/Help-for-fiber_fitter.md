@@ -22,7 +22,7 @@ In the current version, it is the user's responsibility to select the polynomial
 
 fiber_quantifier(fiber_all, roi_mesh, fq_options);
 
-## 3. Input Arugments
+## 3. Input Arguments
 
 * <i>fiber_all</i>: The original fiber tracts, output from fiber_track
 
