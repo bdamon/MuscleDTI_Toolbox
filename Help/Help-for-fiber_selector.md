@@ -13,9 +13,9 @@ This help file contains information about
 ## 1. Usage
 The function fiber_selector is used to sample from a set of quantified fiber tracts geerated using the MuscleDTI_Toolbox in a way that uniformly and optimally characterizes the muscle's architectural properties. A two stage selection process is used:
 
-  1. First, the quality algorithm described in Heemskerk et al, 2008 is implemented, but updated to account for the inclusion of curvature in the architectural computations. Specifically, the fiber tracts are selected for having:
+  1. First, the quality algorithm described in Heemskerk et al, 2008 is implemented; however it has been updated in several ways. Specifically, the fiber tracts are selected for having:
 
-   ** Monotonically increasing values in the Z direction. This prevents errors due to overfitting in the Z direction; 
+   a. Monotonically increasing values in the Z direction. This prevents errors due to overfitting in the Z direction; 
    
    * A reasonable minimum length (in mm, specified by the user based on their knowledge of the expected muscle geometry);
    
@@ -25,6 +25,7 @@ The function fiber_selector is used to sample from a set of quantified fiber tra
    
    * Values that lie within the 95% confidence interval for length, pennation angle, and curvature set by the surrounding 24 tracts.
 
+  
 ## 2. Syntax
  [final_fibers, final_curvature, final_angle, final_distance, qual_mask, num_tracked, mean_fiber_properties, mean_apo_properties] = ...
  
