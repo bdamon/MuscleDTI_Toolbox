@@ -14,6 +14,7 @@ This help file contains information about
 The function <i>fiber_fitter</i> is used to smooth fiber tracts and increase the spatial resolution of fiber tracts generated using the MuscleDTI_Toolbox. The x, y, and z positions are separately fitted to Nth order polynomials as functions of distance along the tract and are uniformly solved at interpolation distances of interpolation_step. The user selects the polynomial order.  The coefficients are estimated using the MATLAB function <i>polyfit</i> and smoothed tracts are generated using the function <i>polyval</i>. This procedure is modified from Damon et al, Magn Reson Imaging, 2012 in two ways. 
 * The tract positions are fitted as functions of distance along the fiber tract rather than point number. This is required for tracking algorithms that use variable step sizes, such as FACT.  
 * <i>fiber_fitter</i> allows the user to select the polynomial order separately for the X, Y,and Z coordinates. 
+
 In the current version, it is the user's responsibility to select the polynomial order appropriately.  One way to do this would be to plot the points for an individual fiber tract and then plot the fitted results over that. Sample code for doing this is included below. However, future development will included automated selection of the most appropriate polynomial order.
 
 ## 2. Syntax
