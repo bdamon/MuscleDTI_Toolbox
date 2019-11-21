@@ -13,17 +13,17 @@ This help file contains information about
 ## 1. Usage
 The function fiber_selector is used to sample from a set of quantified fiber tracts geerated using the MuscleDTI_Toolbox in a way that uniformly and optimally characterizes the muscle's architectural properties. A two stage selection process is used:
 
-a. First, the quality algorithm described in Heemskerk et al, 2008 is implemented, but updated to account for the inclusion of curvature in the architectural computations. Specifically, the fibers are selected for having:
+  a. First, the quality algorithm described in Heemskerk et al, 2008 is implemented, but updated to account for the inclusion of curvature in the architectural computations. Specifically, the fiber tracts are selected for having:
 
-  * monotonically increasing values in the Z direction. This prevents errors due to overfitting in the Z direction; 
+    * Monotonically increasing values in the Z direction. This prevents errors due to overfitting in the Z direction; 
    
-  * minimum length (in mm, specified by the user based on their knowledge of the expected muscle geometry);
+    * A reasonable minimum length (in mm, specified by the user based on their knowledge of the expected muscle geometry);
    
-  * reasonable pennation angles (in degrees, specified by user; a value of 0 (zero) is suggested;
+    * A reasonable range of pennation angles (in degrees, specified by user based on their knowledge of the expected muscle geometry);
    
-  * reasonable curvature values (in m^-1, specified by user based on their knowledge of the expected muscle geometry); and
+    * A reasonable maximum curvature value (in m^-1, specified by user based on their knowledge of the expected muscle geometry); and
    
-  * within the 95% confidence interval for length, pennation angle, and curvature set by the surrounding 24 tracts.
+    * Values that lie within the 95% confidence interval for length, pennation angle, and curvature set by the surrounding 24 tracts.
 
 ## 2. Syntax
  [final_fibers, final_curvature, final_angle, final_distance, qual_mask, num_tracked, mean_fiber_properties, mean_apo_properties] = ...
