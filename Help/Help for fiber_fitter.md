@@ -19,6 +19,7 @@ In the current version, it is the user's responsibility to select the polynomial
 
 ## 2. Syntax
 [angle_list, distance_list, curvature_list, fiber_all_mm, n_points, apo_area] = ...
+
 fiber_quantifier(fiber_all, roi_mesh, fq_options);
 
 ## 3. Input Arugments
