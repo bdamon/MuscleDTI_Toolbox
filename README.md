@@ -36,7 +36,7 @@ alt="MuscleDTI_Toolbox Overview" width="600" height="413" border="10">
 These steps are elucidated further below.
 
 ### A. Pre-processing
-Before performing fiber tractography, several pre-processing steps muscle be performed.  These may include:
+Before performing fiber tractography, several pre-processing steps must be performed.  These may include:
   * File input;
   * Correction of eddy current-induced distortions in the images;
   * Concatenation of multiple image acqusitions into a single dataset;
