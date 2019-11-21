@@ -3,12 +3,12 @@
 ## Introduction
 
 This help file contains information about
-1) [Usage of the program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_fitter.md#1-usage)
-2) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_fitter.md#2-Syntax)
-3) [Input Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_fitter.md#3-Input-Arguments)
-4) [Output Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_fitter.md#4-Output-Arguments)
-5) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_fitter.md#5-Acknowledgements)
-6) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_fitter.md#6-Example-Code)
+1) [Usage of the program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_fitter.md#1-usage)
+2) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_fitter.md#2-Syntax)
+3) [Input Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_fitter.md#3-Input-Arguments)
+4) [Output Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_fitter.md#4-Output-Arguments)
+5) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_fitter.md#5-Acknowledgements)
+6) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_fitter.md#6-Example-Code)
 
 ## 1. Usage
 The function <i>fiber_fitter</i> is used to smooth fiber tracts and increase the spatial resolution of fiber tracts generated using the MuscleDTI_Toolbox. The x, y, and z positions are separately fitted to Nth order polynomials as functions of distance along the tract and are uniformly solved at interpolation distances of interpolation_step. The user selects the polynomial order.  The coefficients are estimated using the MATLAB function <i>polyfit</i> and smoothed tracts are generated using the function <i>polyval</i>. This procedure is modified from Damon et al, Magn Reson Imaging, 2012 in two ways. 
