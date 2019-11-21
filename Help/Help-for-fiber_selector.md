@@ -13,17 +13,17 @@ This help file contains information about
 ## 1. Usage
 The function fiber_selector is used to sample from a set of quantified fiber tracts geerated using the MuscleDTI_Toolbox in a way that uniformly and optimally characterizes the muscle's architectural properties.Two stages of selection are possible. The first, required, step is to implement an updated version of the quality algorithm described in Heemskerk et al, Magn Reson Med, 2008. Specifically, the fiber tracts are selected for having:
 
-   a. Monotonically increasing values in the Z direction. This prevents errors due to overfitting in the Z direction; 
+   * Monotonically increasing values in the Z direction. This prevents errors due to overfitting in the Z direction; 
    
-   b. A minimum length (in mm);
+   * A minimum length (in mm);
    
-   c. A range of acceptable pennation angles (in degrees);
+   * A range of acceptable pennation angles (in degrees);
    
-   d. A maximum curvature value (in m<sup>-1</sup>); and
+   * A maximum curvature value (in m<sup>-1</sup>); and
    
-   e. Values within the 95% confidence intervals for length, pennation angle, and curvature of the surrounding 24 tracts.
+   * Values within the 95% confidence intervals for length, pennation angle, and curvature of the surrounding 24 tracts.
   
-Items b-d require the user to use their knowledge of the expected patterns of muscle geometry to supply values that are reasonable but will not inappropriately bias the results.
+The use of length, pennation, and curvature criteria require the user to use their knowledge of the expected patterns of muscle geometry to supply values that are reasonable but will not inappropriately bias the results. These selection criteria, as well as the number of tracts that were rejected because of these criteria, should be included in the Methods sections of publications.
   
 The second step of the selection process is optional; it is engaged by including a field .sampling_density in the fs_options structure described below. The desirability of the second-stage process is derived from the fact that the roi_mesh is required to have a fixed number of rows and columns throughout; but the aponeurosis itself varies in width.  Thus, the fiber tract density, in 1/mm<sup>2</sup>, varies throughout the mesh. To account for this, the fiber tracts that pass the first stage of the selection process are selected so that they occur at a uniform spatial frequency.  The user sets this frequency in fs_options.sampling_density.
   
