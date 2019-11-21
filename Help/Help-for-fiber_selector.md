@@ -15,7 +15,7 @@ The function fiber_selector is used to sample from a set of quantified fiber tra
 
   1. First, the quality algorithm described in Heemskerk et al, 2008 is implemented; however it has been updated in several ways. Specifically, the fiber tracts are selected for having:
 
-   a. Monotonically increasing values in the Z direction. This prevents errors due to overfitting in the Z direction; 
+     a. Monotonically increasing values in the Z direction. This prevents errors due to overfitting in the Z direction; 
    
    * A reasonable minimum length (in mm, specified by the user based on their knowledge of the expected muscle geometry);
    
