@@ -70,6 +70,6 @@ At any stage, the results can be visualized using the function <i>fiber_visualiz
 ## 6. Other Resources
 Several recent reviews on muscle DTMRI include:
 
-[Skeletal muscle DT-MRI fiber tracking: Rationale, data acquisition and analysis methods, applications, and future directions](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5136336/)
+* [Skeletal muscle DT-MRI fiber tracking: Rationale, data acquisition and analysis methods, applications, and future directions](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5136336/)
 
-[Techniques and applications of skeletal muscle diffusion tensor imaging: A review](https://www.ncbi.nlm.nih.gov/pubmed/26221741)
+* [Techniques and applications of skeletal muscle diffusion tensor imaging: A review](https://www.ncbi.nlm.nih.gov/pubmed/26221741)
