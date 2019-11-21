@@ -23,7 +23,7 @@ The function fiber_selector is used to sample from a set of quantified fiber tra
    
      d. A maximum curvature value (in 1/m); and
    
-     e. Values that lie within the 95% confidence interval for length, pennation angle, and curvature set by the surrounding 24 tracts.
+     e. Values within the 95% confidence intervals for length, pennation angle, and curvature set by the surrounding 24 tracts.
 
 Items b-d require the user to use their knowledge of the expected patterns of muscle geometry to supply values that are reasonable but will not imappropriately bias the results.
   
