@@ -33,9 +33,7 @@ fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mask, fiber_
 
    * <i>plot_fibers</i>:  If set to 1, this field will allow plotting of a single set of fiber tracts. If set to 2, this will allow plotting of two sets of fiber tracts. Otherwise, set to 0.
 
- Depending on the plot options selected, the following other fields may be required:
-
- If plot_mesh equals 1, you must also specify:
+Depending on the plot options selected, additional fields may be required in <i>plot_options</i>. If <i>plot_mesh</i> equals 1, you must also specify:
    * <i>mesh_size</i>: This specifies the in-plane matrix size of the images used to generate the mesh.
 
    * <i>mesh_dims</i>: This specifies the FOV and slice thickness of the images used to create the mesh.
@@ -44,7 +42,7 @@ fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mask, fiber_
 
    * <i>mesh_dist</i>: If you shifted the mesh for fiber tracking and want to show add this field and set to the value used during fiber tracking.
 
- If plot_mask equals 1, you must also specify:
+If <i>plot_mask</i> equals 1, you must also specify:
    * <i>mask_size</i>: This specifies the in-plane matrix size of the images used to generate the mask.
 
    * <i>mask_dims</i>: This two-element vector specifies the FOV and slice thickness of the images used to create the mask.
@@ -53,7 +51,7 @@ fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mask, fiber_
       -If mesh_color is a 3 element vector of values ranging from 0-1, the vector is interpreted as RGB levels.
       -If mesh_color is a matrix with size of (#mesh rows) x (#mesh columns) x 3, and if these values range from 0-1, the matrix will be interpreted as RGB levels specific to each tract. This could be used to represent the distribution of architectural parameters across the aponeurosis
 
- If plot_fibers equals 1 or 2, you must also specify:
+If <i>plot_fibers</i> equals 1 or 2, you must also specify:
    * <i>dti_size</i>: A2-element vector that specifies the matrix size of the images used for fiber tracking.
 
    * <i>dti_dim</i>s: This two-element vector specifies the FOV and slice thickness of the DT images. The FOV is assumed to be square.
