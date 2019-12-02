@@ -48,8 +48,8 @@ If <i>plot_mask</i> equals 1, you must also specify:
    * <i>mask_dims</i>: This two-element vector specifies the FOV and slice thickness of the images used to create the mask.
 
    * <i>mask_color</i>: If the mask is to be plotted, create color scale using either of the following two options:
-      -If mesh_color is a 3 element vector of values ranging from 0-1, the vector is interpreted as RGB levels.
-      -If mesh_color is a matrix with size of (#mesh rows) x (#mesh columns) x 3, and if these values range from 0-1, the matrix will be interpreted as RGB levels specific to each tract. This could be used to represent the distribution of architectural parameters across the aponeurosis
+      * If mesh_color is a 3 element vector of values ranging from 0-1, the vector is interpreted as RGB levels.
+      * If mesh_color is a matrix with size of (#mesh rows) x (#mesh columns) x 3, and if these values range from 0-1, the matrix will be interpreted as RGB levels specific to each tract. This could be used to represent the distribution of architectural parameters across the aponeurosis
 
 If <i>plot_fibers</i> equals 1 or 2, you must also specify:
    * <i>dti_size</i>: A2-element vector that specifies the matrix size of the images used for fiber tracking.
