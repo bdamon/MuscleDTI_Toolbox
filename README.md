@@ -69,9 +69,9 @@ At any stage, the results can be visualized using the function <i>fiber_visualiz
 
 ## 6. Other Resources
 ### A. Within the toolbox:
-* [Here's a link to the MATLAB functions](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Matlab-Functions)
+* [Here's a link to all of the MATLAB functions](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Matlab-Functions)
 * [Here's a link to all of the help files](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Help)
-* [Here's a link to templates with feature requests and bug reports](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Issues)
+* [Here's a link to templates for submitting feature requests and bug reports](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Issues)
 
 ### B. External to the toolbox:
 Several recent reviews on muscle DTMRI include:
