@@ -5,10 +5,10 @@ function d_tensor = retrieve_tensor(tensor_m, img_indx, weight_matrix)
 %
 %USAGE
 %    The function retrieve_tensor is used to retrive the diffusion tensor
-%  from a Row x Column x Slice x 3 x 3 matrix of diffusion tensors.  It is 
-%  called by the fiber_track function in the MuscleDTI_Toolbox.
+%  from a 5-D (#Rows x #Columns x #Slices x 3 x 3) matrix of diffusion tensors.   
+%  It is called by the fiber_track function in the MuscleDTI_Toolbox.
 %    Future development of retrieve_tensor will include the ability to
-%  describe the matrix as a continuous field of tensor, allowing improved
+%  describe the matrix as a continuous field of tensors, allowing improved
 %  interpolation.
 %
 %INPUT ARGUMENTS
