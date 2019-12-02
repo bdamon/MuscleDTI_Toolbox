@@ -80,7 +80,8 @@ fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mask, fiber_
  <i>fiber_figure</i>: A Matlab figure structure
 
 ## 5. Acknowledgements
- * People: Zhaohua Ding, Hannah Kilpatrick
- * Grant support: NIH/NIAMS R01 AR073831
+People: Zhaohua Ding, Hannah Kilpatrick
+
+Grant support: NIH/NIAMS R01 AR073831
 
 ## 6. Example Code
