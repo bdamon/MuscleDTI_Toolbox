@@ -18,7 +18,7 @@ This work was supported by NIH grants NIH/NIAMS R01 AR050101 and NIH/NIAMS R01 A
 This work is covered under a [GNU General Public License](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/LICENSE.md), v. 3 or later.
 
 ## 3. MATLAB Requirements
-The functions have been tested using MATLAB v. 2019b.  The toolbox consists primarily of custom-written functions, but also calls functions contained within MATLAB's Image Processing Toolbox.
+The functions have been tested using MATLAB v. 2019b.  The toolbox consists primarily of custom-written functions, but also calls some built-in MATLAB functions.
 
 ## 4. Data Acquisition Conventions Assumed 
   * The slices were acquired in the axial anatomical plane;
@@ -68,8 +68,13 @@ Finally, the quantitative results are examined and obviously wrong results are e
 At any stage, the results can be visualized using the function <i>fiber_visualizer</i>. The user can select the mask, seed surface, and/or fiber tracts for display.  The user can also select which image slices to display for anatomical reference.
 
 ## 6. Other Resources
-Several recent reviews on muscle DTMRI include:
+### A. Within the toolbox:
+* [Here's a link to the MATLAB functions](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Matlab-Functions)
+* [Here's a link to all of the help files](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Help)
+* [Here's a link to templates with feature requests and bug reports](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Issues)
 
+### B. External to the toolbox:
+Several recent reviews on muscle DTMRI include:
 * [Skeletal muscle DT-MRI fiber tracking: Rationale, data acquisition and analysis methods, applications, and future directions](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5136336/)
 
 * [Techniques and applications of skeletal muscle diffusion tensor imaging: A review](https://www.ncbi.nlm.nih.gov/pubmed/26221741)
