@@ -65,7 +65,7 @@ After the fiber tracts have been polynomial-fitted, their structural properties 
 Finally, the quantitative results are examined and obviously wrong results are eliminated from the dataset. The function [<i>fiber_selector</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Matlab-Functions/fiber_selector.m) eliminates tracts that ascend and descend (an error due to overfitting); that have architectural properties that exceed certain limits; and/or that vary greatly from their neighbors. A final dataset is calulated, including the mean properties for each tract and for the entire muscle. Follow this link for detailed help on this function.
 
 ### H. Visualize the results using the function <i>fiber_visualizer</i>
-At any stage, the results can be visualized using the function <i>fiber_visualizer</i>. The user can select the mask, seed surface, and/or fiber tracts for display.  The user can also select which image slices to display for anatomical reference. Follow this link for detailed help on this function.
+At any stage, the results can be visualized using the function [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Matlab-Functions/fiber_visualizer.m). The user can select the mask, seed surface, and/or fiber tracts for display.  The user can also select which image slices to display for anatomical reference. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md) for detailed help on this function.
 
 ## 6. Other Resources
 ### A. Within the toolbox:
