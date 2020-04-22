@@ -59,11 +59,14 @@ Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
 ### Example 1:
 
 Given an image with variable name anat_image and having matrix size 192 x 192 x 44, field of view 192 x 192 mm, and slice thickness = 7 mm, the code below will allow the user to:
-  1) Define the muscle mask in slices 4-41
+  1) Define the muscle mask in slices 4-41 and
+  2) Return a mask of size 192 x 192 x 44.
 
-% define the slices of interest and call the function
+% define input options
 
 slices = [4 41];
+
+% call the function:
 
 [mask, ~] = define_muscle(anat_image, slices, [], []);
 
@@ -72,8 +75,9 @@ slices = [4 41];
 ### Example 2:
 
 Given an image with variable name anat_image and having matrix size 192 x 192 x 44, field of view 192 x 192 mm, and slice thickness = 7 mm, the code below will allow the user to 
-  1) Define the muscle mask in slices 4-41; and
-  2) Return a second mask of size 128 x 128 x 44
+  1) Define the muscle mask in slices 4-41; 
+  2) Return a mask of size 192 x 192 x 44; and
+  3) Return a second mask of size 128 x 128 x 44
 
 % define the size of the alternative mask:
 
@@ -92,7 +96,7 @@ Given an image with variable name anat_image and having matrix size 192 x 192 x 
   1) Define the muscle mask in slices 4-41;
   2) Return a mask of size 192 x 192 x 44; 
   3) Return a second mask of size 128 x 128 x 44; and
-  3) Automatically visualize the result using fiber_visualizer, using slices 14, 24, 34, and 44 for anatomical reference
+  4) Automatically visualize the result using fiber_visualizer, using slices 14, 24, 34, and 44 for anatomical reference
 
 % Set options for plotting:
 
@@ -104,7 +108,7 @@ plot_options.plot_mask=1;                    %do plot the mask
 
 plot_options.anat_dims=[192 7];              %FOV and slice thickness of the images to be displayed, in mm
 
-plot_options.anat_slices=14:10:44;           %display slices 15, 25, 35, and 45 for anatomical reference in fiber_visualizer
+plot_options.anat_slices=14:10:44;           %display slices 14, 24, 34, and 44 for anatomical reference in fiber_visualizer
 
 plot_options.mask_size=[192 192];            %in-plane matrix size of the images used to generate the mask
 
