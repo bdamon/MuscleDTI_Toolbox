@@ -12,7 +12,7 @@ This help file contains information about
 
 ## 1. Overview and Usage
 
-The function <i>define_muscle</i> is used to define the boundary of a muscle and return its binary image mask. An image mask is a matrix of zeros and ones having the same matrix size as the original image. The ones indicate the location of the muscle in the image stack.This mask is needed by the functions [<i>define_roi</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20define_roi.md) and [<i>fiber_track</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_track.md). 
+The function <i>define_muscle</i> is used to define the boundary of a muscle and return its binary image mask. An image mask is a matrix of zeros and ones having the same matrix size as the original image. The ones indicate the location of the muscle in the image stack.This mask is needed by the functions [<i>define_roi</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md) and [<i>fiber_track</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md). 
 
 Upon calling <i>define_muscle</i>, three images are displayed: the current slice in the main (center) window; the preceding slice (left window); and the next slice (right window). For the main figure window, an interactive tool is opened that allows the user to adjust the image's contrast and brightness levels. Also, the zoom tool is enabled; the user clicks and drags the left mouse button to zoom in on the muscle of interest. To close the zoom tool, the user selects Enter on their keyboard. 
 
@@ -22,7 +22,7 @@ By default, the program returns a mask of the same dimensions as the image used 
    
 A MATLAB data file named mask_file.mat, containing the mask and (if present) the alternatively sized mask, is automatically saved in the working directory. The user is advised to rename this file to replace the generic name with something more informative.
 
-The mask may be viewed using [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_visualizer.md).
+The mask may be viewed using [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md).
 
 ## 2. Syntax
 
