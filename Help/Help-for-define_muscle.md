@@ -22,7 +22,7 @@ By default, the program returns a mask of the same dimensions as the image used 
    
 A MATLAB data file named mask_file.mat, containing the mask and (if present) the alternatively sized mask, is automatically saved in the working directory. The user is advised to rename this file to replace the generic name with something more informative.
 
-The mask may be viewed using (https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_visualizer.md)<i>fiber_visualizer</i>.
+The mask may be viewed using [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help%20for%20fiber_visualizer.md).
 
 ## 2. Syntax
 
