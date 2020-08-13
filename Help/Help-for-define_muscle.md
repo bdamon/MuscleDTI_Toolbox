@@ -3,7 +3,7 @@
 ## Introduction
 
 This help file contains information about
-1) [Overview and Usage of the program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md#1-Overview-and-Usage)
+1) [Overview and Usage of the Program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md#1-Overview-and-Usage)
 2) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md#2-Syntax)
 3) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md#3-Example-Code)
 4) [Help](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md#4-Help)
@@ -47,7 +47,7 @@ The output arguments are:
 * <i>alt_mask</i>: If <i>alt_mask_size</i> was specified as in input argument, a second binary image mask is returned.
  
 
-## 3. Example syntax
+## 3. Example Code
 
 ### Example 1:
 
@@ -127,3 +127,6 @@ slices = [4 41];
 help define_muscle
 
 on the command line. An [instructional video](https://youtu.be/TWTZvgVWoB4) detailing the use of this function is available.
+
+## 5. Acknowledgements
+
