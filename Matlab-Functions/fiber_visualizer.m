@@ -79,9 +79,6 @@ function fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mas
 %      fiber tracts when plotting. This may improve visualization and will
 %      decrease time for rendering. If not specified, all fibers will be
 %      plotted.
-%    -contrast_multiplier (optional): Used to adjust the brightness of the
-%      images being displayed. Set to 1 for default brightness, <1 to darken
-%      the images, or >1 to brighten them.
 %
 %  roi_mesh: The roi mesh, defined in define_roi. It is only needed if
 %    plot_options.plot_mesh is set to 1.
@@ -162,12 +159,6 @@ if plot_options.plot_fibers>0
     end
 end
 
-if isfield(plot_options, 'contrast_multiplier')
-    contrast_multiplier=plot_options.contrast_multiplier;
-else
-    contrast_multiplier=1;
-end
-
 %% as needed, prepare for plotting
 
 if plot_options.plot_mask==1
@@ -218,13 +209,12 @@ end
 
 fiber_figure = figure('Name', 'Plot of Images and Selected Fiber-Tracking Options');
 
-%scale the images to max=1
-anat_image_norm = contrast_multiplier*255*anat_image/max(max(max(anat_image)));
-
 % plot the images
 hold on;
 for s=1:length(anat_slices)
-    surf(ones(anat_size(1), anat_size(2))*anat_slicethick*anat_slices(s), anat_image_norm(:,:,anat_slices(s)))
+    loop_image = anat_image(:,:,anat_slices(s));
+    loop_image = 240*loop_image/max(max(loop_image));
+    surf(ones(anat_size(1), anat_size(2))*anat_slicethick*anat_slices(s), loop_image)
     colormap('gray')
     shading('Interp')
 end
