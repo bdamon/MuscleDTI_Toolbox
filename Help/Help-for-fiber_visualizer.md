@@ -4,7 +4,7 @@
 
 This help file contains information about
 1) [Purpose of the Program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#1-Purpose)
-2) [Usage of the program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#2-Usage)
+2) [Usage of the Program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#2-Usage)
 3) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#3-Syntax)
 5) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#4-Example-Code)
 5) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#5-Acknowledgements)
@@ -79,79 +79,134 @@ The output arguments are:
 ## 4. Example Code
 
 ### Example 1
+
 Given:
+
 1.	An anatomical image with variable name anat_image and having matrix size 19219244, field of view 192192 mm, and slice thickness 7 mm;
+
 2.	The muscle mask stored in a variable called mask;  
+
 the following code will allow the user to 
+
 1.	Visualize the mask; and
+
 2.	Return a MATLAB figure structure called mask_figure.
 
 % Set visualization options
+
 plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
+
 plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
+
 plot_options.plot_mesh = 0; %don’t plot an aponeurosis mesh
+
 plot_options.plot_mask = 1; %do plot the mask
+
 plot_options.plot_fibers = 0; %don’t plot any fiber tracts
+
 plot_options.mask_size = [192 192]; %rows x columns of the images used to generate the mask
+
 plot_options.mask_dims = [192 7]; %FOV and ST of the images used to create the mask, in mm
+
 plot_options.mask_color = [1 0 0]; %make the mask a red, semi-transparent overlay
 
 % Call the function:
+
 mask_figure = fiber_visualizer(anat_image, plot_options, [], mask, []);
  
 ### Example 2
 Given:
+
 1.	An anatomical image with variable name anat_image and having matrix size 19219244, field of view 192192 mm, and slice thickness 7 mm;
+
 2.	The aponeurosis mesh stored in a variable called roi_mesh;  
+
 the following code will allow the user to:
+
 1.	Visualize the mesh; and
+
 2.	Return a MATLAB figure structure called mesh_figure.
 
 % Set visualization options
 plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
+
 plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
+
 plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
+
 plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
+
 plot_options.plot_mesh = 1; %do plot an aponeurosis mesh
+
 plot_options.plot_mask = 0; %don’t plot the mask
+
 plot_options.plot_fibers = 0; %don’t plot any fiber tracts
+
 plot_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
+
 plot_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh, in mm
+
 plot_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
+
 plot_options.plot_fibers = 0; %don’t plot any fiber tracts
+
 plot_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
+
 plot_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh, in mm
+
 plot_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
 
 % Call the function:
+
 mesh_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, [], []);
 
  
 ###	Example 3
+
 Given:
+
 1.	An anatomical image with variable name anat_image and having matrix size 19219244, field of view 192192 mm, and slice thickness 7 mm;
+
 2.	The aponeurosis mesh stored in a variable called roi_mesh; and 
+
 3.	The fiber tracts stored in a variable called fiber_all.
+
 the following code will allow the user to:
+
 1.	Visualize the mesh; 
+
 2.	Visualize the fibers; and
+
 3.	Return a MATLAB figure structure called fiber_mesh_figure.
 
+
 % Set visualization options
+
 plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
+
 plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
+
 plot_options.plot_mesh = 1; %don’t plot an aponeurosis mesh
+
 plot_options.plot_mask = 0; %do plot the mask
+
 plot_options.plot_fibers = 1; %don’t plot any fiber tracts
+
 plot_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
+
 plot_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh
+
 plot_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
+
 plot_options.fiber_color = [.8 .2 .2];
+
 plot_options.dti_size = [192 192];
+
 plot_options.dti_dims = [192 7];
 
 % Call the function:
-mesh_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, [], fiber_all);
+
+fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, [], fiber_all);
 
 ## 5. Acknowledgements
 People: Zhaohua Ding, Hannah Kilpatrick
