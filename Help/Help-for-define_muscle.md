@@ -12,7 +12,7 @@ This help file contains information about
 
 ## 1. Purpose
 
-The function <i>define_muscle</i> is used to define the boundary of a muscle and return its binary image mask. This mask is needed by the functions <i>define_roi</i> and fiber_track</i> and may be visualized using fiber_visualizer</i>. 
+The function <i>define_muscle</i> is used to define the boundary of a muscle and return its binary image mask. This mask is needed by the functions <i>define_roi</i> and fiber_track</i> and may be visualized using <i>fiber_visualizer</i>. 
 
 ## 2. Usage
 The user provides the anatomical images to be segmented and defines the slice numbers of interest.  After calling the function, a single figure window is opened. The initial slice of interest is displayed in the middle pane; the preceding slice (if present) is displayed in the upper left-hand pane; and the next slice (if present) is displayed in the lower left-hand pane. For the center pane, the zoom tool is enabled; the user clicks and drags the left mouse button to zoom to the muscle of interest. To close the zoom tool, the user selects Enter on their keyboard. All images are then zoomed to this level.
