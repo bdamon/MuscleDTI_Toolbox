@@ -3,23 +3,23 @@
 ## Introduction
 
 This help file contains information about
-1) [Usage of the program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#1-usage)
-2) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#2-Syntax)
-3) [Input Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#3-Input-Arguments)
-4) [Output Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#4-Output-Arguments)
+1) [Purpose of the Program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#1-Purpose)
+2) [Usage of the program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#2-Usage)
+3) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#3-Syntax)
+5) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#4-Example-Code)
 5) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#5-Acknowledgements)
-6) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#6-Example-Code)
 
+## 1. Purpose
+<i>fiber_ visualizer</i> is used to visualize anatomical images and other structures, including the muscle mask, aponeurosis mesh, and/or the fiber tracts.
 
-## 1. Usage
-The function fiber_visualizer is used to visualize images and the muscle mask, roi mesh, and/or fiber tracts formed using the MuscleDTI_Toolbox. Input the images and a structure containing the plotting options. Depending on the data you wish to view, the roi mesh, mask, and/or fiber tracts must also be input and additional plotting options will be required.
+## 2. Usage
+The user can call <i>fiber_ visualizer</i> from the command line using the [syntax below](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#3-Syntax). In addition, <i>define_muscle</i>, <i>define_roi</i>, and <i>fiber_track</i> can be configured to call <i>fiber_visualizer</i> from within the functions, so that the mask, mesh, and fiber tracts can be automatically plotted.  The user must supply the anatomical images, a structure with some plotting options, and the other variables to be plotted as input arguments. Fields of view, matrix sizes, slice thickness, etc. are appropriately considered so that all structures are plotted using a consistent measurement scale.
 
-
-## 2. Syntax 
+## 3. Syntax 
 fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mask, fiber_all)
 
-## 3. Input Arguments
-<i>anat_image</i>: The stack of images to be plotted for anatomical reference
+The input arguments are:
+<i>anat_image</i>: An anatomical image having matrix size = Number of Image Rows (N<sub>R,I</sub>)xNumber of Image Columns (N<sub>C,I</sub>)xNumber of Image Slices (N<sub>S,I</sub>)
 
 <i>plot_options</i>: A structure containing the following required fields:
 
