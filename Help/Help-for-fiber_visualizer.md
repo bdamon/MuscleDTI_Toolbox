@@ -69,8 +69,6 @@ If <i>plot_fibers</i> equals 1 or 2, you must also specify:
 
    * <i>fiber_skip</i>: Setting fiber_skip to integer values > 1 will skip over fiber tracts when plotting. This may improve visualization and will decrease time for rendering. If not specified, all fibers will be plotted.
 
-   * <i>contrast_multiplier (optional)</i>: Used to adjust the brightness of the images being displayed. Set to 1 for default brightness, <1 to darken the images, or >1 to brighten them.
-
  <i>roi_mesh</i>: The output of <i>define_roi</i>. It is only needed if plot_options.plot_mesh is set to 1.
 
  <i>mask</i>: A binary mask around the muscle of interest. It could be the output of <i>define_muscle</i> or it could have been defined in another program. It is only needed if plot_options.plot_mask is set to 1.
