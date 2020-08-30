@@ -5,7 +5,7 @@
 This help file contains information about
 1) [Purpose of the program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md#1-purpose)
 2) [Usage of the program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md#2-usage)
-3) [Automated Segmentation Algorithm](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md#2-Automated-Segmentation-Algorithm)
+3) [Automated Segmentation Algorithm](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md#3-Automated-Segmentation-Algorithm)
 4) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md#4-Syntax)
 5) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md#5-Example-Code)
 6) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md#6-Acknowledgements)
@@ -59,7 +59,7 @@ The output argument is:
    
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md)
 
-## 6. Example Code
+## 5. Example Code
 
 ### Example 1
 Given 
