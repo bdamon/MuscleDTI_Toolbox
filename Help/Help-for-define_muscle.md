@@ -14,6 +14,8 @@ This help file contains information about
 
 The function <i>define_muscle</i> is used to define the boundary of a muscle and return its binary image mask. This mask is needed by the functions <i>define_roi</i> and fiber_track</i> and may be visualized using <i>fiber_visualizer</i>. 
 
+[Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md)
+
 ## 2. Usage
 The user provides the anatomical images to be segmented and defines the slice numbers of interest.  After calling the function, a single figure window is opened. The initial slice of interest is displayed in the middle pane; the preceding slice (if present) is displayed in the upper left-hand pane; and the next slice (if present) is displayed in the lower left-hand pane. For the center pane, the zoom tool is enabled; the user clicks and drags the left mouse button to zoom to the muscle of interest. To close the zoom tool, the user selects Enter on their keyboard. All images are then zoomed to this level.
 
@@ -24,6 +26,8 @@ Then the program advances to the next slice. In this slice and all subsequent sl
 By default, the mask has the same dimensions as the input image. If the DTI images and structural images have different dimensions from each other, an alternatively sized mask may also be calculated.  A MATLAB data file named mask_file.mat, containing the mask and the alternatively sized mask (if present), is automatically saved in the working directory. The user is advised to rename this file promptly.
 
 The mask may be viewed using [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md), either as part of the function call to <i>define_muscle</i> or directly from the command line.
+
+[Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md)
 
 ## 3. Syntax
 
@@ -46,6 +50,8 @@ The output arguments are:
 * <i>mask</i>: the binary image mask, with dimensions matching that of the original image; and
 
 * <i>alt_mask</i>: If <i>alt_mask_size</i> was specified as in input argument, a second binary image mask is returned.
+
+[Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md)
  
 
 ## 4. Example Code
@@ -69,7 +75,6 @@ slices = [4 41];
 % call the function:
 
 [mask, ~] = define_muscle(anat_image, slices, [], []);
-
  
 ### Example 2
 Given 
@@ -94,7 +99,6 @@ alt_mask_size = [128 128 44];
 
 [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, []);
 
- 
 ### Example 3
 
 Given 
@@ -139,6 +143,10 @@ plot_options.mask_color = [1 0 0]; %make the mask a red, semi-transparent overla
 
  [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plot_options); 
 
+[Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md)
+
 ## 5. Acknowledgements
 
 Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
+
+[Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md)
