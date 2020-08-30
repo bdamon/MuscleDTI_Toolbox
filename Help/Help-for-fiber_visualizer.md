@@ -12,8 +12,12 @@ This help file contains information about
 ## 1. Purpose
 <i>fiber_ visualizer</i> is used to visualize anatomical images and other structures, including the muscle mask, aponeurosis mesh, and/or the fiber tracts.
 
+[Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md)
+
 ## 2. Usage
 The user can call <i>fiber_ visualizer</i> from the command line using the [syntax below](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#3-Syntax). In addition, <i>define_muscle</i>, <i>define_roi</i>, and <i>fiber_track</i> can be configured to call <i>fiber_visualizer</i> from within the functions, so that the mask, mesh, and fiber tracts can be automatically plotted.  The user must supply the anatomical images, a structure with some plotting options, and the other variables to be plotted as input arguments. Fields of view, matrix sizes, slice thickness, etc. are appropriately considered so that all structures are plotted using a consistent measurement scale.
+
+[Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md)
 
 ## 3. Syntax 
 fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mask, fiber_all)
@@ -75,6 +79,8 @@ If <i>plot_fibers</i> equals 1 or 2, you must also specify:
 
 The output arguments are:
  <i>fiber_figure</i>: A Matlab figure structure
+
+[Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md)
 
 ## 4. Example Code
 
@@ -210,8 +216,12 @@ plot_options.dti_dims = [192 7];
 
 fiber_mesh_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, [], fiber_all);
 
+[Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md)
+
 ## 5. Acknowledgements
 People: Zhaohua Ding, Hannah Kilpatrick
 
 Grant support: NIH/NIAMS R01 AR073831
+
+[Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md)
 
