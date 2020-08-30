@@ -4,30 +4,25 @@ function fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mas
 %  fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mask, fiber_all)
 %
 %USAGE
-%    The function fiber_visualizer is used to visualize images and the muscle
+%  The function fiber_visualizer is used to visualize images and the muscle
 %  mask, roi mesh, and/or fiber tracts formed using the MuscleDTI_Toolbox.
-%  Input the images and a structure containing the plotting options. Depending
-%  on the data you wish to view, the roi mesh, mask, and/or fiber tracts must
-%  also be input and additional plotting options will be required.
+%  The user inputs the images and a structure containing the plotting options. 
+%  Depending on the data to be viewed, the roi mesh, mask, and/or fiber tracts 
+%  are also input and additional plotting options are required.
 %
 %INPUT ARGUMENTS
 %  anat_image: The stack of images to be plotted for anatomical reference
 %
 %  plot_options: A structure containing the following required fields:
-%
-%    anat_dims: A two element vector containing the FOV and the slice
+%   -anat_dims: A two element vector containing the FOV and the slice
 %      thickness of the anatomical images.
-%
-%    anat_slices: A vector containing the slice numbers of the anatomical
+%   -anat_slices: A vector containing the slice numbers of the anatomical
 %      images to be plotted.
-%
-%    plot_mesh: If set to 1, this field will allow plotting of the roi
+%   -plot_mesh: If set to 1, this field will allow plotting of the roi
 %       mesh. Otherwise, set to 0.
-%
-%    plot_mask: If set to 1, this field will allow plotting of the mask.
+%   -plot_mask: If set to 1, this field will allow plotting of the mask.
 %        Otherwise, set to 0.
-%
-%    plot_fibers:  If set to 1, this field will allow plotting of a single
+%   -plot_fibers:  If set to 1, this field will allow plotting of a single
 %      set of fiber tracts. If set to 2, this will allow plotting of two
 %      sets of fiber tracts. Otherwise, set to 0.
 %
@@ -35,63 +30,56 @@ function fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mas
 %  be required:
 %
 %  If plot_mesh equals 1, you must also specify:
-%    mesh_size: This specifies the in-plane matrix size of the images used to
-%      generate the mesh.
-%
-%    mesh_dims: This specifies the FOV and slice thickness of the images used
-%      to create the mesh.
-%
-%    mesh_color: This is a three element vector containing the RGB levels to
-%      be used when plotting the mesh
-%
-%    mesh_dist: If you shifted the mesh for fiber tracking and want to show
-%      add this field and set to the value used during fiber tracking.
-%
-%  If plot_mask equals 1, you must also specify:
-%    mask_size: This specifies the in-plane matrix size of the images used to
-%      generate the mask.
-%
-%    mask_dims: This two-element vector specifies the FOV and slice thickness
-%      of the images used to create the mask.
-%
-%    mask_color: If the mask is to be plotted, create color scale using
-%      either of the following two options:
-%       -If mesh_color is a 3 element vector of values ranging from 0-1, 
-%        the vector is interpreted as RGB levels.
-%       -If mesh_color is a matrix with size of (#mesh rows) x (#mesh columns) x 3, 
+%   -mesh_size: This two-element vector specifies the in-plane matrix size 
+%      of the images used to generate the mesh.
+%   -mesh_dims: This two-element vector specifies the FOV and slice thickness 
+%      of the images used to create the mesh.
+%   -mesh_color: The user creates a color scale using either of the following 
+%      two options:
+%      *If mesh_color is a 3 element vector of values ranging from 0-1, 
+%        the vector is interpreted as RGB levels; the entire mesh is plotted
+%        using this color.
+%      *If mesh_color is a matrix with size of (#mesh rows) x (#mesh columns) x 3, 
 %        and if these values range from 0-1, the matrix will be interpreted  
 %        as RGB levels specific to each tract. This could be used to
 %        represent the distribution of architectural parameters across the
 %        aponeurosis
+%   -mesh_dist: If the mesh was shifted for fiber tracking, the user should
+%      set this to the value used during fiber tracking.
+%
+%  If plot_mask equals 1, you must also specify:
+%   -mask_size: This two-element vector specifies the in-plane matrix size 
+%      of the images used to generate the mask.
+%   -mask_dims: This two-element vector specifies the FOV and slice thickness
+%      of the images used to create the mask.
+%   -mask_color: This three-element vector contains the RGB levels to be used 
+%      when plotting the mask 
 %
 %  If plot_fibers equals 1 or 2, you must also specify:
-%    dti_size: A2-element vector that specifies the matrix size of the images
-%      used for fiber tracking.
-%
-%    dti_dims: This two-element vector specifies the FOV and slice thickness
-%      of the DT images. The FOV is assumed to be square.
-%
-%    fiber_color: Defines the color of the tracts. Several options are available:
-%       -If plot_fibers==1 and fiber_color is a 3 element vector of values
-%        ranging from 0-1, the vector is interpreted as RGB levels.
-%       -If plot_fibers==2 and fiber_color is a 2x3 matrix of values
-%        ranging from 0-1, each row of the matrix is interpreted as RGB
-%        levels for the respective sets of tracts.
-%       -If plot_fibers==1 and fiber_color is a matrix with size of
-%        (#mesh rows) x (#mesh columns) x 3, and if these values range from
-%        0-1, the third dimension of the matrix will be interpreted as RGB
-%        levels specific to each tract
-%       -If plot_fibers==2 and fiber_color is a matrix with size of
-%        (#mesh rows) x (#mesh columns) x 3 x 2, and if these values range from
-%        0-1, the third dimension of the matrix will be interpreted as RGB
-%        levels specific to each tract, separately for sets 1 and 2
-%
-%    fiber_skip: Setting fiber_skip to integer values > 1 will skip over
+%    -dti_size: A2-element vector that specifies the matrix size of the images
+%       used for fiber tracking.
+%    -dti_dims: This two-element vector specifies the FOV and slice thickness
+%       of the DT images. The FOV is assumed to be square.
+%    -fiber_color: This defines the color of the tracts. Several options are
+%       available:
+%        *If plot_fibers equals 1 and fiber_color is a 3 element vector of values
+%          ranging from 0-1, the vector is interpreted as RGB levels.
+%        *If plot_fibers equals 2 and fiber_color is a 2x3 matrix of values
+%          ranging from 0-1, each row of the matrix is interpreted as RGB
+%          levels for the respective sets of tracts.
+%        *If plot_fibers equals 1 and fiber_color is a matrix with size of
+%          (#mesh rows) x (#mesh columns) x 3, and if these values range from
+%          0-1, the third dimension of the matrix will be interpreted as RGB
+%          levels specific to each tract
+%        *If plot_fibers equals 2 and fiber_color is a matrix with size of
+%          (#mesh rows) x (#mesh columns) x 3 x 2, and if these values range from
+%          0-1, the third dimension of the matrix will be interpreted as RGB
+%          levels specific to each tract, separately for sets 1 and 2
+%    -fiber_skip: Setting fiber_skip to integer values > 1 will skip over
 %      fiber tracts when plotting. This may improve visualization and will
 %      decrease time for rendering. If not specified, all fibers will be
 %      plotted.
-%
-%    contrast_multiplier (optional): Used to adjust the brightness of the
+%    -contrast_multiplier (optional): Used to adjust the brightness of the
 %      images being displayed. Set to 1 for default brightness, <1 to darken
 %      the images, or >1 to brighten them.
 %
@@ -102,26 +90,26 @@ function fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mas
 %    output of define_muscle or it could have been defined in another
 %    program. It is only needed if plot_options.plot_mask is set to 1.
 %
-%  fiber_all: The output of fiber_track (original fiber tracts) or
-%    fiber_smoother (smoothed fiber tracts). It is only needed if
-%    plot_options.plot_fibers is set to 1. If plot_fibers equals 1, the size
-%    should be (#mesh rows) x (#mesh columns) x (#fiber tract points) x 3.
-%    If plot_fibers equals 1, the size should be (#mesh rows) x (#mesh columns)
-%    x (#fiber tract points) x 3 x 2.
+%  fiber_all: The output of fiber_track (original fiber tracts), fiber_smoother 
+%    (smoothed fiber tracts), or fiber_goodness (quality-selected fiber tracts).
+%    It is only needed if plot_options.plot_fibers is set to 1. If plot_fibers 
+%    equals 1, fiber_all should have size = (#mesh rows) x (#mesh columns) x 
+%    (#fiber tract points) x 3. If plot_fibers equals 1, fiber_all should have  
+%    size =(#mesh rows) x (#mesh columns) x (#fiber tract points) x 3 x 2.
 %
 %OUTPUT ARGUMENTS
 %  fiber_figure: A Matlab figure structure
 %
 %OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
-%  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
-%  For help defining the ROI, see <a href="matlab: help define_roi">define_roi</a>.
-%  For help with the fiber tracking program, see <a href="matlab: help fiber_track">fiber_track</a>.
+%  For help defining the muscle mask, see <a href="matlab: help define_muscle">define_muscle</a>.
+%  For help defining the aponeurosis ROI, see <a href="matlab: help define_roi">define_roi</a>.
+%  For help with fiber tracking, see <a href="matlab: help fiber_track">fiber_track</a>.
 %  For help smoothing fiber tracts, see <a href="matlab: help fiber_smoother">fiber_smoother</a>.
 %  For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
-%  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_selector">fiber_selector</a>.
+%  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
 %
 %VERSION INFORMATION
-%  In beta testing mode
+%  v. 0.1
 %
 %ACKNOWLEDGEMENTS
 %  People: Zhaohua Ding, Hannah Kilpatrick
@@ -275,7 +263,7 @@ if plot_options.plot_fibers==1
                         squeeze(fiber_all(row_cntr,col_cntr, 1:num_points, 1)), ...
                         squeeze(fiber_all(row_cntr,col_cntr, 1:num_points, 3)));
                     
-                    loop_color = abs(fiber_color + randn(size(fiber_color))*0.15);       %add some random contrast
+                    loop_color = abs(fiber_color + randn(size(fiber_color))*0.25);       %add some random contrast
                     loop_color = loop_color/norm(loop_color);
                     set(fiber_plot, 'color', loop_color)
                 end
