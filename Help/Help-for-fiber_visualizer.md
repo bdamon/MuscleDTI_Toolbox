@@ -92,6 +92,7 @@ the following code will allow the user to
 
 2.	Return a MATLAB figure structure called mask_figure.
 
+ 
 % Set visualization options
 
 plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
@@ -127,6 +128,7 @@ the following code will allow the user to:
 
 2.	Return a MATLAB figure structure called mesh_figure.
 
+ 
 % Set visualization options
 plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
 
@@ -179,7 +181,7 @@ the following code will allow the user to:
 
 3.	Return a MATLAB figure structure called fiber_mesh_figure.
 
-
+ 
 % Set visualization options
 
 plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
