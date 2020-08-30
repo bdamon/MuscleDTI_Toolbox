@@ -4,46 +4,62 @@ function roi_mesh=define_roi(anat_image, mask, defroi_options, plot_options)
 %  roi_mesh=define_roi(anat_image, mask, defroi_options, plot_options)
 %
 % USAGE
-%    The function define_roi is used to digitize the aponeurosis of muscle fiber
+%  The function define_roi is used to digitize the aponeurosis of muscle fiber
 %  insertion in the MuscleDTI_Toolbox.  The digitized points are used to
 %  reconstruct a mesh; the mesh is used as the seed surface for fiber tracking.
+%  It is a required input to fiber_track and may be visualized using
+%  fiber_visualizer.
+%  
 %  There are two options for defining the aponeurosis:
+%    -Manual selection: Three figure windows are displayed. The center figure
+%     shows the current slice, the left-hand figure shows the preceding slice,
+%     and the right-hand figure shows the upcoming slice. An interactive tool
+%     is opened that allows the user to adjust the center figure's window and
+%     level settings. In the center figure, the edge locations of the mask 
+%     are indicated. Text prompts in the command window guide the user 
+%     through the following steps.  First, the user may zoom the image to the
+%     area of interest, selecting Enter when finished. Then the user defines
+%     the aponeurosis with a series of left mouse clicks. The selected points
+%     can form a line or close to form a polygon. A right mouse click is used
+%     to complete the definition. At each slice, the user is given the option
+%     of repeating the procedure in case of error. This is the current method
+%     to use for unipennate muscles.
 %
-%    -Manual: The user is prompted initially to select two points, which define
-%     the level of zoom to be used throughout the entire process. Then the user
-%     advances through the slices to select the aponeurosis. The mask is provided
-%     as a guide; the aponeurosis must fall within its boundaries. The selected
-%     points can form a line or close to form a polygon. At each slice, the
-%     user is given the option of repeating the procedure in case of error.
-%     For each figure window, an interactive tool is opened that allows the user
-%     to adjust the image's window and level settings. This is the current
-%     method to use for unipennate muscles.
+%    -Automatic selection: Three figure windows are displayed. The center
+%     figure shows the current slice, the left-hand figure shows the 
+%     preceding slice, and the right-hand figure shows the upcoming slice. An
+%     interactive tool is opened that allows the user to adjust the center 
+%     figure's window and level settings. In the center figure, the edge 
+%     locations of the mask are indicated. For each slice to be analyzed, the
+%     algorithm described in §3.3 is used to present an initial estimate of
+%     the aponeurosis’s location and its boundary pixels. The user can 
+%     correct erroneous assignments in the initial estimate by using the left
+%     mouse button to select voxels for removal from the initial assignment 
+%     and the right mouse button to select voxels to add to the initial 
+%     assignment. The user selects Enter to proceed. In subsequent slices, 
+%     the finalized assignment from the preceding slice and the results of 
+%     an edge detection algorithm are incorporated into the initial 
+%     segmentation estimate and the process is repeated.
 %
-%    -Automatic: The aponeurosis is automatically segmented from within the
-%     region of the image represented by the muscle mask. Two segmentation
-%     methods (edge detection and k-means clustering) are used, and the
-%     segmented region is defined as the consensus of the two results. The
-%     region is displayed and the user is allowed to correct misassignments.
-%     The boundaries of the segmented region are smoothed using a Savitsky-
-%     Golay filter and used to form the mesh.
+%  For both selection processes, after all slices are analyzed, the user is
+%  given the option of repeating erroneous slices.  The mesh is initially 
+%  formed with dimensions of NR,A x NC,A.  To smooth the mesh, it is then 
+%  down-sampled by a factor of four. Finally, the smoothed mesh is 
+%  interpolated at the desired resolution. A file called roi_mesh_file.mat 
+%  is automatically saved in the working directory. The user is advised to 
+%  rename this file promptly. 
 %
-%  The mesh is initially formed with resolution n_row x n_col.  To smooth
-%  the mesh, it is then downsampled by a size factor of four. Finally, the smoothed
-%  mesh is used to create a high resolution mesh at the desired size. A file
-%  called roi_mesh_file.mat is automatically saved in the working directory.
-%    If the input argument plot_options is included, the mesh and mask are
-%  plotted using the function fiber_visualizer.
+%  The mesh may be viewed using fiber_visualizer, either as part of the 
+%  function call to define_roi or directly from the command line.
 %
 % INPUT ARGUMENTS
-%  anat_image: The imaging data.  If input as a structure, then the imaging
-%    data are assumed to exist in a field called anat_image.Data.  If specified
-%    as a matrix, the data are used directly.
+%  anat_image: The imaging data.
 %
-%  mask: The mask, as defined by the function define_mask
+%  mask: The mask, as defined by the function define_mask or another source
 %
 %  defroi_options: A structure containing the following fields:
-%    slices: A two-element vector containing the first and last slices that the
-%      user wishes to digitize.
+%    slices: A two-element vector containing the first and last slices that 
+%      the user wishes to digitize.
 %
 %    dti_size: The size of the DTI image dataset (rows x columns x slices),
 %      input as a three element vector.
@@ -60,16 +76,17 @@ function roi_mesh=define_roi(anat_image, mask, defroi_options, plot_options)
 % OUTPUT ARGUMENTS
 %  roi_mesh: a 3D matrix containing the reconstructed mesh with size rows x
 %    columns x 6. In the 3rd dimension, levels 1-3 hold the row-column-slice
-%    data and levels 4-6 hold the normal vector to the roi surface at the
-%    point {row column slice}.
+%    coordinates that define the mesh and that will become seed points for 
+%    fiber tracking.  Levels 4-6 hold the normal vector to the mesh surface
+%    at each coordinate.
 %
 % OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
 %  For help with the fiber tracking program, see <a href="matlab: help fiber_track">fiber_track</a>.
 %  For help fitting fiber tracts, see <a href="matlab: help fiber_fitter">fiber_fitter</a>.
 %  For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
-%  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_selector">fiber_selector</a>.
-%  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
+%  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
 %
 % VERSION INFORMATION
 %  v. 0.1
@@ -126,7 +143,7 @@ switch select_method
                 axis image
             end
             
-            if slc_cntr<=length(working_image(1,1,:))
+            if slc_cntr<length(working_image(1,1,:))
                 
                 figure(3)
                 next_image = squeeze(working_image(:,:,curr_slice+1,:));
@@ -138,10 +155,16 @@ switch select_method
             
             figure(2)
             curr_image = squeeze(working_image(:,:,curr_slice,:));
+            curr_mask = mask(:,:,curr_slice);
+            edge_pixels = bwboundaries(curr_mask);
+            edge_xy = edge_pixels{1};
+            
             imagesc(squeeze(curr_image)), colormap gray
             title(['Slice #' num2str(curr_slice)])
             axis off
             axis image
+            hold on
+            plot(edge_xy(:,2), edge_xy(:,1), 'b');
             imcontrast
             
             if slc_cntr==frst_slice                                                    %first time, user sets zoom
@@ -197,17 +220,28 @@ switch select_method
                 
             end
             
-            clc, disp('Click left mouse button to continue or right mouse button to repeat this ROI');
-            [~, ~, b]=ginput(1);
-            if b==1
+            %view results, ask to continue or repeat
+            clc
+            temp_x = interp1(roi_curx, 1:(length(roi_curx)-1)/50:length(roi_curx), 'pchip');
+            temp_y = interp1(roi_cury, 1:(length(roi_cury)-1)/50:length(roi_cury), 'pchip');
+            figure(2)
+            hold on
+            plot(temp_y,temp_x, 'm');
+            next_repeat = input('Enter C to continue or R to repeat this ROI: ', 's');
+            if isempty(next_repeat)
+                next_repeat='r';
+                disp('Repeating current slice')
+            end
+            
+            if next_repeat(1)=='c' || next_repeat(1)=='C'
                 roi_surfx(curr_slice, :) = interp1(roi_curx, 1:(length(roi_curx)-1)/50:length(roi_curx), 'pchip');
                 roi_surfy(curr_slice, :) = interp1(roi_cury, 1:(length(roi_cury)-1)/50:length(roi_cury), 'pchip');
                 roi_surfz(curr_slice, :) = interp1(roi_curz, 1:(length(roi_curz)-1)/50:length(roi_curz), 'pchip');
                 slc_cntr=slc_cntr+1;
-                min_col= max([1 round(min(roi_surfy(curr_slice, :))-12)]);
-                max_col= min([round(max(roi_surfy(curr_slice, :))+12) length(anat_image(1,:,1))]);
-                min_row= max([1 round(min(roi_surfx(curr_slice, :))-12)]);
-                max_row= min([round(max(roi_surfx(curr_slice, :))+12) length(anat_image(:,1,1))]);
+                min_col= max([1 round(min(roi_surfy(curr_slice, :))-10)]);
+                max_col= min([round(max(roi_surfy(curr_slice, :))+10) length(anat_image(1,:,1))]);
+                min_row= max([1 round(min(roi_surfx(curr_slice, :))-10)]);
+                max_row= min([round(max(roi_surfx(curr_slice, :))+10) length(anat_image(:,1,1))]);
             end
             
         end
@@ -393,115 +427,179 @@ end
 
 %% prompt user to correct any slices
 
-if select_method=='au'
-    clc
-    correct_slices=input('Do you want to correct any slices (y/n)? ', 's');
-    if isempty(correct_slices)
-        correct_slices='n';
-    end
+switch select_method
     
-    while correct_slices(1)=='y' || correct_slices(1)=='Y'
+    case{'ma'}
         
-        curr_slice=input('What slice do you want to correct? ');
-        if curr_slice>last_slice || curr_slice<frst_slice
-            curr_slice=input(['Value entered is out of range.  Please enter a number from ' num2str(frst_slice) ' to ' num2str(last_slice) ':']);
+        clc
+        correct_slices=input('Do you want to correct any slices (y/n)? ', 's');
+        if isempty(correct_slices)
+            correct_slices='n';
         end
         
-        %set level of zoom based on current mask size
-        loop_mask = mask(:,:,curr_slice);
-        mask_rows=[min(find(sum(loop_mask,2)))-6 max(find(sum(loop_mask,2)))+6];
-        mask_cols=[min(find(sum(loop_mask,1)))-6 max(find(sum(loop_mask,1)))+6];
-        
-        %set loop-specific variables:
-        loop_roi=mask(:,:,slc_cntr);                                        %draw roi arund muscle of itnerest
-        roi_edge=bwboundaries(loop_roi);
-        roi_edge_xy=roi_edge{1};
-        loop_img = double(working_image(:,:,curr_slice));
-        
-        %get the last result for this slice
-        apo_segmented=apo_segmented_final(:,:,curr_slice);
-        
-        %visualize/correct
-        loop_img_rgb=cat(3, loop_img, loop_img, loop_img);
-        loop_img_rgb=loop_img_rgb/max(max(max(loop_img_rgb)));
-        
-        %visualize points in Panel 1
-        figure(1)
-        imagesc(loop_img_rgb), axis image
-        [pixel_rows, pixel_cols] = ind2sub(size(apo_segmented), find(apo_segmented));
-        hold on
-        plot(pixel_cols, pixel_rows, 'm.', 'markersize', 8)
-        title('Current Voxels')
-        
-        %Visualize region, interact with panel 2
-        loop_img_region=loop_img_rgb*0.75;
-        loop_img_region(:,:,1)=loop_img_region(:,:,1)+.25*apo_segmented;
-        figure(2), imagesc(loop_img_region), axis image
-        hold on
-        plot(roi_edge_xy(:,2), roi_edge_xy(:,1), 'c');
-        title('Interactive Window')
-        xlabel(['Slice ' num2str(curr_slice) ' of Slices ' num2str(frst_slice) ' to ' num2str(last_slice)])
-        zoom on
-        
-        %look at initial boundary result in panel 3
-        edge_pixels = bwboundaries(apo_segmented);
-        edge_xy=edge_pixels{1};
-        clear edge_xy_smooth
-        edge_xy_smooth(:,2)=smooth(edge_xy(:,2), 'sgolay');
-        edge_xy_smooth(:,1)=smooth(edge_xy(:,1), 'sgolay');
-        edge_xy_smooth(end,:)=edge_xy_smooth(1,:);
-        
-        figure(3)
-        imagesc(loop_img_rgb)
-        hold on
-        plot(edge_xy_smooth(:,2), edge_xy_smooth(:,1), 'm.', 'markersize', 8);
-        axis image
-        set(gca, 'xlim', mask_cols, 'ylim', mask_rows);
-        
-        correct_yn='c';
-        initialize_correction=1;
-        while correct_yn(1)=='c' || correct_yn(1)=='C'
+        while correct_slices(1)=='y' || correct_slices(1)=='Y'
             
-            figure(1), set(gca, 'xlim', mask_cols, 'ylim', mask_rows);
-            figure(2), set(gca, 'xlim', mask_cols, 'ylim', mask_rows);
-            
-            clc
-            if initialize_correction==0
-                correct_yn=input('Select a to accept this result or c to correct pixels: ', 's');
-                if isempty(correct_yn)
-                    correct_yn='c';
-                end
-            else
-                initialize_correction=0;
+            curr_slice=input('What slice do you want to correct? ');
+            if curr_slice>last_slice || curr_slice<frst_slice
+                curr_slice=input(['Value entered is out of range.  Please enter a number from ' num2str(frst_slice) ' to ' num2str(last_slice) ': ']);
             end
             
-            if correct_yn(1)=='a' || correct_yn(1)=='A'
-                break
+            close all
+            figure('units', 'normalized', 'position', [.05 .05 .25 .25*screen_aspect_ratio], 'name', 'Previous Slice')
+            figure('units', 'normalized', 'position', [.3 .05 .4 .33*screen_aspect_ratio], 'name', 'Current Slice')
+            figure('units', 'normalized', 'position', [.7 .05 .25 .25*screen_aspect_ratio], 'name', 'Next Slice')
+            
+            %get the roi data
+            if curr_slice>1
+                
+                figure(1)
+                prev_image = squeeze(working_image(:,:,curr_slice-1,:));
+                imagesc(prev_image), colormap gray
+                title(['Slice #' num2str(curr_slice-1)])
+                axis off
+                axis image
             end
             
-            clc, disp('Use the left mouse button to select voxels for removal; use the right mouse button to select voxels to add;')
-            disp('press ENTER when finished.')
+            if curr_slice<length(working_image(1,1,:))
+                
+                figure(3)
+                next_image = squeeze(working_image(:,:,curr_slice+1,:));
+                imagesc(next_image), colormap gray
+                title(['Slice #' num2str(curr_slice+1)])
+                axis off
+                axis image
+                
+            end
+            
             figure(2)
-            [col_fix,row_fix,button] = ginput;
-            row_fix=round(row_fix);
-            col_fix=round(col_fix);
-            for b=1:length(button)
-                if button(b)==1
-                    apo_segmented(row_fix(b), col_fix(b))=0;
-                elseif button(b)==3
-                    apo_segmented(row_fix(b), col_fix(b))=1;
-                end
+            curr_image = squeeze(working_image(:,:,curr_slice,:));
+            curr_mask = mask(:,:,curr_slice);
+            edge_pixels = bwboundaries(curr_mask);
+            edge_xy = edge_pixels{1};
+
+            imagesc(squeeze(curr_image)), colormap gray
+            title(['Slice #' num2str(curr_slice)])
+            axis off
+            axis image
+            hold on
+            plot(edge_xy(:,2), edge_xy(:,1), 'b');
+            imcontrast
+            
+            clc, disp('Zoom image and then select Enter to continue');
+            zoom on
+            pause
+            
+            xlim=get(gca, 'xlim');
+            ylim=get(gca, 'ylim');
+            min_col = min(xlim);
+            max_col = max(xlim);
+            min_row = min(ylim);
+            max_row = max(ylim);
+            
+            for fig_num=1:3
+                figure(fig_num)
+                set(gca, 'xlim', [min_col max_col], 'ylim', [min_row max_row]);
             end
             
-            %visualize result
+            
+            %define the ROI.  Must be done in a top-to-bottom manner so that points will be ordered appropriately
+            figure(2)
+            if slc_cntr==frst_slice
+                clc, disp('Define the ROI using left mouse clicks beginning at the top of the image and continuing to the bottom.  Use right mouse button to finish.');
+            end
+            roi_curx = [];
+            roi_cury = [];
+            roi_curz = [];
+            
+            while 1
+                [col_fix, row_fix, b] = ginput(1);
+                
+                if  b==3
+                    break;
+                end
+                
+                if  b==1
+                    hold on
+                    plot(col_fix, row_fix, 'm.', 'markersize', 8);
+                    roi_curx = [roi_curx row_fix];
+                    roi_cury = [roi_cury col_fix];
+                    roi_curz = [roi_curz slc_cntr];
+                end
+                
+            end
+            
+            %view results, ask to continue or repeat
+            clc
+            temp_x = interp1(roi_curx, 1:(length(roi_curx)-1)/50:length(roi_curx), 'pchip');
+            temp_y = interp1(roi_cury, 1:(length(roi_cury)-1)/50:length(roi_cury), 'pchip');
+            
+            figure(2)
+            hold on
+            plot(temp_y,temp_x, 'm');
+            next_repeat = input('Enter C to continue or R to repeat this ROI: ', 's');
+            if isempty(next_repeat)
+                next_repeat='r';
+                disp('Repeating current slice')
+            end
+            
+            if next_repeat(1)=='c' || next_repeat(1)=='C'
+                
+                roi_surfx(curr_slice, :) = interp1(roi_curx, 1:(length(roi_curx)-1)/50:length(roi_curx), 'pchip');
+                roi_surfy(curr_slice, :) = interp1(roi_cury, 1:(length(roi_cury)-1)/50:length(roi_cury), 'pchip');
+                roi_surfz(curr_slice, :) = interp1(roi_curz, 1:(length(roi_curz)-1)/50:length(roi_curz), 'pchip');
+
+                clc
+                correct_slices=input('Do you want to correct any additional slices (y/n)? ', 's');
+                if isempty(correct_slices)
+                    correct_slices='n';
+                end
+                
+            end
+            
+        end
+        
+    case{'au'}
+        
+        clc
+        correct_slices=input('Do you want to correct any slices (y/n)? ', 's');
+        if isempty(correct_slices)
+            correct_slices='n';
+        end
+        
+        while correct_slices(1)=='y' || correct_slices(1)=='Y'
+            
+            curr_slice=input('What slice do you want to correct? ');
+            if curr_slice>last_slice || curr_slice<frst_slice
+                curr_slice=input(['Value entered is out of range.  Please enter a number from ' num2str(frst_slice) ' to ' num2str(last_slice) ':']);
+            end
+            
+            %set level of zoom based on current mask size
+            loop_mask = mask(:,:,curr_slice);
+            mask_rows=[min(find(sum(loop_mask,2)))-6 max(find(sum(loop_mask,2)))+6];
+            mask_cols=[min(find(sum(loop_mask,1)))-6 max(find(sum(loop_mask,1)))+6];
+            
+            %set loop-specific variables:
+            loop_roi=mask(:,:,slc_cntr);                                        %draw roi arund muscle of itnerest
+            roi_edge=bwboundaries(loop_roi);
+            roi_edge_xy=roi_edge{1};
+            loop_img = double(working_image(:,:,curr_slice));
+            
+            %get the last result for this slice
+            apo_segmented=apo_segmented_final(:,:,curr_slice);
+            
+            %visualize/correct
+            loop_img_rgb=cat(3, loop_img, loop_img, loop_img);
+            loop_img_rgb=loop_img_rgb/max(max(max(loop_img_rgb)));
+            
+            %visualize points in Panel 1
             figure(1)
             imagesc(loop_img_rgb), axis image
             [pixel_rows, pixel_cols] = ind2sub(size(apo_segmented), find(apo_segmented));
-            set(gca, 'xlim', mask_cols, 'ylim', mask_rows);
             hold on
-            plot(roi_edge_xy(:,2), roi_edge_xy(:,1), 'c');
             plot(pixel_cols, pixel_rows, 'm.', 'markersize', 8)
+            title('Current Voxels')
             
+            %Visualize region, interact with panel 2
             loop_img_region=loop_img_rgb*0.75;
             loop_img_region(:,:,1)=loop_img_region(:,:,1)+.25*apo_segmented;
             figure(2), imagesc(loop_img_region), axis image
@@ -509,8 +607,9 @@ if select_method=='au'
             plot(roi_edge_xy(:,2), roi_edge_xy(:,1), 'c');
             title('Interactive Window')
             xlabel(['Slice ' num2str(curr_slice) ' of Slices ' num2str(frst_slice) ' to ' num2str(last_slice)])
-            set(gca, 'xlim', mask_cols, 'ylim', mask_rows);
+            zoom on
             
+            %look at initial boundary result in panel 3
             edge_pixels = bwboundaries(apo_segmented);
             edge_xy=edge_pixels{1};
             clear edge_xy_smooth
@@ -525,26 +624,93 @@ if select_method=='au'
             axis image
             set(gca, 'xlim', mask_cols, 'ylim', mask_rows);
             
+            correct_yn='c';
+            initialize_correction=1;
+            while correct_yn(1)=='c' || correct_yn(1)=='C'
+                
+                figure(1), set(gca, 'xlim', mask_cols, 'ylim', mask_rows);
+                figure(2), set(gca, 'xlim', mask_cols, 'ylim', mask_rows);
+                
+                clc
+                if initialize_correction==0
+                    correct_yn=input('Select a to accept this result or c to correct pixels: ', 's');
+                    if isempty(correct_yn)
+                        correct_yn='c';
+                    end
+                else
+                    initialize_correction=0;
+                end
+                
+                if correct_yn(1)=='a' || correct_yn(1)=='A'
+                    break
+                end
+                
+                clc, disp('Use the left mouse button to select voxels for removal; use the right mouse button to select voxels to add;')
+                disp('press ENTER when finished.')
+                figure(2)
+                [col_fix,row_fix,button] = ginput;
+                row_fix=round(row_fix);
+                col_fix=round(col_fix);
+                for b=1:length(button)
+                    if button(b)==1
+                        apo_segmented(row_fix(b), col_fix(b))=0;
+                    elseif button(b)==3
+                        apo_segmented(row_fix(b), col_fix(b))=1;
+                    end
+                end
+                
+                %visualize result
+                figure(1)
+                imagesc(loop_img_rgb), axis image
+                [pixel_rows, pixel_cols] = ind2sub(size(apo_segmented), find(apo_segmented));
+                set(gca, 'xlim', mask_cols, 'ylim', mask_rows);
+                hold on
+                plot(roi_edge_xy(:,2), roi_edge_xy(:,1), 'c');
+                plot(pixel_cols, pixel_rows, 'm.', 'markersize', 8)
+                
+                loop_img_region=loop_img_rgb*0.75;
+                loop_img_region(:,:,1)=loop_img_region(:,:,1)+.25*apo_segmented;
+                figure(2), imagesc(loop_img_region), axis image
+                hold on
+                plot(roi_edge_xy(:,2), roi_edge_xy(:,1), 'c');
+                title('Interactive Window')
+                xlabel(['Slice ' num2str(curr_slice) ' of Slices ' num2str(frst_slice) ' to ' num2str(last_slice)])
+                set(gca, 'xlim', mask_cols, 'ylim', mask_rows);
+                
+                edge_pixels = bwboundaries(apo_segmented);
+                edge_xy=edge_pixels{1};
+                clear edge_xy_smooth
+                edge_xy_smooth(:,2)=smooth(edge_xy(:,2), 'sgolay');
+                edge_xy_smooth(:,1)=smooth(edge_xy(:,1), 'sgolay');
+                edge_xy_smooth(end,:)=edge_xy_smooth(1,:);
+                
+                figure(3)
+                imagesc(loop_img_rgb)
+                hold on
+                plot(edge_xy_smooth(:,2), edge_xy_smooth(:,1), 'm.', 'markersize', 8);
+                axis image
+                set(gca, 'xlim', mask_cols, 'ylim', mask_rows);
+                
+            end
+            
+            % add to apo_segmented_final
+            apo_segmented_final(:,:,curr_slice)=apo_segmented;
+            
+            %add to roi_surf matrices
+            roi_curx = edge_xy_smooth(:,1);
+            roi_cury = edge_xy_smooth(:,2);
+            roi_curz = ones(size(roi_curx))*curr_slice;
+            
+            roi_surfx(curr_slice, :) = interp1(roi_curx, 1:(length(roi_curx)-1)/100:length(roi_curx), 'pchip');
+            roi_surfy(curr_slice, :) = interp1(roi_cury, 1:(length(roi_cury)-1)/100:length(roi_cury), 'pchip');
+            roi_surfz(curr_slice, :) = interp1(roi_curz, 1:(length(roi_curz)-1)/100:length(roi_curz), 'pchip');
+            
+            correct_slices=input('Do you want to correct any more slices (y/n)? ', 's');
+            
+            figure_position = get(gcf, 'position');
+            clf
         end
         
-        % add to apo_segmented_final
-        apo_segmented_final(:,:,curr_slice)=apo_segmented;
-        
-        %add to roi_surf matrices
-        roi_curx = edge_xy_smooth(:,1);
-        roi_cury = edge_xy_smooth(:,2);
-        roi_curz = ones(size(roi_curx))*curr_slice;
-        
-        roi_surfx(curr_slice, :) = interp1(roi_curx, 1:(length(roi_curx)-1)/100:length(roi_curx), 'pchip');
-        roi_surfy(curr_slice, :) = interp1(roi_cury, 1:(length(roi_cury)-1)/100:length(roi_cury), 'pchip');
-        roi_surfz(curr_slice, :) = interp1(roi_curz, 1:(length(roi_curz)-1)/100:length(roi_curz), 'pchip');
-        
-        correct_slices=input('Do you want to correct any more slices (y/n)? ', 's');
-        
-        figure_position = get(gcf, 'position');
-        clf
-    end
-    
 end
 
 
@@ -582,8 +748,9 @@ roi_mesh(:, :, 6) = roi_mesh(:, :, 6)./roi_norm;
 
 %% save data files
 save roi_mesh_file roi_mesh
-if select_method=='au'
-    save apo_segmentation_results apo_segmented_final apo_segmented_initial
+switch select_method
+    case{'au'}
+        save apo_segmentation_results apo_segmented_final apo_segmented_initial
 end
 %% plot mesh, if desired
 close all
