@@ -82,16 +82,16 @@ The output arguments are:
 
 Given:
 
-1.	An anatomical image with variable name anat_image and having matrix size 19219244, field of view 192192 mm, and slice thickness 7 mm;
+1.	An anatomical image with variable name anat_image and having matrix size 192x192x44, field of view 192x192 mm, and slice thickness 7 mm;
 
-2.	The muscle mask stored in a variable called mask;  
+2.	The muscle mask stored in a variable called <i>mask</i>;  
 
 the following code will allow the user to 
 
 1.	Visualize the mask; and
 
-2.	Return a MATLAB figure structure called mask_figure.
-
+2.	Return a MATLAB figure structure called <i>mask_figure</i>.
+ 
  
 % Set visualization options
 
@@ -118,16 +118,16 @@ mask_figure = fiber_visualizer(anat_image, plot_options, [], mask, []);
 ### Example 2
 Given:
 
-1.	An anatomical image with variable name anat_image and having matrix size 19219244, field of view 192192 mm, and slice thickness 7 mm;
+1.	An anatomical image with variable name anat_image and having matrix size 192x192x44, field of view 192x192 mm, and slice thickness 7 mm;
 
-2.	The aponeurosis mesh stored in a variable called roi_mesh;  
+2.	The aponeurosis mesh stored in a variable called <i>roi_mesh</i>;  
 
 the following code will allow the user to:
 
 1.	Visualize the mesh; and
 
-2.	Return a MATLAB figure structure called mesh_figure.
-
+2.	Return a MATLAB figure structure called <i>mesh_figure</i>.
+ 
  
 % Set visualization options
 plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
@@ -161,17 +161,17 @@ plot_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
 % Call the function:
 
 mesh_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, [], []);
-
+ 
  
 ###	Example 3
 
 Given:
 
-1.	An anatomical image with variable name anat_image and having matrix size 19219244, field of view 192192 mm, and slice thickness 7 mm;
+1.	An anatomical image with variable name anat_image and having matrix size 192x192x44, field of view 192x192 mm, and slice thickness 7 mm;
 
-2.	The aponeurosis mesh stored in a variable called roi_mesh; and 
+2.	The aponeurosis mesh stored in a variable called <i>roi_mesh</i>; and 
 
-3.	The fiber tracts stored in a variable called fiber_all.
+3.	The fiber tracts stored in a variable called <i>fiber_all</i>.
 
 the following code will allow the user to:
 
@@ -179,7 +179,7 @@ the following code will allow the user to:
 
 2.	Visualize the fibers; and
 
-3.	Return a MATLAB figure structure called fiber_mesh_figure.
+3.	Return a MATLAB figure structure called <i>fiber_mesh_figure</i>.
 
  
 % Set visualization options
@@ -208,7 +208,7 @@ plot_options.dti_dims = [192 7];
 
 % Call the function:
 
-fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, [], fiber_all);
+fiber_mesh_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, [], fiber_all);
 
 ## 5. Acknowledgements
 People: Zhaohua Ding, Hannah Kilpatrick
