@@ -1,4 +1,4 @@
-# Help for the function <i>define_muscle</i>, v. 0.1.x
+# Help for the function <i>define_muscle</i>, v. 0.2
 
 ## Introduction
 
