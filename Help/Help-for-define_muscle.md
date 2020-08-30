@@ -150,3 +150,4 @@ plot_options.mask_color = [1 0 0]; %make the mask a red, semi-transparent overla
 Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
 
 [Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md)
+ 
