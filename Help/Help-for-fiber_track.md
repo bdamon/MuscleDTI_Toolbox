@@ -44,10 +44,18 @@ The commonly used medical image formats (DICOM, NIFTII, etc.) may use different 
      <th>Conversion to ε<sub>1</sub>'</th>
   </tr>
   <tr>
-    <td>January</td>
-    <td>$100</td>
-     <td> <</td>
+    <td>AL rowspan="3"</td>
+    <td>LPS</td>
+     <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |ε<sub>Y</sub> ε<sub>X</sub> ε<sub>Z</sub>|<sup>T</sup></td>
   </tr>
+  <tr>
+     <td>a</td>
+     <td>b</td>
+   </tr>
+     <tr>
+     <td>ac</td>
+     <td>bc</td>
+   </tr>
 </table>
 
 ## 4. Syntax
