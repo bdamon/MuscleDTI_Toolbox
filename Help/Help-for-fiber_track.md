@@ -44,19 +44,34 @@ The commonly used medical image formats (DICOM, NIFTII, etc.) may use different 
      <th>Conversion to ε<sub>1</sub>'</th>
   </tr>
   <tr>
-    <td>rowspan="2" AL</td>
+    <td>AL</td>
     <td>LPS</td>
      <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |ε<sub>Y</sub> ε<sub>X</sub> ε<sub>Z</sub>|<sup>T</sup></td>
   </tr>
   <tr>
-     
+     <td>AL</td>
      <td>LAS</td>
      <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |-ε<sub>Y</sub> ε<sub>X</sub> ε<sub>Z</sub>|</sup></td>
    </tr>
    <tr>
-     <td></td>
+     <td>AL</td>
      <td>RAS</td>
      <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |-ε<sub>Y</sub> -ε<sub>X</sub> ε<sub>Z</sub>|</sup></td>
+   </tr>
+   <tr>
+    <td>RA</td>
+    <td>LPS</td>
+     <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |ε<sub>X</sub> -ε<sub>Y</sub> ε<sub>Z</sub>|<sup>T</sup></td>
+  </tr>
+  <tr>
+     <td>RA</td>
+     <td>LAS</td>
+     <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |ε<sub>X</sub> ε<sub>Y</sub> ε<sub>Z</sub>|</sup></td>
+   </tr>
+   <tr>
+     <td>RA</td>
+     <td>RAS</td>
+     <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |-ε<sub>X</sub> ε<sub>Y</sub> ε<sub>Z</sub>|</sup></td>
    </tr>
 </table>
 
