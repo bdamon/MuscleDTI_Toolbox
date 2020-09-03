@@ -26,7 +26,6 @@ The outputs include the fiber tracts, variables describing the outcomes of the t
 
 ### Consideration for Laboratory Frame of Reference and Image Orientation
 When determining the direction of fiber tract propagation, the frame of reference for the diffusion-encoding directions, MATLAB’s use of row/column indexing, and the image orientation must be considered. For example, consider an image dataset that uses an LPS frame of reference (the left, posterior, and superior directions are the +X, +Y, and +Z directions of the laboratory frame of reference) and oriented such that the top edge of the image is the anatomical anterior direction and the right edge of the image is the anatomical left direction. The first eigenvector of the diffusion tensor is:
-
      |ε<sub>X</sub>|
 ε =  |ε<sub>Y</sub>|
      |ε<sub>Z</sub>| 
