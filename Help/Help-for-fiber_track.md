@@ -29,9 +29,12 @@ When determining the direction of fiber tract propagation, the frame of referenc
 
 ε<sub>1</sub> =  |ε<sub>X</sub> ε<sub>Y</sub> ε<sub>Z</sub>|<sup>T</sup>,
     
-with the superscript T indicating vector transposition and the subscripts X, Y, and Z respectively indicating the X, Y, and Z components of ε<sub>1</sub>, specified within the LPS frame of reference. With this frame of reference and image orientation, the +X and +Y directions correspond to increasing column and row indices, respectively, of the image matrix.  Because MATLAB’s convention is that row and column values are specified first and second, respectively, when indexing a matrix, ε_1  must be converted to [row column slice] indexing as follows
+with the superscript T indicating vector transposition and the subscripts X, Y, and Z respectively indicating the X, Y, and Z components of ε<sub>1</sub>, specified within the LPS frame of reference. With this frame of reference and image orientation, the +X and +Y directions correspond to increasing column and row indices, respectively, of the image matrix.  Because MATLAB’s convention is that row and column values are specified first and second, respectively, when indexing a matrix, ε<sub>1</sub> must be converted to [row column slice] indexing as follows
 
+ε<sub>1</sub>' =  |ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |ε<sub>Y</sub> ε<sub>X</sub> ε<sub>Z</sub>|<sup>T</sup>
+ 
 with the subscripts R, C, and S here reflecting the row, column, and slice directions. 
+
 The commonly used medical image formats (DICOM, NIFTII, etc.) may use different frames of reference from each other, and some conversion processes rotate images from what was prescribed on the scanner. Therefore, several different frames of reference and image orientation can be specified.  All currently allowed combinations are listed in the table below.
 
 
