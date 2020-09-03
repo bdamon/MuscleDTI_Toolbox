@@ -105,11 +105,11 @@ The output arguments are:
 Given:
 1.	An anatomical image with variable name anat_image and having matrix size 192x192x44, field of view 192x192 mm, and slice thickness 7 mm and 
 
-2.	DTI images having matrix size 19219244, field of view 192x192 mm, and slice thickness 7 mm and with the diffusion tensor data stored in a matrix called tensor_m;
+2.	DTI images having matrix size 192x192x44, field of view 192x192 mm, and slice thickness 7 mm and with the diffusion tensor data stored in a matrix called tensor_m;
 
 3.	The muscle mask stored in a variable called mask and the aponeurosis mesh stored in a variable called roi_mesh;
 
-4.	All imaging data acquired with a laboratory frame of reference having left/anterior/superior as the positive X, Y, and Z directions and an image orientation with the north and east sides being the anatomical right and anterior directions; 
+4.	All imaging data acquired with a laboratory frame of reference having left/anterior/superior as the positive X, Y, and Z directions and an image orientation with the top and right edges being the anatomical right and anterior directions; 
 
 5.	No intention to shift the aponeurosis mesh from its original location; and
 
@@ -122,6 +122,7 @@ the following code will allow the user to:
 2.	Visualize the outcome.
 
 % Tracking options:
+
 ft_options.ref_frame = ‘LAS'; %left-anterior-superior directions are +X, +Y, +Z
 
 ft_options.image_orient = ‘RA'; %image north is right side, image east is anterior 
@@ -170,17 +171,24 @@ plot_options.dti_size = [192 192]; %rows x columns of the DTI data
 plot_options.dti_dims = [192 7]; %FOV and ST of the DTI data
  
 % Call the function:
+
 [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track...
+
       (tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
 
  
-4.5.2.	Example 2
+###	Example 2
+
 1.	As for Example 1, except using FACT with RCrit equal to 0.8 and examined over 20 voxels.
+
 the following code will allow the user to 
+
 1.	Generate the fiber tracts and
+
 2.	Visualize the fiber tracts and the aponeurosis mesh.
 
 % Tracking options:
+
 ft_options.ref_frame = ‘LAS'; %left-anterior-superior directions are +X, +Y, +Z
 
 ft_options.image_orient = ‘RA'; %image north is right side, image east is anterior 
@@ -196,6 +204,7 @@ ft_options.r_crit = 0.8; %Rcrit = 0.8
 ft_options.depth_ratio = 7; %ST/in-plane resolution
 
 % Set visualization options
+
 plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
 
 plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
@@ -225,7 +234,9 @@ plot_options.dti_size = [192 192]; %rows x columns of the DTI data
 plot_options.dti_dims = [192 7]; %FOV and ST of the DTI data
 
 % Call the function:
+
 [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track ...
+
       (tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
 
 ## 6. Acknowledgements
