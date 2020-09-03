@@ -39,12 +39,14 @@ The commonly used medical image formats (DICOM, NIFTII, etc.) may use different 
 
 <table>
   <tr>
-    <th>Month</th>
-    <th>Savings</th>
+    <th>Image Orientation</th>
+    <th>Laboratory Frame of Reference</th>
+     <th>Conversion to ε<sub>1</sub>'</th>
   </tr>
   <tr>
     <td>January</td>
     <td>$100</td>
+     <td> <</td>
   </tr>
 </table>
 
