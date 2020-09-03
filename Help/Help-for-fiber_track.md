@@ -28,20 +28,12 @@ The outputs include the fiber tracts, variables describing the outcomes of the t
 When determining the direction of fiber tract propagation, the frame of reference for the diffusion-encoding directions, MATLAB’s use of row/column indexing, and the image orientation must be considered. For example, consider an image dataset that uses an LPS frame of reference (the left, posterior, and superior directions are the +X, +Y, and +Z directions of the laboratory frame of reference) and oriented such that the top edge of the image is the anatomical anterior direction and the right edge of the image is the anatomical left direction. The first eigenvector of the diffusion tensor is:
 
 <math>
-   ε = <array coldef="c"> 
+   ε = <array ldelim="|" rdelim="|" coldef="c"> 
    <row><item>ε<sub>X</sub> 
       <row><item>ε<sub>Y</sub> 
          <row><item>ε<sub>Z</sub> </array> 
  </math>  
-         
-    <math>     
-         <array coldef="C+C+C+C=C">
- <row><item>a_11_x_1_<item>a_12_x_2_<item>&cdots;<item>a_1n_x_n_<item>b_1_
- <row><item>a_21_x_1_<item>a_22_x_2_<item>&cdots;<item>a_2n_x_n_<item>b_2_
- <row><item colspan=5>&dotfill;
- <row><item>a_n1_x_1_<item>a_n2_x_2_<item>&cdots;<item>a_nn_x_n_<item>b_n_
-</array>
-     </math>  
+ 
     
 with the subscripts X, Y, and Z respectively indicating the X, Y, and Z components of ε_1, specified within the LPS frame of reference. With this frame of reference and image orientation, the +X and +Y directions correspond to increasing column and row indices, respectively, of the image matrix.  Because MATLAB’s convention is that row and column values are specified first and second, respectively, when indexing a matrix, ε_1  must be converted to [row column slice] indexing as follows
 
