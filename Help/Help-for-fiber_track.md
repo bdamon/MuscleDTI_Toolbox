@@ -3,31 +3,46 @@
 ## Introduction
 
 This help file contains information about
-1) [Usage of the program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md#1-usage)
-2) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md#2-Syntax)
-3) [Input Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md#3-Input-Arguments)
-4) [Output Arguments](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md#4-Output-Arguments)
-5) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md#5-Acknowledgements)
-6) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md#6-Example-Code)
+1) [Purpose of the Program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md#1-purpose)
+2) [Usage of the Program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md#2-usage)
+3) [Tracking Algorithms](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md#2-tracking-algorithms)
+4) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md#4-Syntax)
+5) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md#5-Example-Code)
+6) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md#6-Acknowledgements)
 
 
-## 1. Usage
+## 1. Purpose
 
-The function <i>fiber_track</i> is used to fiber-track a muscle DTI dataset in the MuscleDTI_Toolbox. 
+The function <i>fiber_track</i> is used to fiber-track a muscle DTI dataset. 
    
-The required inputs include a 5D matrix containing the diffusion tensor; the mask delimiting the muscle of interest, the mesh reconstruction of the aponeurosis of muscle fiber insertion, and a structure called ft_options.  This structure allows the user to set fiber tracking options and define important properties about the images. These settings are described in detail below (Output Arguments).
+## 2. Usage
+The required inputs include a 5D matrix hold the diffusion tensor at each voxel and [row column slice] dimensions matching those of the DTMRI data; the muscle mask, output from define_muscle or other program; the aponeurosis mesh, output from define_roi; and a structure defining the fiber-tracking options.  This structure allows the user to set options such as the tracking algorithm, step size, laboratory frame of reference, image orientation, and tract termination method. 
 
-Fibers are tracked from the mesh according to the selected propogation algorithm until they reach the edge of the mask or meet another stop criterion.  Stop criteria are set in the ft_options structure. See the description of the input arguments for additional information on these variables. 
+Fibers are tracked from the aponeurosis mesh according to the selected propagation algorithm. Each fiber tract is propagated until it reaches the edge of the mask or meets another stop criterion, such as an excessive inter-segment angle or an out-of-bounds value for fractional anisotropy (FA).  See the description of the input arguments for additional information on these criteria. 
+
+The outputs include the fiber tracts, variables describing the outcomes of the tracking, and selected data about the tracts.
+
+## 3. Tracking Algorithms
+
+### Consideration for Laboratory Frame of Reference and Image Orientation
+When determining the direction of fiber tract propagation, the frame of reference for the diffusion-encoding directions, MATLAB’s use of row/column indexing, and the image orientation must be considered. For example, consider an image dataset that uses an LPS frame of reference (the left, posterior, and superior directions are the +X, +Y, and +Z directions of the laboratory frame of reference) and oriented such that the top edge of the image is the anatomical anterior direction and the right edge of the image is the anatomical left direction. The first eigenvector of the diffusion tensor is:
+
+<math>
+&epsilon =    
+</math>
    
-The outputs include the fiber tracts, several variables describing the outcomes of the tracking, and selected data about the tracts.
+with the subscripts X, Y, and Z respectively indicating the X, Y, and Z components of ε_1, specified within the LPS frame of reference. With this frame of reference and image orientation, the +X and +Y directions correspond to increasing column and row indices, respectively, of the image matrix.  Because MATLAB’s convention is that row and column values are specified first and second, respectively, when indexing a matrix, ε_1  must be converted to [row column slice] indexing as follows
 
-## 2. Syntax
+with the subscripts R, C, and S here reflecting the row, column, and slice directions. 
+The commonly used medical image formats (DICOM, NIFTII, etc.) may use different frames of reference from each other, and some conversion processes rotate images from what was prescribed on the scanner. Therefore, several different frames of reference and image orientation can be specified.  All currently allowed combinations are listed in the table below.
 
-[fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = ...
 
-   fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
 
-## 3. Input Arguments
+## 4. Syntax
+
+[fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
+
+The input arguments are:
 
 * <i>tensor_m</i>: A 5D matrix containing rows, columns, slices, and the 3x3 diffusion tensor, calculated from pre-processing steps.
 
@@ -77,7 +92,7 @@ The outputs include the fiber tracts, several variables describing the outcomes 
  
 * <i>anat_image</i>: The structural images, of the same size as the DTI images.  These are required only if the user wishes to plot the fiber tracts.
 
-## 4. Output Arguments
+The output arguments are:
 * <i>fiber_all</i>: The fiber tracts, with units of pixels. The rows and columns correspond to locations on the roi_mesh. Dimension 3 gives point numbers on the tract, and the fourth dimension has row, column, and slice coordinates.
 
 * <i>roi_flag</i>: A matrix indicating the presence of fibers that propagated at least 1 point
@@ -90,11 +105,10 @@ The outputs include the fiber tracts, several variables describing the outcomes 
 
 * <i>md_all</i>: The pointwise mean diffusivities along each tract
 
-## 5. Acknowledgements
+## 5. Example Code
+
+## 6. Acknowledgements
 
  People: Zhaohua Ding, Adam Anderson, Amanda Buck, Anneriet Heemskerk, and Justin Montenegro
  
  Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
-
-## 6. Example Code
-
