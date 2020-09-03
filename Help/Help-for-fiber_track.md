@@ -44,7 +44,7 @@ The commonly used medical image formats (DICOM, NIFTII, etc.) may use different 
      <th>Conversion to ε<sub>1</sub>'</th>
   </tr>
   <tr>
-    <td>AL rowspan="3"</td>
+    <td>rowspan="3"</td>
     <td>LPS</td>
      <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |ε<sub>Y</sub> ε<sub>X</sub> ε<sub>Z</sub>|<sup>T</sup></td>
   </tr>
@@ -59,35 +59,6 @@ The commonly used medical image formats (DICOM, NIFTII, etc.) may use different 
 </table>
 
 ## 4. Syntax
-   <head>
-      <style>
-         table, th, td {
-            border: 1px solid black;
-            width: 100px;
-            height: 50px;
-         }
-      </style>
-   </head>
-
-   <body>
-      <h1>Heading</h1>
-      <table>
-         <tr>
-            <th colspan="2"></th>
-            <th></th>
-         </tr>
-         <tr>
-            <td></td>
-            <td></td>
-            <td rowspan="2"></td>
-         </tr>
-         <tr>
-            <td></td>
-            <td></td>
-         </tr>
-      </table>
-   </body>
-
 
 [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
 
