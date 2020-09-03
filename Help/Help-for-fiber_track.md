@@ -59,6 +59,35 @@ The commonly used medical image formats (DICOM, NIFTII, etc.) may use different 
 </table>
 
 ## 4. Syntax
+   <head>
+      <style>
+         table, th, td {
+            border: 1px solid black;
+            width: 100px;
+            height: 50px;
+         }
+      </style>
+   </head>
+
+   <body>
+      <h1>Heading</h1>
+      <table>
+         <tr>
+            <th colspan="2"></th>
+            <th></th>
+         </tr>
+         <tr>
+            <td></td>
+            <td></td>
+            <td rowspan="2"></td>
+         </tr>
+         <tr>
+            <td></td>
+            <td></td>
+         </tr>
+      </table>
+   </body>
+
 
 [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
 
