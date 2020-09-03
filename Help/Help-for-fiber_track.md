@@ -142,6 +142,7 @@ ft_options.fa_thrsh = [.1 .4]; %0.1<FA<0.4 range of FA values allowed
 ft_options.depth_ratio=7; %ratio of ST/in-plane resolution of reconstructed images
 
 % Set visualization options
+
 plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
 
 plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
@@ -172,9 +173,7 @@ plot_options.dti_dims = [192 7]; %FOV and ST of the DTI data
  
 % Call the function:
 
-[fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track...
-
-      (tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
+[fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
 
  
 ###	Example 2
@@ -235,9 +234,7 @@ plot_options.dti_dims = [192 7]; %FOV and ST of the DTI data
 
 % Call the function:
 
-[fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track ...
-
-      (tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
+[fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
 
 ## 6. Acknowledgements
 
