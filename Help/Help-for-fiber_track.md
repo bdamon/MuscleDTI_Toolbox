@@ -75,6 +75,9 @@ The commonly used medical image formats (DICOM, NIFTII, etc.) may use different 
    </tr>
 </table>
 
+### Fiber Tract Propagation and Termination
+Tracts are initiated for every [row column] coordinate on the aponeurosis mesh using two nested for loops. Inside the inner loop, the seed point is determined; its location within the muscle mask is verified; the initial fiber-tracking step is found; a while loop is used to initiate and propagate a tract according to the selected algorithm until stop criteria are met; and the points are recorded in a matrix called fiber_all. fiber_all has dimensions of NR,ANC,ANP,Max3, where NP is the maximum number of points in any fiber tract; the fourth dimension holds the [row column slice] coordinates of each fiber-tracking point
+
 ## 4. Syntax
 
 [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
