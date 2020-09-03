@@ -34,14 +34,14 @@ When determining the direction of fiber tract propagation, the frame of referenc
          <row><item>ε<sub>Z</sub> </array> 
  </math>  
          
-         
+    <math>     
          <array coldef="C+C+C+C=C">
  <row><item>a_11_x_1_<item>a_12_x_2_<item>&cdots;<item>a_1n_x_n_<item>b_1_
  <row><item>a_21_x_1_<item>a_22_x_2_<item>&cdots;<item>a_2n_x_n_<item>b_2_
  <row><item colspan=5>&dotfill;
  <row><item>a_n1_x_1_<item>a_n2_x_2_<item>&cdots;<item>a_nn_x_n_<item>b_n_
 </array>
-    
+     </math>  
     
 with the subscripts X, Y, and Z respectively indicating the X, Y, and Z components of ε_1, specified within the LPS frame of reference. With this frame of reference and image orientation, the +X and +Y directions correspond to increasing column and row indices, respectively, of the image matrix.  Because MATLAB’s convention is that row and column values are specified first and second, respectively, when indexing a matrix, ε_1  must be converted to [row column slice] indexing as follows
 
