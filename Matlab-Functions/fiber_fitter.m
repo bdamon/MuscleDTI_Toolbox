@@ -18,45 +18,45 @@ function [fitted_fiber_all, pcoeff_x, pcoeff_y, pcoeff_z] = fiber_fitter(fiber_a
 %       orders for the X, Y, and X points .  
 %  Future development will included automated selection of the most appropriate
 %  polynomial order.
-%
-%INPUT ARGUMENTS 
+% 
+% INPUT ARGUMENTS 
 %  fiber_all: The original fiber tracts, output from fiber_track
-%
+% 
 %  ff_options: A structure containing the following fields:
 %    interpolation_step: an interpolation interval for the fitted fiber tract, in
 %      units of pixels.  For example, setting interpolation_step to 0.25 would
 %      interpolate the fiber tract at intervals of 0.25 pixels.
-%
+% 
 %    p_order: A 3 element vector containing the polynomial orders, [Nx Ny Nz],
 %      to use when fitting the tracts. If a single number is entered (i.e., 
 %      ff_options.p_order=N), then this order is used to fit the points in the 
 %      X, Y and Z directions.
-%
-%OUTPUT ARGUMENTS
+% 
+% OUTPUT ARGUMENTS
 %  fitted_fiber_all: the fiber tracts following Nth order polynomial
 %    fitting
-%
+% 
 %  pcoeff_x: a matrix of the Nth order polynomial coefficients for the
 %    tracts' x positions 
-%
+% 
 %  pcoeff_y: a matrix of the Nth order polynomial coefficients for the
 %    tracts' y positions 
-%
+% 
 %  pcoeff_z: a matrix of the Nth order polynomial coefficients for the
 %    tracts' z positions 
-%
-%OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+% 
+% OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
 %  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
 %  For help defining the ROI, see <a href="matlab: help define_roi">define_roi</a>.
 %  For help with the fiber tracking program, see <a href="matlab: help fiber_track">fiber_track</a>.
 %  For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
 %  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_selector">fiber_selector</a>.
 %  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
-%
-%VERSION INFORMATION
+% 
+% VERSION INFORMATION
 %  v 0.1
-%
-%ACKNOWLEDGEMENTS
+% 
+% ACKNOWLEDGEMENTS
 %  People: Zhaohua Ding, Anneriet Heemskerk
 %  Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
 
