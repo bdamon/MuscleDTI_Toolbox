@@ -253,7 +253,7 @@ if plot_options.plot_fibers==1
                         squeeze(fiber_all(row_cntr,col_cntr, 1:num_points, 1)), ...
                         squeeze(fiber_all(row_cntr,col_cntr, 1:num_points, 3)));
                     
-                    loop_color = abs(fiber_color + randn(size(fiber_color))*0.25);       %add some random contrast
+                    loop_color = abs(fiber_color + randn(size(fiber_color))*0.1);       %add some random contrast
                     loop_color = loop_color/norm(loop_color);
                     set(fiber_plot, 'color', loop_color)
                 end
@@ -342,3 +342,4 @@ set(gca, 'color', 'k')
 %% end function
 
 return
+
