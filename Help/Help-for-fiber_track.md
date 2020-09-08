@@ -136,7 +136,7 @@ Step 4 – Propagate the tract: From point P<sub>n+1</sub>, the step ∆S<sub>n+
 Before being added to the <i>fiber_all</i> matrix, several termination criteria are applied. First, the location of P<sub>n+1</sub> within the muscle mask is verified; if not, tract propagation stops and a value of 4 is written into the <i>stop_list</i> matrix.  In addition, either of several algorithms may be applied and used to terminate tract propagation.
 * BIN1: Two binary criteria are applied. First, the FA must fall within the bounds set by the user in <i>ft_options</i>. Also, the angle formed by the current and a previous fiber tracking step is calculated as:
 
-   ψ=cos<sup>-1</sup> (ε<sub>1,n</sup> ∙ ε<sub>1,n-p</sub>)
+   ψ=cos<sup>-1</sup> (ε<sub>1,n</sub> ∙ ε<sub>1,n-p</sub>)
 
    where p is the number of steps over which to look back and ∙ indicates the vector dot product. ψ must be smaller than the value specified by the user. When BIN1 is used, the tract terminates if either ψ or the FA value is disallowed for a single point. If the tract stops because the FA criterion failed, a value of 2 is written into the <i>stop_list</i> matrix; if the tract stops because the angle criterion failed, a value of 3 is written into the <i>stop_list</i> matrix.
 
