@@ -136,13 +136,13 @@ Step 4 – Propagate the tract: From point P<sub>n+1</sub>, the step ∆S<sub>n+
 Before being added to the <i>fiber_all</i> matrix, several termination criteria are applied. First, the location of P<sub>n+1</sub> within the muscle mask is verified; if not, tract propagation stops and a value of 4 is written into the <i>stop_list</i> matrix.  In addition, either of several algorithms may be applied and used to terminate tract propagation.
 * BIN1: Two binary criteria are applied. First, the FA must fall within the bounds set by the user in <i>ft_options</i>. Also, the angle formed by the current and a previous fiber tracking step is calculated as:
 
-ψ=cos<sup>-1</sup> (ε<sub>1,n</sup> ∙ ε<sub>1,n-p</sub>)
+   ψ=cos<sup>-1</sup> (ε<sub>1,n</sup> ∙ ε<sub>1,n-p</sub>)
 
-where p is the number of steps over which to look back and ∙ indicates the vector dot product. ψ must be smaller than the value specified by the user. When BIN1 is used, the tract terminates if either ψ or the FA value is disallowed for a single point. If the tract stops because the FA criterion failed, a value of 2 is written into the <i>stop_list</i> matrix; if the tract stops because the angle criterion failed, a value of 3 is written into the <i>stop_list</i> matrix.
+   where p is the number of steps over which to look back and ∙ indicates the vector dot product. ψ must be smaller than the value specified by the user. When BIN1 is used, the tract terminates if either ψ or the FA value is disallowed for a single point. If the tract stops because the FA criterion failed, a value of 2 is written into the <i>stop_list</i> matrix; if the tract stops because the angle criterion failed, a value of 3 is written into the <i>stop_list</i> matrix.
 
 * BIN2: The FA and ψ criteria are applied as described above, except that the ψ value must have been disallowed for two successive points. 
 
-* FACT: The FACT algorithm for terminating fiber tract propagation was described by Mori et al. Briefly, the inner products are calculated between ε<sub>1</sub> in the current voxel and each of its 26 neighbors.  They are magnitude-sorted in descending order and then averaged over a user-specified number of voxels, giving the parameter R. If R is lower than a user-specified critical value R<sub>Crit</sub>, this is interpreted as excessive local heterogeneity in fiber orientation and the tract is terminated. The value of R is written into <i>stop_list<i>.
+* FACT: The FACT algorithm for terminating fiber tract propagation was described by Mori et al. Briefly, the inner products are calculated between ε<sub>1</sub> in the current voxel and each of its 26 neighbors.  They are magnitude-sorted in descending order and then averaged over a user-specified number of voxels, giving the parameter R. If R is lower than a user-specified critical value R<sub>Crit</sub>, this is interpreted as excessive local heterogeneity in fiber orientation and the tract is terminated. The value of R is written into <i>stop_list</i>.
    
 The variable <i>stop_list</i> is useful to diagnose the reasons of tract propagation failure and to optimize the stop criteria. 
 
