@@ -56,5 +56,3 @@ elseif nargin==3
     
     d_tensor = squeeze(sum(sum(sum(local_tensors))))./sum(sum(sum(weight_matrix)));
 end
-
-
