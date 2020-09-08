@@ -119,11 +119,11 @@ Step 3: Determine the initial fiber-tracking step, ∆S: Three options for deter
    
    The eigenvectors describing the muscle fiber orientations cannot be averaged directly.  Instead, for each point, the corresponding eigenvector is used to form a dyadic tensor as
 
-   E<sub>D,n</sub> =  ε<sub>1,n</sub>' ε<sub>1,n</sub><sup>T</sup>, 
+   E<sub>D,n</sub> =  ε<sub>1,n</sub>' * ε<sub>1,n</sub><sup>T</sup>, 
 
    etc., where the superscript T indicates vector transposition.  Finally, the dyadic tensors are averaged using:
 
-   1/6 ( E<sub>D,n</sub> + 2 * E<sub>D,n+1</sub> + 2 * E<sub>D,n+ 2</sub> + E<sub>D,n+3</sub>)
+   1/6 ( E<sub>D,n0</sub> + 2 * E<sub>D,n+1</sub> + 2 * E<sub>D,n+ 2</sub> + E<sub>D,n+3</sub>)
 
    The mean dyadic tensor is diagonalized and its principal eigenvector, ε<sub>1</sub>', is found. This is used to calculate ∆S as described above.
 
@@ -131,7 +131,22 @@ Step 3: Determine the initial fiber-tracking step, ∆S: Three options for deter
 
 Regardless of the propagation method, the next point, P<sub>n+1</sub>, is calculated as P<sub>n+1</sub> =P<sub>n</sub> +∆S<sub>n</sub>. If it falls within the muscle mask, it is added to the <i>fiber_all</i> matrix
 
+Step 4 – Propagate the tract: From point P<sub>n+1</sub>, the step ∆S<sub>n+1</sub> and the next fiber tract point P<sub>n+2</sub> are calculated according to the selected propagation algorithm, as described above. For Runge-Kutta integration, if the 2nd, 3rd, or 4th order points fall outside of the muscle mask, the propagation algorithm automatically changes to Euler integration until the tract is terminated. This is to avoid obtaining erroneous estimates of the fiber orientation from voxels outside of the muscle of interest.
 
+Before being added to the <i>fiber_all</i> matrix, several termination criteria are applied. First, the location of P<sub>n+1</sub> within the muscle mask is verified; if not, tract propagation stops and a value of 4 is written into the <i>stop_list</i> matrix.  In addition, either of several algorithms may be applied and used to terminate tract propagation.
+* BIN1: Two binary criteria are applied. First, the FA must fall within the bounds set by the user in <i>ft_options</i>. Also, the angle formed by the current and a previous fiber tracking step is calculated as:
+
+ψ=cos<sup>-1</sup> (ε<sub>1,n</sup> ∙ ε<sub>1,n-p</sub>)
+
+where p is the number of steps over which to look back and ∙ indicates the vector dot product. ψ must be smaller than the value specified by the user. When BIN1 is used, the tract terminates if either ψ or the FA value is disallowed for a single point. If the tract stops because the FA criterion failed, a value of 2 is written into the <i>stop_list</i> matrix; if the tract stops because the angle criterion failed, a value of 3 is written into the <i>stop_list</i> matrix.
+
+* BIN2: The FA and ψ criteria are applied as described above, except that the ψ value must have been disallowed for two successive points. 
+
+* FACT: The FACT algorithm for terminating fiber tract propagation was described by Mori et al. Briefly, the inner products are calculated between ε<sub>1</sub> in the current voxel and each of its 26 neighbors.  They are magnitude-sorted in descending order and then averaged over a user-specified number of voxels, giving the parameter R. If R is lower than a user-specified critical value R<sub>Crit</sub>, this is interpreted as excessive local heterogeneity in fiber orientation and the tract is terminated. The value of R is written into <i>stop_list<i>.
+   
+The variable <i>stop_list</i> is useful to diagnose the reasons of tract propagation failure and to optimize the stop criteria. 
+
+Step 5 – Add the point and continue tracking: If all criteria are successfully met, the next point is calculated and added to <i>fiber_all</i>. The fiber counter is incremented and the tract is recorded as a successful tracking result in the variable <i>roi_flag</i>. Steps 4 and 5 occur within the <i>while</i> loop and continue until a stop criterion is met.  At that point, the <i>while</i> loop breaks and the programs advances to the new [row column] coordinate on the aponeurosis mesh
 
 ## 4. Syntax
 
@@ -143,7 +158,7 @@ The input arguments are:
 
 * <i>mask</i>: The mask delimiting the muscle to be fiber-tracked.    
 
-* <i>roi_mesh</i>: The mesh reconstruction of the aponeurosis of muscle fiber insertion, output from define_roi.  
+* <i>roi_mesh</i>: The mesh reconstruction of the aponeurosis of muscle fiber insertion, output from <i>define_roi</i>.  
 
 * <i>ft_options</i>: A structure containing the following fields:
 
@@ -279,7 +294,7 @@ ft_options.mesh_dist = 0; %don’t shift the mesh
 
 ft_options.prop_algo = 'fact'; %use FACT
 
-ft_options.num_fact_voxels = 20; %calculate R over 20 neighboring voxels
+ft_options.num_fact_voxels = 5; %calculate R over 5 neighboring voxels
 
 ft_options.r_crit = 0.8; %Rcrit = 0.8
 
