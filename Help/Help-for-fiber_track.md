@@ -84,7 +84,34 @@ Step 1 – Locate the seed point on the aponeurosis mesh: for each location on t
 Step 2 – Record the seed point in the fiber tract matrix or continue to the next location on the mesh: The location of P<sub>1</sub> inside the muscle mask is verified. If P<sub>1</sub> falls outside of the muscle mask, the tract does not propagate, a value of 4 is recorded at the [row column] location in the variable <i>stop_list</i>, and the loops continue to the next seed point. If P<sub>1</sub> falls within the mask, the seed point is added to fiber_all. P<sub>1</sub> is stored at index N<sub>P</sub> = 1, and the function proceeds to Step 3.
 
 Step 3: Determine the initial fiber-tracking step, ∆S: Three options for determining ∆S are available: Euler integration, 4th-order Runge-Kutta integration, and FACT.  Although the present discussion is about the initial fiber-tracking step, to maintain generality we refer to the current fiber-tracking point as P<sub>n</sub>, the current first eigenvector as ε<sub>1,n)</sub>', and the current fiber-tracking step as ∆S<sub>n</sub>. The three tract propagation methods are implemented as follows:
-* Euler: The initial direction of tract propagation is determined by rounding the [row column slice] coordinates of P_n, using them as indices into tensor_m, and retrieving D. D is diagonalized using the eig function; the eigenvalues are magnitude-sorted and ε_1 is identified. If ε_(1,Z)<0, ε_1 is multiplied by -1 so that tracts always propagate in ascending slice order. Then ε_1 is converted to ε_1^' as described above. Further, the slice-wise component of ε_1^', ε_(1,S)^' , is adjusted to account for the aspect ratio of the voxel (the ratio of its thickness to its width) to determine a step direction
+* Euler: The initial direction of tract propagation is determined by rounding the [row column slice] coordinates of P_n, using them as indices into tensor_m, and retrieving D. D is diagonalized using the eig function; the eigenvalues are magnitude-sorted and ε_1 is identified. If ε<sub>1,Z</sub><0, ε<sub>1</sub> is multiplied by -1 so that tracts always propagate in ascending slice order. Then ε<sub>1</sub> is converted to ε<sub>1</sub>' as described above. Further, the slice-wise component of ε<sub>1</sub>', ε<sub>1,S</sub>', is adjusted to account for the aspect ratio of the voxel (the ratio of its thickness to its width) to determine a step direction:
+   ε<sub>1,S'</sub>' = ε<sub>1,S</sub>' / (ΔZ/ΔX)
+where ΔZ/ΔX is the ratio of the slice thickness to the in-plane resolution. Then, the fiber-tracking step ΔS<sub>n,/sub> is calculated as 
+   ΔS<sub>n,/sub> = h * ε<sub>1</sub>'
+where h is the step size, expressed as a fraction of the voxel width, ∆X; it typically has values of 0.5-1.0 voxel width. As described below, h is set by the user.
+
+* 4th-order Runge-Kutta Integration: 4th-order Runge-Kutta integration: Initially, ε<sub>1,n</sub>' is calculated as described above for Euler integration. Consistent with the 4th-order Runge-Kutta method, this step is modified as follows:
+   ∆S<sub>n,0<sub> = h/2 * ε<sub>1,n</sub>
+with ∆S analogous to k in the Runge-Kutta method. A temporary second point, P<sub>n+1<sub>', is calculated as:
+   P<sub>n+1</sub>'= P<sub>n</sub> + ∆S<sub>n,0</sub>
+The [row column slice] coordinates of P<sub>n+1</sub>' are rounded and used to look up D from the tensor_m matrix at P<sub>n+1</sub>'. D is diagonalized, the eigenvalues are magnitude-sorted, and ε<sub>1</sub>' and ∆S<sub>n</sub> are found at P<sub>n+1</sub>' ((ε<sub>1,n+1</sub>' and ∆S<sub>n+1</sub>, respectively). The step from P<sub>n+1</sub>' is calculated as:
+   ∆S<sub>n+1</sub> = h/2 * ε<sub>1,n+1</sub>'
+A temporary third point is calculated as:
+P<sub>n+2</sub>'= P<sub>n+1</sub> + ∆S<sub>n+1</sub>
+The procedure is repeated for the third and fourth points, with:
+   ∆S<sub>n+2</sub> = h * ε<sub>1,n+2</sub>'  and P<sub>n+3</sub>'= P<sub>n+2</sub> + ∆S<sub>n+2</sub>
+ε<sub>1,n+3</sub>' is then found. 
+   
+The eigenvectors describing the muscle fiber orientations cannot be averaged directly.  Instead, for each point, the corresponding eigenvector is used to form a dyadic tensor as
+   E<sub>D,n</sub> =  ε<sub>1,n</sub>' ε<sub>1,n</sub><sup>T</sup>, 
+etc., where the superscript T indicates vector transposition.  Finally, the dyadic tensors are averaged using:
+1/6 ( E<sub>D,n</sub> + 2 * E<sub>D,n+1</sub> + 2 * E<sub>D,n+ 2</sub> + E<sub>D,n+3</sub>)
+The mean dyadic tensor is diagonalized and its principal eigenvector, ε<sub>1</sub>', is found. This is used to calculate ∆S as described above.
+* FACT: FACT follows the direction of the first eigenvector while the tract remains within a given voxel, but allows the tract direction to change as soon as the tract enters a new voxel.  To implement FACT, ε<sub>1</sub>' is initially determined as described for Euler integration. The tract directions in X, Y, and Z are calculated for values of h= {0.01,0.02,0.03,… 1} times the voxel width. The smallest value resulting in a new row, column, or slice coordinate is taken as the step size h, and ∆S is calculated as described above.
+
+Regardless of the propagation method, the next point, P<sub>n+1</sub>, is calculated as P<sub>n+1</sub> =P<sub>n</sub> +∆S<sub>n</sub>. If it falls within the muscle mask, it is added to the <i>fiber_all</i> matrix
+
+
 
 ## 4. Syntax
 
