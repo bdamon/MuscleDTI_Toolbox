@@ -92,7 +92,7 @@ where ΔZ/ΔX is the ratio of the slice thickness to the in-plane resolution. Th
 where h is the step size, expressed as a fraction of the voxel width, ∆X; it typically has values of 0.5-1.0 voxel width. As described below, h is set by the user.
 
 * 4th-order Runge-Kutta Integration: 4th-order Runge-Kutta integration: Initially, ε<sub>1,n</sub>' is calculated as described above for Euler integration. Consistent with the 4th-order Runge-Kutta method, this step is modified as follows:
-   ∆S<sub>n,0<sub> = h/2 * ε<sub>1,n</sub>
+   ∆S<sub>n,0</sub> = h/2 * ε<sub>1,n</sub>
 with ∆S analogous to k in the Runge-Kutta method. A temporary second point, P<sub>n+1</sub>', is calculated as:
    P<sub>n+1</sub>'= P<sub>n</sub> + ∆S<sub>n,0</sub>
 The [row column slice] coordinates of P<sub>n+1</sub>' are rounded and used to look up D from the tensor_m matrix at P<sub>n+1</sub>'. D is diagonalized, the eigenvalues are magnitude-sorted, and ε<sub>1</sub>' and ∆S<sub>n</sub> are found at P<sub>n+1</sub>' ((ε<sub>1,n+1</sub>' and ∆S<sub>n+1</sub>, respectively). The step from P<sub>n+1</sub>' is calculated as:
