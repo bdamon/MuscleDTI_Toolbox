@@ -76,7 +76,15 @@ The commonly used medical image formats (DICOM, NIFTII, etc.) may use different 
 </table>
 
 ### Fiber Tract Propagation and Termination
-Tracts are initiated for every [row column] coordinate on the aponeurosis mesh using two nested for loops. Inside the inner loop, the seed point is determined; its location within the muscle mask is verified; the initial fiber-tracking step is found; a while loop is used to initiate and propagate a tract according to the selected algorithm until stop criteria are met; and the points are recorded in a matrix called fiber_all. fiber_all has dimensions of NR,ANC,ANP,Max3, where NP is the maximum number of points in any fiber tract; the fourth dimension holds the [row column slice] coordinates of each fiber-tracking point
+Tracts are initiated for every [row column] coordinate on the aponeurosis mesh using two nested for loops. Inside the inner loop, the seed point is determined; its location within the muscle mask is verified; the initial fiber-tracking step is found; a while loop is used to initiate and propagate a tract according to the selected algorithm until stop criteria are met; and the points are recorded in a matrix called fiber_all. fiber_all has dimensions of N<sub>R</sub>xN<sub>C,A</sub>xN<sub>P,Max</sub>x3, where N<sub>P,Max</sub> is the maximum number of points in any fiber tract; the fourth dimension holds the [row column slice] coordinates of each fiber-tracking point
+
+The steps are:
+Step 1 – Locate the seed point on the aponeurosis mesh: for each location on the aponeurosis mesh, the [row column slice] coordinates are used to form the seed point, P<sub>1</sub>.
+
+Step 2 – Record the seed point in the fiber tract matrix or continue to the next location on the mesh: The location of P<sub>1</sub> inside the muscle mask is verified. If P<sub>1</sub> falls outside of the muscle mask, the tract does not propagate, a value of 4 is recorded at the [row column] location in the variable <i>stop_list</i>, and the loops continue to the next seed point. If P<sub>1</sub> falls within the mask, the seed point is added to fiber_all. P<sub>1</sub> is stored at index N<sub>P</sub> = 1, and the function proceeds to Step 3.
+
+Step 3: Determine the initial fiber-tracking step, ∆S: Three options for determining ∆S are available: Euler integration, 4th-order Runge-Kutta integration, and FACT.  Although the present discussion is about the initial fiber-tracking step, to maintain generality we refer to the current fiber-tracking point as P<sub>n</sub>, the current first eigenvector as ε<sub>1,n)</sub>', and the current fiber-tracking step as ∆S<sub>n</sub>. The three tract propagation methods are implemented as follows:
+* Euler: The initial direction of tract propagation is determined by rounding the [row column slice] coordinates of P_n, using them as indices into tensor_m, and retrieving D. D is diagonalized using the eig function; the eigenvalues are magnitude-sorted and ε_1 is identified. If ε_(1,Z)<0, ε_1 is multiplied by -1 so that tracts always propagate in ascending slice order. Then ε_1 is converted to ε_1^' as described above. Further, the slice-wise component of ε_1^', ε_(1,S)^' , is adjusted to account for the aspect ratio of the voxel (the ratio of its thickness to its width) to determine a step direction
 
 ## 4. Syntax
 
