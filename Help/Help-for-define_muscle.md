@@ -109,11 +109,11 @@ the code below will allow the user to
 
 1.	Define the muscle mask in slices 4-41; 
 
-2.	Return a mask of size 19219244; 
+2.	Return a mask of size 192 x 192 x 44; 
 
-3.	Return a second mask of size 12812844; and 
+3.	Return a second mask of size 128 x 128 x 44; and 
 
-4.	Visualize the result using fiber_visualizer, using slices 14, 24, 34, and 44 for anatomical reference:
+4.	Visualize the result using <i>fiber_visualizer</i>, using slices 14, 24, 34, and 44 for anatomical reference:
 
 % Set mask definition options
 
