@@ -88,7 +88,7 @@ Step 1 – Locate the seed point on the aponeurosis mesh: for each location on t
 
 Step 2 – Record the seed point in the fiber tract matrix or continue to the next location on the mesh: The location of P<sub>1</sub> inside the muscle mask is verified. If P<sub>1</sub> falls outside of the muscle mask, the tract does not propagate, a value of 4 is recorded at the [row column] location in the variable <i>stop_list</i>, and the loops continue to the next seed point. If P<sub>1</sub> falls within the mask, the seed point is added to <i>fiber_all</i>. P<sub>1</sub> is stored at index N<sub>P</sub> = 1, and the function proceeds to Step 3.
 
-Step 3: Determine the initial fiber-tracking step, ∆S: Three options for determining ∆S are available: Euler integration, 4th-order Runge-Kutta integration, and FACT.  Although the present discussion is about the initial fiber-tracking step, to maintain generality we refer to the current fiber-tracking point as P<sub>n</sub>, the current first eigenvector as ε<sub>1,n)</sub>', and the current fiber-tracking step as ∆S<sub>n</sub>. The three tract propagation methods are implemented as follows:
+Step 3 - Determine the initial fiber-tracking step, ∆S: Three options for determining ∆S are available: Euler integration, 4th-order Runge-Kutta integration, and FACT.  Although the present discussion is about the initial fiber-tracking step, to maintain generality we refer to the current fiber-tracking point as P<sub>n</sub>, the current first eigenvector as ε<sub>1,n)</sub>', and the current fiber-tracking step as ∆S<sub>n</sub>. The three tract propagation methods are implemented as follows:
 * Euler: The initial direction of tract propagation is determined by rounding the [row column slice] coordinates of P_n, using them as indices into tensor_m, and retrieving D. D is diagonalized using the eig function; the eigenvalues are magnitude-sorted and ε_1 is identified. If ε<sub>1,Z</sub><0, ε<sub>1</sub> is multiplied by -1 so that tracts always propagate in ascending slice order. Then ε<sub>1</sub> is converted to ε<sub>1</sub>' as described above. Further, the slice-wise component of ε<sub>1</sub>', ε<sub>1,S</sub>', is adjusted to account for the aspect ratio of the voxel (the ratio of its thickness to its width) to determine a step direction:
 
    ε<sub>1,S'</sub>' = ε<sub>1,S</sub>' / (ΔZ/ΔX)
@@ -176,7 +176,7 @@ The input arguments are:
 
   <i>depth_ratio</i>: The ratio of slice thickness/in-plane resolution. Note that the function assumes equal in-plane voxel dimensions.
 
-  <i>prop_alg</i>: A string variable that specifies the method for determining the direction of fiber tract propagation. The available options include 'euler', 'rk4', and 'fact'.  The available options include 1) <i>euler</i>: Diagonalization of the observed diffusion tensor at the current fiber tracking point, followed by magnitude-sorting and Euler integration of the first eigenvector. The user must specify the step size in the field ft_options.step_size. 2) <i>rk4</i>: Diagonalization of the observed diffusion tensor, diagonalization to find the firsteigenvector, and integration according to a 4th-order Runge-Kutta method. The user must specify the step size in the field ft_options.step_size. 3) <i>fact</i>: an implementation of the FACT algorithm.
+  <i>prop_alg</i>: A string variable that specifies the method for determining the direction of fiber tract propagation. The available options include 1) <i>euler</i>: Diagonalization of the observed diffusion tensor at the current fiber tracking point, followed by magnitude-sorting and Euler integration of the first eigenvector. The user must specify the step size in the field ft_options.step_size. 2) <i>rk4</i>: Diagonalization of the observed diffusion tensor, diagonalization to find the firsteigenvector, and integration according to a 4th-order Runge-Kutta method. The user must specify the step size in the field ft_options.step_size. 3) <i>fact</i>: an implementation of the FACT algorithm.
 
   <i>step_size</i>: The Euler and 4th-order Runge-Kutta methods require the user to set the fiber-tracking step size, in pixels. A step size of 1 reflects the voxel width.
 
@@ -231,7 +231,7 @@ the following code will allow the user to:
 
 ft_options.ref_frame = ‘LAS'; %left-anterior-superior directions are +X, +Y, +Z
 
-ft_options.image_orient = ‘RA'; %image north is right side, image east is anterior 
+ft_options.image_orient = ‘RA'; %image top is right side, image right is anterior 
 
 ft_options.mesh_dist = 0; %don’t shift the mesh
 
@@ -295,7 +295,7 @@ the following code will allow the user to
 
 ft_options.ref_frame = ‘LAS'; %left-anterior-superior directions are +X, +Y, +Z
 
-ft_options.image_orient = ‘RA'; %image north is right side, image east is anterior 
+ft_options.image_orient = ‘RA'; %image top is right side, image right is anterior 
 
 ft_options.mesh_dist = 0; %don’t shift the mesh
 
@@ -324,12 +324,6 @@ plot_options.mesh_size = [192 192]; %rows x columns of the images used to genera
 plot_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh
 
 plot_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
-
-plot_options.mask_size = [192 192];  %rows x columns of the images used to generate the mask
-
-plot_options.mask_dims = [192 7]; %FOV and ST of the images used to create the mask
-
-plot_options.mask_color = [1 0 0]; %make the mask a red, semi-transparent overlay
 
 plot_options.fiber_color = [.8 .2 .2]; %make the fibers red
 
