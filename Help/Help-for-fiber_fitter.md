@@ -35,7 +35,7 @@ This procedure is modified previous work to: 1) fit the tract positions as funct
 
 * <i>fitted_fiber_all</i>: A 4D matrix containing the smoothed fiber tracts
 
-* <i>pcoeff_r, pcoeff_c, pcoeff_s: Matrices of the polynomial coefficients for the tracts' row, column, and slice positions as functions of voxel distance, with dimensions of N<sub>R,A</sub> x N<sub>C,A</sub> x (n+1) 
+* <i>pcoeff_r, pcoeff_c, pcoeff_s</i>: Matrices of the polynomial coefficients for the tracts' row, column, and slice positions as functions of voxel distance, with dimensions of N<sub>R,A</sub> x N<sub>C,A</sub> x (n+1) 
 
 ## 4. Example Code
  
