@@ -15,7 +15,7 @@ This help file contains information about
 [Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md)
 
 ## 2. Usage
-The user can call <i>fiber_ visualizer</i> from the command line using the [syntax below](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#3-Syntax). In addition, <i>define_muscle</i>, <i>define_roi</i>, and <i>fiber_track</i> can be configured to call <i>fiber_visualizer</i> from within the functions, so that the mask, mesh, and fiber tracts can be automatically plotted.  The user must supply the anatomical images, a structure with some plotting options, and the other variables to be plotted as input arguments. Fields of view, matrix sizes, slice thickness, etc. are appropriately considered so that all structures are plotted using a consistent measurement scale.
+The user can call <i>fiber_visualizer</i> from the command line using the [syntax below](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md#3-Syntax). In addition, <i>define_muscle</i>, <i>define_roi</i>, and <i>fiber_track</i> can be configured to call <i>fiber_visualizer</i> from within the functions, so that the mask, mesh, and fiber tracts can be automatically plotted.  The user must supply the anatomical images, a structure with some plotting options, and the other variables to be plotted as input arguments. Fields of view, matrix sizes, slice thickness, etc. are appropriately considered so that all structures are plotted using a consistent measurement scale.
 
 [Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md)
 
@@ -154,14 +154,6 @@ plot_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the m
 
 plot_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
 
-plot_options.plot_fibers = 0; %don’t plot any fiber tracts
-
-plot_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
-
-plot_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh, in mm
-
-plot_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
-
 % Call the function:
 
 mesh_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, [], []);
@@ -196,7 +188,7 @@ plot_options.plot_mesh = 1; %don’t plot an aponeurosis mesh
 
 plot_options.plot_mask = 0; %do plot the mask
 
-plot_options.plot_fibers = 1; %don’t plot any fiber tracts
+plot_options.plot_fibers = 1; %do plot the fiber tracts
 
 plot_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
 
