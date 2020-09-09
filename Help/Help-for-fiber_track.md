@@ -24,6 +24,8 @@ Fibers are tracked from the aponeurosis mesh according to the selected propagati
 
 The outputs include the fiber tracts, variables describing the outcomes of the tracking, and selected data about the tracts.
 
+[Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md)
+
 ## 3. Tracking Algorithms
 
 ### Consideration for Laboratory Frame of Reference and Image Orientation
@@ -53,12 +55,12 @@ The commonly used medical image formats (DICOM, NIFTII, etc.) may use different 
   <tr>
      <td>AL</td>
      <td>LAS</td>
-     <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |-ε<sub>Y</sub> ε<sub>X</sub> ε<sub>Z</sub>|</sup></td>
+     <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |-ε<sub>Y</sub> ε<sub>X</sub> ε<sub>Z</sub>|<sup>T</sup></td>
    </tr>
    <tr>
      <td>AL</td>
      <td>RAS</td>
-     <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |-ε<sub>Y</sub> -ε<sub>X</sub> ε<sub>Z</sub>|</sup></td>
+     <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |-ε<sub>Y</sub> -ε<sub>X</sub> ε<sub>Z</sub>|<sup>T</sup></td>
    </tr>
    <tr>
     <td>RA</td>
@@ -68,12 +70,12 @@ The commonly used medical image formats (DICOM, NIFTII, etc.) may use different 
   <tr>
      <td>RA</td>
      <td>LAS</td>
-     <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |ε<sub>X</sub> ε<sub>Y</sub> ε<sub>Z</sub>|</sup></td>
+     <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |ε<sub>X</sub> ε<sub>Y</sub> ε<sub>Z</sub>|<sup>T</sup></td>
    </tr>
    <tr>
      <td>RA</td>
      <td>RAS</td>
-     <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |-ε<sub>X</sub> ε<sub>Y</sub> ε<sub>Z</sub>|</sup></td>
+     <td>|ε<sub>R</sub> ε<sub>C</sub> ε<sub>S</sub>|<sup>T</sup> =  |-ε<sub>X</sub> ε<sub>Y</sub> ε<sub>Z</sub>|<sup>T</sup></td>
    </tr>
 </table>
 
@@ -150,6 +152,8 @@ The variable <i>stop_list</i> is useful to diagnose the reasons of tract propaga
 
 Step 5 – Add the point and continue tracking: If all criteria are successfully met, the next point is calculated and added to <i>fiber_all</i>. The fiber counter is incremented and the tract is recorded as a successful tracking result in the variable <i>roi_flag</i>. Steps 4 and 5 occur within the <i>while</i> loop and continue until a stop criterion is met.  At that point, the <i>while</i> loop breaks and the programs advances to the new [row column] coordinate on the aponeurosis mesh
 
+[Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md)
+
 ## 4. Syntax
 
 [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
@@ -199,6 +203,8 @@ The output arguments are:
 * <i>fa_all</i>: The pointwise FA values on each fiber tract.
 
 * <i>md_all</i>: The pointwise mean diffusivities along each tract
+
+[Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md)
 
 ## 5. Example Code
 ### Example 1
@@ -275,7 +281,6 @@ plot_options.dti_dims = [192 7]; %FOV and ST of the DTI data
 
 [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
 
- 
 ###	Example 2
 
 1.	As for Example 1, except using FACT with RCrit equal to 0.8 and examined over 20 voxels.
@@ -336,8 +341,13 @@ plot_options.dti_dims = [192 7]; %FOV and ST of the DTI data
 
 [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
 
+[Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md)
+
 ## 6. Acknowledgements
 
  People: Zhaohua Ding, Adam Anderson, Amanda Buck, Anneriet Heemskerk, and Justin Montenegro
  
  Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
+ 
+ [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md)
+ 
