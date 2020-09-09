@@ -1,4 +1,4 @@
-function [smoothed_fiber_all, pcoeff_r, pcoeff_c, pcoeff_s] = fiber_smoother(fiber_all, fs_options)
+function [smoothed_fiber_all, pcoeff_r, pcoeff_c, pcoeff_s, n_points_smoothed] = fiber_smoother(fiber_all, fs_options)
 %
 %FUNCTION fiber_smoother
 %  [smoothed_fiber_all, pcoeff_r, pcoeff_c, pcoeff_s, n_points_smoothed] = ...
@@ -53,6 +53,8 @@ function [smoothed_fiber_all, pcoeff_r, pcoeff_c, pcoeff_s] = fiber_smoother(fib
 %  pcoeff_s: a matrix of the Nth order polynomial coefficients for the
 %    tracts' slice positions 
 %
+%  n_points_smoothed: the number of points in the fitted tracts
+%
 %OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
 %  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
@@ -75,13 +77,15 @@ if length(p_order)==1
     p_order=[p_order p_order p_order];
 end
 
-%initialize output variable as a zeros matrix
+%initialize output variables as zeros matrices
 max_length = max(find(squeeze(sum(sum(squeeze(fiber_all(:,:,:,1))))))); %#ok<MXFND>
 smoothed_fiber_all = ...
     zeros(length(fiber_all(:,1,1,1)), length(fiber_all(1,:,1,1)), (max_length*ceil(1/interpolation_step)), 3);                  %zeros matrix to hold 2nd order smoothed fiber tracts
 pcoeff_r = zeros(length(fiber_all(:,1,1,1)), length(fiber_all(1,:,1,1)),(p_order(1)+1));
 pcoeff_c = zeros(length(fiber_all(:,1,1,1)), length(fiber_all(1,:,1,1)),(p_order(2)+1));
 pcoeff_s = zeros(length(fiber_all(:,1,1,1)), length(fiber_all(1,:,1,1)),(p_order(3)+1));
+
+n_points_smoothed = zeros(length(fiber_all(:,1,1,1)), length(fiber_all(1,:,1,1)));
 
 %% fit each fiber tract
 
@@ -92,40 +96,42 @@ for row_cntr = 1:length(fiber_all(:,1,1,1))
         
         if loop_fiber_length_points>10
             
-            fiber_distance = squeeze(fiber_all(row_cntr,col_cntr,1:loop_fiber_length_points, :));                           %x, y, and z positions
-            fiber_distance(2:loop_fiber_length_points,1) = diff(fiber_distance(:,1));                                       %pointwise differences in x positions
+            fiber_distance = squeeze(fiber_all(row_cntr,col_cntr,1:loop_fiber_length_points, :));                           %row, column, and slice positions
+            fiber_distance(2:loop_fiber_length_points,1) = diff(fiber_distance(:,1));                                       %pointwise differences in row positions
             fiber_distance(2:loop_fiber_length_points,2) = diff(fiber_distance(:,2));
             fiber_distance(2:loop_fiber_length_points,3) = diff(fiber_distance(:,3));
             fiber_distance(1,:)=0;                                                                                          %initial point has distance of zed
             fiber_distance = cumsum((sum(fiber_distance.^2, 2)).^0.5);                                                      %calculate distances along fiber tract from initial point
 
-            loop_fiber_r = squeeze(fiber_all(row_cntr,col_cntr,1:loop_fiber_length_points, 1));                         	%get raw tract data in x direction
+            loop_fiber_r = squeeze(fiber_all(row_cntr,col_cntr,1:loop_fiber_length_points, 1));                         	%get raw tract data in row direction
             row_init = loop_fiber_r(1);
-            loop_fiber_r = loop_fiber_r - row_init;
+            loop_fiber_r = loop_fiber_r - row_init;                                                                         %subtract initial value
             pcoeff_r(row_cntr,col_cntr,:) = polyfit(fiber_distance, loop_fiber_r, p_order(1));                              %get polynomial coefficients
-            loop_fitted_fiber_r = polyval(squeeze(pcoeff_r(row_cntr,col_cntr,:)), ...                                       %smoothing in x
+            loop_fitted_fiber_r = polyval(squeeze(pcoeff_r(row_cntr,col_cntr,:)), ...                                       %smoothing in row dir.
                 min(fiber_distance):interpolation_step:max(fiber_distance)); 
-            loop_fitted_fiber_r = loop_fitted_fiber_r + row_init;
+            loop_fitted_fiber_r = loop_fitted_fiber_r + row_init;                                                           %add back the initial value
             smoothed_fiber_all(row_cntr,col_cntr,1:length(loop_fitted_fiber_r),1) = loop_fitted_fiber_r;                   	%copy to output variable
             
-            loop_fiber_c = squeeze(fiber_all(row_cntr,col_cntr,1:loop_fiber_length_points, 2));                           	%get raw tract data in y direction
+            loop_fiber_c = squeeze(fiber_all(row_cntr,col_cntr,1:loop_fiber_length_points, 2));                           	%get raw tract data in column direction
             col_init = loop_fiber_c(1);
-            loop_fiber_c = loop_fiber_c - col_init;
-            pcoeff_c(row_cntr,col_cntr,:) = polyfit(fiber_distance, loop_fiber_c, p_order(2));                                      	%get polynomial coefficients
-            loop_fitted_fiber_c = polyval(squeeze(pcoeff_c(row_cntr,col_cntr,:)), ...                                       %smoothing in y
+            loop_fiber_c = loop_fiber_c - col_init;                                                                         %subtract initial value
+            pcoeff_c(row_cntr,col_cntr,:) = polyfit(fiber_distance, loop_fiber_c, p_order(2));                              %get polynomial coefficients
+            loop_fitted_fiber_c = polyval(squeeze(pcoeff_c(row_cntr,col_cntr,:)), ...                                       %smoothing in column dir.
                 min(fiber_distance):interpolation_step:max(fiber_distance));  	
-            loop_fitted_fiber_c = loop_fitted_fiber_c + col_init;
+            loop_fitted_fiber_c = loop_fitted_fiber_c + col_init;                                                           %add back the initial value
             smoothed_fiber_all(row_cntr,col_cntr,1:length(loop_fitted_fiber_c),2) = loop_fitted_fiber_c;                 	%copy to output variable
             
             loop_fiber_s = squeeze(fiber_all(row_cntr,col_cntr,1:loop_fiber_length_points, 3));                           	%get raw tract data in z direction
             slc_init = loop_fiber_s(1);
-            loop_fiber_s = loop_fiber_s - slc_init;
-            pcoeff_s(row_cntr,col_cntr,:) = polyfit(fiber_distance, loop_fiber_s, p_order(3));                                     	%get polynomial coefficients
-            loop_fitted_fiber_s = polyval(squeeze(pcoeff_s(row_cntr,col_cntr,:)), ...                                       %smoothing in z
+            loop_fiber_s = loop_fiber_s - slc_init;                                                                         %subtract initial value
+            pcoeff_s(row_cntr,col_cntr,:) = polyfit(fiber_distance, loop_fiber_s, p_order(3));                              %get polynomial coefficients
+            loop_fitted_fiber_s = polyval(squeeze(pcoeff_s(row_cntr,col_cntr,:)), ...                                       %smoothing in slice dir
                 min(fiber_distance):interpolation_step:max(fiber_distance));
-            loop_fitted_fiber_s = loop_fitted_fiber_s + slc_init;
+            loop_fitted_fiber_s = loop_fitted_fiber_s + slc_init;                                                           %add back the initial value
             smoothed_fiber_all(row_cntr,col_cntr,1:length(loop_fitted_fiber_s), 3) = loop_fitted_fiber_s;                  	%copy to output variable
 
+            n_points_smoothed(row_cntr,col_cntr) = length(loop_fitted_fiber_s);
+            
         end
     end
 end
