@@ -14,7 +14,9 @@ This help file contains information about
 ## 1. Purpose
 
 The function <i>fiber_track</i> is used to fiber-track a muscle DTI dataset. 
-   
+
+[Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md)
+
 ## 2. Usage
 The required inputs include a 5D matrix hold the diffusion tensor at each voxel and [row column slice] dimensions matching those of the DTMRI data; the muscle mask, output from define_muscle or other program; the aponeurosis mesh, output from define_roi; and a structure defining the fiber-tracking options.  This structure allows the user to set options such as the tracking algorithm, step size, laboratory frame of reference, image orientation, and tract termination method. 
 
