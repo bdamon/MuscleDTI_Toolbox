@@ -35,12 +35,12 @@ The output argument is:
    
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-retrieve_tensor.md)
 
-## 5. Example Code
+## 4. Example Code
 An example is not given because the function is called from within <i>fiber_track</i>. The user does not interact with this function.
 
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-retrieve_tensor.md)
 
-## 6. Acknowledgements
+## 5. Acknowledgements
 Grants: NIH/NIAMS R01 AR073831
 
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-retrieve_tensor.md)
