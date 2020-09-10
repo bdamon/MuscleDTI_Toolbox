@@ -1,4 +1,4 @@
-# Help for the function <i>define_roi</i>, v. 0.1.x
+# Help for the function <i>retrieve_tensor</i>, v. 0.1.x
 
 ## Introduction
 
@@ -8,7 +8,6 @@ This help file contains information about
 3) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-retrieve_tensor.md#3-Syntax)
 4) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-retrieve_tensor.md#4-Example-Code)
 5) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md#5-Acknowledgements)
-
 
 ## 1. Purpose
 
@@ -32,13 +31,12 @@ The input arguments are:
 
 The output argument is:
 
-*<i>d_tensor</i>: The diffusion tensor.
-
+* <i>d_tensor</i>: The diffusion tensor.
    
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-retrieve_tensor.md)
 
 ## 5. Example Code
-An example is not given because the function is called from within <i>fiber_track</i>. The user does not interact with this function
+An example is not given because the function is called from within <i>fiber_track</i>. The user does not interact with this function.
 
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-retrieve_tensor.md)
 
