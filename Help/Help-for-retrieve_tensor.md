@@ -7,7 +7,7 @@ This help file contains information about
 2) [Usage of the Program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-retrieve_tensor.md#2-usage)
 3) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-retrieve_tensor.md#3-Syntax)
 4) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-retrieve_tensor.md#4-Example-Code)
-5) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md#5-Acknowledgements)
+5) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-retrieve_tensor.md#5-Acknowledgements)
 
 ## 1. Purpose
 
