@@ -7,7 +7,7 @@ function [angle_list, distance_list, curvature_list, fiber_all_mm, n_points, apo
 % USAGE
 %    The function fiber_quantifier is used to calculate the muscle architectural
 %  parameters pennation angle, fiber tract length, and curvature in the 
-%  MuscleDTI_Toolbox. Calculations are only made for fiber tracts having 10 or 
+%  MuscleDTI_Toolbox. Calculations are only made for fiber tracts having six or 
 %  more points. The method for pennation measurements is described in Lansdown  
 %  et al, J Appl Physiol 2007, with slight modifications to improve computational 
 %  efficiency. The method for curvature measurements is described in Damon et al, 
@@ -220,7 +220,7 @@ for row_cntr = start_row:end_row
                     p1_idx = fiber_cntr-1;                                                  %indices for the three points of interest along the tract - define two pairs of points
                     p2_idx = fiber_cntr;
                     p3_idx = fiber_cntr+1;
-                    loop_fiber_m = squeeze(fiber_all_mm(row_cntr,col_cntr,:,:))/1000;      	%convert from mm to m for curvature measurements
+%                     loop_fiber_m = squeeze(fiber_all_mm(row_cntr,col_cntr,:,:))/1000;      	%convert from mm to m for curvature measurements
                     
                     delta_p1 = (loop_fiber_m(p1_idx,:))-loop_fiber_m(1,:);                       %three position vectors, one for each point
                     delta_p2 = (loop_fiber_m(p2_idx,:))-loop_fiber_m(1,:);
