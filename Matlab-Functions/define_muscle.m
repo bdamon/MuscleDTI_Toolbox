@@ -107,7 +107,7 @@ for s=slices(1):slices(2)
         image_prev_2 = image_prev_2/max(max(image_prev_2));
         imagesc(image_prev_2)
         colormap gray
-        title(['Previous Slice (#' num2str(slice_prev_2) ')'])
+        title({'Previous Slices'; ['Slice #' num2str(slice_prev_2)]})
         axis image, axis off
         
         [counts, img_values] = imhist(image_prev_2);
@@ -132,7 +132,7 @@ for s=slices(1):slices(2)
         image_prev_1 = image_prev_1/max(max(image_prev_1));
         imagesc(image_prev_1)
         colormap gray
-        title(['Previous Slice (#' num2str(slice_prev_1) ')'])
+        title(['Slice #' num2str(slice_prev_1)])
         axis image, axis off
         
         [counts, img_values] = imhist(image_prev_1);
@@ -158,7 +158,7 @@ for s=slices(1):slices(2)
         image_next_1 = image_next_1/max(max(image_next_1));
         imagesc(image_next_1)
         colormap gray
-        title(['Upcoming Slice (#' num2str(slice_next_1) ')'])
+        title({'Upcoming Slices'; ['Slice #' num2str(slice_next_1)]})
         axis image, axis off
         
         [counts, img_values] = imhist(image_next_1);
@@ -180,7 +180,7 @@ for s=slices(1):slices(2)
         image_next_2 = image_next_2/max(max(image_next_2));
         imagesc(image_next_2)
         colormap gray
-        title(['Upcoming Slice (#' num2str(slice_next_2) ')'])
+        title(['Slice #' num2str(slice_next_2)])
         axis image, axis off
         
         [counts, img_values] = imhist(image_next_2);
