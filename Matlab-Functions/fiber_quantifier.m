@@ -7,12 +7,41 @@ function [angle_list, distance_list, curvature_list, fiber_all_mm, n_points, apo
 % USAGE
 %    The function fiber_quantifier is used to calculate the muscle architectural
 %  parameters pennation angle, fiber tract length, and curvature in the 
-%  MuscleDTI_Toolbox. Calculations are only made for fiber tracts having six or 
-%  more points. The method for pennation measurements is described in Lansdown  
-%  et al, J Appl Physiol 2007, with slight modifications to improve computational 
-%  efficiency. The method for curvature measurements is described in Damon et al, 
-%  Magn Reson Imaging 2012. Best results are obtained with polynomial-fitted  
-%  fiber tracts, calculated using fiber_smoother.
+%  MuscleDTI_Toolbox. 
+%
+%  Calculations are only made for fiber tracts having six or more points. 
+%  Information about each measurement follows:
+%    -Fiber tract length: this is measured by summing the inter-point 
+%     distances along the tract.
+%    -Pennation: The method for pennation measurements is essentially as 
+%     described in Lansdown et al, J Appl Physiol 2007. The approach to 
+%     measuring pennation angle traditionally used in ultrasound imaging is 
+%     to manually specify the line tangent to a muscle fascicle at the point 
+%     of its insertion into the aponeurosis and a second line tangent to the 
+%     aponeurosis. The angle formed by these lines is measured. In Lansdown 
+%     et al., this concept was extended into 3D space by defining the plane 
+%     tangent to the seed point and its normal vector. Also, position vectors 
+%     between the seed point and points along the tract were defined. 
+%     Pennation angle was defined as the complement to the angle formed by 
+%     the normal vector and the position vectors. In the toolbox, this is 
+%     modified slightly to calculated the normal vector as the cross product
+%     between two tangent lines to the seed point (one lying in the row 
+%     direction of the aponeurosis mesh and one lying in the column direction). 
+%     This change improves computational efficiency.
+% 
+%    -Curvature: The method for curvature measurements is described in Damon 
+%     et al, Magn Reson Imaging 2012. Briefly, these use a discrete 
+%     implementation of the Frenet-Serret equations. Specifically, the 
+%     curvature K is defined in
+%       dT/ds = K N
+%     where T is the tangent line to points along the curve, s is the step 
+%     length between points, and N is the normal vector. In fiber_quantifier, 
+%     K is calculated by multiplying each side of this equation by the Moore-
+%     Penrose pseudoinverse matrix of N.
+% 
+%     For curvature, the best results are obtained with polynomial-fitted 
+%     fiber tracts, calculated using fiber_fitter. Fiber tract length and 
+%     pennation angle are unaffected by polynomial fitting.
 % 
 % INPUT ARGUMENTS
 %  fiber_all: A 4D matrix containing the fiber tract points, with units of
@@ -44,7 +73,7 @@ function [angle_list, distance_list, curvature_list, fiber_all_mm, n_points, apo
 % 
 %  curvature_list: The curvature values, for fiber tracking point numbers
 %    starting at 2 and ending 3 points before the tract's end. The latter is to 
-%    avoid abrupt changes in tract position.  Curvature values are reported in m-1.
+%    avoid abrupt changes in curvature.  Curvature values are reported in m-1.
 % 
 %  fiber_all_mm: The fiber tract points converted to units of mm.
 % 
