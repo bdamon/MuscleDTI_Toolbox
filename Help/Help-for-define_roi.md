@@ -35,14 +35,15 @@ In subsequent slices, additional information is incorporated into the initial es
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md)
 
 ## 4. Syntax
+The function define_roi is called using the following syntax:
 
-roi_mesh = define_roi(anat_image, mask, defroi_options, plot_options);
+roi_mesh = define_roi(anat_image, mask, dr_options, plot_options);
 
 <i>anat_image</i>: The imaging data. 
 
-* <i>mask</i>: The mask, as defined by the function <i>define_mask</i> or another source.
+* <i>mask</i>: The mask, as defined by the function [<i>define_muscle</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md) or another source.
 
-* <i>defroi_options</i>: A structure containing the following fields:
+* <i>dr_options</i>: A structure containing the following fields:
 
     <i>slices</i>: A two-element vector containing the first and last slices that the user wishes to digitize.
   
@@ -80,13 +81,13 @@ the code below will allow the user to:
 
 % Set mesh options:
 
-defroi_options.slices = [4 31]; %analyze slices 4-31
+dr_options.slices = [4 31]; %analyze slices 4-31
 
-defroi_options.dti_size = [192 192 44]; %matrix size and # of slices in DTI images
+dr_options.dti_size = [192 192 44]; %matrix size and # of slices in DTI images
 
-defroi_options.mesh_size = [150 30]; %mesh will have 150 rows and 30 columns
+dr_options.mesh_size = [150 30]; %mesh will have 150 rows and 30 columns
 
-defroi_options.method = ‘manual'; %digitize it manually
+dr_options.method = ‘manual'; %digitize it manually
 
 % Set visualization options
 
@@ -108,20 +109,20 @@ plot_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
 
 % call the function:
 
-roi_mesh = define_roi(anat_image, mask, defroi_options, plot_options);
+roi_mesh = define_roi(anat_image, mask, dr_options, plot_options);
  
 ### Example 2
 Example 2 matches Example 1, except that the mesh is automatically segmented:
 
 % Set mesh options:
 
-defroi_options.slices = [4 31]; 	%analyze slices 4-31
+dr_options.slices = [4 31]; 	%analyze slices 4-31
 
-defroi_options.dti_size = [192 192 44]; %matrix size and # of slices in DTI images
+dr_options.dti_size = [192 192 44]; %matrix size and # of slices in DTI images
 
-defroi_options.mesh_size = [150 30]; %mesh will have 150 rows and 30 columns
+dr_options.mesh_size = [150 30]; %mesh will have 150 rows and 30 columns
 
-defroi_options.method = ‘auto'; %automatic definition
+dr_options.method = ‘auto'; %automatic definition
 
 % Set visualization options
 
@@ -143,7 +144,7 @@ plot_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
 
 % call the function:
 
-roi_mesh = define_roi(anat_image, mask, defroi_options, plot_options);
+roi_mesh = define_roi(anat_image, mask, dr_options, plot_options);
 
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md)
 
