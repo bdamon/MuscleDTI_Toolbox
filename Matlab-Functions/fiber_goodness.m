@@ -1,9 +1,9 @@
 function [final_fibers, final_curvature, final_angle, final_distance, qual_mask, num_tracked, mean_fiber_props, mean_apo_props] = ...
-    fiber_goodness(fiber_all, angle_list, distance_list, curvature_list, n_points, apo_area, roi_mesh, fg_options)
+    fiber_goodness(fiber_all, angle_list, distance_list, curvature_list, n_points, roi_flag, apo_area, roi_mesh, fg_options)
 %
-%FUNCTION fiber_selector
-%  [final_fibers, final_curvature, final_angle, final_distance, qual_mask, num_tracked, mean_fiber_properties, mean_apo_properties] = ...
-%    fiber_goodness(fiber_all, angle_list, distance_list, curvature_list, n_points, apo_area, roi_mesh, fg_options)
+%FUNCTION fiber_goodness
+%  [final_fibers, final_curvature, final_angle, final_distance, qual_mask, num_tracked, mean_fiber_props, mean_apo_props] = ...
+%     fiber_goodness(fiber_all, angle_list, distance_list, curvature_list, n_points, roi_flag, apo_area, roi_mesh, fg_options);
 %
 %USAGE
 %  The function fiber_goodness is used to assess the goodness of fiber tract  
@@ -16,7 +16,7 @@ function [final_fibers, final_curvature, final_angle, final_distance, qual_mask,
 %    2) minimum length (in mm, specified by the user based on their knowledge
 %       of the expected muscle geometry);
 %    3) a pennation angle within a user-specified range (in degrees, specified 
-%       the by user; 
+%       tghe by userbased on their knowledge of the expected muscle geometry); 
 %    4) a curvature value within a user-specified range (in m^-1, specified by
 %       the user); and
 %    5) within the 95% confidence interval for length, pennation angle, and
@@ -33,20 +33,22 @@ function [final_fibers, final_curvature, final_angle, final_distance, qual_mask,
 %
 %  n_points: the number of points quantified per fiber tract
 %
+%  roi_flag: a mask indicating fiber tracts that propagated at least one
+%    point in the function fiber_track.
+%
 %  apo_area: a matrix indicating the amount of aponeurosis area associated
 %    with each fiber tract
 %
 %  roi_mesh: the output of define_roi
 %
 %  fg_options: a structure containing the following fields:
-%    -dwi_res: a three-element vector containing the field of view, matrix
+%      min_distance: minimum distance for selected tracts, in mm
+%      min_pennation: minimum pennation angle, in degrees
+%      max_pennation: maximum pennation angle, in degrees
+%      max_curvature: maximum curvature, in m^-1
+%      sampling_frequency:
+%      dwi_res: a three-element vector containing the field of view, matrix
 %        size, and slice thickness of the diffusion-weighted images
-%    -min_distance: minimum distance for selected tracts, in mm
-%    -min_pennation: minimum pennation angle, in degrees
-%    -max_pennation: maximum pennation angle, in degrees
-%    -max_curvature: maximum curvature, in m^-1
-%    -sampling_frequency: the spatial frequency with which to sample the
-%      aponeurosis mesh, in mm^-1
 %
 %OUTPUT ARGUMENTS
 %  final_fibers: the fiber tracts that passed all selection criteria
@@ -79,12 +81,12 @@ function [final_fibers, final_curvature, final_angle, final_distance, qual_mask,
 %    amount of aponeurosis area represented by each tract.
 %
 %OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
-%  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
 %  For help defining the ROI, see <a href="matlab: help define_roi">define_roi</a>.
 %  For help with the fiber tracking program, see <a href="matlab: help fiber_track">fiber_track</a>.
 %  For help smoothing fiber tracts, see <a href="matlab: help fiber_fitter">fiber_smoother</a>.
 %  For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
+%  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %
 %VERSION INFORMATION
 %  v 0.1
@@ -101,25 +103,26 @@ max_curvature = fg_options.max_curvature;
 
 %% intialize output variables
 
-fiber_indices_rows=sum(squeeze(angle_list(:,:,2)), 2);
-fiber_indices_rows=fiber_indices_rows>0;
-fiber_indices_cols=sum(squeeze(angle_list(:,:,2)), 1);
-fiber_indices_cols=fiber_indices_cols>0;
-first_row = find(fiber_indices_rows, 1);
-last_row = find(fiber_indices_rows, 1, 'last');
-first_col = find(fiber_indices_cols, 1);
-last_col = find(fiber_indices_cols, 1, 'last');
+fiber_indices_rows = sum(squeeze(angle_list(:,:,2)), 2);                    %find rows with fiber tracts
+fiber_indices_rows = fiber_indices_rows>0;
+fiber_indices_cols = sum(squeeze(angle_list(:,:,2)), 1);                    %find columns with fiber tracts
+fiber_indices_cols = fiber_indices_cols>0;
+first_row = max([3 find(fiber_indices_rows, 1)]);                           %find first and lastrow
+last_row = min([6 find(fiber_indices_rows, 1, 'last')]);
+first_col = max([3 find(fiber_indices_cols, 1)]);                           %find first and last column
+last_col = min([6 find(fiber_indices_cols, 1, 'last')]);
 
-final_fibers=zeros(size(fiber_all));
-final_fibers(first_row:last_row, first_col:last_col, :, :) = fiber_all(first_row:last_row, first_col:last_col, :, :);
-final_angle = angle_list;
+final_fibers=zeros(size(fiber_all));                                        %initialize matrix of fiber fibers; 
+final_fibers(first_row:last_row, first_col:last_col, :, :) = ...            %set as tracked fibers; wil prune erroneus results later
+    fiber_all(first_row:last_row, first_col:last_col, :, :);
+final_angle = angle_list;                                                   %same for geometric measurements of tracts
 final_distance = distance_list;
 final_curvature = curvature_list;
 
-initial_fibers = zeros(size(squeeze(n_points(:,:,1))));
-initial_fibers((squeeze(n_points(:,:,1)))>0) = 1;
+initial_fibers = zeros(size(roi_flag));                                     %start creating the quality mask
+initial_fibers(first_row:last_row, first_col:last_col)=1;
 qual_mask = zeros([size(squeeze(fiber_all(:,:,1,1))) 6]);
-qual_mask(:,:,1)=initial_fibers;
+qual_mask(:,:,1)=roi_flag.*initial_fibers;
 
 %% initialize architecture output variables
 
@@ -144,7 +147,7 @@ for row_cntr = first_row:last_row
         loop_dz=loop_dz(1:(length(find(loop_dz))-1));
         
         if length(find(loop_dz<0))>0                                        %look for differences < 0 - indicates down-sloping fiber tracts
-            qual_mask(row_cntr,col_cntr,1)=0;                             %write to quality mask
+            qual_mask(row_cntr,col_cntr,1)=0;                               %write to quality mask
         end
         
     end
@@ -219,7 +222,7 @@ for row_cntr = first_row:last_row
             
         end
         
-        % eliminate tracts taht failed the tests
+        % eliminate tracts that failed the tests
         final_fibers(row_cntr,col_cntr,:,1) = final_fibers(row_cntr,col_cntr,:,1)*qual_mask(row_cntr,col_cntr,6);
         final_fibers(row_cntr,col_cntr,:,2) = final_fibers(row_cntr,col_cntr,:,2)*qual_mask(row_cntr,col_cntr,6);
         final_fibers(row_cntr,col_cntr,:,3) = final_fibers(row_cntr,col_cntr,:,3)*qual_mask(row_cntr,col_cntr,6);
@@ -447,3 +450,6 @@ end
 %% end the function
 
 return;
+
+
+
