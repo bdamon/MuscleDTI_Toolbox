@@ -163,7 +163,7 @@ The variable <i>stop_list</i> is useful to diagnose the reasons of tract propaga
 
 ## 4. Syntax
 
-[fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
+[fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, fv_options, anat_image);
 
 The input arguments are:
 
@@ -194,7 +194,7 @@ The input arguments are:
   The FACT algorithm uses its own method for tract termination. Thus, when the propagation algorithm is set to FACT, the user does not need to define term_mthd; however the user must create fields in ft_options called ft_options.r_crit and ft_options.num_fact_voxels. <i>r_crit</i> is a scalar quantity ranging from 0-1 that defines the allowable level of local variability in the direction of the first eigenvector. <i>num_fact_voxels</i> is the number of local neighboring voxels to include in the calculation of <i>r</i>. These are used to terminate tracts based on local variability in the first eigenvector. 
  
 The following input arguments are optional and are required only if the user wishes to plot the fiber tracts:
-* <i>plot_options</i>: If specified, this calls the <i>fiber_visualizer</i> function to plot the fiber, mask, and roi mesh.
+* <i>fv_options</i>: If specified, this calls the <i>fiber_visualizer</i> function to plot the fiber, mask, and roi mesh.
  
 * <i>anat_image</i>: The structural images.
 
@@ -256,37 +256,37 @@ ft_options.depth_ratio=7; %ratio of ST/in-plane resolution of reconstructed imag
 
 % Set visualization options
 
-plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
+fv_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
 
-plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
+fv_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
 
-plot_options.plot_mesh = 1; %do plot an aponeurosis mesh
+fv_options.plot_mesh = 1; %do plot an aponeurosis mesh
 
-plot_options.plot_mask = 0; %don’t plot the mask
+fv_options.plot_mask = 0; %don’t plot the mask
 
-plot_options.plot_fibers = 1; %do plot any fiber tracts
+fv_options.plot_fibers = 1; %do plot any fiber tracts
 
-plot_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
+fv_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
 
-plot_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh
+fv_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh
 
-plot_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
+fv_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
 
-plot_options.mask_size = [192 192]; %rows x columns of the images used to generate the mask
+fv_options.mask_size = [192 192]; %rows x columns of the images used to generate the mask
 
-plot_options.mask_dims = [192 7]; %FOV and ST of the images used to create the mask
+fv_options.mask_dims = [192 7]; %FOV and ST of the images used to create the mask
 
-plot_options.mask_color = [1 0 0]; %make the mask a red, semi-transparent overlay
+fv_options.mask_color = [1 0 0]; %make the mask a red, semi-transparent overlay
 
-plot_options.fiber_color = [.8 .2 .2]; %make the fibers red
+fv_options.fiber_color = [.8 .2 .2]; %make the fibers red
 
-plot_options.dti_size = [192 192]; %rows x columns of the DTI data
+fv_options.dti_size = [192 192]; %rows x columns of the DTI data
 
-plot_options.dti_dims = [192 7]; %FOV and ST of the DTI data
+fv_options.dti_dims = [192 7]; %FOV and ST of the DTI data
  
 % Call the function:
 
-[fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
+[fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, fv_options, anat_image);
 
 ###	Example 2
 
@@ -316,31 +316,31 @@ ft_options.depth_ratio = 7; %ST/in-plane resolution
 
 % Set visualization options
 
-plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
+fv_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
 
-plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
+fv_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
 
-plot_options.plot_mesh = 1; %do plot an aponeurosis mesh
+fv_options.plot_mesh = 1; %do plot an aponeurosis mesh
 
-plot_options.plot_mask = 0; %don’t plot the mask
+fv_options.plot_mask = 0; %don’t plot the mask
 
-plot_options.plot_fibers = 1; %do plot fiber tracts
+fv_options.plot_fibers = 1; %do plot fiber tracts
 
-plot_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
+fv_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
 
-plot_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh
+fv_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh
 
-plot_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
+fv_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
 
-plot_options.fiber_color = [.8 .2 .2]; %make the fibers red
+fv_options.fiber_color = [.8 .2 .2]; %make the fibers red
 
-plot_options.dti_size = [192 192]; %rows x columns of the DTI data
+fv_options.dti_size = [192 192]; %rows x columns of the DTI data
 
-plot_options.dti_dims = [192 7]; %FOV and ST of the DTI data
+fv_options.dti_dims = [192 7]; %FOV and ST of the DTI data
 
 % Call the function:
 
-[fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image);
+[fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, fv_options, anat_image);
 
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md)
 
