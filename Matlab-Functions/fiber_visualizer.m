@@ -1,4 +1,4 @@
-function fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mask, fiber_all)
+function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask, fiber_all)
 %
 %FUNCTION fiber_visualizer
 %  fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mask, fiber_all)
@@ -19,12 +19,12 @@ function fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mas
 %INPUT ARGUMENTS
 %  anat_image: The stack of images to be plotted for anatomical reference
 %
-%  plot_options: A structure containing the following required fields:
+%  fv_options: A structure containing the following required fields:
 %   -anat_dims: A two element vector containing the FOV and the slice
 %      thickness of the anatomical images.
 %   -anat_slices: A vector containing the slice numbers of the anatomical
 %      images to be plotted.
-%   -plot_mesh: If set to 1, this field will allow plotting of the roi
+%   -plot_mesh: If set to 1, this field will allow plotting of the aponeurosis 
 %       mesh. Otherwise, set to 0.
 %   -plot_mask: If set to 1, this field will allow plotting of the mask.
 %        Otherwise, set to 0.
@@ -87,12 +87,12 @@ function fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mas
 %      plotted.
 %
 %  roi_mesh: The roi mesh, defined in define_roi. It is only needed if
-%    plot_options.plot_mesh is set to 1. Otherwise, enter an empty matrix
+%    fv_options.plot_mesh is set to 1. Otherwise, enter an empty matrix
 %    ([ ]) as a placeholder.
 %
 %  mask: A binary mask around the muscle of interest. It could be the
 %    output of define_muscle or it could have been defined in another
-%    program. It is only needed if plot_options.plot_mask is set to 1. 
+%    program. It is only needed if fv_options.plot_mask is set to 1. 
 %    Otherwise, enter an empty matrix ([ ]) as a placeholder.
 %
 %  fiber_all: The output of fiber_track (original fiber tracts), fiber_smoother 
@@ -100,7 +100,7 @@ function fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mas
 %    If plot_fibers equals 1, fiber_all should have size = (#mesh rows) x 
 %    (#mesh columns) x (#fiber tract points) x 3. If plot_fibers equals 1, 
 %    fiber_all should have size =(#mesh rows) x (#mesh columns) x 
-%    (#fiber tract points) x 3 x 2. It is only needed if plot_options.plot_fibers
+%    (#fiber tract points) x 3 x 2. It is only needed if fv_options.plot_fibers
 %    is set to 1. Otherwise, enter an empty matrix ([ ]) as a placeholder.
 %
 %OUTPUT ARGUMENTS
@@ -126,43 +126,43 @@ function fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mas
 anat_image = double(anat_image);
 
 anat_size = size(anat_image);                                                 %size of the anatomical image
-anat_dims=plot_options.anat_dims;
+anat_dims=fv_options.anat_dims;
 anat_inplane_res = anat_dims(1)/anat_size(1);
 anat_slicethick = anat_dims(2);
-anat_slices = plot_options.anat_slices;
+anat_slices = fv_options.anat_slices;
 
-if plot_options.plot_mesh==1
-    mesh_size = plot_options.mesh_size;
-    mesh_dims = plot_options.mesh_dims;
+if fv_options.plot_mesh==1
+    mesh_size = fv_options.mesh_size;
+    mesh_dims = fv_options.mesh_dims;
     mesh_inplane_res = mesh_dims(1)/mesh_size(1);
     mesh_inplane_ratio = mesh_inplane_res/anat_inplane_res;
     mesh_slicethick = mesh_dims(2);
-    mesh_color = plot_options.mesh_color;
-    if isfield('plot_options', 'mesh_dist')
-        mesh_dist = plot_options.mesh_dist;
+    mesh_color = fv_options.mesh_color;
+    if isfield('fv_options', 'mesh_dist')
+        mesh_dist = fv_options.mesh_dist;
     else
         mesh_dist = 0;
     end
 end
 
-if plot_options.plot_mask==1
-    mask_size = plot_options.mask_size;
-    mask_dims = plot_options.mask_dims;
+if fv_options.plot_mask==1
+    mask_size = fv_options.mask_size;
+    mask_dims = fv_options.mask_dims;
     mask_inplane_res = mask_dims(1)/mask_size(1);
     mask_inplane_ratio = mask_inplane_res/anat_inplane_res;
     mask_slicethick = mask_dims(2);
-    mask_color = plot_options.mask_color;
+    mask_color = fv_options.mask_color;
 end
 
-if plot_options.plot_fibers>0
-    dti_size = plot_options.dti_size;
-    dti_dims = plot_options.dti_dims;
+if fv_options.plot_fibers>0
+    dti_size = fv_options.dti_size;
+    dti_dims = fv_options.dti_dims;
     dti_inplane_res = dti_dims(1)/dti_size(1);
     dti_slicethick = dti_dims(2);
     dti_inplane_ratio = dti_inplane_res/anat_inplane_res;
-    fiber_color = plot_options.fiber_color;
-    if isfield(plot_options, 'fiber_skip')
-        fiber_skip = plot_options.fiber_skip;
+    fiber_color = fv_options.fiber_color;
+    if isfield(fv_options, 'fiber_skip')
+        fiber_skip = fv_options.fiber_skip;
     else
         fiber_skip = 1;
     end
@@ -170,7 +170,7 @@ end
 
 %% as needed, prepare for plotting
 
-if plot_options.plot_mask==1
+if fv_options.plot_mask==1
     
     mask_mesh = zeros(length(find(sum(sum(mask)))), 100, length(find(sum(sum(mask)))));
     mask_mesh1 = zeros(length(find(sum(sum(mask)))), 100, length(find(sum(sum(mask)))));
@@ -204,11 +204,11 @@ if plot_options.plot_mask==1
     mask_mesh(:,:,3) = mean(cat(3, mask_mesh1(:,:,3), mask_mesh2(:,:,3)), 3);
 end
 
-if plot_options.plot_fibers==1                                                  %convert from pixels to desired units, as input by users
+if fv_options.plot_fibers==1                                                  %convert from pixels to desired units, as input by users
     fiber_all(:,:,:,1) = fiber_all(:,:,:,1)*dti_inplane_ratio;
     fiber_all(:,:,:,2) = fiber_all(:,:,:,2)*dti_inplane_ratio;
     fiber_all(:,:,:,3) = fiber_all(:,:,:,3)*dti_slicethick;
-elseif plot_options.plot_fibers==2                                                  %convert from pixels to desired units, as input by users
+elseif fv_options.plot_fibers==2                                                  %convert from pixels to desired units, as input by users
     fiber_all(:,:,:,1,:) = fiber_all(:,:,:,1,:)*dti_inplane_ratio;
     fiber_all(:,:,:,2,:) = fiber_all(:,:,:,2,:)*dti_inplane_ratio;
     fiber_all(:,:,:,3,:) = fiber_all(:,:,:,3,:)*dti_slicethick;
@@ -228,7 +228,7 @@ for s=1:length(anat_slices)
     shading('Interp')
 end
 
-if plot_options.plot_mesh==1
+if fv_options.plot_mesh==1
     if numel(mesh_color)==3
         mesh_plot=surf((roi_mesh(:, :, 2) + mesh_dist*roi_mesh(:, :, 5))*mesh_inplane_ratio, ...
             (roi_mesh(:, :, 1) + mesh_dist*roi_mesh(:, :, 4))*mesh_inplane_ratio, ...
@@ -243,12 +243,12 @@ if plot_options.plot_mesh==1
     end
 end
 
-if plot_options.plot_mask==1
+if fv_options.plot_mask==1
     mask_plot=surf(mask_mesh(:, :, 2)*mask_inplane_ratio, mask_mesh(:, :, 1)*mask_inplane_ratio, mask_mesh(:, :, 3)*mask_slicethick);
     set(mask_plot, 'FaceColor', mask_color, 'EdgeColor', mask_color, 'facealpha', .25, 'edgealpha', 0);
 end
 
-if plot_options.plot_fibers==1
+if fv_options.plot_fibers==1
     
     if numel(fiber_color)==3
         
@@ -294,7 +294,7 @@ if plot_options.plot_fibers==1
         
     end
     
-elseif plot_options.plot_fibers==2
+elseif fv_options.plot_fibers==2
     
     for f=1:2
         
