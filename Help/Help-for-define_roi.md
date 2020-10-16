@@ -13,7 +13,7 @@ This help file contains information about
 
 ## 1. Purpose
 
-The function <i>define_roi</i> is used to digitize the aponeurosis of muscle fiber insertion. The digitized points are used to reconstruct a mesh; the mesh is used as the seed surface for fiber tracking.  It is a required input to <i>fiber_track</i> and <i>fiber_quantifier</i>; it may be visualized using <i>fiber_visualizer</i>.
+The function <i>define_roi</i> is used to digitize the aponeurosis of muscle fiber insertion. The digitized points are used to reconstruct a mesh; the mesh is used as the seed surface for fiber tracking.  It is a required input to [<i>fiber_track</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md) and [<i>fiber_quantifier</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_quantifier.md); it may be visualized using [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md).
 
 ## 2. Usage
 There are two options for defining the aponeurosis. 
@@ -23,7 +23,7 @@ There are two options for defining the aponeurosis.
 
 For both selection processes, after all slices are analyzed, the user is given the option of repeating erroneous slices.  The mesh is initially formed with dimensions of N<sub>R,A</sub> x N<sub>C,A</sub>.  To smooth the mesh, it is then down-sampled by a factor of four. Finally, the smoothed mesh is interpolated at the desired resolution. A file called <i>roi_mesh_file.mat</i> is automatically saved in the working directory. The user is advised to rename this file promptly. 
 
-The mesh may be viewed using <i>fiber_visualizer</i>, either as part of the function call to <i>define_roi</i> or directly from the command line
+The mesh may be viewed using [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md), either as part of the function call to <i>define_roi</i> or directly from the command line.
 
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md)
 
@@ -52,7 +52,7 @@ roi_mesh = define_roi(anat_image, mask, defroi_options, plot_options);
   
     <i>method</i>: a string variable set either to 'manual' or 'auto'. 
 
-* <i>plot_options</i>: Optional. If specified, this calls the <i>fiber_visualizer</i> function to plot the mask and roi mesh.
+* <i>plot_options</i>: Optional. If specified, this calls the [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md) function to plot the mask and roi mesh.
 
 The output argument is:
 * <i>roi_mesh</i>: A 3D matrix containing the reconstructed mesh with size n_row x n_col x 6. In the 3rd dimension, levels 1-3 hold {row column slice} coordinates and levels 4-6 hold the {row column slice} components of the normal vector to the mesh surface at the point {row column slice}.
