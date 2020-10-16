@@ -31,7 +31,7 @@ This procedure is modified from previous work to: 1) Fit the tract positions as 
 
 * <i>fiber_all</i>: The original fiber tracts, output from fiber_track
 
-* <i>ff_options</i>: A structure containing the following fields:
+* <i>fs_options</i>: A structure containing the following fields:
 
    <i>interpolation_step</i>: An interpolation interval for the fitted fiber tract, in units of pixels.  For example, setting interpolation_step to 0.25 would interpolate the fiber tract at intervals of 0.25 pixels.
 
