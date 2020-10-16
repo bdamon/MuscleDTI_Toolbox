@@ -30,7 +30,7 @@ The functions have been tested using MATLAB v. 2019b.  The toolbox consists prim
 ## 5. Overview of a Typical Workflow
 The figure below provides an overview of processing using the MuscleDTI_Toolbox: 
 
-<img src="https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/Overview.png" 
+<img src="https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/MuscleDTI_Toolbox_Overview.png" 
 alt="MuscleDTI_Toolbox Overview" width="600" height="413" border="10">
 
 These steps are elucidated further below.
