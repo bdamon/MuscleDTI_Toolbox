@@ -80,7 +80,7 @@ The commonly used medical image formats (DICOM, NIFTII, etc.) may use different 
 </table>
 
 ### Fiber Tract Propagation and Termination
-Tracts are initiated for every [row column] coordinate on the aponeurosis mesh using two nested for loops. Inside the inner loop, the seed point is determined; its location within the muscle mask is verified; the initial fiber-tracking step is found; a while loop is used to initiate and propagate a tract according to the selected algorithm until stop criteria are met; and the points are recorded in a matrix called <i>fiber_all</i>. <i>fiber_all</i> has dimensions of N<sub>R</sub>xN<sub>C,A</sub>xN<sub>P,Max</sub>x3, where N<sub>P,Max</sub> is the maximum number of points in any fiber tract; the fourth dimension holds the [row column slice] coordinates of each fiber-tracking point
+Tracts are initiated for every [row column] coordinate on the aponeurosis mesh using two nested for loops. Inside the inner loop, the seed point is determined; its location within the muscle mask is verified; the initial fiber-tracking step is found; a while loop is used to initiate and propagate a tract according to the selected algorithm until stop criteria are met; and the points are recorded in a matrix called <i>fiber_all</i>. <i>fiber_all</i> has dimensions of N<sub>R</sub> x N<sub>C,A</sub> x N<sub>P,Max</sub> x 3, where N<sub>P,Max</sub> is the maximum number of points in any fiber tract; the fourth dimension holds the [row column slice] coordinates of each fiber-tracking point
 
 The steps are:
 
@@ -164,7 +164,7 @@ The input arguments are:
 
 * <i>mask</i>: The mask delimiting the muscle to be fiber-tracked.    
 
-* <i>roi_mesh</i>: The mesh reconstruction of the aponeurosis of muscle fiber insertion, output from <i>define_roi</i>.  
+* <i>roi_mesh</i>: The mesh reconstruction of the aponeurosis of muscle fiber insertion, output from [<i>define_roi</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md).  
 
 * <i>ft_options</i>: A structure containing the following fields:
 
@@ -176,7 +176,7 @@ The input arguments are:
 
   <i>depth_ratio</i>: The ratio of slice thickness/in-plane resolution. Note that the function assumes equal in-plane voxel dimensions.
 
-  <i>prop_alg</i>: A string variable that specifies the method for determining the direction of fiber tract propagation. The available options include 1) <i>euler</i>: Diagonalization of the observed diffusion tensor at the current fiber tracking point, followed by magnitude-sorting and Euler integration of the first eigenvector. The user must specify the step size in the field ft_options.step_size. 2) <i>rk4</i>: Diagonalization of the observed diffusion tensor, diagonalization to find the firsteigenvector, and integration according to a 4th-order Runge-Kutta method. The user must specify the step size in the field ft_options.step_size. 3) <i>fact</i>: an implementation of the FACT algorithm.
+  <i>prop_alg</i>: A string variable that specifies the method for determining the direction of fiber tract propagation. The available options include 1) <i>euler</i>: Diagonalization of the observed diffusion tensor at the current fiber tracking point, followed by magnitude-sorting and Euler integration of the first eigenvector. The user must specify the step size in the field ft_options.step_size. 2) <i>rk4</i>: Diagonalization of the observed diffusion tensor, diagonalization to find the first eigenvector, and integration according to a 4th-order Runge-Kutta method. The user must specify the step size in the field ft_options.step_size. 3) <i>fact</i>: an implementation of the FACT algorithm.
 
   <i>step_size</i>: The Euler and 4th-order Runge-Kutta methods require the user to set the fiber-tracking step size, in pixels. A step size of 1 reflects the voxel width.
 
