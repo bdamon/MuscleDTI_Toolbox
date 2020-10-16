@@ -6,9 +6,15 @@ function fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mas
 %USAGE
 %  The function fiber_visualizer is used to visualize images and the muscle
 %  mask, roi mesh, and/or fiber tracts formed using the MuscleDTI_Toolbox.
-%  The user inputs the images and a structure containing the plotting options. 
-%  Depending on the data to be viewed, the roi mesh, mask, and/or fiber tracts 
-%  are also input and additional plotting options are required.
+%
+%  The user can call fiber_visualizer from the command line.  The user must  
+%  supply theanatomical images, a structure with some plotting options, and  
+%  the other variables to be plotted as input arguments. In addition, 
+%  define_muscle, define_roi, and fiber_track can be configured to call 
+%  fiber_visualizer from within the functions, so that the mask, mesh, and 
+%  fiber tracts can be automatically plotted.  Fields of view, matrix sizes, 
+%  slice thickness, etc. are appropriately considered so that all structures 
+%  are plotted using a consistent measurement scale.
 %
 %INPUT ARGUMENTS
 %  anat_image: The stack of images to be plotted for anatomical reference
@@ -81,18 +87,21 @@ function fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mas
 %      plotted.
 %
 %  roi_mesh: The roi mesh, defined in define_roi. It is only needed if
-%    plot_options.plot_mesh is set to 1.
+%    plot_options.plot_mesh is set to 1. Otherwise, enter an empty matrix
+%    ([ ]) as a placeholder.
 %
 %  mask: A binary mask around the muscle of interest. It could be the
 %    output of define_muscle or it could have been defined in another
-%    program. It is only needed if plot_options.plot_mask is set to 1.
+%    program. It is only needed if plot_options.plot_mask is set to 1. 
+%    Otherwise, enter an empty matrix ([ ]) as a placeholder.
 %
 %  fiber_all: The output of fiber_track (original fiber tracts), fiber_smoother 
 %    (smoothed fiber tracts), or fiber_goodness (quality-selected fiber tracts).
-%    It is only needed if plot_options.plot_fibers is set to 1. If plot_fibers 
-%    equals 1, fiber_all should have size = (#mesh rows) x (#mesh columns) x 
-%    (#fiber tract points) x 3. If plot_fibers equals 1, fiber_all should have  
-%    size =(#mesh rows) x (#mesh columns) x (#fiber tract points) x 3 x 2.
+%    If plot_fibers equals 1, fiber_all should have size = (#mesh rows) x 
+%    (#mesh columns) x (#fiber tract points) x 3. If plot_fibers equals 1, 
+%    fiber_all should have size =(#mesh rows) x (#mesh columns) x 
+%    (#fiber tract points) x 3 x 2. It is only needed if plot_options.plot_fibers
+%    is set to 1. Otherwise, enter an empty matrix ([ ]) as a placeholder.
 %
 %OUTPUT ARGUMENTS
 %  fiber_figure: A Matlab figure structure
@@ -103,7 +112,7 @@ function fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mas
 %  For help with fiber tracking, see <a href="matlab: help fiber_track">fiber_track</a>.
 %  For help smoothing fiber tracts, see <a href="matlab: help fiber_smoother">fiber_smoother</a>.
 %  For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
-%  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
+%  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_selector">fiber_selector</a>.
 %
 %VERSION INFORMATION
 %  v. 0.1
@@ -342,4 +351,3 @@ set(gca, 'color', 'k')
 %% end function
 
 return
-
