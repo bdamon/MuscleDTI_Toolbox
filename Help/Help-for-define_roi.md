@@ -37,7 +37,7 @@ In subsequent slices, additional information is incorporated into the initial es
 ## 4. Syntax
 The function define_roi is called using the following syntax:
 
-roi_mesh = define_roi(anat_image, mask, dr_options, plot_options);
+roi_mesh = define_roi(anat_image, mask, dr_options, fv_options);
 
 <i>anat_image</i>: The imaging data. 
 
@@ -53,7 +53,7 @@ roi_mesh = define_roi(anat_image, mask, dr_options, plot_options);
   
     <i>method</i>: a string variable set either to 'manual' or 'auto'. 
 
-* <i>plot_options</i>: Optional. If specified, this calls the [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md) function to plot the mask and roi mesh.
+* <i>fv_options</i>: Optional. If specified, this calls the [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md) function to plot the mask and roi mesh.
 
 The output argument is:
 * <i>roi_mesh</i>: A 3D matrix containing the reconstructed mesh with size n_row x n_col x 6. In the 3rd dimension, levels 1-3 hold {row column slice} coordinates and levels 4-6 hold the {row column slice} components of the normal vector to the mesh surface at the point {row column slice}.
