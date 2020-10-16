@@ -1,16 +1,19 @@
-function roi_mesh=define_roi(anat_image, mask, defroi_options, plot_options)
+function roi_mesh=define_roi(anat_image, mask, dr_options, plot_options)
 %
 % FUNCTION define_roi
-%  roi_mesh=define_roi(anat_image, mask, defroi_options, plot_options)
+%  roi_mesh=define_roi(anat_image, mask, dr_options, fv_options)
 %
 % USAGE
 %  The function define_roi is used to digitize the aponeurosis of muscle fiber
 %  insertion in the MuscleDTI_Toolbox.  The digitized points are used to
 %  reconstruct a mesh; the mesh is used as the seed surface for fiber tracking.
-%  It is a required input to fiber_track and may be visualized using
-%  fiber_visualizer.
-%  
-%  There are two options for defining the aponeurosis:
+% 
+%  The mesh is a required input to fiber_track, fiber_quantifier, and fiber_goodness. 
+%  It may be visualized using fiber_visualizer. The required inputs are the 
+%  anatomical image, the muscle mask, and a structure define the user's options 
+%  for defining themesh; an optional structure allows plotting of the results.  
+%  The output is the mesh reconstruction of the aponeurosis. There are two 
+%  options for defining the aponeurosis:
 %    -Manual selection: Three figure windows are displayed. The center figure
 %     shows the current slice, the left-hand figure shows the preceding slice,
 %     and the right-hand figure shows the upcoming slice. An interactive tool
@@ -70,7 +73,7 @@ function roi_mesh=define_roi(anat_image, mask, defroi_options, plot_options)
 %    method: a string variable set either to 'manual' or 'auto'. The manual
 %      and automatic options are described above.
 %
-%  plot_options: If specified, this calls the fiber_visualizer function to
+%  dr_options: If specified, this calls the fiber_visualizer function to
 %    plot the mask and roi mesh.
 %
 % OUTPUT ARGUMENTS
@@ -96,15 +99,15 @@ function roi_mesh=define_roi(anat_image, mask, defroi_options, plot_options)
 %  Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
 
 %% preliminary stuff
-dti_size = defroi_options.dti_size;
+dti_size = dr_options.dti_size;
 
-frst_slice = defroi_options.slices(1);
-last_slice = defroi_options.slices(2);
+frst_slice = dr_options.slices(1);
+last_slice = dr_options.slices(2);
 
-n_row = defroi_options.mesh_size(1);
-n_col = defroi_options.mesh_size(2);
+n_row = dr_options.mesh_size(1);
+n_col = dr_options.mesh_size(2);
 
-select_method = defroi_options.method(1:2);
+select_method = dr_options.method(1:2);
 
 if isstruct(anat_image)
     working_image=anat_image.Data;
