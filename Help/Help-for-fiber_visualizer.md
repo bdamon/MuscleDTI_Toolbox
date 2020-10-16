@@ -51,14 +51,14 @@ Depending on the plot options selected, additional fields may be required in <i>
 If <i>plot_mask</i> equals 1, the user must also specify:
    * <i>mask_size</i>: This two-element vector specifies the in-plane matrix size of the images used to generate the mask.
 
-   * <i>mask_dims</i>: This two-element vector specifies the FOV and slice thickness of the images used to create the mask.
+   * <i>mask_dims</i>: This two-element vector specifies the FOV and ST of the images used to create the mask.
 
    * <i>mask_color</i>: This three-element vector contains the RGB levels that determine the color of the mask.
      
 If <i>plot_fibers</i> equals 1 or 2, you must also specify:
    * <i>dti_size</i>: This two-element vector specifies the matrix size of the images used for fiber tracking.
 
-   * <i>dti_dim</i>s: This two-element vector specifies the FOV and slice thickness of the DT images. The FOV is assumed to be square.
+   * <i>dti_dim</i>s: This two-element vector specifies the FOV and ST of the DT images. The FOV is assumed to be square.
 
    * <i>fiber_color</i>: Defines the color of the tracts. Several options are available:
       * If plot_fibers equals 1 and fiber_color is a 3 element vector of values ranging from 0-1, the vector is interpreted as RGB levels.
@@ -69,11 +69,11 @@ If <i>plot_fibers</i> equals 1 or 2, you must also specify:
 
    * <i>fiber_skip</i>: Setting fiber_skip to integer values > 1 will skip over fiber tracts when plotting. This may improve visualization and will decrease time for rendering. If not specified, all fibers will be plotted.
 
- <i>roi_mesh</i>: The output of <i>define_roi</i>. It is only needed if plot_options.plot_mesh is set to 1.
+ <i>roi_mesh</i>: The output of [<i>define_roi</i>](https://github.com/bdamon/MuscleDTI_Toolbox/edit/master/Help/Help-for-define_roi.md). It is only needed if plot_options.plot_mesh is set to 1.
 
  <i>mask</i>: A binary mask around the muscle of interest. It could be the output of <i>define_muscle</i> or it could have been defined in another program. It is only needed if plot_options.plot_mask is set to 1.
 
- <i>fiber_all</i>: The output of <i>fiber_track</i> (original fiber tracts) or <i>fiber_smoother</i> (smoothed fiber tracts), or <i>fiber_goodness</i> (quality-selected fiber tracts). It is only needed if plot_options.plot_fibers is set to 1. If plot_fibers equals 1, the size should be (#mesh rows) x (#mesh columns) x (#fiber tract points) x 3. If plot_fibers equals 1, the size should be (#mesh rows) x (#mesh columns) x (#fiber tract points) x 3 x 2.
+ <i>fiber_all</i>: The output of [<i>fiber_track</i>](https://github.com/bdamon/MuscleDTI_Toolbox/edit/master/Help/Help-for-fiber_track.md) (original fiber tracts) or [<i>fiber_smoother</i>](https://github.com/bdamon/MuscleDTI_Toolbox/edit/master/Help/Help-for-fiber_smoother.md) (smoothed fiber tracts), or [<i>fiber_goodness</i>]((https://github.com/bdamon/MuscleDTI_Toolbox/edit/master/Help/Help-for-fiber_goodness.md)) (quality-selected fiber tracts). It is only needed if plot_options.plot_fibers is set to 1. If plot_fibers equals 1, the size should be (#mesh rows) x (#mesh columns) x (#fiber tract points) x 3. If plot_fibers equals 1, the size should be (#mesh rows) x (#mesh columns) x (#fiber tract points) x 3 x 2.
 
 The output arguments are:
  <i>fiber_figure</i>: A Matlab figure structure
@@ -184,7 +184,7 @@ plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be d
 
 plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
 
-plot_options.plot_mesh = 1; %don’t plot an aponeurosis mesh
+plot_options.plot_mesh = 1; %do plot an aponeurosis mesh
 
 plot_options.plot_mask = 0; %do plot the mask
 
