@@ -86,7 +86,8 @@ Tracts are initiated for every [row column] coordinate on the aponeurosis mesh u
 
 The steps are:
 
-Step 1 – Locate the seed point on the aponeurosis mesh: for each location on the aponeurosis mesh, the [row column slice] coordinates are used to form the seed point, P<sub>1</sub>.
+#### Step 1 
+Locate the seed point on the aponeurosis mesh: for each location on the aponeurosis mesh, the [row column slice] coordinates are used to form the seed point, P<sub>1</sub>.
 
 Step 2 – Record the seed point in the fiber tract matrix or continue to the next location on the mesh: The location of P<sub>1</sub> inside the muscle mask is verified. If P<sub>1</sub> falls outside of the muscle mask, the tract does not propagate, a value of 4 is recorded at the [row column] location in the variable <i>stop_list</i>, and the loops continue to the next seed point. If P<sub>1</sub> falls within the mask, the seed point is added to <i>fiber_all</i>. P<sub>1</sub> is stored at index N<sub>P</sub> = 1, and the function proceeds to Step 3.
 
