@@ -20,13 +20,13 @@ The user can call <i>fiber_visualizer</i> from the command line. The user must s
 [Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md)
 
 ## 3. Syntax 
-fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mask, fiber_all)
+fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask, fiber_all)
 
 The input arguments are:
 
 <i>anat_image</i>: An anatomical image having matrix size = Number of Image Rows (N<sub>R,I</sub>) x Number of Image Columns (N<sub>C,I</sub>) x Number of Image Slices (N<sub>S,I</sub>)
 
-<i>plot_options</i>: A structure containing the following required fields:
+<i>fv_options</i>: A structure containing the following required fields:
 
   * <i>anat_dims</i>: A two-element vector containing the field of view (FOV) and the slice thickness (ST) of the anatomical images, in mm.
 
@@ -99,21 +99,21 @@ the following code will allow the user to
  
 % Set visualization options
 
-plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
+fv_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
 
-plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
+fv_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
 
-plot_options.plot_mesh = 0; %don’t plot an aponeurosis mesh
+fv_options.plot_mesh = 0; %don’t plot an aponeurosis mesh
 
-plot_options.plot_mask = 1; %do plot the mask
+fv_options.plot_mask = 1; %do plot the mask
 
-plot_options.plot_fibers = 0; %don’t plot any fiber tracts
+fv_options.plot_fibers = 0; %don’t plot any fiber tracts
 
-plot_options.mask_size = [192 192]; %rows x columns of the images used to generate the mask
+fv_options.mask_size = [192 192]; %rows x columns of the images used to generate the mask
 
-plot_options.mask_dims = [192 7]; %FOV and ST of the images used to create the mask, in mm
+fv_options.mask_dims = [192 7]; %FOV and ST of the images used to create the mask, in mm
 
-plot_options.mask_color = [1 0 0]; %make the mask a red, semi-transparent overlay
+fv_options.mask_color = [1 0 0]; %make the mask a red, semi-transparent overlay
 
 % Call the function:
 
@@ -134,25 +134,25 @@ the following code will allow the user to:
  
  
 % Set visualization options
-plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
+fv_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
 
-plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
+fv_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
 
-plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
+fv_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
 
-plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
+fv_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
 
-plot_options.plot_mesh = 1; %do plot an aponeurosis mesh
+fv_options.plot_mesh = 1; %do plot an aponeurosis mesh
 
-plot_options.plot_mask = 0; %don’t plot the mask
+fv_options.plot_mask = 0; %don’t plot the mask
 
-plot_options.plot_fibers = 0; %don’t plot any fiber tracts
+fv_options.plot_fibers = 0; %don’t plot any fiber tracts
 
-plot_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
+fv_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
 
-plot_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh, in mm
+fv_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh, in mm
 
-plot_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
+fv_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
 
 % Call the function:
 
@@ -180,31 +180,31 @@ the following code will allow the user to:
  
 % Set visualization options
 
-plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
+fv_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
 
-plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
+fv_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
 
-plot_options.plot_mesh = 1; %do plot an aponeurosis mesh
+fv_options.plot_mesh = 1; %do plot an aponeurosis mesh
 
-plot_options.plot_mask = 0; %do plot the mask
+fv_options.plot_mask = 0; %do plot the mask
 
-plot_options.plot_fibers = 1; %do plot the fiber tracts
+fv_options.plot_fibers = 1; %do plot the fiber tracts
 
-plot_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
+fv_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
 
-plot_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh
+fv_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh
 
-plot_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
+fv_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
 
-plot_options.fiber_color = [.8 .2 .2];
+fv_options.fiber_color = [.8 .2 .2];
 
-plot_options.dti_size = [192 192];
+fv_options.dti_size = [192 192];
 
-plot_options.dti_dims = [192 7];
+fv_options.dti_dims = [192 7];
 
 % Call the function:
 
-fiber_mesh_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, [], fiber_all);
+fiber_mesh_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, [], fiber_all);
 
 [Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md)
 
