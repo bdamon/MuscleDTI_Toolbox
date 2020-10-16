@@ -39,7 +39,7 @@ For curvature, the best results are obtained with polynomial-fitted fiber tracts
 
 The input arguments are:
  
-* <i>fiber_all</i>: A 4D matrix containing the fiber tract points, with units of pixels (in X and Y) or slice number (in Z). This matrix could be substituted with fitted_fiber_all (the output of [<i>fiber_fitter</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_fitter.md)
+* <i>fiber_all</i>: A 4D matrix containing the fiber tract points, with units of pixels (in X and Y) or slice number (in Z). This matrix could be substituted with fitted_fiber_all (the output of [<i>fiber_smoother</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_smoother.md))
 
 * <i>roi_mesh</i>: The mesh reconstruction of the aponeurosis that was used as the seed surface for fiber tracking, output from <i>define_roi</i>.
 
