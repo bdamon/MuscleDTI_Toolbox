@@ -65,11 +65,11 @@ The output argument is:
 ### Example 1
 Given 
 
-1.	An anatomical image with variable name anat_image and having matrix size 19219244, field of view 192192 mm, and slice thickness 7 mm;
+1.	An anatomical image with variable name anat_image and having matrix size 192x192x44, field of view 192x192 mm, and slice thickness 7 mm;
 
 2.	The muscle mask, stored in a variable called mask; and
 
-3.	DTI images, having matrix size 19219244, field of view 192192 mm, and slice thickness 7 mm
+3.	DTI images, having matrix size 192x192x44, field of view 192x192 mm, and slice thickness 7 mm
 
 the code below will allow the user to:
 
@@ -91,21 +91,21 @@ dr_options.method = ‘manual'; %digitize it manually
 
 % Set visualization options
 
-plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
+fv_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
 
-plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
+fv_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
 
-plot_options.plot_mesh = 1; %do plot the aponeurosis mesh
+fv_options.plot_mesh = 1; %do plot the aponeurosis mesh
 
-plot_options.plot_mask = 0; %don’t plot the mask
+fv_options.plot_mask = 0; %don’t plot the mask
 
-plot_options.plot_fibers = 0; %don’t plot any fiber tracts
+fv_options.plot_fibers = 0; %don’t plot any fiber tracts
 
-plot_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
+fv_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
 
-plot_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh
+fv_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh
 
-plot_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
+fv_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
 
 % call the function:
 
@@ -126,21 +126,21 @@ dr_options.method = ‘auto'; %automatic definition
 
 % Set visualization options
 
-plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
+fv_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
 
-plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
+fv_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
 
-plot_options.plot_mesh = 1; %do plot the aponeurosis mesh
+fv_options.plot_mesh = 1; %do plot the aponeurosis mesh
 
-plot_options.plot_mask = 0; %don’t plot the mask
+fv_options.plot_mask = 0; %don’t plot the mask
 
-plot_options.plot_fibers = 0; %don’t plot any fiber tracts
+fv_options.plot_fibers = 0; %don’t plot any fiber tracts
 
-plot_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
+fv_options.mesh_size = [192 192]; %rows x columns of the images used to generate the mesh
 
-plot_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh
+fv_options.mesh_dims = [192 7]; %FOV and ST of the images used to create the mesh
 
-plot_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
+fv_options.mesh_color = [0.75 0.75 0.75]; %make the mesh light gray
 
 % call the function:
 
