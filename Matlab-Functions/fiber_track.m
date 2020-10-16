@@ -8,7 +8,7 @@ function [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = ...
 %USAGE
 %  The function fiber_track is used to fiber-track a muscle DTI dataset.
 %    
-%  TThe required inputs include a 5D matrix hold the diffusion tensor at each
+%  The required inputs include a 5D matrix hold the diffusion tensor at each
 %  voxel and [row column slice] dimensions matching those of the DTMRI data; 
 %  the muscle mask, output from define_muscle or other program; the
 %  aponeurosis mesh, output from define_roi; and a structure defining the 
@@ -25,6 +25,9 @@ function [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = ...
 %
 %  The outputs include the fiber tracts, variables describing the outcomes 
 %  of the tracking, and selected data about the tracts.
+%
+%  The fiber tracts may be viewed using fiber_visualizer, either as part of 
+%  the function call to fiber_track or directly from the command line. 
 %
 %INPUT ARGUMENTS
 %  tensor_m: A 5D matrix, with the first-third dimensions matching the 
@@ -262,7 +265,7 @@ fiber_len=roi_flag;
 for row_cntr=1:length(roi_mesh(:, 1, 1))                                  %start of the row loop
     
     %progress counter
-    fprintf('%6.2f percent is tracked\n', row_cntr/length(roi_mesh(:,1,1))*100);
+%     fprintf('%6.2f percent is tracked\n', row_cntr/length(roi_mesh(:,1,1))*100);
     
     for col_cntr=1:length(roi_mesh(1, :, 1))                              %start of the column loop
         
