@@ -3,27 +3,42 @@ function [final_fibers, final_curvature, final_angle, final_distance, qual_mask,
 %
 %FUNCTION fiber_goodness
 %  [final_fibers, final_curvature, final_angle, final_distance, qual_mask, num_tracked, mean_fiber_props, mean_apo_props] = ...
-%     fiber_goodness(fiber_all, angle_list, distance_list, curvature_list, n_points, roi_flag, apo_area, roi_mesh, fg_options);
+%     fiber_goodness(smoothed_fiber_all, angle_list, distance_list, curvature_list, n_points, roi_flag, apo_area, roi_mesh, fg_options);
 %
 %USAGE
 %  The function fiber_goodness is used to assess the goodness of fiber tract  
-%  data, and reject outlying fiber tract data, in the MuscleDTI_Toolbox.
+%  data, and reject outlying fiber tract data, in the MuscleDTI_Toolbox. An 
+%  optional, second-stage selection process allow the user to uniformaly 
+%  sample the aponeurosis mesh.
+%  
 %  The quality algorithm described in Heemskerk et al, 2008 is implemented, 
 %  but updated to account for the inclusion of curvature in the architectural
 %  computations. Specifically, the fibers are selected for having:
-%    1) monotonically increasing values in the Z direction. This prevents 
+%    1) Monotonically increasing values in the Z direction. This prevents 
 %       errors due to overfitting in the Z direction;
-%    2) minimum length (in mm, specified by the user based on their knowledge
+%    2) A minimum length (in mm, specified by the user based on their knowledge
 %       of the expected muscle geometry);
-%    3) a pennation angle within a user-specified range (in degrees, specified 
-%       tghe by userbased on their knowledge of the expected muscle geometry); 
-%    4) a curvature value within a user-specified range (in m^-1, specified by
+%    3) A pennation angle within a user-specified range (in degrees, specified 
+%       the by userbased on their knowledge of the expected muscle geometry); 
+%    4) A curvature value within a user-specified range (in m^-1, specified by
 %       the user); and
-%    5) within the 95% confidence interval for length, pennation angle, and
-%       curvature set by the surrounding 24 tracts.
+%    5) Values within the 95% confidence interval for length, pennation angle, 
+%       and curvature set by the surrounding 24 tracts.
+%
+% The second step of the selection process is optional; it is engaged by 
+% including a field .sampling_density in the fg_options structure described
+% below. The reason for using the second-stage process is that the roi_mesh 
+% matrix is required to have a fixed number of rows and columns; but the 
+% aponeurosis in vivo varies in width.  Thus, the density of initially
+% propagated fiber tracts, in 1/mm^-2, varies throughout the mesh. Also, the 
+% first-stage selection process rejects some tracking results, further
+% changing the sampling frequency.  To account for these issues, the fiber 
+% tracts that pass the first stage of the selection process can be selected
+% so that they occur at a uniform spatial frequency in the final dataset. 
+% The user sets this frequency in the field fs_options.sampling_density.
 %
 %INPUT ARGUMENTS
-%  fitted_fiber_all: the smoothed fiber tracts
+%  smoothed_fiber_all: the smoothed fiber tracts
 %
 %  angle_list: pennation angles for smoothed fiber tracts
 %
@@ -46,7 +61,8 @@ function [final_fibers, final_curvature, final_angle, final_distance, qual_mask,
 %      min_pennation: minimum pennation angle, in degrees
 %      max_pennation: maximum pennation angle, in degrees
 %      max_curvature: maximum curvature, in m^-1
-%      sampling_frequency:
+%      sampling_frequency (optional): The spatial frequency for uniform
+%        sampling of the aponeurosis mesh, in mm^-1
 %      dwi_res: a three-element vector containing the field of view, matrix
 %        size, and slice thickness of the diffusion-weighted images
 %
