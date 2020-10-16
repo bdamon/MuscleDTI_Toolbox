@@ -86,12 +86,14 @@ Tracts are initiated for every [row column] coordinate on the aponeurosis mesh u
 
 The steps are:
 
-#### Step 1 
+#### Step 1: 
 Locate the seed point on the aponeurosis mesh: for each location on the aponeurosis mesh, the [row column slice] coordinates are used to form the seed point, P<sub>1</sub>.
 
-Step 2 – Record the seed point in the fiber tract matrix or continue to the next location on the mesh: The location of P<sub>1</sub> inside the muscle mask is verified. If P<sub>1</sub> falls outside of the muscle mask, the tract does not propagate, a value of 4 is recorded at the [row column] location in the variable <i>stop_list</i>, and the loops continue to the next seed point. If P<sub>1</sub> falls within the mask, the seed point is added to <i>fiber_all</i>. P<sub>1</sub> is stored at index N<sub>P</sub> = 1, and the function proceeds to Step 3.
+#### Step 2:
+Record the seed point in the fiber tract matrix or continue to the next location on the mesh: The location of P<sub>1</sub> inside the muscle mask is verified. If P<sub>1</sub> falls outside of the muscle mask, the tract does not propagate, a value of 4 is recorded at the [row column] location in the variable <i>stop_list</i>, and the loops continue to the next seed point. If P<sub>1</sub> falls within the mask, the seed point is added to <i>fiber_all</i>. P<sub>1</sub> is stored at index N<sub>P</sub> = 1, and the function proceeds to Step 3.
 
-Step 3 - Determine the initial fiber-tracking step, ∆S: Three options for determining ∆S are available: Euler integration, 4th-order Runge-Kutta integration, and FACT.  Although the present discussion is about the initial fiber-tracking step, to maintain generality we refer to the current fiber-tracking point as P<sub>n</sub>, the current first eigenvector as ε<sub>1,n)</sub>', and the current fiber-tracking step as ∆S<sub>n</sub>. The three tract propagation methods are implemented as follows:
+#### Step 3: 
+Determine the initial fiber-tracking step, ∆S: Three options for determining ∆S are available: Euler integration, 4th-order Runge-Kutta integration, and FACT.  Although the present discussion is about the initial fiber-tracking step, to maintain generality we refer to the current fiber-tracking point as P<sub>n</sub>, the current first eigenvector as ε<sub>1,n)</sub>', and the current fiber-tracking step as ∆S<sub>n</sub>. The three tract propagation methods are implemented as follows:
 * Euler: The initial direction of tract propagation is determined by rounding the [row column slice] coordinates of P_n, using them as indices into tensor_m, and retrieving D. D is diagonalized using the eig function; the eigenvalues are magnitude-sorted and ε_1 is identified. If ε<sub>1,Z</sub><0, ε<sub>1</sub> is multiplied by -1 so that tracts always propagate in ascending slice order. Then ε<sub>1</sub> is converted to ε<sub>1</sub>' as described above. Further, the slice-wise component of ε<sub>1</sub>', ε<sub>1,S</sub>', is adjusted to account for the aspect ratio of the voxel (the ratio of its thickness to its width) to determine a step direction:
 
    ε<sub>1,S'</sub>' = ε<sub>1,S</sub>' / (ΔZ/ΔX)
@@ -138,7 +140,8 @@ Step 3 - Determine the initial fiber-tracking step, ∆S: Three options for dete
 
 Regardless of the propagation method, the next point, P<sub>n+1</sub>, is calculated as P<sub>n+1</sub> =P<sub>n</sub> +∆S<sub>n</sub>. If it falls within the muscle mask, it is added to the <i>fiber_all</i> matrix
 
-Step 4 – Propagate the tract: From point P<sub>n+1</sub>, the step ∆S<sub>n+1</sub> and the next fiber tract point P<sub>n+2</sub> are calculated according to the selected propagation algorithm, as described above. For Runge-Kutta integration, if the 2nd, 3rd, or 4th order points fall outside of the muscle mask, the propagation algorithm automatically changes to Euler integration until the tract is terminated. This is to avoid obtaining erroneous estimates of the fiber orientation from voxels outside of the muscle of interest.
+#### Step 4: 
+Propagate the tract: From point P<sub>n+1</sub>, the step ∆S<sub>n+1</sub> and the next fiber tract point P<sub>n+2</sub> are calculated according to the selected propagation algorithm, as described above. For Runge-Kutta integration, if the 2nd, 3rd, or 4th order points fall outside of the muscle mask, the propagation algorithm automatically changes to Euler integration until the tract is terminated. This is to avoid obtaining erroneous estimates of the fiber orientation from voxels outside of the muscle of interest.
 
 Before being added to the <i>fiber_all</i> matrix, several termination criteria are applied. First, the location of P<sub>n+1</sub> within the muscle mask is verified; if not, tract propagation stops and a value of 4 is written into the <i>stop_list</i> matrix.  In addition, either of several algorithms may be applied and used to terminate tract propagation.
 * BIN1: Two binary criteria are applied. First, the FA must fall within the bounds set by the user in <i>ft_options</i>. Also, the angle formed by the current and a previous fiber tracking step is calculated as:
@@ -153,7 +156,8 @@ Before being added to the <i>fiber_all</i> matrix, several termination criteria 
    
 The variable <i>stop_list</i> is useful to diagnose the reasons of tract propagation failure and to optimize the stop criteria. 
 
-Step 5 – Add the point and continue tracking: If all criteria are successfully met, the next point is calculated and added to <i>fiber_all</i>. The fiber counter is incremented and the tract is recorded as a successful tracking result in the variable <i>roi_flag</i>. Steps 4 and 5 occur within the <i>while</i> loop and continue until a stop criterion is met.  At that point, the <i>while</i> loop breaks and the programs advances to the new [row column] coordinate on the aponeurosis mesh
+#### Step 5:
+  Add the point and continue tracking: If all criteria are successfully met, the next point is calculated and added to <i>fiber_all</i>. The fiber counter is incremented and the tract is recorded as a successful tracking result in the variable <i>roi_flag</i>. Steps 4 and 5 occur within the <i>while</i> loop and continue until a stop criterion is met.  At that point, the <i>while</i> loop breaks and the programs advances to the new [row column] coordinate on the aponeurosis mesh
 
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md)
 
