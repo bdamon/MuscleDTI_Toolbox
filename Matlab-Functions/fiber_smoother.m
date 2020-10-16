@@ -2,7 +2,7 @@ function [smoothed_fiber_all, pcoeff_r, pcoeff_c, pcoeff_s, n_points_smoothed] =
 %
 %FUNCTION fiber_smoother
 %  [smoothed_fiber_all, pcoeff_r, pcoeff_c, pcoeff_s, n_points_smoothed] = ...
-%    fiber_smoother(fiber_all, smooth_options);
+%    fiber_smoother(fiber_all, fs_options);
 %
 %USAGE
 %  The function fiber_smoother is used to smooth fiber tracts and increase
