@@ -1,4 +1,4 @@
-function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plot_options)
+function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_options)
 %
 %FUNCTION define_muscle
 %  [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plot_options)
@@ -57,7 +57,7 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plo
 %    row x column x slices size of a second mask; the same center position of
 %    the image stack is assumed.
 %
-%  plot_options: If included, this calls the fiber_visualizer function to plot
+%  fv_options: If included, this calls the fiber_visualizer function to plot
 %    the mask.
 %
 %OUTPUT ARGUMENTS
@@ -335,16 +335,16 @@ end
 
 %% plot mask, if desired
 
-plot_mask = isfield(plot_options, 'plot_mask');
+plot_mask = isfield(fv_options, 'plot_mask');
 
 if plot_mask==1
     
     % be sure not to plot unneeded stuff
-    plot_options.plot_fibers=0;
-    plot_options.plot_mesh=0;
-    plot_options.plot_mask=1;
+    fv_options.plot_fibers=0;
+    fv_options.plot_mesh=0;
+    fv_options.plot_mask=1;
     
-    fiber_visualizer(anat_image, plot_options, [], mask, []);
+    fiber_visualizer(anat_image, fv_options, [], mask, []);
     
 end
 
