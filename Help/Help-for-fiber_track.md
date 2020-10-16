@@ -163,7 +163,7 @@ The variable <i>stop_list</i> is useful to diagnose the reasons of tract propaga
 
 ## 4. Syntax
 
-[fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, fv_options, anat_image);
+<p style="font-family:'Courier New'">[fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, fv_options, anat_image);
 
 The input arguments are:
 
