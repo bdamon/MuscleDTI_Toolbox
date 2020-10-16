@@ -24,7 +24,7 @@ Fibers are tracked from the aponeurosis mesh according to the selected propagati
 
 The outputs include the fiber tracts, variables describing the outcomes of the tracking, and selected data about the tracts.
 
-The fiber tracts may be viewed using [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md), either as part of the function call to define_muscle or directly from the command line.
+The fiber tracts may be viewed using [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md), either as part of the function call to <i>fiber_track</i> or directly from the command line.
 
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md)
 
