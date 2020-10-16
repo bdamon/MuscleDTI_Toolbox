@@ -15,7 +15,7 @@ The function fiber_goodness is used to assess the goodness of fiber tract data, 
 [Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_goodness.md)
 
 ## 2. Usage
-The quality algorithm described in Heemskerk et al, 2008 is implemented, but updated to account for the inclusion of curvature in the architectural computations. Specifically, the fibers are selected for having:
+The quality algorithm described in [Heemskerk et al, 2008](https://pubmed.ncbi.nlm.nih.gov/19161166/) is implemented, but updated to account for the inclusion of curvature in the architectural computations. Specifically, the fibers are selected for having:
  1) Monotonically increasing values in the Z direction. This prevents errors due to overfitting in the Z direction;
  2) A minimum length (in mm, specified by the user based on their knowledge of the expected muscle geometry);
  3) A pennation angle within a user-specified range (in degrees, specified the by userbased on their knowledge of the expected muscle geometry); 
