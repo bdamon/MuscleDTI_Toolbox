@@ -43,7 +43,7 @@ The input arguments are:
 
  * <i>n_points</i>: The number of points quantified per fiber tract, derived from <i>fiber_quantifier</i>;
 
- * <i>roi_flag</i>: A mask indicating fiber tracts that propagated at least one point in the function fiber_track, derived from <i>fiber_track</i>;
+ * <i>roi_flag</i>: A mask indicating fiber tracts that propagated at least one point, output from from <i>fiber_track</i>;
 
  * <i>apo_area</i>: A matrix indicating the amount of aponeurosis area associated with each fiber tract, derived from <i>fiber_quantifier</i>;
 
