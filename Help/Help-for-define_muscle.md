@@ -33,7 +33,7 @@ The mask may be viewed using [<i>fiber_visualizer</i>](https://github.com/bdamon
 
 The function define_muscle is called using the following syntax:
 
-[mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plot_options);
+[mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_options);
 
 The input arguments are:
 
@@ -43,7 +43,7 @@ The input arguments are:
 
 * <i>alt_mask_size</i>: If specified, this is a three-element vector containing the N<sub>R,I</sub> x N<sub>C,I</sub> x N<sub>S,I</sub> size of a second mask; the same center position of the image stack is assumed.
 
-* <i>plot_options</i>: If specified, this calls the <i>fiber_visualizer</i> function to plot the mask.
+* <i>fv_options</i>: If specified, this calls the <i>fiber_visualizer</i> function to plot the mask.
 
 The output arguments are:
 
@@ -123,25 +123,25 @@ slices = [4 41];
 
 % Set visualization options
 
-plot_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
+fv_options.anat_dims = [192 7]; %FOV and slice thickness of the images to be displayed, in mm
 
-plot_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
+fv_options.anat_slices = 14:10:44; %display slices 14, 24, 34, and 44 
 
-plot_options.plot_mesh = 0; %don’t plot an aponeurosis mesh
+fv_options.plot_mesh = 0; %don’t plot an aponeurosis mesh
 
-plot_options.plot_mask = 1; %do plot the mask
+fv_options.plot_mask = 1; %do plot the mask
 
-plot_options.plot_fibers = 0; %don’t plot any fiber tracts
+fv_options.plot_fibers = 0; %don’t plot any fiber tracts
 
-plot_options.mask_size = [192 192]; %rows x columns of the images used to generate the mask
+fv_options.mask_size = [192 192]; %rows x columns of the images used to generate the mask
 
-plot_options.mask_dims = [192 7]; %FOV and ST of the images used to create the mask
+fv_options.mask_dims = [192 7]; %FOV and ST of the images used to create the mask
 
-plot_options.mask_color = [1 0 0]; %make the mask a red, semi-transparent overlay
+fv_options.mask_color = [1 0 0]; %make the mask a red, semi-transparent overlay
 
 % call the function
 
- [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plot_options); 
+ [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_options); 
 
 [Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md)
 
