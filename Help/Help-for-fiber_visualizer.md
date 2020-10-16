@@ -32,7 +32,7 @@ The input arguments are:
 
   * <i>anat_slices</i>: A vector containing the slice numbers of the anatomical images to be plotted.
 
-   * <i>plot_mesh</i>: If set to 1, this field will allow plotting of the roi mesh. Otherwise, the mesh will not be plotted.
+   * <i>plot_mesh</i>: If set to 1, this field will allow plotting of the aponeurosis mesh. Otherwise, the mesh will not be plotted.
 
    * <i>plot_mask</i>: If set to 1, this field will allow plotting of the mask.  Otherwise, the mask will not be plotted.
 
