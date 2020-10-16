@@ -48,8 +48,8 @@ function [final_fibers, final_curvature, final_angle, final_distance, qual_mask,
 %
 %  n_points: the number of points quantified per fiber tract
 %
-%  roi_flag: a mask indicating fiber tracts that propagated at least one
-%    point in the function fiber_track.
+%  roi_flag: A mask indicating fiber tracts that propagated at least one 
+%    point, output fromn fiber_track
 %
 %  apo_area: a matrix indicating the amount of aponeurosis area associated
 %    with each fiber tract
