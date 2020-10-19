@@ -1,5 +1,6 @@
 function eddy_correct(FSL_dir, DTI_scan_info)
 %EDDY_CORRECT Perform eddy current correction through FSL
+%INPUT ARGUMENTS
 %   FSL_dir       : FSL directory
 %   DTI_scan_info : Structure specifying DTI image information
 %       -subject     : Subject number, e.g. 'S09'
@@ -65,7 +66,7 @@ clear dwi_info;
 % Display basic image info using FSLINFO
 fprintf('\n=== Basic image info of DWI image ===\n  %s\n', fdwi);
 system(['fslinfo ' fdwi]);
-fprintf('\n=== Basic image info of auxiliary b = 0 image ===\n  %s\n', fb0_aux);
+fprintf('\n=== Basic image info of auxiliary b = 0 image ===\n  %s\n\n', fb0_aux);
 system(['fslinfo ' fb0_aux]);
 
 fdwi_raw = sprintf('%s_%s', raw_base_str, 'DWI');
@@ -94,9 +95,7 @@ if status == 0
 end
 
 %% TOPUP 01.1 - Extract b = 0 frame from DWI image set using fslroi
-% fb0_main_save = [eddy_dir img_tag '_b0'];
 fb0_main_save = sprintf('%s_%s', eddy_base_str, 'b0');
-% b0_frame = 24;  % CAUTION, frame index starts from 0
 cmd_extract_b0 = strjoin({'fslroi', ...
                           ['"' fdwi_raw '"'], ...
                           ['"' fb0_main_save '"'], ...
@@ -107,9 +106,7 @@ if status == 0
 end
 
 %% TOPUP 01.2 - Extract b = 0 frame from auxiliary image using fslroi
-% fb0_aux_save = [eddy_dir img_tag '_b0_aux'];
 fb0_aux_save = sprintf('%s_%s', eddy_base_str, 'b0_aux');
-% b0_frame = 0;  % CAUTION, frame indexstarts from 0
 cmd_extract_b0_aux = strjoin({'fslroi', ...
                           ['"' fb0_aux_raw '"'], ...
                           ['"' fb0_aux_save '"'], ...
@@ -121,7 +118,6 @@ if status == 0
 end
 
 %% TOPUP 02 - Merge b = 0 images into a single image along the 4th ("time") axis
-% fb0_merge = [eddy_dir img_tag '_b0_merge'];
 fb0_merge = sprintf('%s_%s', eddy_base_str, 'b0_merge');
 cmd_merge = strjoin({'fslmerge -t', ...
                      ['"' fb0_merge '"'], ...
@@ -134,7 +130,6 @@ if status == 0
 end
 
 %% TOPUP 03 - Prepare parameter file
-% fparam = [eddy_dir img_tag '_acqparams.txt'];
 fparam = sprintf('%s_%s', eddy_base_str, 'acqparams.txt');
 param_mat = [DTI_scan_info.PE, DTI_scan_info.readout; ...
              DTI_scan_info.PE_aux, DTI_scan_info.readout_aux];
@@ -142,9 +137,6 @@ dlmwrite(fparam, param_mat, ' ');
 fprintf('Acquisition parameter file for TOPUP ready.\n');
 
 %% TOPUP 04 - Prepare and execute ultimate command for topup
-% ftopup_base = [eddy_dir 'topup_' img_tag];  % Use full path
-% ftopup_iout = [ftopup_base '_iout'];
-% ftopup_fout = [ftopup_base '_fout'];
 ftopup_base = sprintf('%s/%s_%s', eddy_dir, 'topup', img_tag);
 ftopup_iout = sprintf('%s_%s', ftopup_base, 'iout');
 ftopup_fout = sprintf('%s_%s', ftopup_base, 'fout');
@@ -163,7 +155,6 @@ if status == 0
 end
 
 %% EDDY 01 - Compute average image of corrected b = 0 volumes
-% favg = [eddy_dir img_tag '_b0_avg_cor'];
 favg = sprintf('%s_%s', eddy_base_str, 'b0_avg_cor');
 cmd_avg = strjoin({'fslmaths', ...
                    ['"' ftopup_iout '"'], ...
@@ -176,9 +167,6 @@ if status == 0
 end
 
 %% EDDY 02 - Create binary mask
-% intst_thres = 0.6;  % Fraction intensity threshold; modify in future use
-% mask_tag = 'leg';   % Modify this in future use
-% fthres = [eddy_dir img_tag '_b0_' mask_tag];
 fthres = sprintf('%s_%s_%s', eddy_base_str, 'b0', DTI_scan_info.mask_tag);
 cmd_mask = strjoin({'bet', ...
                     ['"' favg '"'], ...
@@ -191,21 +179,16 @@ if status == 0
 end
 
 %% EDDY 03 - Prepare index file
-% findex = [eddy_dir img_tag '_index.txt'];
 findex = sprintf('%s_%s', eddy_base_str, 'index.txt');
 dlmwrite(findex, ones(img_size(4), 1));
 fprintf('Index file for EDDY ready.\n');
 
 %% EDDY 04 - Prepare b-vector and b-value files
-% fbvecs_raw = [scan_data_dir study_dir img_dir fdwi_tag '.bvec'];
-% fbvals_raw = [scan_data_dir study_dir img_dir fdwi_tag '.bval'];
 fbvecs_raw = sprintf('%s/%s%s', ...
     DTI_scan_info.scan_dir, DTI_scan_info.dwi_tag, '.bvec');
 fbvals_raw = sprintf('%s/%s%s', ...
     DTI_scan_info.scan_dir, DTI_scan_info.dwi_tag, '.bval');
 
-% fbvecs = [raw_dir img_tag '.bvec'];
-% fbvals = [raw_dir img_tag '.bval'];
 fbvecs = sprintf('%s%s', raw_base_str, '.bvec');
 fbvals = sprintf('%s%s', raw_base_str, '.bval');
 
@@ -215,12 +198,9 @@ copyfile(fbvals_raw, fbvals);
 fprintf('File for b-values ready.\n');
 
 %% EDDY 05 - Prepare and execute ultimate command for eddy
-% Input files list
-% fmask      = [fthres '_mask'];
 fmask      = sprintf('%s_%s', fthres, 'mask');
 fwhm       = 0;
 flm        = 'quadratic';
-% feddy_base = [eddy_dir 'eddy_unwarped_' img_tag];
 feddy_base = sprintf('%s/%s_%s', eddy_dir, 'eddy_unwarped', img_tag);
 
 cmd_eddy = strjoin({'eddy', ['--imain="' fdwi_raw '"'], ...
@@ -239,6 +219,7 @@ status = system(cmd_eddy);
 if status == 0
     fprintf('EDDY : command finished successfully.\n');
 end
+
 end
 
 function FSL_env_setup(FSL_dir)
