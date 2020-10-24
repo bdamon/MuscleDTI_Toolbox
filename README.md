@@ -69,7 +69,8 @@ At any stage, the results can be visualized using the function [<i>fiber_visuali
 
 ## 6. Other Resources
 ### A. Within the toolbox:
-* [Here's a link to all of the MATLAB functions](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Tractography-Functions)
+* [Here's a link to all of the preprocessing functions](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Preprocessing-Functions)
+* [Here's a link to all of the tractography functions](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Tractography-Functions)
 * [Here's a link to all of the help files](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Help)
 * [Here's a link to templates for submitting feature requests and bug reports](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Issues)
 
