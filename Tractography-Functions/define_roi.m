@@ -33,21 +33,19 @@ function roi_mesh=define_roi(anat_image, mask, dr_options, fv_options)
 %     preceding slice, and the right-hand figure shows the upcoming slice. An
 %     interactive tool is opened that allows the user to adjust the center 
 %     figure's window and level settings. In the center figure, the edge 
-%     locations of the mask are indicated. For each slice to be analyzed, the
-%     algorithm described in §3.3 is used to present an initial estimate of
-%     the aponeurosis’s location and its boundary pixels. The user can 
-%     correct erroneous assignments in the initial estimate by using the left
-%     mouse button to select voxels for removal from the initial assignment 
-%     and the right mouse button to select voxels to add to the initial 
-%     assignment. The user selects Enter to proceed. In subsequent slices, 
-%     the finalized assignment from the preceding slice and the results of 
-%     an edge detection algorithm are incorporated into the initial 
-%     segmentation estimate and the process is repeated.
+%     locations of the mask are indicated. For each slice to be analyzed, 
+%     the user is presented with an initial estimate of the aponeurosisâ€™s 
+%     location and its boundary pixels. The user can correct erroneous 
+%     assignments in the initial estimate by using the left mouse button 
+%     to select voxels for removal from the initial assignment and the 
+%     right mouse button to select voxels to add to the initial assignment. 
+%     The user selects Enter to proceed and the process repeats in the next
+%     slice.
 %
 %  For both selection processes, after all slices are analyzed, the user is
 %  given the option of repeating erroneous slices.  The mesh is initially 
-%  formed with dimensions of NR,A x NC,A.  To smooth the mesh, it is then 
-%  down-sampled by a factor of four. Finally, the smoothed mesh is 
+%  formed with the dimensions setin dr_options.  To smooth the mesh, it is  
+%  then down-sampled by a factor of four. Finally, the smoothed mesh is 
 %  interpolated at the desired resolution. A file called roi_mesh_file.mat 
 %  is automatically saved in the working directory. The user is advised to 
 %  rename this file promptly. 
@@ -126,9 +124,9 @@ switch select_method
     
     case{'ma'}                                          %manual definition
         
-        figure('units', 'normalized', 'position', [.05 .05 .25 .25*screen_aspect_ratio], 'name', 'Previous Slice')
-        figure('units', 'normalized', 'position', [.3 .05 .4 .33*screen_aspect_ratio], 'name', 'Current Slice')
-        figure('units', 'normalized', 'position', [.7 .05 .25 .25*screen_aspect_ratio], 'name', 'Next Slice')
+        figure('units', 'normalized', 'position', [.05 .05 .25 .26*screen_aspect_ratio], 'name', 'Previous Slice')
+        figure('units', 'normalized', 'position', [.3 .05 .4 .26*screen_aspect_ratio], 'name', 'Current Slice')
+        figure('units', 'normalized', 'position', [.7 .05 .25 .26*screen_aspect_ratio], 'name', 'Next Slice')
         
         slc_cntr=frst_slice;
         while slc_cntr<=last_slice
@@ -170,7 +168,7 @@ switch select_method
             plot(edge_xy(:,2), edge_xy(:,1), 'b');
             imcontrast
             
-            if slc_cntr==frst_slice                                                    %first time, user sets zoom
+            if slc_cntr==frst_slice                                             %first time, user sets zoom
                 figure(2)
                 clc, disp('Zoom image and then select Enter to continue');
                 zoom on
@@ -251,9 +249,9 @@ switch select_method
         
     case{'au'}                                  %automated definition
         
-        figure('units', 'normalized', 'position', [.05 .05 .25 .25*screen_aspect_ratio], 'name', 'Selected Pixels')
-        figure('units', 'normalized', 'position', [.3 .05 .4 .325*screen_aspect_ratio], 'name', 'Interactive Window')
-        figure('units', 'normalized', 'position', [.7 .05 .25 .25*screen_aspect_ratio], 'name', 'Smoothed Edge Pixels')
+        figure('units', 'normalized', 'position', [.05 .05 .25 .26*screen_aspect_ratio], 'name', 'Selected Pixels')
+        figure('units', 'normalized', 'position', [.3 .05 .4 .26*screen_aspect_ratio], 'name', 'Interactive Window')
+        figure('units', 'normalized', 'position', [.7 .05 .25 .26*screen_aspect_ratio], 'name', 'Smoothed Edge Pixels')
         
         apo_segmented_initial=zeros(size(working_image));
         apo_segmented_final=zeros(size(working_image));
@@ -278,12 +276,12 @@ switch select_method
             if slc_cntr==frst_slice
                 roi_erode=bwmorph(loop_roi, 'erode', 1);
             else
-                roi_erode=bwmorph(loop_roi, 'erode', 2);                  %erode the roi
+                roi_erode=bwmorph(loop_roi, 'erode', 2);                        %erode the roi
             end
-            roi_dilate=bwmorph(loop_roi, 'dilate', 2);                  %dilate the roi
+            roi_dilate=bwmorph(loop_roi, 'dilate', 2);                          %dilate the roi
             
             %find edges within the mask
-            edge_segmented=edge(loop_img.*roi_dilate);                    %find edges of and within dilated ROI
+            edge_segmented=edge(loop_img.*roi_dilate);                          %find edges of and within dilated ROI
             edge_segmented=edge_segmented.*roi_erode;                           %clean out the edge of mask, though
             
             %also do a k-means clustering:
@@ -294,15 +292,15 @@ switch select_method
             
             % if there is a previous slice, add that in there too:
             if slc_cntr>frst_slice
-                apo_segmented = bwmorph(kmeans_segmented, 'dilate') + edge_segmented + 2*prev_segmented;
+                apo_segmented = bwmorph(kmeans_segmented, 'dilate') + edge_segmented + 1.5*prev_segmented;
                 apo_segmented(apo_segmented<2)=0;
                 apo_segmented(apo_segmented>0)=1;
             else
-                apo_segmented = bwmorph(kmeans_segmented, 'dilate') + 0*edge_segmented;%
-                apo_segmented(apo_segmented<1)=0;
+                apo_segmented = bwmorph(kmeans_segmented, 'dilate') + 1*edge_segmented;%
+                apo_segmented(apo_segmented<2)=0;
                 apo_segmented(apo_segmented>0)=1;
             end
-            apo_segmented=bwmorph(apo_segmented, 'clean');              %remove isolated pixels
+            apo_segmented=bwmorph(apo_segmented, 'clean');                      %remove isolated pixels
             apo_segmented=bwmorph(apo_segmented, 'close');
             apo_segmented_initial(:,:,curr_slice)=apo_segmented;
             
@@ -402,6 +400,9 @@ switch select_method
                 
                 
                 clc, correct_yn=input('Select a to accept this result or c to correct pixels: ', 's');
+                for k=1:3
+                    figure(k)
+                end
                 if isempty(correct_yn)
                     correct_yn='c';
                 end
@@ -448,9 +449,9 @@ switch select_method
             end
             
             close all
-            figure('units', 'normalized', 'position', [.05 .05 .25 .25*screen_aspect_ratio], 'name', 'Previous Slice')
-            figure('units', 'normalized', 'position', [.3 .05 .4 .33*screen_aspect_ratio], 'name', 'Current Slice')
-            figure('units', 'normalized', 'position', [.7 .05 .25 .25*screen_aspect_ratio], 'name', 'Next Slice')
+            figure('units', 'normalized', 'position', [.05 .025 .25 .26*screen_aspect_ratio], 'name', 'Previous Slice')
+            figure('units', 'normalized', 'position', [.3 .025 .4 .26*screen_aspect_ratio], 'name', 'Current Slice')
+            figure('units', 'normalized', 'position', [.7 .025 .25 .26*screen_aspect_ratio], 'name', 'Next Slice')
             
             %get the roi data
             if curr_slice>1
@@ -756,7 +757,7 @@ switch select_method
         save apo_segmentation_results apo_segmented_final apo_segmented_initial
 end
 %% plot mesh, if desired
-close all
+% close all
 
 plot_mesh = isfield(fv_options, 'plot_mesh');
 
