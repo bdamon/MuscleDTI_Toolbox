@@ -13,6 +13,7 @@ function [angle_list, distance_list, curvature_list, fiber_all_mm, n_points, apo
 %  Information about each measurement follows:
 %    -Fiber tract length: this is measured by summing the inter-point 
 %     distances along the tract.
+%
 %    -Pennation: The method for pennation measurements is essentially as 
 %     described in Lansdown et al, J Appl Physiol 2007. The approach to 
 %     measuring pennation angle traditionally used in ultrasound imaging is 
@@ -63,6 +64,16 @@ function [angle_list, distance_list, curvature_list, fiber_all_mm, n_points, apo
 %      a single odd integer, e.g. fq_options.filt_kernel=N.  Note that median 
 %      filtering results in a loss of edge information and that the number of 
 %      lost rows and columns increases with the size of the filter kernel.
+%   
+%    mesh_units: A two-element string variable set to 'vx' if the units of
+%      the roi mesh are voxels and set to 'mm' if the roi mesh has units of
+%      mm. If set to 'vx', the fiber tracts are converted to units of mm 
+%      prior to quantification.
+%   
+%    tract_units: A two-element string variable set to 'vx' if the units of
+%      the fiber tracts are voxels and set to 'mm' if the fiber tracts have
+%      units of mm. If set to 'vx', the fiber tracts are converted to units
+%      of mm prior to quantification.
 % 
 % OUTPUT ARGUMENTS
 %  angle_list: The pennation angles, for fiber tracking point numbers
@@ -124,16 +135,27 @@ dwi_slicethickness = dwi_res(3);
 dwi_fov = dwi_res(1);
 dwi_xsize = dwi_res(2);
 
-roi_mesh_mm(:,:,1) = roi_mesh(:,:,1)*(dwi_fov/dwi_xsize);                                   %switch row column to X-Y frame of reference
-roi_mesh_mm(:,:,2) = roi_mesh(:,:,2)*(dwi_fov/dwi_xsize);
-roi_mesh_mm(:,:,3) = roi_mesh(:,:,3)*dwi_slicethickness;
+% convert roi mesh to mm, if needed
+if strcmp(fq_options.mesh_units, 'vx') || strcmp(fq_options.mesh_units, 'VX')
+    roi_mesh_mm(:,:,1) = roi_mesh(:,:,1)*(dwi_fov/dwi_xsize);                                   %switch row column to X-Y frame of reference
+    roi_mesh_mm(:,:,2) = roi_mesh(:,:,2)*(dwi_fov/dwi_xsize);
+    roi_mesh_mm(:,:,3) = roi_mesh(:,:,3)*dwi_slicethickness;
+elseif strcmp(fq_options.mesh_units, 'mm') || strcmp(fq_options.mesh_units, 'MM')
+    roi_mesh_mm = roi_mesh;
+else
+    error('Aborting fiber_quantifier because of unexpected units for roi mesh')
+end
 
-
-% convert fiber tracts to mm
-fiber_all_mm(:,:,:,1) = squeeze(fiber_all(:,:,:,1))*(dwi_fov/dwi_xsize);                    %convert fiber tracts in pixels to mm
-fiber_all_mm(:,:,:,2) = squeeze(fiber_all(:,:,:,2))*(dwi_fov/dwi_xsize);
-fiber_all_mm(:,:,:,3) = squeeze(fiber_all(:,:,:,3))*dwi_slicethickness;
-
+% convert fiber tracts to mm, if needed
+if strcmp(fq_options.tract_units, 'vx') || strcmp(fq_options.tract_units, 'VX')
+    fiber_all_mm(:,:,:,1) = squeeze(fiber_all(:,:,:,1))*(dwi_fov/dwi_xsize);                    %convert fiber tracts in pixels to mm
+    fiber_all_mm(:,:,:,2) = squeeze(fiber_all(:,:,:,2))*(dwi_fov/dwi_xsize);
+    fiber_all_mm(:,:,:,3) = squeeze(fiber_all(:,:,:,3))*dwi_slicethickness;
+elseif strcmp(fq_options.tract_units, 'mm') || strcmp(fq_options.tract_units, 'MM')
+    fiber_all_mm = fiber_all;
+else 
+    error('Aborting fiber_quantifier because of unexpected units for fiber tracts')
+end
 
 %% prepare for pennation measurements
 
@@ -178,7 +200,7 @@ for row_cntr = start_row:end_row
         p2=squeeze(roi_mesh_mm(row_cntr+1, col_cntr+1,1:3));                                %p0-3 are the four points of the quadrilateral on the roi mesh
         p3=squeeze(roi_mesh_mm(row_cntr, col_cntr+1,1:3));                                  %p0-3 are the four points of the quadrilateral on the roi mesh
         apo_area(row_cntr, col_cntr) = ...                                                  %model the quadrilateral as two irregular triangles with vertices v0-v1-v2 and v2-v3-v0
-            norm(cross((p1-p0), (p2-p1)))/2 + norm(cross((p3-p2), (p3-p0)))/2;              %  their area is 1/2 of the magnitude of the indicated cross products
+            norm(cross((p1-p0), (p2-p1)))/2 + norm(cross((p3-p2), (p3-p0)))/2;              %their area is 1/2 of the magnitude of the indicated cross products
             
         if fiber_length(row_cntr,col_cntr) >= 6                                           	%quantify all tracts of at least 6 points
 
