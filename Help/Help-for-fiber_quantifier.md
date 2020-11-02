@@ -48,6 +48,10 @@ The input arguments are:
    <i>.dwi_res</i>: a three element vector with the FOV, (assumed to be the same for the x and y directions), in-plane matrix size, and the slice thickness. The FOV and slice thickness must be specified in mm.
 
    <i>.filt_kernel</i>: As noted above, the pennation angle calculation relies on the measurement of two tangent lines along the roi_mesh. When determining these lines, their slopes are median-filtered over an NxN window as a way to mitigate the effects of digitization errors. The size of the median filter is specified in filt_kernel; enter this as a single odd integer, e.g. fq_options.filt_kernel = N.  Note that median filtering results in a loss of edge information; the number of rows and columns that will be lost increases with the size of the filter kernel.
+   
+   <i>.mesh_units</i>:  A two-element string variable set to 'vx' if the units of the roi mesh are voxels and set to 'mm' if the roi mesh has units of mm. If set to 'vx', the fiber tracts are converted to units of mm prior to quantification.
+   
+   <i>.tract_units</i>: A two-element string variable set to 'vx' if the units of the fiber tracts are voxels and set to 'mm' if the fiber tracts have units of mm. If set to 'vx', the fiber tracts are converted to units of mm prior to quantification.
 
 The output arguments are:
 * <i>angle_list</i>: The pennation angles, for fiber tracking point numbers 2-end. Pennation angles are reported in degrees.
