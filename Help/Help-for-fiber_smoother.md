@@ -33,9 +33,9 @@ This procedure is modified from [previous work](https://pubmed.ncbi.nlm.nih.gov/
 
 * <i>fs_options</i>: A structure containing the following fields:
 
-   <i>interpolation_step</i>: An interpolation interval for the fitted fiber tract, in units of pixels.  For example, setting interpolation_step to 0.25 would interpolate the fiber tract at intervals of 0.25 pixels.
+   <i>.interpolation_step</i>: An interpolation interval for the fitted fiber tract, in units of pixels.  For example, setting interpolation_step to 0.25 would interpolate the fiber tract at intervals of 0.25 pixels.
 
-   <i>p_order</i></i>: A three-element vector containing the polynomial orders N<sub>R</sub>, N<sub>C</sub>, and N<sub>S</sub> to use when fitting the tracts; they should be specified in the sequence row-column-slice.
+   <i>.p_order</i></i>: A three-element vector containing the polynomial orders N<sub>R</sub>, N<sub>C</sub>, and N<sub>S</sub> to use when fitting the tracts; they should be specified in the sequence row-column-slice.
 
 ### Output Arguments
 
