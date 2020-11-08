@@ -1,0 +1,28 @@
+Help for <i>signal2tensor2</i>, v. 1.0
+
+d_m = signal2tensor2(signal_v, dir_m, b)
+USAGE
+signal2tensor2 finds the tensor that best fits the observed signal.
+The user inputs a column vector containing unweighted and diffusion-
+weighted signals, a matrix describing the diffusion-sensitizing 
+directions; and the b-value (assumed to be the same for all directions).
+The function outputs the calculated tensor, with units of 1/[b]. 
+INPUT ARGUMENTS
+signal_v: A column vector of image signals, the first element of which is
+the unweighted signal, and the other elements of which correspond to the
+directions specified by the rows of dir_m 
+
+dir_m: A matrix containing the X, Y, and Z components of unit-length vectors 
+describing the diffusion-sensitizing directions; it has dimensions of
+(Number of Directions x 3)
+
+b: The diffusion-weighting (b-) value
+
+OUTPUT ARGUMENTS
+d_m: The diffusion tensor.
+
+ACKNOWLEDGMENTS
+
+People: Adam Anderson
+
+Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831% Usage: d_m = signal2tensor2(signal_v, dir_m, b)
