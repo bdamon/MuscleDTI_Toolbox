@@ -47,7 +47,7 @@ roi_mesh = define_roi(anat_image, mask, dr_options, fv_options);
 
     <i>slices</i>: A two-element vector containing the first and last slices that the user wishes to digitize.
   
-    <i>dti_size</i>: The size of the DTI image dataset (rows x columns x slices), input as a three element vector.
+    <i>dti_size</i>: A three-element vector containing the numbers of rows (N<sub>R,D</sub>), columns (N<sub>C,D</sub>), and slices (N<sub>S,D</sub>) in the DTI dataset, input as [N<sub>R,D</sub> N<sub>C,D</sub> N<sub>S,D</sub>]
   
     <i>mesh_size</i>: A two-element vector containing the numbers of rows (N<sub>R,A</sub>) and columns (N<sub>C,A</sub>) desired in the output mesh.
   
