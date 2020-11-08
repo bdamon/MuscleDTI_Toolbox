@@ -133,6 +133,7 @@ function [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = ...
 %  md_all: the pointwise mean diffusivities along each tract
 %
 %OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%  For help calculating the diffusion tensor, see <a href="matlab: help signal2tensor2">signal2tensor2</a>.
 %  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
 %  For help defining the ROI, see <a href="matlab: help define_roi">define_roi</a>.
@@ -161,7 +162,7 @@ image_orient = ft_options.image_orient;
 
 switch image_orient
     
-    case{'AL'}                                                              %image north is anatomical anterior, image east is anatomical left
+    case{'AL'}                                                              %image top is anatomical anterior, image right is anatomical left
         
         switch ref_frame
             
@@ -185,7 +186,7 @@ switch image_orient
                 
         end
         
-    case {'RA'}                                                              %image north is anatomical right, image east is anatomical anterior
+    case {'RA'}                                                              %image top is anatomical right, image right is anatomical anterior
         
         switch ref_frame
             

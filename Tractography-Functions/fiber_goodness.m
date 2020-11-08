@@ -97,6 +97,7 @@ function [final_fibers, final_curvature, final_angle, final_distance, qual_mask,
 %    amount of aponeurosis area represented by each tract.
 %
 %OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%  For help calculating the diffusion tensor, see <a href="matlab: help signal2tensor2">signal2tensor2</a>.
 %  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
 %  For help defining the ROI, see <a href="matlab: help define_roi">define_roi</a>.
 %  For help with the fiber tracking program, see <a href="matlab: help fiber_track">fiber_track</a>.

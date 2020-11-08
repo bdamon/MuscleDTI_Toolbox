@@ -57,6 +57,7 @@ function [smoothed_fiber_all, pcoeff_r, pcoeff_c, pcoeff_s, n_points_smoothed] =
 %  n_points_smoothed: the number of points in the fitted tracts
 %
 %OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%  For help calculating the diffusion tensor, see <a href="matlab: help signal2tensor2">signal2tensor2</a>.
 %  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
 %  For help defining the ROI, see <a href="matlab: help define_roi">define_roi</a>.

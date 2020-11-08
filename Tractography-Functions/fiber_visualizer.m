@@ -7,12 +7,12 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 %  The function fiber_visualizer is used to visualize images and the muscle
 %  mask, roi mesh, and/or fiber tracts formed using the MuscleDTI_Toolbox.
 %
-%  The user can call fiber_visualizer from the command line.  The user must  
-%  supply theanatomical images, a structure with some plotting options, and  
-%  the other variables to be plotted as input arguments. In addition, 
+%  The user can call fiber_visualizer from the command line. In addition, 
 %  define_muscle, define_roi, and fiber_track can be configured to call 
 %  fiber_visualizer from within the functions, so that the mask, mesh, and 
-%  fiber tracts can be automatically plotted.  Fields of view, matrix sizes, 
+%  fiber tracts can be automatically plotted. The user must supply the 
+%  anatomical images, a structure with some plotting options, and the other 
+%  variables to be plotted as input arguments.  Fields of view, matrix sizes, 
 %  slice thickness, etc. are appropriately considered so that all structures 
 %  are plotted using a consistent measurement scale.
 %
@@ -107,6 +107,7 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 %  fiber_figure: A Matlab figure structure
 %
 %OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%  For help calculating the diffusion tensor, see <a href="matlab: help signal2tensor2">signal2tensor2</a>.
 %  For help defining the muscle mask, see <a href="matlab: help define_muscle">define_muscle</a>.
 %  For help defining the aponeurosis ROI, see <a href="matlab: help define_roi">define_roi</a>.
 %  For help with fiber tracking, see <a href="matlab: help fiber_track">fiber_track</a>.

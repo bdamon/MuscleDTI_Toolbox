@@ -66,9 +66,9 @@ function [angle_list, distance_list, curvature_list, fiber_all_mm, n_points, apo
 %      lost rows and columns increases with the size of the filter kernel.
 %   
 %    mesh_units: A two-element string variable set to 'vx' if the units of
-%      the roi mesh are voxels and set to 'mm' if the roi mesh has units of
-%      mm. If set to 'vx', the fiber tracts are converted to units of mm 
-%      prior to quantification.
+%      the aponeurosis  mesh are voxels and set to 'mm' if the roi mesh has 
+%      units of mm. If set to 'vx', the fiber tracts are converted to units  
+%      of mm prior to quantification.
 %   
 %    tract_units: A two-element string variable set to 'vx' if the units of
 %      the fiber tracts are voxels and set to 'mm' if the fiber tracts have
@@ -95,6 +95,7 @@ function [angle_list, distance_list, curvature_list, fiber_all_mm, n_points, apo
 %    apoeurosis area represented by each fiber tract
 % 
 % OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%  For help calculating the diffusion tensor, see <a href="matlab: help signal2tensor2">signal2tensor2</a>.
 %  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
 %  For help defining the ROI, see <a href="matlab: help define_roi">define_roi</a>.

@@ -34,7 +34,7 @@ function roi_mesh=define_roi(anat_image, mask, dr_options, fv_options)
 %     interactive tool is opened that allows the user to adjust the center 
 %     figure's window and level settings. In the center figure, the edge 
 %     locations of the mask are indicated. For each slice to be analyzed, 
-%     the user is presented with an initial estimate of the aponeurosisâ€™s 
+%     the user is presented with an initial estimate of the aponeurosis’s 
 %     location and its boundary pixels. The user can correct erroneous 
 %     assignments in the initial estimate by using the left mouse button 
 %     to select voxels for removal from the initial assignment and the 
@@ -82,6 +82,7 @@ function roi_mesh=define_roi(anat_image, mask, dr_options, fv_options)
 %    at each coordinate.
 %
 % OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%  For help calculating the diffusion tensor, see <a href="matlab: help signal2tensor2">signal2tensor2</a>.
 %  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
 %  For help with the fiber tracking program, see <a href="matlab: help fiber_track">fiber_track</a>.
