@@ -15,7 +15,7 @@ This help file contains information about
 [Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md)
 
 ## 2. Usage
-The user can call <i>fiber_visualizer</i> from the command line. The user must supply the anatomical images, a structure with some plotting options, and the other variables to be plotted as input arguments. In addition, <i>define_muscle</i>, <i>define_roi</i>, and <i>fiber_track</i> can be configured to call <i>fiber_visualizer</i> from within the functions, so that the mask, mesh, and fiber tracts can be automatically plotted.  Fields of view, matrix sizes, slice thickness, etc. are appropriately considered so that all structures are plotted using a consistent measurement scale.
+The user can call <i>fiber_visualizer</i> from the command line. In addition, <i>define_muscle</i>, <i>define_roi</i>, and <i>fiber_track</i> can be configured to call <i>fiber_visualizer</i> from within the functions, so that the mask, mesh, and fiber tracts can be automatically plotted. The user must supply the anatomical images, a structure with some plotting options, and the other variables to be plotted as input arguments. Fields of view, matrix sizes, slice thickness, etc. are appropriately considered so that all structures are plotted using a consistent measurement scale.
 
 [Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md)
 
