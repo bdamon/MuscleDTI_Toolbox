@@ -58,6 +58,7 @@ the code below will allow the user to:
 b = 450;          %s/mm^2
 
 dir_m = [
+
         0.1890    0.6940    0.6940
 
         0.6940    0.6940    0.1890
