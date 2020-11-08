@@ -109,9 +109,9 @@ dir_m = [
 
 % Get signals and call the function
 
-signal_v = squeeze(dti_images(96,90,12,:);
+signal_v = squeeze(dti_images(96,90,12,:));
 
-d_m = signal2tensor2(signal_v, dir_m, b)
+d_m = signal2tensor2(signal_v, dir_m, b);
 
 ## 5. Acknowledgements
 People: Adam Anderson
