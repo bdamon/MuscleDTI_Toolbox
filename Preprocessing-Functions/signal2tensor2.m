@@ -1,20 +1,44 @@
 function d_m = signal2tensor2(signal_v, dir_m, b)
-% Usage: d_m = signal2tensor2(signal_v, dir_m, b)
 %
-%   signal2tensor2 finds the tensor that best fits the observed signal.
-% The signal is given by the elements of the column vector signal_v,
-% the first element of which is s0, the unweighted signal, and the
-% other elements of which correspond to the directions specified by 
-% the rows of dir_m (nDirs rows, by 3 columns for x, y, and z). The 
-% b factor of all directions is assumed to be b. Note that the 
-% units of d_m, the calculated tensor, will be 1/[b].
-%   It is assumed that the standard deviation of each signal measurement
-% is noiseStd.
-%   signal2tensorX is a simplified version of dtiEngineX (useful for
-% simulations and demonstrations).
+% FUNCTION signal2tensor2
+%  d_m = signal2tensor2(signal_v, dir_m, b)
 %
-% Last modified: 2006/12/04 (AWA)
-
+% USAGE
+%  signal2tensor2 finds the tensor that best fits the observed signal.
+%
+%  The user inputs a column vector containing unweighted and diffusion-
+%  weighted signals, a matrix describing the diffusion-sensitizing 
+%  directions; and the b-value (assumed to be the same for all directions).
+%  The function outputs the calculated tensor, with units of 1/[b]. 
+%
+% INPUT ARGUMENTS
+%  signal_v: A column vector of image signals, the first element of which is
+%   the unweighted signal, and the other elements of which correspond to the
+%   directions specified by the rows of dir_m 
+%
+%  dir_m: A matrix containing the X, Y, and Z components of unit-length vectors 
+%   describing the diffusion-sensitizing directions; it has dimensions of
+%   (Number of Directions x 3)
+%
+%  b: The diffusion-weighting (b-) value
+%
+% OUTPUT ARGUMENTS
+%  d_m: The diffusion tensor.
+%
+% OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
+%  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
+%  For help with the fiber tracking program, see <a href="matlab: help fiber_track">fiber_track</a>.
+%  For help fitting fiber tracts, see <a href="matlab: help fiber_fitter">fiber_fitter</a>.
+%  For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
+%  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
+%
+% VERSION INFORMATION
+%  v. 1.0 2006/12/04 (AWA)
+%
+% ACKNOWLEDGMENTS
+%  People: Adam Anderson
+%  Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831% Usage: d_m = signal2tensor2(signal_v, dir_m, b)
 
 % Parameters:
 noiseStd = 1;   % Normalized/doesn't matter.
