@@ -1,4 +1,4 @@
-# Help for <i>signal2tensor2</i>, v. 1.0
+# Help for the function <i>signal2tensor2</i>, v. 1.0
 
 ## Introduction
 
