@@ -22,8 +22,8 @@ The functions have been tested using MATLAB v. 2019b.  The toolbox consists prim
 
 ## 4. Data Acquisition Conventions Assumed 
   * The slices were acquired in the axial anatomical plane;
-  * The slices cover the entire muscle of interest ;
-  * The slices are numbered in ascending order from distal to proximal;
+  * The slices cover the entire muscle of interest;
+  * The slices are numbered in ascending order in the +Z direction of the imager's frame of reference;
   * The in-plane field of view is square; and
   * The in-plane reconstructed matrix is square.
 
@@ -37,14 +37,14 @@ These steps are elucidated further below.
 
 ### A. Pre-processing
 Before performing fiber tractography, several pre-processing steps must be performed.  These may include:
-  * <i>File input</i>: Depending on the image format, this could be accomplished using the built-in Matlab function <i>dicomread</i>, the built-in Matlab function <i>niftiread</i>, or custom-written functions for proprietary image formats such as PAR/RECc or XML/REC (Philips Medical Systems).
-  * <i>Correction of eddy current-induced distortions in the images</i>: Switching of the phase-encoding gradients can induce distortions in the images. The eddy-current correction schme ilustrated here uses freeware called [FSL](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki) and requires the acquisition of a second set of b=0 images with the phase-encoding direction reversed.
-  * <i>Concatenation of multiple image acqusitions into a single dataset</i>: The need for this depends on the details of the use's image acquisition scheme.
-  * <i>Image registration</i>: Switching of the difusione-encoding gradients also induces distortions in the images. These distortions are corrected using image registration; the example in this toolbox uses the Demons registration technique, called using the <i>imregdemons</i> function in Matlab.
-  * <i>De-noising</i>: Some level of noise is inevitable in the data. This noise adds variability to the estimation of the diffusion tensor; at a sufficinetly low signal.to-noise ratio, it can also add bias. The denoising method used here using an [anisotropic smoothing method](https://pubmed.ncbi.nlm.nih.gov/15678537/).
-  * <i>Estimation of the diffusion tensor throughout the muscle of interest</i>: The example given here uses a weighted least squares method to estimate the diffusion tensor that best matches teh observed signals, given the diffusion-encoding matrix and diffusion encoding (b-) value.
+  * <i>File input</i>: Depending on the image format, this could be accomplished using the built-in Matlab function <i>dicomread</i>, the built-in Matlab function <i>niftiread</i>, or custom-written functions for proprietary image formats such as PAR/REC or XML/REC (Philips Medical Systems).
+  * <i>Correction of eddy current-induced distortions in the images</i>: Switching of the phase-encoding gradients can induce distortions in the images. The eddy-current correction schme ilustrated here uses freeware called [FSL](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki) and requires the acquisition of a second set of non-diffusion weighted images obtained with the phase-encoding direction reversed.
+  * <i>Concatenation of multiple image acqusitions into a single dataset</i>: The need for this depends on the details of the user's image acquisition scheme.
+  * <i>Image registration</i>: Switching of the difusione-encoding gradients induces distortions in the images. These distortions are corrected using image registration; the example in this toolbox uses the Demons registration technique, called using the <i>imregdemons</i> function in Matlab.
+  * <i>De-noising</i>: Some level of noise is inevitable in the data. This noise adds variability to the estimation of the diffusion tensor; at a sufficiently low signal-to-noise ratio, it can also add bias. The denoising method used here uses an [anisotropic smoothing method](https://pubmed.ncbi.nlm.nih.gov/15678537/).
+  * <i>Estimation of the diffusion tensor throughout the muscle of interest</i>: The example given here uses a weighted least squares method to estimate the diffusion tensor that best matches the observed signals, given the diffusion-encoding matrix and diffusion encoding (b-) value.
 
-Follow this link for Matlab scripts and functions that perform many of these tasks.
+Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Preprocessing-Functions) for Matlab scripts and functions that perform many of these tasks.
 
 ### B. Define muscle boundaries using the function <i>define_muscle</i>
 Real muscle fibers are assumed to be contained entirely within a single muscle of interest. The fiber_track function therefore requires the user to input a binary image mask demarcating the muscle boundaries; this mask is used to prevent fiber tracts from exiting the muscle of interest. The function [<i>define_muscle</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/define_muscle.m) is used to define this mask. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md) for detailed help on this function, including an instructional video.
