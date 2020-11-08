@@ -15,7 +15,7 @@ This help file contains information about
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-signal2tensor2.md)
 
 ## 2. Usage
-The user inputs a column vector containing unweighted and diffusion-weighted signals, a matrix describing the diffusion-sensitizing directions; and the b-value (assumed to be the same for all directions). The function outputs the calculated tensor, with units of 1/[b].
+The user inputs a column vector containing unweighted and diffusion-weighted signals, a matrix describing the diffusion-sensitizing directions, and the b-value (assumed to be the same for all directions). The function outputs the calculated tensor, with units of 1/[b].
 
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-signal2tensor2.md)
 
