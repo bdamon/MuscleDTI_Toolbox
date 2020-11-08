@@ -43,7 +43,7 @@ The input arguments are:
 
 * <i>slices</i>: A two-element vector containing the first and last slices to be analyzed, entered as [first last];
 
-* <i>alt_mask_size</i>: If specified, this is a three-element vector containing the N<sub>R,I</sub> x N<sub>C,I</sub> x N<sub>S,I</sub> size of a second mask; the same center position, FOV, and foot-head distance of the image stack are assumed. This would be used if the anatomical images were acquired at higher spatial resolution than the diffusion-tensor images, requiring resizing of the mask.
+* <i>alt_mask_size</i>: If specified, this is a three-element vector containing the N<sub>R,I</sub> x N<sub>C,I</sub> x N<sub>S,I</sub> size of a second mask; the same center position, FOV, and foot-head distance of the image stack are assumed. This would be used if the numbers of rows, columns, and slices in the anatomical image dataset differed from the numbers of rows, columns, and slices in the DTI dataset.
 
 * <i>fv_options</i>: If specified, this calls the <i>fiber_visualizer</i> function to plot the mask.
 
