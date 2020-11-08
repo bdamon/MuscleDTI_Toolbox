@@ -24,7 +24,7 @@ The user inputs a column vector containing unweighted and diffusion-weighted sig
 d_m = signal2tensor2(signal_v, dir_m, b)
 
 ### The input arguments are:
-* <i>signal_v</i>: A column vector of image signals, the first element of which is the unweighted signal, and the other elements of which correspond to the directions specified by the rows of dir_m 
+* <i>signal_v</i>: A column vector of image signals, the first element of which is the unweighted signal and the other elements of which correspond to the directions specified by the rows of <i>dir_m </i>
 
 * <i>dir_m</i>: A matrix containing the X, Y, and Z components of unit-length vectors describing the diffusion-sensitizing directions; it has dimensions of (Number of Directions x 3)
 
