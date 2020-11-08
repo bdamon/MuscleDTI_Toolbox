@@ -41,9 +41,9 @@ The input arguments are:
 
 * <i>anat_image</i>: A N<sub>R,I</sub> x N<sub>C,I</sub> x N<sub>S,I</sub> stack of images, which the user will use to segment the muscle of interest;
 
-* <i>slices</i>: A two-element vector containing the first and last slices to be analyzed;
+* <i>slices</i>: A two-element vector containing the first and last slices to be analyzed, entered as [first last];
 
-* <i>alt_mask_size</i>: If specified, this is a three-element vector containing the N<sub>R,I</sub> x N<sub>C,I</sub> x N<sub>S,I</sub> size of a second mask; the same center position of the image stack is assumed.
+* <i>alt_mask_size</i>: If specified, this is a three-element vector containing the N<sub>R,I</sub> x N<sub>C,I</sub> x N<sub>S,I</sub> size of a second mask; the same center position, FOV, and foot-head distance of the image stack are assumed. This would be used if the anatomical images were acquired at higher spatial resolution than the diffusion-tensor images, requiring resizing of the mask.
 
 * <i>fv_options</i>: If specified, this calls the <i>fiber_visualizer</i> function to plot the mask.
 
