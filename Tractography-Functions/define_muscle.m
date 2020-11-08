@@ -48,17 +48,21 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_
 %  function call to define_muscle or directly from the command line.
 %
 %INPUT ARGUMENTS
-%  anat_image: A row x column x slices stack of images
+%  anat_image: A row x column x slices stack of images, which the user will
+%    use to segment the muscle of interest
 %
 %  slices: A two element vector containing the first and last slices to be
-%    analyzed
+%    analyzed, entered as [first last]
 %
 %  alt_mask_size: If specified, this is a two element vector containing the
-%    row x column x slices size of a second mask; the same center position of
-%    the image stack is assumed.
+%    row x column x slices size of a second mask; the same center position, 
+%    FOV, and foot-head distance of the image stack are assumed. This would
+%    be used if the numbers of rows, columns, and slices in the anatomical 
+%    image dataset differed from the numbers of rows, columns, and slices in
+%    the DTI dataset
 %
 %  fv_options: If included, this calls the fiber_visualizer function to plot
-%    the mask.
+%    the mask
 %
 %OUTPUT ARGUMENTS
 %  mask: the binary image mask, with size matching that of the original
@@ -68,6 +72,7 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_
 %    vector alt_mask_size
 %
 %OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%  For help calculating the diffusion tensor, see <a href="matlab: help signal2tensor2">signal2tensor2</a>.
 %  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %  For help defining the ROI, see <a href="matlab: help define_roi">define_roi</a>.
 %  For help with the fiber tracking program, see <a href="matlab: help fiber_track">fiber_track</a>.
