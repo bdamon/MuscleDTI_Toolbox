@@ -1,7 +1,7 @@
 function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask, fiber_all)
 %
 %FUNCTION fiber_visualizer
-%  fiber_figure = fiber_visualizer(anat_image, plot_options, roi_mesh, mask, fiber_all)
+%  fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask, fiber_all)
 %
 %USAGE
 %  The function fiber_visualizer is used to visualize images and the muscle
@@ -116,7 +116,7 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 %  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_selector">fiber_selector</a>.
 %
 %VERSION INFORMATION
-%  v. 0.1
+%  v. 0.2, 10 Nov 2020, Bruce Damon
 %
 %ACKNOWLEDGEMENTS
 %  People: Zhaohua Ding, Hannah Kilpatrick
@@ -124,31 +124,34 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 
 %% Get basic options from the input arguments
 
-anat_image = double(anat_image);
-
-anat_size = size(anat_image);                                                 %size of the anatomical image
-anat_dims=fv_options.anat_dims;
+if ~isa(anat_image, 'double')                                               
+    make_double=1;
+else
+    make_double=0;
+end
+anat_size = double(size(anat_image));                                                 %size of the anatomical image
+anat_dims=double(fv_options.anat_dims);
 anat_inplane_res = anat_dims(1)/anat_size(1);
 anat_slicethick = anat_dims(2);
 anat_slices = fv_options.anat_slices;
 
 if fv_options.plot_mesh==1
-    mesh_size = fv_options.mesh_size;
-    mesh_dims = fv_options.mesh_dims;
+    mesh_size = double(fv_options.mesh_size);
+    mesh_dims = double(fv_options.mesh_dims);
     mesh_inplane_res = mesh_dims(1)/mesh_size(1);
     mesh_inplane_ratio = mesh_inplane_res/anat_inplane_res;
     mesh_slicethick = mesh_dims(2);
     mesh_color = fv_options.mesh_color;
     if isfield('fv_options', 'mesh_dist')
-        mesh_dist = fv_options.mesh_dist;
+        mesh_dist = double(fv_options.mesh_dist);
     else
         mesh_dist = 0;
     end
 end
 
 if fv_options.plot_mask==1
-    mask_size = fv_options.mask_size;
-    mask_dims = fv_options.mask_dims;
+    mask_size = double(fv_options.mask_size);
+    mask_dims = double(fv_options.mask_dims);
     mask_inplane_res = mask_dims(1)/mask_size(1);
     mask_inplane_ratio = mask_inplane_res/anat_inplane_res;
     mask_slicethick = mask_dims(2);
@@ -223,12 +226,17 @@ fiber_figure = figure('Name', 'Plot of Images and Selected Fiber-Tracking Option
 hold on;
 for s=1:length(anat_slices)
     loop_image = anat_image(:,:,anat_slices(s));
+    if make_double==1
+        loop_image=single(loop_image);
+    end
+    
     loop_image = 240*loop_image/max(max(loop_image));
-    surf(ones(anat_size(1), anat_size(2))*anat_slicethick*anat_slices(s), loop_image)
+    surf(ones(anat_size(1), anat_size(2))*double(anat_slicethick)*double(anat_slices(s)), loop_image)
     colormap('gray')
     shading('Interp')
 end
 
+roi_mesh=double(roi_mesh);
 if fv_options.plot_mesh==1
     if numel(mesh_color)==3
         mesh_plot=surf((roi_mesh(:, :, 2) + mesh_dist*roi_mesh(:, :, 5))*mesh_inplane_ratio, ...
@@ -245,7 +253,7 @@ if fv_options.plot_mesh==1
 end
 
 if fv_options.plot_mask==1
-    mask_plot=surf(mask_mesh(:, :, 2)*mask_inplane_ratio, mask_mesh(:, :, 1)*mask_inplane_ratio, mask_mesh(:, :, 3)*mask_slicethick);
+    mask_plot=surf(mask_mesh(:, :, 2)*double(mask_inplane_ratio), mask_mesh(:, :, 1)*double(mask_inplane_ratio), mask_mesh(:, :, 3)*double(mask_slicethick));
     set(mask_plot, 'FaceColor', mask_color, 'EdgeColor', mask_color, 'facealpha', .25, 'edgealpha', 0);
 end
 
