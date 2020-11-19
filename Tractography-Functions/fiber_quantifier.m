@@ -64,7 +64,7 @@ function [angle_list, distance_list, curvature_list, fiber_all_mm, n_points, apo
 %  fq_options: A user-defined structure containing the following fields:
 %    dwi_res: a three element vector with the FOV, (assumed to be the same for
 %      the x and y directions), in-plane matrix size, and the slice thickness
-%       of the DTI images. The FOV and slice thickness must be specified in mm.
+%      of the DTI images. The FOV and slice thickness must be specified in mm.
 % 
 %    filt_kernel: Pennation angle is calculated as complement to the angle
 %      formed by position vectors along the tract and the normal vector to
