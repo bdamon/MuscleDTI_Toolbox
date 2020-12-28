@@ -12,7 +12,7 @@ This help file contains information about
 
 ## 1. Purpose
 
-The function <i>define_muscle</i> is used to define the boundary of a muscle and return its binary image mask. This mask is needed by the functions [<i>define_roi</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/define_roi.m) and [<i>fiber_track</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_track.m). It may be visualized using [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_visualizer.m). 
+The function <i>define_muscle</i> is used to define the boundary of a muscle and return its binary image mask. This mask is needed by the functions [<i>define_roi</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/help-for-define_roi.md) and [<i>fiber_track</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/help-for-fiber_track.md). It may be visualized using [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/help-for-fiber_visualizer.md). 
 
 [Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md)
 
@@ -25,7 +25,7 @@ Then the program advances to the next slice. In this slice and all subsequent sl
 
 By default, the mask has the same dimensions as the input image. If the DTI images and structural images have different dimensions from each other, an alternatively sized mask may also be calculated.  A MATLAB data file named <i>mask_file.mat</i>, containing the mask and the alternatively sized mask (if present), is automatically saved in the working directory. The user is advised to rename this file promptly.
 
-The mask may be viewed using [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_visualizer.m), either as part of the function call to <i>define_muscle</i> or directly from the command line.
+The mask may be viewed using [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/help-for-fiber_visualizer.md), either as part of the function call to <i>define_muscle</i> or directly from the command line.
 
 An instructional video can be found [here](https://youtu.be/jBBAIqV7FeQ).
 
