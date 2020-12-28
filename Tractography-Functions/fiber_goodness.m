@@ -148,7 +148,7 @@ function [final_fibers, final_curvature, final_angle, final_distance, qual_mask,
 %  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %
 %VERSION INFORMATION
-%  v 0.1
+%  v 1.o (initital release), 28 Dec 2020, Bruce Damon
 %
 %ACKNOWLEDGEMENTS
 %  People: Zhaohua Ding, Anneriet Heemskerk
@@ -510,3 +510,4 @@ end
 %% end the function
 
 return;
+
