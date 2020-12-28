@@ -22,7 +22,7 @@ function d_tensor = retrieve_tensor(tensor_m, img_indx)
 %  d_tensor: the diffusion tensor
 %
 %VERSION INFORMATION
-%  v 0.1
+%  v 1.0 (initial release), 28 Dec 2020, Bruce Damon
 %
 %ACKNOWLEDGEMENTS
 %  Grant support: NIH/NIAMS R01 AR073831
