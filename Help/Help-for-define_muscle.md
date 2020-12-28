@@ -1,4 +1,4 @@
-# Help for the function <i>define_muscle</i>, v. 0.2
+# Help for the function [<i>define_muscle</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/define_muscle.m), v. 1.0
 
 ## Introduction
 
@@ -25,7 +25,7 @@ Then the program advances to the next slice. In this slice and all subsequent sl
 
 By default, the mask has the same dimensions as the input image. If the DTI images and structural images have different dimensions from each other, an alternatively sized mask may also be calculated.  A MATLAB data file named <i>mask_file.mat</i>, containing the mask and the alternatively sized mask (if present), is automatically saved in the working directory. The user is advised to rename this file promptly.
 
-The mask may be viewed using [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md), either as part of the function call to <i>define_muscle</i> or directly from the command line.
+The mask may be viewed using [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_visualizer.m), either as part of the function call to <i>define_muscle</i> or directly from the command line.
 
 An instructional video can be found [here](https://youtu.be/jBBAIqV7FeQ).
 
@@ -39,11 +39,11 @@ The function define_muscle is called using the following syntax:
 
 The input arguments are:
 
-* <i>anat_image</i>: A N<sub>R,I</sub> x N<sub>C,I</sub> x N<sub>S,I</sub> stack of images, which the user will use to segment the muscle of interest;
+* <i>anat_image</i>: A N<sub>R,A</sub> x N<sub>C,A</sub> x N<sub>S,A</sub> stack of images, which the user will use to segment the muscle of interest;
 
 * <i>slices</i>: A two-element vector containing the first and last slices to be analyzed, entered as [first last];
 
-* <i>alt_mask_size</i>: If specified, this is a three-element vector containing the N<sub>R,I</sub> x N<sub>C,I</sub> x N<sub>S,I</sub> size of a second mask; the same center position, FOV, and foot-head distance of the image stack are assumed. This would be used if the numbers of rows, columns, and slices in the anatomical image dataset differed from the numbers of rows, columns, and slices in the DTI dataset.
+* <i>alt_mask_size</i>: If specified, this is a three-element vector containing the row x column x slice size of a second mask; the same center position, FOV, and foot-head distance of the image stack are assumed. This would be used if the numbers of rows, columns, and slices in the anatomical image dataset differed from the numbers of rows, columns, and slices in the DTI dataset.
 
 * <i>fv_options</i>: If specified, this calls the <i>fiber_visualizer</i> function to plot the mask.
 
