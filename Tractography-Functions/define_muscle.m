@@ -1,7 +1,7 @@
 function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_options)
 %
 %FUNCTION define_muscle
-%  [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, plot_options)
+%  [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_options)
 %
 %USAGE
 %  define_muscle is used to define the boundary of a muscle and return its
@@ -13,8 +13,8 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_
 %  is opened. The initial slice of interest is displayed in the middle panel;
 %  the preceding two slices (if present) are displayed in the left-most
 %  column; and the next two slices (if present) are displayed in the column
-%  at the immediate left. For the center panel, the zoom tool is enabled; the  
-%  user clicks and drags the left mouse button to zoom to the muscle of interest. 
+%  at the immediate left. For the center panel, the zoom tool is enabled; the
+%  user clicks and drags the left mouse button to zoom to the muscle of interest.
 %  To close the zoom tool, the user selects Enter on their keyboard. All images
 %  are then zoomed to this level.
 %
@@ -26,15 +26,15 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_
 %  Mask to complete ROI selection.
 %
 %  Then the program advances to the next slice. In this slice and all
-%  subsequent slices, the level of zoom is automatically set as ±20 pixels
-%  beyond the previous ROI’s row and column limits. In the lower left panel,
+%  subsequent slices, the level of zoom is automatically set as Â±20 pixels
+%  beyond the previous ROIâ€™s row and column limits. In the lower left panel,
 %  the preceding slice and its ROI are shown. Also shown are gold and
 %  red lines depicting the center row and column, respectively, of this ROI.
-%  In the column to the immediate right of the main panel, the projections of 
-%  the image stack and the ROI along the red line are shown.  In the far-right 
+%  In the column to the immediate right of the main panel, the projections of
+%  the image stack and the ROI along the red line are shown.  In the far-right
 %  column, the projections of the image stack and the ROI along the gold line
-%  are shown. Examining these windows can help the user maintain consistency 
-%  in ROI selection. ROI selection continues in this manner until all slices 
+%  are shown. Examining these windows can help the user maintain consistency
+%  in ROI selection. ROI selection continues in this manner until all slices
 %  of interest have been defined.
 %
 %  By default, the mask has the same dimensions as the input image. If the
@@ -55,9 +55,9 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_
 %    analyzed, entered as [first last]
 %
 %  alt_mask_size: If specified, this is a two element vector containing the
-%    row x column x slices size of a second mask; the same center position, 
+%    row x column x slices size of a second mask; the same center position,
 %    FOV, and foot-head distance of the image stack are assumed. This would
-%    be used if the numbers of rows, columns, and slices in the anatomical 
+%    be used if the numbers of rows, columns, and slices in the anatomical
 %    image dataset differed from the numbers of rows, columns, and slices in
 %    the DTI dataset
 %
@@ -81,12 +81,19 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_
 %  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
 %
 % VERSION INFORMATION
-%  v. 0.2
+%  v. 1.0 (initial release), 28 Dec 2020, Bruce Damon
 %
 % ACKNOWLEDGMENTS
 %  Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
 
 %% display current, preceding, and next slices in three windows; open toolbar to adjust contrast of current slice
+
+% create a flag to ensure all images are the same type
+if ~isa(anat_image, 'double')
+    make_double=1;
+else
+    make_double=0;
+end
 
 % initialize the mask
 mask = zeros(size(anat_image));
@@ -109,6 +116,9 @@ for s=slices(1):slices(2)
         subplot(2,6,1)
         slice_prev_2 = s-2;
         image_prev_2 = anat_image(:,:,slice_prev_2);
+        if make_double==1
+            image_prev_2=double(image_prev_2);
+        end
         image_prev_2 = image_prev_2/max(max(image_prev_2));
         imagesc(image_prev_2)
         colormap gray
@@ -125,6 +135,7 @@ for s=slices(1):slices(2)
             set(gca, 'xlim', [min_col max_col], 'ylim', [min_row max_row]);
             
         end
+        clear image_prev_2
         
     end
     
@@ -134,6 +145,10 @@ for s=slices(1):slices(2)
         subplot(2,6,7)
         slice_prev_1 = s-1;
         image_prev_1 = anat_image(:,:,slice_prev_1);
+        if make_double==1
+            image_prev_1=double(image_prev_1);
+        end
+        
         image_prev_1 = image_prev_1/max(max(image_prev_1));
         imagesc(image_prev_1)
         colormap gray
@@ -152,6 +167,7 @@ for s=slices(1):slices(2)
             set(gca, 'xlim', [min_col max_col], 'ylim', [min_row max_row]);
             
         end
+        clear image_prev_1
         
     end
     
@@ -160,6 +176,10 @@ for s=slices(1):slices(2)
         subplot(2,6,2)
         slice_next_1 = s+1;
         image_next_1 = anat_image(:,:,slice_next_1);
+        if make_double==1
+            image_next_1=double(image_next_1);
+        end
+        
         image_next_1 = image_next_1/max(max(image_next_1));
         imagesc(image_next_1)
         colormap gray
@@ -174,6 +194,7 @@ for s=slices(1):slices(2)
             set(gca, 'xlim', [min_col max_col], 'ylim', [min_row max_row]);
             
         end
+        clear image_next_1
         
     end
     
@@ -182,6 +203,10 @@ for s=slices(1):slices(2)
         subplot(2,6,8)
         slice_next_2 = s+2;
         image_next_2 = anat_image(:,:,slice_next_2);
+        if make_double==1
+            image_next_2=double(image_next_2);
+        end
+        
         image_next_2 = image_next_2/max(max(image_next_2));
         imagesc(image_next_2)
         colormap gray
@@ -196,6 +221,7 @@ for s=slices(1):slices(2)
             set(gca, 'xlim', [min_col max_col], 'ylim', [min_row max_row]);
             
         end
+        clear image_next_2
         
     end
     
@@ -203,6 +229,9 @@ for s=slices(1):slices(2)
     subplot(2,6, [3 4 9 10])
     slice_current=s;
     image_current = anat_image(:,:,slice_current);
+    if make_double==1
+        image_current=double(image_current);
+    end
     image_current = image_current/max(max(image_current));
     imagesc(image_current)
     colormap gray
@@ -211,6 +240,7 @@ for s=slices(1):slices(2)
     
     [counts, img_values] = imhist(image_current);
     set(gca, 'clim', [0 img_values(find(cumsum(counts)>(0.999*sum(counts)), 1))])      %adjust windowing                                               %image contrast tool
+    clear image_current
     
     
     if n==1                                                             %first time, user select the level of zoom
@@ -274,19 +304,23 @@ for s=slices(1):slices(2)
         x_points_old=x_points;
         y_points_old=y_points;
     end
-        
+    
     % get the ROI
     subplot(2, 6, [3 4 9 10])
     [mask(:,:,s), x_points, y_points] = roipoly;
     loop_mask_c = flipud(squeeze(mask(:, mean_col, :))');
+    loop_mask_c = double(loop_mask_c);
     
     %view in sagital and coronal planes
     show_image_c = flipud(squeeze(anat_image(:, mean_col, :))');
+    if make_double==1
+        show_image_c=double(show_image_c);
+    end
     show_image_c = show_image_c/max(max(show_image_c));
     show_image_c(:,:,2) = show_image_c(:,:,1);
     show_image_c(:,:,3) = show_image_c(:,:,1);
     show_image_c = 0.75*show_image_c;
-    show_image_c(:,:,1) = show_image_c(:,:,1) + loop_mask_c*.25;
+    show_image_c(:,:,1) = show_image_c(:,:,1) + double(loop_mask_c)*.25;
     
     subplot(2, 6, [5 11])
     imagesc(show_image_c)
@@ -294,7 +328,11 @@ for s=slices(1):slices(2)
     axis off
     
     loop_mask_r = flipud(squeeze(mask(mean_row, :, :))');
+    loop_mask_r=double(loop_mask_r);
     show_image_r = flipud(squeeze(anat_image(mean_row, :, :))');
+    if make_double==1
+        show_image_r = double(show_image_r);
+    end
     show_image_r = show_image_r/max(max(show_image_r));
     show_image_r(:,:,2) = show_image_r(:,:,1);
     show_image_r(:,:,3) = show_image_r(:,:,1);
@@ -308,6 +346,7 @@ for s=slices(1):slices(2)
     axis off
     
     %advance the loop counter
+    clear show_image_r show_image_c
     n=n+1;
     
 end
@@ -340,17 +379,17 @@ end
 
 %% plot mask, if desired
 
-plot_mask = isfield(fv_options, 'plot_mask');
-
-if plot_mask==1
-    
-    % be sure not to plot unneeded stuff
-    fv_options.plot_fibers=0;
-    fv_options.plot_mesh=0;
-    fv_options.plot_mask=1;
-    
-    fiber_visualizer(anat_image, fv_options, [], mask, []);
-    
+if isfield(fv_options, 'plot_mask')
+    if fv_options.plot_mask==1
+        
+        % be sure not to plot unneeded stuff
+        fv_options.plot_fibers=0;
+        fv_options.plot_mesh=0;
+        fv_options.plot_mask=1;
+        
+        fiber_visualizer(anat_image, fv_options, [], mask, []);
+        
+    end
 end
 
 %% end the function
