@@ -9,7 +9,7 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 %
 %  The user can call fiber_visualizer from the command line. In addition, 
 %  define_muscle, define_roi, and fiber_track can be configured to call 
-%  fiber_visualizer from within the functions, so that the mask, mesh, and 
+%  fiber_visualizer from within the functions, so that the mask, mesh, and/or 
 %  fiber tracts can be automatically plotted. The user must supply the 
 %  anatomical images, a structure with some plotting options, and the other 
 %  variables to be plotted as input arguments.  Fields of view, matrix sizes, 
@@ -24,13 +24,13 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 %      thickness of the anatomical images.
 %   -anat_slices: A vector containing the slice numbers of the anatomical
 %      images to be plotted.
-%   -plot_mesh: If set to 1, this field will allow plotting of the aponeurosis 
-%       mesh. Otherwise, set to 0.
-%   -plot_mask: If set to 1, this field will allow plotting of the mask.
-%        Otherwise, set to 0.
-%   -plot_fibers:  If set to 1, this field will allow plotting of a single
-%      set of fiber tracts. If set to 2, this will allow plotting of two
-%      sets of fiber tracts. Otherwise, set to 0.
+%   -plot_mesh: If set to 1, the aponeurosis mesh will be plotted.  The 
+%      default setting is 0.
+%   -plot_mask: If set to 1, the mask will be plotted. The default setting
+%      is 0.
+%   -plot_fibers:  If set to 1, a single set of fiber tracts will be plotted. 
+%      If set to 2, two sets of fiber tracts will be plotted.  The default setting
+%      is 0.
 %
 %  Depending on the plot options selected, the following other fields may
 %  be required:
@@ -49,7 +49,7 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 %        and if these values range from 0-1, the matrix will be interpreted  
 %        as RGB levels specific to each tract. This could be used to
 %        represent the distribution of architectural parameters across the
-%        aponeurosis
+%        aponeurosis.
 %   -mesh_dist: If the mesh was shifted for fiber tracking, the user should
 %      set this to the value used during fiber tracking.
 %
@@ -59,10 +59,10 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 %   -mask_dims: This two-element vector specifies the FOV and slice thickness
 %      of the images used to create the mask.
 %   -mask_color: This three-element vector contains the RGB levels to be used 
-%      when plotting the mask 
+%      when plotting the mask.
 %
 %  If plot_fibers equals 1 or 2, you must also specify:
-%    -dti_size: A2-element vector that specifies the matrix size of the images
+%    -dti_size: A 2-element vector that specifies the matrix size of the images
 %       used for fiber tracking.
 %    -dti_dims: This two-element vector specifies the FOV and slice thickness
 %       of the DT images. The FOV is assumed to be square.
@@ -90,10 +90,10 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 %    fv_options.plot_mesh is set to 1. Otherwise, enter an empty matrix
 %    ([ ]) as a placeholder.
 %
-%  mask: A binary mask around the muscle of interest. It could be the
-%    output of define_muscle or it could have been defined in another
-%    program. It is only needed if fv_options.plot_mask is set to 1. 
-%    Otherwise, enter an empty matrix ([ ]) as a placeholder.
+%  mask: A binary mask around the muscle of interest. It could be the output 
+%    of define_muscle or it could have been defined in another program. It 
+%    is only needed if fv_options.plot_mask is set to 1. Otherwise, enter 
+%    an empty matrix ([ ]) as a placeholder.
 %
 %  fiber_all: The output of fiber_track (original fiber tracts), fiber_smoother 
 %    (smoothed fiber tracts), or fiber_goodness (quality-selected fiber tracts).
@@ -113,10 +113,10 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 %  For help with fiber tracking, see <a href="matlab: help fiber_track">fiber_track</a>.
 %  For help smoothing fiber tracts, see <a href="matlab: help fiber_smoother">fiber_smoother</a>.
 %  For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
-%  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_selector">fiber_selector</a>.
+%  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
 %
 %VERSION INFORMATION
-%  v. 0.2, 10 Nov 2020, Bruce Damon
+%  v. 1.0 (initial release), 28 Dec 2020, Bruce Damon
 %
 %ACKNOWLEDGEMENTS
 %  People: Zhaohua Ding, Hannah Kilpatrick
@@ -227,7 +227,7 @@ hold on;
 for s=1:length(anat_slices)
     loop_image = anat_image(:,:,anat_slices(s));
     if make_double==1
-        loop_image=single(loop_image);
+        loop_image=double(loop_image);
     end
     
     loop_image = 240*loop_image/max(max(loop_image));
