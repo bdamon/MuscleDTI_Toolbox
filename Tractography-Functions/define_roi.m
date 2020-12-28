@@ -20,13 +20,12 @@ function roi_mesh=define_roi(anat_image, mask, dr_options, fv_options)
 %     is opened that allows the user to adjust the center figure's window and
 %     level settings. In the center figure, the edge locations of the mask 
 %     are indicated. Text prompts in the command window guide the user 
-%     through the following steps.  First, the user may zoom the image to the
+%     through the following steps.  First, the user zooms the image to the
 %     area of interest, selecting Enter when finished. Then the user defines
 %     the aponeurosis with a series of left mouse clicks. The selected points
 %     can form a line or close to form a polygon. A right mouse click is used
 %     to complete the definition. At each slice, the user is given the option
-%     of repeating the procedure in case of error. This is the current method
-%     to use for unipennate muscles.
+%     of repeating the procedure in case of error. 
 %
 %    -Automatic selection: Three figure windows are displayed. The center
 %     figure shows the current slice, the left-hand figure shows the 
@@ -34,7 +33,7 @@ function roi_mesh=define_roi(anat_image, mask, dr_options, fv_options)
 %     interactive tool is opened that allows the user to adjust the center 
 %     figure's window and level settings. In the center figure, the edge 
 %     locations of the mask are indicated. For each slice to be analyzed, 
-%     the user is presented with an initial estimate of the aponeurosis’s 
+%     the user is presented with an initial estimate of the aponeurosisâ€™s 
 %     location and its boundary pixels. The user can correct erroneous 
 %     assignments in the initial estimate by using the left mouse button 
 %     to select voxels for removal from the initial assignment and the 
@@ -91,14 +90,14 @@ function roi_mesh=define_roi(anat_image, mask, dr_options, fv_options)
 %  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
 %
 % VERSION INFORMATION
-%  v. 0.1
+%  v. 1.0 (initial release), 28 Dec 2020, Bruce Damon
 %
 % ACKNOWLEDGMENTS
 %  People: Zhaohua Ding
 %  Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
 
 %% preliminary stuff
-dti_size = dr_options.dti_size;
+dti_size = double(dr_options.dti_size);
 
 frst_slice = dr_options.slices(1);
 last_slice = dr_options.slices(2);
@@ -113,7 +112,7 @@ if isstruct(anat_image)
 else
     working_image=anat_image;
 end
-sz_work_imag=size(working_image);
+sz_work_imag=double(size(working_image));
 
 
 %% digitization loops
@@ -309,7 +308,7 @@ switch select_method
             loop_img_rgb=cat(3, loop_img, loop_img, loop_img);
             loop_img_rgb=loop_img_rgb/max(max(max(loop_img_rgb)));
             
-            %visualize points in Panel 1
+            %visualize points in figure 1
             figure(1)
             imagesc(loop_img_rgb), axis image
             [pixel_rows, pixel_cols] = ind2sub(size(apo_segmented), find(apo_segmented));
@@ -318,7 +317,7 @@ switch select_method
             title('Current Pixels')
             set(gca, 'xlim', mask_cols, 'ylim', mask_rows)
             
-            %Visualize region, interact with panel 2
+            %Visualize region, interact with figure 2
             loop_img_region=loop_img_rgb*0.75;
             loop_img_region(:,:,1)=loop_img_region(:,:,1)+.125*apo_segmented;
             figure(2), imagesc(loop_img_region), axis image
@@ -328,6 +327,7 @@ switch select_method
             xlabel(['Slice ' num2str(curr_slice) ' of Slices ' num2str(frst_slice) ' to ' num2str(last_slice)])
             set(gca, 'xlim', mask_cols, 'ylim', mask_rows)
             
+            %visualize smoothed ROI in figure 3
             figure(3)
             imagesc(loop_img_rgb)
             hold on
@@ -720,11 +720,14 @@ end
 
 
 %% create the mesh
+roi_surfx=double(roi_surfx);
+roi_surfy=double(roi_surfy);
+roi_surfz=double(roi_surfz);
 
 %convert to dimensions of DTI image
-roi_surfx=roi_surfx*dti_size(1)/sz_work_imag(1);
-roi_surfy=roi_surfy*dti_size(2)/sz_work_imag(2);
-roi_surfz=roi_surfz*dti_size(3)/sz_work_imag(3);
+roi_surfx=roi_surfx*double(dti_size(1))/sz_work_imag(1);
+roi_surfy=roi_surfy*double(dti_size(2))/sz_work_imag(2);
+roi_surfz=roi_surfz*double(dti_size(3))/sz_work_imag(3);
 
 %resample to desired size:
 roi_mesh = zeros(n_row, n_col, 6);
