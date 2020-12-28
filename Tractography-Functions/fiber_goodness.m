@@ -14,57 +14,99 @@ function [final_fibers, final_curvature, final_angle, final_distance, qual_mask,
 %  The quality algorithm described in Heemskerk et al, 2008 is implemented, 
 %  but updated to account for the inclusion of curvature in the architectural
 %  computations. Specifically, the fibers are selected for having:
-%    1) Monotonically increasing values in the Z direction. This prevents 
-%       errors due to overfitting in the Z direction;
-%    2) A minimum length (in mm, specified by the user based on their knowledge
-%       of the expected muscle geometry);
-%    3) A pennation angle within a user-specified range (in degrees, specified 
-%       the by userbased on their knowledge of the expected muscle geometry); 
-%    4) A curvature value within a user-specified range (in m^-1, specified by
-%       the user); and
-%    5) Values within the 95% confidence interval for length, pennation angle, 
-%       and curvature set by the surrounding 24 tracts.
+%    1) Monotonically increasing values in the Z direction. In fiber_track, the  
+%       Z component of the first eigenvector is forced to be positive; so the  
+%       Z components of the unfitted tracts must increase monotonically.   
+%       However, negative steps in the Z direction could result from overfitting   
+%       fiber tract smoothing process. Fiber tracts with monotonically increasing 
+%       Z values are indicated by entering a value of 1 at the corresponding  
+%       [row column] indices in the 1st level of the 3rd dimension of qual_mask.  
+%       The number of tracts that meet this criterion are calculated and added
+%       to the 1st index of the vector num_tracked. Tracts that meet this 
+%       criterion are advanced to the next level of selection.
+%    2) 2.	A minimum length, in mm.  This is specified by the user as a field 
+%       in the structure fs_options. Fiber tracts that meet this criterion are 
+%       indicated by entering a value of 1 at the corresponding [row column] 
+%       indices in the 2nd level of the 3rd dimension of qual_mask. The total 
+%       number of tracts that meet this criterion are calculated and added to 
+%       the 2nd index into the vector num_tracked. Tracts that meet this 
+%       criterion are advanced to the next level of selection;
+%    3) An acceptable pennation angle, in degrees.  This range is defined 
+%       by the user in the structure fs_options. Fiber tracts that meet this 
+%       criterion are indicated by entering a value of 1 at the corresponding 
+%       [row column] indices in the 3rd level of the 3rd dimension of qual_mask. 
+%       The total number of tracts that meet this criterion are calculated and 
+%       added to the 3rd index into the vector num_tracked. Tracts that meet 
+%       this criterion are advanced to the next level of selection.
+%    4. An acceptable curvature value, in m-1.  This range is defined by the 
+%       user in the structure fs_options. Fiber tracts that meet this criterion 
+%       are indicated by entering a value of 1 at the corresponding [row column] 
+%       indices in the 4th level of the 3rd dimension of qual_mask. The total 
+%       number of tracts that meet this criterion are calculated and added to 
+%       the 4th index into the vector num_tracked. Tracts that meet this 
+%       criterion are advanced to the next level of selection.
+%    5. A length, pennation angle, and curvature that lies within the 95% 
+%       confidence interval for length, pennation angle, and curvature set 
+%       by the surrounding 24 tracts. Fiber tracts that meet this criterion 
+%       are indicated by entering a value of 1 at the corresponding [row column] 
+%       indices in the 5th level of the 3rd dimension of qual_mask. The total 
+%       number of tracts that meet this criterion are calculated and added to 
+%       the 5th index into the vector num_tracked. Tracts that meet this 
+%       criterion are advanced to the next step of analysis. 
+% The use of length, pennation, and curvature criteria require the user to use 
+% their knowledge of the expected patterns of muscle geometry to supply values 
+% that are reasonable but will not inappropriately bias the results. These 
+% selection criteria, as well as the number of tracts that were rejected 
+% because of these criteria, should be included in the Methods sections of 
+% publications
 %
-% The second step of the selection process is optional; it is engaged by 
-% including a field .sampling_density in the fg_options structure described
-% below. The reason for using the second-stage process is that the roi_mesh 
-% matrix is required to have a fixed number of rows and columns; but the 
-% aponeurosis in vivo varies in width.  Thus, the density of initially
-% propagated fiber tracts, in 1/mm^-2, varies throughout the mesh. Also, the 
-% first-stage selection process rejects some tracking results, further
-% changing the sampling frequency.  To account for these issues, the fiber 
-% tracts that pass the first stage of the selection process can be selected
-% so that they occur at a uniform spatial frequency in the final dataset. 
-% The user sets this frequency in the field fs_options.sampling_density.
+% An optional final of the selection process is to sample fiber tracts across 
+% the aponeurosis at a uniform spatial frequency. Because the aponeurosis 
+% changes in width over the superior-inferior direction, the distance between 
+% seed points in the roi_mesh matrix varies. This would bias a simple average 
+% of the whole-muscle architectural properties toward narrower regions of the 
+% aponeurosis, where the seed points occur at higher sampling frequency.
+% 
+% To avoid this problem, the user may include a field called sampling_frequency
+% in the fs_options structure; if present, this produces an approximately 
+% uniform spatial sampling of the fiber tracts. To do so, fiber_selector first 
+% identifies all tracts that fall within the boundaries of each sampling 
+% interval. Then, the median values for length, pennation angle, and curvature
+% are calculated. For each tract, a similarity index S is calculated that 
+% compares the length, mean pennation angle, and mean curvature of the Tth 
+% tract and the local median. The tract with the minimum value of S is taken 
+% as the most typical tract in the sampling interval and is used in further steps. 
+% If sampling_frequency is not included in fs_options, then this sampling does 
+% not occur and the tracts defined in step 5 are used in further steps.
+% 
+% In either case, the preserved fiber tracts are stored in the matrix 
+% final_fibers; their structural properties are stored in the matrices 
+% final_curvature, final_angle, and final_distance; and the whole-muscle mean 
+% values for length, pennation angle, and curvature are stored in the matrix 
+% mean_apo_props.
 %
 %INPUT ARGUMENTS
-%  smoothed_fiber_all: the smoothed fiber tracts
+% fiber_all: The fiber tracts from which selection will be made.  
+%   The matrix could be the output of fiber_track or the smoothed fiber 
+%   tracts output from fiber_smoother.
 %
-%  angle_list: pennation angles for smoothed fiber tracts
+% angle_list, distance_list, curvature_list, n_points, apo_area: The outputs 
+%   of fiber_quantifier.
 %
-%  distance_list: distance measures for smoothed fiber tracts
+% roi_flag: A mask indicating fiber tracts that propagated at least one point, 
+%   output from fiber_track;
 %
-%  curvature_list: curvature measures for smoothed fiber tracts
+% roi_mesh: the output of define_roi 
 %
-%  n_points: the number of points quantified per fiber tract
-%
-%  roi_flag: A mask indicating fiber tracts that propagated at least one 
-%    point, output fromn fiber_track
-%
-%  apo_area: a matrix indicating the amount of aponeurosis area associated
-%    with each fiber tract
-%
-%  roi_mesh: the output of define_roi
-%
-%  fg_options: a structure containing the following fields:
-%      min_distance: minimum distance for selected tracts, in mm
-%      min_pennation: minimum pennation angle, in degrees
-%      max_pennation: maximum pennation angle, in degrees
-%      max_curvature: maximum curvature, in m^-1
-%      sampling_frequency (optional): The spatial frequency for uniform
-%        sampling of the aponeurosis mesh, in mm^-1
-%      dwi_res: a three-element vector containing the field of view, matrix
+% fg_options: a structure containing the following fields:
+%    .dwi_res: a three-element vector containing the field of view, matrix
 %        size, and slice thickness of the diffusion-weighted images
+%    .min_distance: minimum distance for selected tracts, in mm
+%    .min_pennation: minimum pennation angle, in degrees
+%    .max_pennation: maximum pennation angle, in degrees
+%    .max_curvature: maximum curvature, in m^-1
+%    .sampling_frequency (optional): The spatial frequency for uniform
+%      sampling of the aponeurosis mesh, in mm^-1
 %
 %OUTPUT ARGUMENTS
 %  final_fibers: the fiber tracts that passed all selection criteria
@@ -83,8 +125,8 @@ function [final_fibers, final_curvature, final_angle, final_distance, qual_mask,
 %    rejected fibers
 %
 %  num_tracked: the number of fibers for each of the following steps:
-%    1) the number of potential fiber tracts;
-%    2) the number of these tracts generated by fiber_track;
+%    1) the number of fiber tracts generated by fiber_track;
+%    2) the number of these tracts that were quantified by fiber_quantifer;
 %    3-7) the number of fiber tracts that met criteria 1-5 above, respectively.
 %
 %  mean_fiber_props: A 3D matrix (rows x columns x 5) containing the mean
@@ -124,10 +166,10 @@ fiber_indices_rows = sum(squeeze(angle_list(:,:,2)), 2);                    %fin
 fiber_indices_rows = fiber_indices_rows>0;
 fiber_indices_cols = sum(squeeze(angle_list(:,:,2)), 1);                    %find columns with fiber tracts
 fiber_indices_cols = fiber_indices_cols>0;
-first_row = max([3 find(fiber_indices_rows, 1)]);                           %find first and lastrow
-last_row = min([6 find(fiber_indices_rows, 1, 'last')]);
-first_col = max([3 find(fiber_indices_cols, 1)]);                           %find first and last column
-last_col = min([6 find(fiber_indices_cols, 1, 'last')]);
+first_row = find(fiber_indices_rows, 1);                           %find first and lastrow
+last_row = find(fiber_indices_rows, 1, 'last');
+first_col = find(fiber_indices_cols, 1);                           %find first and last column
+last_col = find(fiber_indices_cols, 1, 'last');
 
 final_fibers=zeros(size(fiber_all));                                        %initialize matrix of fiber fibers; 
 final_fibers(first_row:last_row, first_col:last_col, :, :) = ...            %set as tracked fibers; wil prune erroneus results later
@@ -160,8 +202,9 @@ for row_cntr = first_row:last_row
     for col_cntr = first_col:last_col
         
         loop_z=squeeze(z_positions(row_cntr, col_cntr,:));                  % z positions for each fiber tract
+        loop_z=nonzeros(loop_z);
         loop_dz=diff(loop_z);                                               %find differences between points
-        loop_dz=loop_dz(1:(length(find(loop_dz))-1));
+        loop_dz=loop_dz(1:(length(loop_dz)-1));
         
         if length(find(loop_dz<0))>0                                        %look for differences < 0 - indicates down-sloping fiber tracts
             qual_mask(row_cntr,col_cntr,1)=0;                               %write to quality mask
@@ -467,6 +510,3 @@ end
 %% end the function
 
 return;
-
-
-
