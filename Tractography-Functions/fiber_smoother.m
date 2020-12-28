@@ -36,7 +36,7 @@ function [smoothed_fiber_all, pcoeff_r, pcoeff_c, pcoeff_s, n_points_smoothed] =
 %  fs_options: a structure containing the following fields:
 %    interpolation_step: an interpolation interval for the fitted fiber tract, in
 %      units of pixels.  For example, setting interpolation_step to 0.25 would
-%      interpolate the fiber tract at intervals of 0.25 pixels.
+%      interpolate the fiber tract at intervals of 0.25 pixel widths.
 %
 %    p_order: a 3-element vector containing the polynomial orders, [Nr Nc Ns],
 %      to use when fitting the tracts
@@ -66,7 +66,7 @@ function [smoothed_fiber_all, pcoeff_r, pcoeff_c, pcoeff_s, n_points_smoothed] =
 %  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
 %
 %VERSION INFORMATION
-%  v. 0.1
+%  v. 1.0 (initial release), 28 Dec 2020, Bruce Damon
 %
 %ACKNOWLEDGEMENTS
 %  People: Zhaohua Ding, Anneriet Heemskerk
