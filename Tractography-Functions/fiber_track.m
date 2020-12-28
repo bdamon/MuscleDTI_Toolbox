@@ -7,37 +7,37 @@ function [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = ...
 %
 %USAGE
 %  The function fiber_track is used to fiber-track a muscle DTI dataset.
-%    
-%  The required inputs include a 5D matrix hold the diffusion tensor at each
-%  voxel and [row column slice] dimensions matching those of the DTMRI data; 
+%
+%  The required inputs include a 5D matrix holding the diffusion tensor at each
+%  voxel and [row column slice] dimensions matching those of the DTMRI data;
 %  the muscle mask, output from define_muscle or other program; the
-%  aponeurosis mesh, output from define_roi; and a structure defining the 
-%  fiber-tracking options.  This structure allows the user to set options 
+%  aponeurosis mesh, output from define_roi; and a structure defining the
+%  fiber-tracking options.  This structure allows the user to set options
 %  such as the tracking algorithm, step size, laboratory frame of reference,
-%  image orientation, and tract termination method. 
+%  image orientation, and tract termination method.
 %
-%  Fibers are tracked from the aponeurosis mesh according to the selected 
+%  Fibers are tracked from the aponeurosis mesh according to the selected
 %  propagation algorithm. Each fiber tract is propagated until it reaches the
-%  edge of the mask or meets another stop criterion, such as an excessive 
-%  inter-segment angle or an out-of-bounds value for fractional anisotropy 
-%  (FA).  See the description of the input arguments for additional 
-%  information on these criteria. 
+%  edge of the mask or meets another stop criterion, such as an excessive
+%  inter-segment angle or an out-of-bounds value for fractional anisotropy
+%  (FA).  See the description of the input arguments for additional
+%  information on these criteria.
 %
-%  The outputs include the fiber tracts, variables describing the outcomes 
+%  The outputs include the fiber tracts, variables describing the outcomes
 %  of the tracking, and selected data about the tracts.
 %
-%  The fiber tracts may be viewed using fiber_visualizer, either as part of 
-%  the function call to fiber_track or directly from the command line. 
+%  The fiber tracts may be viewed using fiber_visualizer, either as part of
+%  the function call to fiber_track or directly from the command line.
 %
 %INPUT ARGUMENTS
-%  tensor_m: A 5D matrix, with the first-third dimensions matching the 
+%  tensor_m: A 5D matrix, with the first-third dimensions matching the
 %  [row column slice] size of the DTI images and the fourth and fifth
-%  dimensions holding the 3x3 diffusion tensor at each voxel, calculated 
+%  dimensions holding the 3x3 diffusion tensor at each voxel, calculated
 %  from pre-processing steps
 %
-%  mask: The mask delimiting the muscle to be fiber-tracked. 
+%  mask: The mask delimiting the muscle to be fiber-tracked.
 %
-%  roi_mesh: The mesh reconstruction of the aponeurosis of muscle fiber 
+%  roi_mesh: The mesh reconstruction of the aponeurosis of muscle fiber
 %    insertion, output from define_roi.
 %
 %  ft_options: A structure containing the following fields:
@@ -59,40 +59,40 @@ function [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = ...
 %      include:
 %        -euler: Diagonalization of the observed diffusion tensor D at the current
 %          fiber tracking point, followed by Euler integration of the first
-%          eigenvector. 
+%          eigenvector.
 %        -rk4: 4th order Runge-Kutta integration of the first eigenvector.
 %          Note that if the 2nd, 3rd, or 4th order points fall outside of the
 %          mask, the propogation algorithm automatically changes to Euler
 %          integration.
 %        -fact: An implementation of the FACT algorithm. FACT is similar to
-%          Euler integration, except that the direction is changed as soon 
+%          Euler integration, except that the direction is changed as soon
 %          as the tract enters a new voxel.
 %
 %    step_size: The Euler and 4th-order Runge-Kutta methods require the user
-%      to set the fiber-tracking step size, in pixels. A step size of 1 
+%      to set the fiber-tracking step size, in pixels. A step size of 1
 %      reflects the voxel width
 %
 %    term_mthd: A string variable that specifies the method for determining
 %      whether to terminate a fiber tract or not. Any fiber tracking point
-%      that falls outside of the image mask will terminate the tract. 
+%      that falls outside of the image mask will terminate the tract.
 %      Other criteria using the inter-segment angle and the FA, processed
 %      according to either of two algorithms:
-%        -bin1: Inter- segment angle and FA are used as binary criteria to 
+%        -bin1: Inter- segment angle and FA are used as binary criteria to
 %         decide whether to terminate the tract. The angle used is the angle
-%         formed by two fiber tracking steps. The user can decide whether to 
-%         calculate this angle between the current step and its immediate 
-%         predecessor (1-back) or between the current step and a step that 
+%         formed by two fiber tracking steps. The user can decide whether to
+%         calculate this angle between the current step and its immediate
+%         predecessor (1-back) or between the current step and a step that
 %         looks back by M points. Using the lookback option allows a tract to
 %         correct its direction following an initially aberrant result. When
-%         bin1 is used the tract terminates if either the angle or FA value 
-%         is disallowed for a single point; 
-%        -bin2, At each point, the inter-segment angle and FA data are 
-%         treated as for bin1, but two consecutive points must fail in order  
+%         bin1 is used the tract terminates if either the angle or FA value
+%         is disallowed for a single point;
+%        -bin2, At each point, the inter-segment angle and FA data are
+%         treated as for bin1, but two consecutive points must fail in order
 %         to terminate the tract.
 %      The FACT algorithm uses its own method for tract termination. Thus,
 %      when the propogation algorithm is set to FACT, the user must also
 %      create fields called r_crit and num_fact_voxels.  These are
-%      used to terminate tracts based on local variability in the first 
+%      used to terminate tracts based on local variability in the first
 %      eigenvector.
 %
 %    angle_thrsh: A two-element vector containing the angle threshold in
@@ -108,19 +108,19 @@ function [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = ...
 %
 %  The following input arguments are optional and are only required if the
 %  user wishes toplot the plot tracts from within the fiber_track function.
-% 
+%
 %  plot_options: If specified, this calls the fiber_visualizer function to
 %    plot the fiber, mask, and roi mesh.
 %
 %  anat_image: The structural images.
 %
 %OUTPUT ARGUMENTS
-%  fiber_all: The fiber tracts. The rows and columns correspond to locations 
-%    on the roi_mesh. Dimension 3 gives point numbers on the tract, and the 
-%    fourth dimension has row, column, and slice coordinates, with units of 
+%  fiber_all: The fiber tracts. The rows and columns correspond to locations
+%    on the roi_mesh. Dimension 3 gives point numbers on the tract, and the
+%    fourth dimension has row, column, and slice coordinates, with units of
 %    voxels.
 %
-%  roi_flag: A matrix indicating the presence of fiber tracts that propagated 
+%  roi_flag: A matrix indicating the presence of fiber tracts that propagated
 %    at least 1 point
 %
 %  stop_list: matrix containing the reason for fiber tract termination
@@ -142,7 +142,7 @@ function [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = ...
 %  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
 %
 %VERSION INFORMATION
-%  v. 0.1
+%  v. 1.0 (initial release) 28 Dec 2020, Bruce Damon
 %
 %ACKNOWLEDGEMENTS
 %  People: Zhaohua Ding, Adam Anderson, Amanda Buck, Anneriet Heemskerk,
@@ -266,7 +266,7 @@ fiber_len=roi_flag;
 for row_cntr=1:length(roi_mesh(:, 1, 1))                                  %start of the row loop
     
     %progress counter
-%     fprintf('%6.2f percent is tracked\n', row_cntr/length(roi_mesh(:,1,1))*100);
+    %     fprintf('%6.2f percent is tracked\n', row_cntr/length(roi_mesh(:,1,1))*100);
     
     for col_cntr=1:length(roi_mesh(1, :, 1))                              %start of the column loop
         
@@ -319,7 +319,7 @@ for row_cntr=1:length(roi_mesh(:, 1, 1))                                  %start
                 step_dir = step_dir(e1_order);                                      %adjust for frame of reference and row/column indexing
                 step_dir = [e1r_sign*step_dir(1) e1c_sign*step_dir(2) e1s_sign*step_dir(3)]';
                 step_dir(3) = step_dir(3)/depth_ratio;                              %account for the slice aspect ratio
-                    
+                
             case {'rk'} %Runge-Kutta integration (Richard Hamming. 1989 Introduction to Applied Numerical Analysis. Dover Publications, p. 212)
                 
                 % for point p1, get the diffusion tensor by calling the retrieve_tensor function.
@@ -457,7 +457,7 @@ for row_cntr=1:length(roi_mesh(:, 1, 1))                                  %start
                 diff_next_point = sum([diff_next_r' diff_next_c' diff_next_s'], 2);
                 switch_next_pixel = min([min(find(diff_next_point))+1 100]);
                 step_incr = switch_next_pixel/100;
-
+                
                 
         end
         
@@ -481,7 +481,7 @@ for row_cntr=1:length(roi_mesh(:, 1, 1))                                  %start
         
         % 4) begin the fiber tracking loop
         while 1
-                   
+            
             % 4a) get the step direction
             switch prop_algo
                 
@@ -517,6 +517,12 @@ for row_cntr=1:length(roi_mesh(:, 1, 1))                                  %start
                     
                     % define point p1; if it lies within the mask, get the diffusion tensor by calling the retrieve_tensor function.
                     point1 = squeeze(fiber_all(row_cntr,col_cntr, fiber_cntr,:));
+                    
+                    if ceil(point1(1))>length(tensor_m(:,1,1,1,1)) || ceil(point1(2))>length(tensor_m(1,:,1,1,1)) || ...
+                            ceil(point1(3))>length(tensor_m(1,1,:,1,1))
+                        stop_list(row_cntr,col_cntr) = 4;
+                        break;
+                    end
                     
                     if mask(round(point1(1)), round(point1(2)), max([round(point1(3)) 1]))==1
                         
@@ -696,7 +702,7 @@ for row_cntr=1:length(roi_mesh(:, 1, 1))                                  %start
                 stop_list(row_cntr,col_cntr) = 4;
                 break;
             end
-
+            
             %other criteria depend on termination algorithm selected
             switch term_mthd                                                %select between tract termination methods
                 
