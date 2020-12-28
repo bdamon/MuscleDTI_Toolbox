@@ -1,4 +1,4 @@
-# Help for the function <i>fiber_track</i>, v. 0.1.x
+# Help for the function [<i>fiber_track</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_track.m), v. 1.0
 
 ## Introduction
 
@@ -18,7 +18,7 @@ The function <i>fiber_track</i> is used to fiber-track a muscle DTI dataset.
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md)
 
 ## 2. Usage
-The required inputs include a 5D matrix hold the diffusion tensor at each voxel and [row column slice] dimensions matching those of the DTMRI data; the muscle mask, output from [<i>define_muscle</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md) or other program; the aponeurosis mesh, output from [<i>define_roi</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md); and a structure defining the fiber-tracking options.  This structure allows the user to set options such as the tracking algorithm, step size, laboratory frame of reference, image orientation, and tract termination method. 
+The required inputs include a 5D matrix holding the diffusion tensor at each voxel and [row column slice] dimensions matching those of the DTMRI data; the muscle mask, output from [<i>define_muscle</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md) or other program; the aponeurosis mesh, output from [<i>define_roi</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md); and a structure defining the fiber-tracking options.  This structure allows the user to set options such as the tracking algorithm, step size, laboratory frame of reference, image orientation, and tract termination method. 
 
 Fibers are tracked from the aponeurosis mesh according to the selected propagation algorithm. Each fiber tract is propagated until it reaches the edge of the mask or meets another stop criterion, such as an excessive inter-segment angle or an out-of-bounds value for fractional anisotropy (FA).  See the description of the input arguments for additional information on these criteria. 
 
