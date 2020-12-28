@@ -1,4 +1,4 @@
-# Help for the function <i>fiber_visualizer</i>, v. 0.1.x
+# Help for the function [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_visualizer.m), v. 1.0
 
 ## Introduction
 
