@@ -1,4 +1,4 @@
-# Help for the function <i>fiber_quantifier</i>, v. 0.5.x
+# Help for the function [<i>fiber_quantifier</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_quantifier.m), v. 1.0
 
 ## Introduction
 
