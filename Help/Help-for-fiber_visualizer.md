@@ -275,4 +275,4 @@ People: Zhaohua Ding, Hannah Kilpatrick
 Grant support: NIH/NIAMS R01 AR073831
 
 [Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md)
-
+ 
