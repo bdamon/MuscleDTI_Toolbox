@@ -289,8 +289,9 @@ fv_options.dti_dims = [192 7]; %FOV and ST of the DTI data
 [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = fiber_track(tensor_m, mask, roi_mesh, ft_options, fv_options, anat_image);
 
 ###	Example 2
+Given:
 
-1.	As for Example 1, except using FACT with RCrit equal to 0.8 and examined over 20 voxels.
+1.	Same as Example 1, except using FACT with RCrit equal to 0.8 and examined over 20 voxels.
 
 the following code will allow the user to 
 
