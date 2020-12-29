@@ -1,7 +1,7 @@
 # MuscleDTI_Toolbox
-## A Matlab Toolbox for Skeletal Muscle Diffusion Tensor MRI Fiber Tractography 
+## A MATLAB Toolbox for Skeletal Muscle Diffusion Tensor MRI Fiber Tractography 
 
-The MuscleDTI_Toolbox consists of a series of custom-written Matlab functions for performing diffusion-tensor MRI fiber tractography in skeletal muscle. This README file contains
+The MuscleDTI_Toolbox consists of a series of custom-written MATLAB functions for performing diffusion-tensor MRI fiber tractography in skeletal muscle. This README file contains
   1) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#1-acknowledgements)
   2) [License information](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#2-license-information)
   3) [A list of MATLAB requirements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#3-matlab-requirements)
@@ -37,38 +37,39 @@ These steps are elucidated further below.
 
 ### A. Pre-processing
 Before performing fiber tractography, several pre-processing steps must be performed.  These may include:
-  * <i>File input</i>: Depending on the image format, this could be accomplished using the built-in Matlab function <i>dicomread</i>, the built-in Matlab function <i>niftiread</i>, or custom-written functions for proprietary image formats such as PAR/REC or XML/REC (Philips Medical Systems).
-  * <i>Correction of eddy current-induced distortions in the images</i>: Switching of the phase-encoding gradients can induce distortions in the images. The eddy-current correction schme ilustrated here uses freeware called [FSL](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki) and requires the acquisition of a second set of non-diffusion weighted images obtained with the phase-encoding direction reversed.
+  * <i>File input</i>: Depending on the image format, this could be accomplished using the built-in MATLAB function <i>dicomread</i>, the built-in MATLAB function <i>niftiread</i>, or custom-written functions for proprietary image formats such as PAR/REC or XML/REC (Philips Medical Systems). 
+  * <i>Correction of eddy current-induced distortions in the images</i>: Switching of the phase-encoding gradients can induce distortions in the images. The eddy-current correction scheme ilustrated here uses freeware called [FSL](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki). To perform this correction, the user is required to have obtained a second set of non-diffusion weighted images with the phase-encoding direction reversed.
   * <i>Concatenation of multiple image acqusitions into a single dataset</i>: The need for this depends on the details of the user's image acquisition scheme.
-  * <i>Image registration</i>: Switching of the difusione-encoding gradients induces distortions in the images. These distortions are corrected using image registration; the example in this toolbox uses the Demons registration technique, called using the <i>imregdemons</i> function in Matlab.
-  * <i>De-noising</i>: Some level of noise is inevitable in the data. This noise adds variability to the estimation of the diffusion tensor; at a sufficiently low signal-to-noise ratio, it can also add bias. The denoising method used here uses an [anisotropic smoothing method](https://pubmed.ncbi.nlm.nih.gov/15678537/).
+  * <i>Image registration</i>: Switching of the difusion-encoding gradients induces distortions in the images. These distortions are corrected using image registration; the example in this toolbox uses the Demons registration technique, called using the <i>imregdemons</i> function in MATLAB.
+  * <i>De-noising</i>: Some level of noise in the data is inevitable. This noise adds variability to the estimation of the diffusion tensor; at a sufficiently low signal-to-noise ratio, it can also add bias. The denoising method used here uses the anisotropic smoothing method [described here](https://pubmed.ncbi.nlm.nih.gov/15678537/).
   * <i>Estimation of the diffusion tensor throughout the muscle of interest</i>: The example given here uses a weighted least squares method to estimate the diffusion tensor that best matches the observed signals, given the diffusion-encoding matrix and diffusion encoding (b-) value.
 
-Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Preprocessing-Functions) for Matlab scripts and functions that perform many of these tasks.
+Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Sample-Scripts) for a MATLAB script and [this link](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Preprocessing-Functions) for the custom-written MATLAB functions that perform these tasks. Other required functions are part of MATLAB's proprietary toolboxes and cannot be distributed here.
 
-### B. Define muscle boundaries using the function <i>define_muscle</i>
+### B. Visualize the results using the function <i>fiber_visualizer</i>
+At any stage, the results can be visualized using the function [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_visualizer.m). The user can select the mask, seed surface, and/or fiber tracts for display.  The user can also select which image slices to display for anatomical reference. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md) for detailed help on this function.
+
+### C. Define muscle boundaries using the function <i>define_muscle</i>
 Real muscle fibers are assumed to be contained entirely within a single muscle of interest. The fiber_track function therefore requires the user to input a binary image mask demarcating the muscle boundaries; this mask is used to prevent fiber tracts from exiting the muscle of interest. The function [<i>define_muscle</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/define_muscle.m) is used to define this mask. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md) for detailed help on this function, including an instructional video.
 
-### C. Define the seed points using the function <i>define_roi</i>
+### D. Define the seed points using the function <i>define_roi</i>
 In DTI fiber-tracking, the tracts are propagated from a set of points, commonly called "seed points." In the MuscleDTI_Toolbox, the anatomical structure into which the muscle fibers insert (a flattened tendinous structure called an aponeurosis) is used to define these points. The function [<i>define_roi</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/define_roi.m) is used to digitize the {row, column, slice} coordinates of the aponeurosis; these points are used to define the seed surface. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_roi.md) for detailed help on this function, including an instructional video.
 
-### D. Generate the fiber tracts using the function <i>fiber_track</i>
+### E. Generate the fiber tracts using the function <i>fiber_track</i>
 Fiber tracts are propagated from the seed points by following the direction indicated by the first eigenvector of the diffusion tensor. The function <i>fiber_track</i> is used to perform this integration. The user can select from several propagation algorithms and several methods for determining when to stop propagating a tract. The major output of this function is a matrix containing the {row, column, slice} coordinates of each point along each fiber tract.  The function [<i>fiber_track</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_track.m) calls the function [<i>retrieve_tensor</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/retrieve_tensor.m), which finds the diffusion tensor in each voxel of the image. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_track.md) for detailed help on this function.
 
-### E. Smooth the fiber tracts using the function <i>fiber_smoother</i>
+### F. Smooth the fiber tracts using the function <i>fiber_smoother</i>
 Fiber tract points are subject to errors in position because of the presence of noise and artifacts in the images. To mitigate these effects, the function [<i>fiber_smoother</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_smoother.m) performs a polynomial fit to each fiber tract. This also allows the interpolation of the fiber tract positions at a resolution higher than the original tracts.  This step is not required, but is strongly recommended prior to calling the [<i>fiber_quantifier</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_quantifier.m) function. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_smoother.md) for detailed help on this function.
 
-### F. Quantify the tracts' structural properties using the function <i>fiber_quantifier</i>
+### G. Quantify the tracts' structural properties using the function <i>fiber_quantifier</i>
 After the fiber tracts have been polynomial-fitted, their structural properties are quantified using the function [<i>fiber_quantifier</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_quantifier.m).  The properties quantified include the pennation angle, curvature, and length. These properties are calculated in a pointwise manner along the fiber tracts. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_quantifier.md) for detailed help on this function.
 
-### G. Eliminate erroneous results using the function <i>fiber_goodness</i>
-Finally, the quantitative results are examined and obviously wrong results are eliminated from the dataset. The function [<i>fiber_goodness</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_goodness.m) eliminates tracts that ascend and descend (an error due to overfitting); that have architectural properties that exceed certain limits; and/or that vary greatly from their neighbors. A final dataset is calulated, including the mean properties for each tract and for the entire muscle. Follow this link for detailed help on this function.
-
-### H. Visualize the results using the function <i>fiber_visualizer</i>
-At any stage, the results can be visualized using the function [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_visualizer.m). The user can select the mask, seed surface, and/or fiber tracts for display.  The user can also select which image slices to display for anatomical reference. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md) for detailed help on this function.
+### H. Eliminate erroneous results using the function <i>fiber_goodness</i>
+Finally, the quantitative results are examined and obviously wrong results are eliminated from the dataset. The function [<i>fiber_goodness</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_goodness.m) eliminates tracts that ascend and descend (an error due to overfitting); that have architectural properties that exceed certain limits; and/or that vary greatly from their neighbors. A final dataset is calulated, including the mean properties for each tract and for the entire muscle. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_goodness.md) for detailed help on this function.
 
 ## 6. Other Resources
 ### A. Within the toolbox:
+* [Here's a link to the sample scripts](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Sample-Scripts)
 * [Here's a link to all of the preprocessing functions](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Preprocessing-Functions)
 * [Here's a link to all of the tractography functions](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Tractography-Functions)
 * [Here's a link to all of the help files](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Help)
