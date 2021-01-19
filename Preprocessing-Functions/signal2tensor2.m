@@ -1,13 +1,14 @@
 function d_m = signal2tensor2(signal_v, dir_m, b)
 %
 % FUNCTION signal2tensor2
-%  d_m = signal2tensor2(signal_v, dir_m, b)
+%  d_m = signal2tensor2(signal_v, dir_m, b);
 %
 % USAGE
-%  signal2tensor2 finds the tensor that best fits the observed signal.
+%  signal2tensor2 is used to estimate the diffusion tensor that best fits 
+%  the observed signal.
 %
 %  The user inputs a column vector containing unweighted and diffusion-
-%  weighted signals, a matrix describing the diffusion-sensitizing 
+%  weighted signals, a matrix describing the diffusion-encoding  
 %  directions; and the b-value (assumed to be the same for all directions).
 %  The function outputs the calculated tensor, with units of 1/[b]. 
 %
@@ -28,24 +29,25 @@ function d_m = signal2tensor2(signal_v, dir_m, b)
 % OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
 %  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
+%  For help defining the aponeurosis ROI, see <a href="matlab: help define_roi">define_roi</a>.
 %  For help with the fiber tracking program, see <a href="matlab: help fiber_track">fiber_track</a>.
 %  For help fitting fiber tracts, see <a href="matlab: help fiber_fitter">fiber_fitter</a>.
 %  For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
 %  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
 %
 % VERSION INFORMATION
-%  v. 1.0 2006/12/04 (AWA)
-%
-% ACKNOWLEDGMENTS
-%  People: Adam Anderson
-%  Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831% Usage: d_m = signal2tensor2(signal_v, dir_m, b)
+%  v. 1.0 2006/12/04 Adam Anderson
+%  v. 1.0.1 adds help infomration; 17 Jan 2021, Bruce Damon
+
+
+
+%% start function
 
 % Parameters:
 noiseStd = 1;   % Normalized/doesn't matter.
 
 % Get measurement directions:
 nDirs = size(dir_m, 1);
-
 
 % Find design matrix for b=1 (to improve condition number):
 design_m = zeros(nDirs+1, 7);   % Fit 7 parameters. 
@@ -56,8 +58,6 @@ for dir = 1:nDirs
     design_m(1+dir, :) = [1, -b_m(1,1), -b_m(2,2), -b_m(3,3), ...
             -2*b_m(1,2), -2*b_m(1,3), -2*b_m(2,3)];
 end
-
-
 
 % Calculate ln of the signal and its std (column vectors):
 ln_v = log(signal_v);
