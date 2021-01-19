@@ -1,5 +1,5 @@
 function [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = ...
-    fiber_track(tensor_m, mask, roi_mesh, ft_options, plot_options, anat_image)
+    fiber_track(tensor_m, mask, roi_mesh, ft_options, fv_options, anat_image)
 %
 %FUNCTION fiber_track
 %  [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = ...
@@ -109,7 +109,7 @@ function [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = ...
 %  The following input arguments are optional and are only required if the
 %  user wishes toplot the plot tracts from within the fiber_track function.
 %
-%  plot_options: If specified, this calls the fiber_visualizer function to
+%  fv_options: If specified, this calls the fiber_visualizer function to
 %    plot the fiber, mask, and roi mesh.
 %
 %  anat_image: The structural images.
@@ -133,16 +133,17 @@ function [fiber_all, roi_flag, stop_list, fiber_len, fa_all, md_all] = ...
 %  md_all: the pointwise mean diffusivities along each tract
 %
 %OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%  For help with anisotropic smoothing, see <a href="matlab: help aniso4D_smoothing">aniso4D_smoothing</a>.
 %  For help calculating the diffusion tensor, see <a href="matlab: help signal2tensor2">signal2tensor2</a>.
-%  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
-%  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
-%  For help defining the ROI, see <a href="matlab: help define_roi">define_roi</a>.
+%  For help defining the muscle mask, see <a href="matlab: help define_muscle">define_muscle</a>.
+%  For help defining the aponeurosis ROI, see <a href="matlab: help define_roi">define_roi</a>.
 %  For help smoothing fiber tracts, see <a href="matlab: help fiber_smoother">fiber_smoother</a>.
 %  For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
 %  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
+%  For help visualizing fiber tracts and other structures, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %
 %VERSION INFORMATION
-%  v. 1.0 (initial release) 28 Dec 2020, Bruce Damon
+%  v. 1.0.0 (initial release), 15 Jan 2021, Bruce Damon
 %
 %ACKNOWLEDGEMENTS
 %  People: Zhaohua Ding, Adam Anderson, Amanda Buck, Anneriet Heemskerk,
@@ -552,7 +553,7 @@ for row_cntr=1:length(roi_mesh(:, 1, 1))                                  %start
                         point2 = point1 + (step_incr/2)*k1;
                         
                     else
-                        
+                        stop_list(row_cntr, col_cntr)=4;
                         break
                         
                     end
@@ -849,12 +850,13 @@ for row_cntr=1:length(roi_mesh(:, 1, 1))                                  %start
     
 end                                                                         %end of row for loop
 
+save fiber_tract_data fiber_all roi_flag stop_list fiber_len fa_all md_all
 
 %% plot fiber, mask, and mesh, if desired
 
-if exist('plot_options', 'var') && exist('anat_image', 'var')
+if exist('fv_options', 'var') && exist('anat_image', 'var')
     
-    fiber_visualizer(anat_image, plot_options, roi_mesh, mask, fiber_all);
+    fiber_visualizer(anat_image, fv_options, roi_mesh, mask, fiber_all);
     
 end
 

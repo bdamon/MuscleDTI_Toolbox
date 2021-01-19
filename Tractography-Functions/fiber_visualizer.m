@@ -1,7 +1,7 @@
 function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask, fiber_all)
 %
 %FUNCTION fiber_visualizer
-%  fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask, fiber_all)
+%  fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask, fiber_all);
 %
 %USAGE
 %  The function fiber_visualizer is used to visualize images and the muscle
@@ -35,14 +35,14 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 %  Depending on the plot options selected, the following other fields may
 %  be required:
 %
-%  If plot_mesh equals 1, you must also specify:
+%  If plot_mesh equals 1, the user must also specify:
 %   -mesh_size: This two-element vector specifies the in-plane matrix size 
 %      of the images used to generate the mesh.
 %   -mesh_dims: This two-element vector specifies the FOV and slice thickness 
 %      of the images used to create the mesh.
 %   -mesh_color: The user creates a color scale using either of the following 
 %      two options:
-%      *If mesh_color is a 3 element vector of values ranging from 0-1, 
+%      *If mesh_color is a three-element vector of values ranging from 0-1, 
 %        the vector is interpreted as RGB levels; the entire mesh is plotted
 %        using this color.
 %      *If mesh_color is a matrix with size of (#mesh rows) x (#mesh columns) x 3, 
@@ -53,7 +53,7 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 %   -mesh_dist: If the mesh was shifted for fiber tracking, the user should
 %      set this to the value used during fiber tracking.
 %
-%  If plot_mask equals 1, you must also specify:
+%  If plot_mask equals 1, the user must also specify:
 %   -mask_size: This two-element vector specifies the in-plane matrix size 
 %      of the images used to generate the mask.
 %   -mask_dims: This two-element vector specifies the FOV and slice thickness
@@ -61,7 +61,7 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 %   -mask_color: This three-element vector contains the RGB levels to be used 
 %      when plotting the mask.
 %
-%  If plot_fibers equals 1 or 2, you must also specify:
+%  If plot_fibers equals 1 or 2, the user must also specify:
 %    -dti_size: A 2-element vector that specifies the matrix size of the images
 %       used for fiber tracking.
 %    -dti_dims: This two-element vector specifies the FOV and slice thickness
@@ -107,6 +107,7 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 %  fiber_figure: A Matlab figure structure
 %
 %OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%  For help with anisotropic smoothing, see <a href="matlab: help aniso4D_smoothing">aniso4D_smoothing</a>.
 %  For help calculating the diffusion tensor, see <a href="matlab: help signal2tensor2">signal2tensor2</a>.
 %  For help defining the muscle mask, see <a href="matlab: help define_muscle">define_muscle</a>.
 %  For help defining the aponeurosis ROI, see <a href="matlab: help define_roi">define_roi</a>.
@@ -114,9 +115,10 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 %  For help smoothing fiber tracts, see <a href="matlab: help fiber_smoother">fiber_smoother</a>.
 %  For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
 %  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
+%  For help visualizing fiber tracts and other structures, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %
 %VERSION INFORMATION
-%  v. 1.0 (initial release), 28 Dec 2020, Bruce Damon
+%  v. 1.0 (initial release), 17 Jan 2021, Bruce Damon
 %
 %ACKNOWLEDGEMENTS
 %  People: Zhaohua Ding, Hannah Kilpatrick
@@ -169,6 +171,11 @@ if fv_options.plot_fibers>0
         fiber_skip = fv_options.fiber_skip;
     else
         fiber_skip = 1;
+    end
+    if isfield('fv_options', 'fiber_width')
+        fiber_width = double(fv_options.fiber_width);
+    else
+        fiber_width = 0.5;
     end
 end
 
@@ -231,7 +238,7 @@ for s=1:length(anat_slices)
     end
     
     loop_image = 240*loop_image/max(max(loop_image));
-    surf(ones(anat_size(1), anat_size(2))*double(anat_slicethick)*double(anat_slices(s)), loop_image)
+    surf(ones(anat_size(1), anat_size(2))*double(anat_slicethick)*double(anat_slices(s)), loop_image);
     colormap('gray')
     shading('Interp')
 end
@@ -273,7 +280,7 @@ if fv_options.plot_fibers==1
                     
                     loop_color = abs(fiber_color + randn(size(fiber_color))*0.1);       %add some random contrast
                     loop_color = loop_color/norm(loop_color);
-                    set(fiber_plot, 'color', loop_color)
+                    set(fiber_plot, 'color', loop_color, 'linewidth', fiber_width)
                 end
                 
             end
@@ -291,7 +298,7 @@ if fv_options.plot_fibers==1
                     squeeze(fiber_all(row_cntr,col_cntr, 1:num_points, 3)));
                 
                 loop_color = squeeze(fiber_color(row_cntr, col_cntr,:));
-                set(fiber_plot, 'color', loop_color)
+                set(fiber_plot, 'color', loop_color, 'linewidth', fiber_width)
                 
             end
             
@@ -323,7 +330,7 @@ elseif fv_options.plot_fibers==2
                     loop_color = fiber_color(f,:);
                     loop_color = abs(loop_color+randn(size(loop_color))*0.1);          %add some contrast to the tracts
                     loop_color = loop_color/norm(loop_color);
-                    set(fiber_plot, 'color', loop_color)
+                    set(fiber_plot, 'color', loop_color, 'linewidth', fiber_width)
                     
                 end
             end
@@ -340,7 +347,7 @@ elseif fv_options.plot_fibers==2
                         squeeze(fiber_all_f(row_cntr,col_cntr, 1:num_points, 3)));
                     
                     loop_color = squeeze(fiber_color(row_cntr, col_cntr, :, f));
-                    set(fiber_plot, 'color', loop_color)
+                    set(fiber_plot, 'color', loop_color, 'linewidth', fiber_width)
                     
                 end
                 
@@ -360,4 +367,3 @@ set(gca, 'color', 'k')
 %% end function
 
 return
-

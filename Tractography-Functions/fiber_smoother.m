@@ -57,16 +57,17 @@ function [smoothed_fiber_all, pcoeff_r, pcoeff_c, pcoeff_s, n_points_smoothed] =
 %  n_points_smoothed: the number of points in the fitted tracts
 %
 %OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%  For help with anisotropic smoothing, see <a href="matlab: help aniso4D_smoothing">aniso4D_smoothing</a>.
 %  For help calculating the diffusion tensor, see <a href="matlab: help signal2tensor2">signal2tensor2</a>.
-%  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
-%  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
-%  For help defining the ROI, see <a href="matlab: help define_roi">define_roi</a>.
-%  For help with the fiber tracking program, see <a href="matlab: help fiber_track">fiber_track</a>.
+%  For help defining the muscle mask, see <a href="matlab: help define_muscle">define_muscle</a>.
+%  For help defining the aponeurosis ROI, see <a href="matlab: help define_roi">define_roi</a>.
+%  For help with fiber tracking, see <a href="matlab: help fiber_track">fiber_track</a>.
 %  For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
 %  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
+%  For help visualizing fiber tracts and other structures, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %
 %VERSION INFORMATION
-%  v. 1.0 (initial release), 28 Dec 2020, Bruce Damon
+%  v. 1.0.0 (initial release), 17 Jan 2021, Bruce Damon
 %
 %ACKNOWLEDGEMENTS
 %  People: Zhaohua Ding, Anneriet Heemskerk

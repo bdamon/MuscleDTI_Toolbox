@@ -26,8 +26,8 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_
 %  Mask to complete ROI selection.
 %
 %  Then the program advances to the next slice. In this slice and all
-%  subsequent slices, the level of zoom is automatically set as Â±20 pixels
-%  beyond the previous ROIâ€™s row and column limits. In the lower left panel,
+%  subsequent slices, the level of zoom is automatically set as ±20 pixels
+%  beyond the previous ROI’s row and column limits. In the lower left panel,
 %  the preceding slice and its ROI are shown. Also shown are gold and
 %  red lines depicting the center row and column, respectively, of this ROI.
 %  In the column to the immediate right of the main panel, the projections of
@@ -72,16 +72,17 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_
 %    vector alt_mask_size
 %
 %OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%  For help with anisotropic smoothing, see <a href="matlab: help aniso4D_smoothing">aniso4D_smoothing</a>.
 %  For help calculating the diffusion tensor, see <a href="matlab: help signal2tensor2">signal2tensor2</a>.
-%  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
-%  For help defining the ROI, see <a href="matlab: help define_roi">define_roi</a>.
-%  For help with the fiber tracking program, see <a href="matlab: help fiber_track">fiber_track</a>.
-%  For help fitting the fiber tracts, see <a href="matlab: help fiber_smoother">fiber_smoother</a>.
+%  For help defining the aponeurosis ROI, see <a href="matlab: help define_roi">define_roi</a>.
+%  For help with fiber tracking, see <a href="matlab: help fiber_track">fiber_track</a>.
+%  For help smoothing fiber tracts, see <a href="matlab: help fiber_smoother">fiber_smoother</a>.
 %  For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
 %  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
+%  For help visualizing fiber tracts and other structures, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %
 % VERSION INFORMATION
-%  v. 1.0 (initial release), 28 Dec 2020, Bruce Damon
+%  v. 1.0 (initial release), 17 Jan 2021, Bruce Damon
 %
 % ACKNOWLEDGMENTS
 %  Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
@@ -370,12 +371,12 @@ else                            % form a throwaway variable so that the program 
 end
 
 %% save masks
-
-if form_alt_mask==1
-    save mask_file mask alt_mask
-else
-    save mask_file mask
-end
+% 
+% if form_alt_mask==1
+%     save mask_file mask alt_mask
+% else
+%     save mask_file mask
+% end
 
 %% plot mask, if desired
 

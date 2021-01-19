@@ -21,8 +21,18 @@ function d_tensor = retrieve_tensor(tensor_m, img_indx)
 %OUTPUT ARGUMENTS
 %  d_tensor: the diffusion tensor
 %
+%OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%  For help with anisotropic smoothing, see <a href="matlab: help aniso4D_smoothing">aniso4D_smoothing</a>.
+%  For help defining the muscle mask, see <a href="matlab: help define_muscle">define_muscle</a>.
+%  For help defining the aponeurosis ROI, see <a href="matlab: help define_roi">define_roi</a>.
+%  For help with fiber tracking, see <a href="matlab: help fiber_track">fiber_track</a>.
+%  For help smoothing fiber tracts, see <a href="matlab: help fiber_smoother">fiber_smoother</a>.
+%  For help quantifying fiber tracts, see <a href="matlab: help fiber_quantifier">fiber_quantifier</a>.
+%  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
+%  For help visualizing fiber tracts and other structures, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
+%
 %VERSION INFORMATION
-%  v 1.0 (initial release), 28 Dec 2020, Bruce Damon
+%  v. 1.0.0 (initial release), 15 Jan 2021, Bruce Damon
 %
 %ACKNOWLEDGEMENTS
 %  Grant support: NIH/NIAMS R01 AR073831

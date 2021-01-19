@@ -104,17 +104,19 @@ function [angle_list, distance_list, curvature_list, fiber_all_mm, n_points, apo
 %  apo_area: A 2D matrix (rows x columns) containing the amount of
 %    apoeurosis area represented by each fiber tract
 % 
-% OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%
+%OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
+%  For help with anisotropic smoothing, see <a href="matlab: help aniso4D_smoothing">aniso4D_smoothing</a>.
 %  For help calculating the diffusion tensor, see <a href="matlab: help signal2tensor2">signal2tensor2</a>.
-%  For help visualizing the data, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
-%  For help defining the mask, see <a href="matlab: help define_muscle">define_muscle</a>.
-%  For help defining the ROI, see <a href="matlab: help define_roi">define_roi</a>.
-%  For help with the fiber tracking program, see <a href="matlab: help fiber_track">fiber_track</a>.
+%  For help defining the muscle mask, see <a href="matlab: help define_muscle">define_muscle</a>.
+%  For help defining the aponeurosis ROI, see <a href="matlab: help define_roi">define_roi</a>.
+%  For help with fiber tracking, see <a href="matlab: help fiber_track">fiber_track</a>.
 %  For help smoothing fiber tracts, see <a href="matlab: help fiber_smoother">fiber_smoother</a>.
 %  For help selecting fiber tracts following their quantification, see <a href="matlab: help fiber_goodness">fiber_goodness</a>.
-% 
+%  For help visualizing fiber tracts and other structures, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
+%
 % VERSION INFORMATION
-%  v 1.0 (initial release), 28 Nov 2020, Bruce Damon
+%  v. 1.0 (initial release), 17 Jan 2021, Bruce Damon
 % 
 % ACKNOWLEDGEMENTS
 %  People: Zhaohua Ding, Adam Anderson, Anneriet Heemskerk
@@ -154,7 +156,8 @@ if strcmp(fq_options.mesh_units, 'vx') || strcmp(fq_options.mesh_units, 'VX')
 elseif strcmp(fq_options.mesh_units, 'mm') || strcmp(fq_options.mesh_units, 'MM')
     roi_mesh_mm = roi_mesh;
 else
-    error('Aborting fiber_quantifier because of unexpected units for roi mesh')
+    beep
+    error('Aborting fiber_quantifier because of unexpected units for roi mesh.')
 end
 
 % convert fiber tracts to mm, if needed
@@ -165,38 +168,40 @@ if strcmp(fq_options.tract_units, 'vx') || strcmp(fq_options.tract_units, 'VX')
 elseif strcmp(fq_options.tract_units, 'mm') || strcmp(fq_options.tract_units, 'MM')
     fiber_all_mm = fiber_all;
 else 
-    error('Aborting fiber_quantifier because of unexpected units for fiber tracts')
+    beep
+    error('Aborting fiber_quantifier because of unexpected units for fiber tracts.')
 end
 
-%% prepare for pennation measurements
+%% prepare for pennation measurements by finding the slopes of the tangent lines
 
-%find the slopes of the tangent lines in the through-plane direction:
-dx_dy = zeros(length(roi_mesh_mm(:,1,1))-1, length(roi_mesh_mm(1,:,1))-1);                  %form a zeros matrix to hold dx/dz
-dy_dz = zeros(length(roi_mesh_mm(:,1,1))-1, length(roi_mesh_mm(1,:,1))-1);                  %form a zeros matrix to hold dy/dz
+% pre-allocate memory space
+dx_dy = zeros(length(roi_mesh_mm(:,1,1)), length(roi_mesh_mm(1,:,1))-1);    %form a zeros matrix to hold dx/dz
+dy_dz = zeros(length(roi_mesh_mm(:,1,1))-1, length(roi_mesh_mm(1,:,1)));    %form a zeros matrix to hold dy/dz
 
 for row_cntr = 1:length(roi_mesh_mm(:,1,1))
-    inplane_x = squeeze(roi_mesh_mm(row_cntr,:, 2));                                        %find the x positions
-    inplane_y = squeeze(roi_mesh_mm(row_cntr,:, 1));                                        %find the y positions
-    dx_dy(row_cntr,:) = diff(inplane_x)./diff(inplane_y);                                   %calculate approximate derivative as delta X / delta Y
+    inplane_x = squeeze(roi_mesh_mm(row_cntr,:, 2));                        %find the x positions (=column positions of roi_mesh)
+    inplane_y = squeeze(roi_mesh_mm(row_cntr,:, 1));                        %find the y positions (=row positions of roi_mesh)
+    dx_dy(row_cntr,:) = diff(inplane_x)./diff(inplane_y);                   %calculate approximate derivative as delta X / delta Y
 end
+dx_dy(:,length(roi_mesh_mm(1,:,1)))=dx_dy(:,end);                           %approximate final column as the column to its left
 
 for col_cntr = 1:length(roi_mesh_mm(1,:,1))
-    thruplane_y = squeeze(roi_mesh_mm(:, col_cntr, 1));                                     %find the y positions
-    thruplane_z = squeeze(roi_mesh_mm(:, col_cntr, 3));                                     %find the z positions
-    dy_dz(:,col_cntr) = diff(thruplane_y)./diff(thruplane_z);                               %calculate approximate derivative as delta Y / delta Z
+    thruplane_y = squeeze(roi_mesh_mm(:, col_cntr, 1));                     %find the y positions
+    thruplane_z = squeeze(roi_mesh_mm(:, col_cntr, 3));                     %find the z positions
+    dy_dz(:,col_cntr) = diff(thruplane_y)./diff(thruplane_z);               %calculate approximate derivative as delta Y / delta Z
 end
+dy_dz(length(roi_mesh_mm(:,1,1)),:)=dy_dz(end,:);                                              %approximate final row as the row above it
 
 %median filter the slopes using user-defined kernel size
 dx_dy = medfilt2(dx_dy, [filt_kernel filt_kernel]);
 dy_dz = medfilt2(dy_dz, [filt_kernel filt_kernel]);
 
-
 %% architectural measurements
 
 %median filtering eliminates edge information, so adjust for the kernel
 %size when looping through the mesh for architectural measurements
-start_row = 1 + floor(filt_kernel/2);
-start_col = 1 + floor(filt_kernel/2);
+start_row = 1;
+start_col = 1;
 end_row = length(roi_mesh(:,1,1)) - floor(filt_kernel/2);
 end_col = length(roi_mesh(1,:,1)) - floor(filt_kernel/2);
 
