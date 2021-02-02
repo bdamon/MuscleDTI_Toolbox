@@ -28,23 +28,22 @@ The functions have been tested using MATLAB v. 2019b.  The toolbox consists prim
   * The in-plane reconstructed matrix is square.
 
 ## 5. Overview of a Typical Workflow
-The figure below provides an overview of processing using the MuscleDTI_Toolbox: 
+Muscle DTI tractography includes pre-processing and fiber-tract processing steps, as elucidated below.
+
+### A. Pre-processing
+Before performing fiber tractography, several pre-processing steps must be performed. These steps are illustrated in the figure below.
 
 <img src="https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/MuscleDTI_Toolbox_Overview.png" 
 alt="MuscleDTI_Toolbox Overview" width="600" height="413" border="10">
 
-These steps are elucidated further below.
-
-### A. Pre-processing
-Before performing fiber tractography, several pre-processing steps must be performed.  These may include:
   * <i>File input</i>: Depending on the image format, this could be accomplished using the built-in MATLAB function <i>dicomread</i>, the built-in MATLAB function <i>niftiread</i>, or custom-written functions for proprietary image formats such as PAR/REC or XML/REC (Philips Medical Systems). 
-  * <i>Correction of eddy current-induced distortions in the images</i>: Switching of the phase-encoding gradients can induce distortions in the images. The eddy-current correction scheme ilustrated here uses freeware called [FSL](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki). To perform this correction, the user is required to have obtained a second set of non-diffusion weighted images with the phase-encoding direction reversed.
   * <i>Concatenation of multiple image acqusitions into a single dataset</i>: The need for this depends on the details of the user's image acquisition scheme.
   * <i>Image registration</i>: Switching of the difusion-encoding gradients induces distortions in the images. These distortions are corrected using image registration; the example in this toolbox uses the Demons registration technique, called using the <i>imregdemons</i> function in MATLAB.
   * <i>De-noising</i>: Some level of noise in the data is inevitable. This noise adds variability to the estimation of the diffusion tensor; at a sufficiently low signal-to-noise ratio, it can also add bias. The denoising method used here uses the anisotropic smoothing method [described here](https://pubmed.ncbi.nlm.nih.gov/15678537/).
   * <i>Estimation of the diffusion tensor throughout the muscle of interest</i>: The example given here uses a weighted least squares method to estimate the diffusion tensor that best matches the observed signals, given the diffusion-encoding matrix and diffusion encoding (b-) value.
-
 Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Sample-Scripts) for a MATLAB script and [this link](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Preprocessing-Functions) for the custom-written MATLAB functions that perform these tasks. Other required functions are part of MATLAB's proprietary toolboxes and cannot be distributed here.
+
+Switching of the phase-encoding gradients can induce distortions in the images. These can be corrected.  If the user wishes to perform this correction, they must have obtained a second set of non-diffusion weighted images with the phase-encoding direction reversed. The eddy-current correction scheme ilustrated here uses freeware called [FSL](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki). 
 
 ### B. Visualize the results using the function <i>fiber_visualizer</i>
 At any stage, the results can be visualized using the function [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_visualizer.m). The user can select the mask, seed surface, and/or fiber tracts for display.  The user can also select which image slices to display for anatomical reference. Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md) for detailed help on this function.
