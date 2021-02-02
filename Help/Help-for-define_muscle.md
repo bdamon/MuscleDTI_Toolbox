@@ -27,8 +27,6 @@ By default, the mask has the same dimensions as the input image. If the DTI imag
 
 The mask may be viewed using [<i>fiber_visualizer</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-fiber_visualizer.md), either as part of the function call to <i>define_muscle</i> or directly from the command line.
 
-An instructional video can be found [here](https://youtu.be/jBBAIqV7FeQ).
-
 [Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-define_muscle.md)
 
 ## 3. Syntax
