@@ -33,8 +33,8 @@ Muscle DTI tractography includes pre-processing and fiber-tract processing steps
 ### A. Pre-processing
 Before performing fiber tractography, several pre-processing steps must be performed. These steps are illustrated in the figure below.
 
-<img src="https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/MuscleDTI_Toolbox_Overview.png" 
-alt="MuscleDTI_Toolbox Overview" width="600" height="413" border="10">
+<img src="https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/Figure1.jpg" 
+alt="MuscleDTI_Toolbox Overview" width="600" height="505" border="10">
 
   * <i>File input</i>: Depending on the image format, this could be accomplished using the built-in MATLAB function <i>dicomread</i>, the built-in MATLAB function <i>niftiread</i>, or custom-written functions for proprietary image formats such as PAR/REC or XML/REC (Philips Medical Systems). 
   * <i>Concatenation of multiple image acqusitions into a single dataset</i>: The need for this depends on the details of the user's image acquisition scheme.
