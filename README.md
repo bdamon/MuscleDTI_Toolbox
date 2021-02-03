@@ -21,11 +21,17 @@ This work is covered under a [GNU General Public License](https://github.com/bda
 The functions have been tested using MATLAB v. 2019b.  The toolbox consists primarily of custom-written functions, but also calls some built-in MATLAB functions.
 
 ## 4. Data Acquisition Conventions Assumed 
-  * The slices were acquired in the axial anatomical plane;
-  * The slices cover the entire muscle of interest;
-  * The slices are numbered in ascending order in the +Z direction of the imager's frame of reference;
-  * The in-plane field of view is square; and
-  * The in-plane reconstructed matrix is square.
+In-plane Geometry
+* In-plane field of view is square
+* In-plane reconstructed imaging matrix size is square
+Slice Geometry
+* Slices were acquired in the axial anatomical plane
+* Slices numbers ascend in the +Z direction 
+* Slice geometries of structural and DT images match
+Whole-image Properties
+* Signal patterns of structural and DT images match
+* The slices cover the entire muscle of interest
+* Acquisition volumes of structural and DT images match
 
 ## 5. Overview of a Typical Workflow
 Muscle DTI tractography includes pre-processing and fiber-tract processing steps, as elucidated below.
