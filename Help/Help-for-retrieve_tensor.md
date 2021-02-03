@@ -1,4 +1,4 @@
-# Help for the function [<i>retrieve_tensor</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/retrieve_tensor.m), v. 1.0
+# Help for the function [<i>retrieve_tensor</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/retrieve_tensor.m), v. 1.0.0
 
 ## Introduction
 
