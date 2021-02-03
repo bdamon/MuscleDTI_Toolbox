@@ -31,15 +31,11 @@ The functions have been tested using MATLAB v. 2019b.  The toolbox consists prim
 Muscle DTI tractography includes pre-processing and fiber-tract processing steps, as elucidated below.
 
 ### A. Pre-processing
-Before performing fiber tractography, several pre-processing steps must be performed. These steps are illustrated in the figure below.
-
-<img src="https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/Figure1.jpg" 
-alt="MuscleDTI_Toolbox Overview" width="600" height="505" border="10">
-
-  * <i>File input</i>: Depending on the image format, this could be accomplished using the built-in MATLAB function <i>dicomread</i>, the built-in MATLAB function <i>niftiread</i>, or custom-written functions for proprietary image formats such as PAR/REC or XML/REC (Philips Medical Systems). 
-  * <i>Concatenation of multiple image acqusitions into a single dataset</i>: The need for this depends on the details of the user's image acquisition scheme.
-  * <i>Image registration</i>: Switching of the difusion-encoding gradients induces distortions in the images. These distortions are corrected using image registration; the example in this toolbox uses the Demons registration technique, called using the <i>imregdemons</i> function in MATLAB.
-  * <i>De-noising</i>: Some level of noise in the data is inevitable. This noise adds variability to the estimation of the diffusion tensor; at a sufficiently low signal-to-noise ratio, it can also add bias. The denoising method used here uses the anisotropic smoothing method [described here](https://pubmed.ncbi.nlm.nih.gov/15678537/).
+Before performing fiber tractography, several pre-processing steps must be performed:
+* <i>File input</i>: Depending on the image format, this could be accomplished using the built-in MATLAB function <i>dicomread</i>, the built-in MATLAB function <i>niftiread</i>, or custom-written functions for proprietary image formats such as PAR/REC or XML/REC (Philips Medical Systems). 
+  * <i>Concatenation of multiple image acqusitions into a single dataset</i>: The need for this depends on the details of the user's image acquisition scheme. 
+  * <i>Image registration</i>: Switching of the diffusion-encoding gradients induces distortions in the images. These distortions are corrected using image registration; the example in this toolbox uses the Demons registration technique, called using the <i>imregdemons</i> function in MATLAB.
+  * <i>De-noising</i>: Some level of noise in the data is inevitable. This noise adds variability to the estimation of the diffusion tensor; at a sufficiently low signal-to-noise ratio, it can also add bias. The denoising method used here uses the custom-written function anisotropic smoothing method, <i>aniso4d_smooth</i>, found [here](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Preprocessing-Functions/aniso4D_smoothing.m) 
   * <i>Estimation of the diffusion tensor throughout the muscle of interest</i>: The example given here uses a weighted least squares method to estimate the diffusion tensor that best matches the observed signals, given the diffusion-encoding matrix and diffusion encoding (b-) value.
 
 Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Sample-Scripts) for a MATLAB script and [this link](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Preprocessing-Functions) for the custom-written MATLAB functions that perform these tasks. Other required functions are part of MATLAB's proprietary toolboxes and cannot be distributed here.
