@@ -1,4 +1,4 @@
-# Help for the function [<i>define_muscle</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/define_muscle.m), v. 1.0
+# Help for the function [<i>define_muscle</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/define_muscle.m), v. 1.0.0
 
 ## Introduction
 
