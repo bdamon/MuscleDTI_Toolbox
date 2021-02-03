@@ -24,10 +24,12 @@ The functions have been tested using MATLAB v. 2019b.  The toolbox consists prim
 In-plane Geometry
 * In-plane field of view is square
 * In-plane reconstructed imaging matrix size is square
+
 Slice Geometry
 * Slices were acquired in the axial anatomical plane
 * Slices numbers ascend in the +Z direction 
 * Slice geometries of structural and DT images match
+
 Whole-image Properties
 * Signal patterns of structural and DT images match
 * The slices cover the entire muscle of interest
