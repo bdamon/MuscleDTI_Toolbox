@@ -1,4 +1,4 @@
-# Help for the function [<i>fiber_goodness</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_goodness.m), v. 1.0
+# Help for the function [<i>fiber_goodness</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_goodness.m), v. 1.0.0
 
 ## Introduction
 
