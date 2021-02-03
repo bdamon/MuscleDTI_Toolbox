@@ -1,4 +1,4 @@
-# Help for the function [<i>fiber_track</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_track.m), v. 1.0
+# Help for the function [<i>fiber_track</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/fiber_track.m), v. 1.0.0
 
 ## Introduction
 
