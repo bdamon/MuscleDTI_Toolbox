@@ -8,9 +8,9 @@ This file has the selected outputs from pre_process.m.  When the file is loaded,
 
 on the command line. The output is:
 
-  Name                   Size                    Bytes  Class     Attributes
+  Name   Size   Bytes   Class   Attributes
 
-  anat_fov               1x2                        16  double              
+  anat_fov  1x2   16  double              
   
   anat_image           192x192x44             12976128  double              
   
