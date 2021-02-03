@@ -1,1 +1,1 @@
-This is a readme file for the data.
+# This file has information about the sample data files.
