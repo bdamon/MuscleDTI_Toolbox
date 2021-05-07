@@ -83,7 +83,7 @@ There is no return value from this function. For the directories where the image
     % Perform eddy current correction
     eddy_correct(FSL_dir, study_info);
 
-In this example, the function reads image files <i>my/input_dir/my_DWI_img.nii</i> and <i>my/input_dir/my_DWI_img_b0.nii</i> and keeps a copy of unprocessed images in directory <i>my/output_dir/Subj09/active/s1/raw</i>. All processed data by <i>topup</i> and <eddy> are stored in directory <i>my/output_dir/Subj09/active/s1/eddy</i>
+In this example, the function reads image files <i>my/input_dir/my_DWI_img.nii</i> and <i>my/input_dir/my_DWI_img_b0.nii</i> and keeps a copy of unprocessed images in directory <i>my/output_dir/Subj09/active/s1/raw</i>. All processed data by <i>topup</i> and <i>eddy</i> are stored in directory <i>my/output_dir/Subj09/active/s1/eddy</i>
 
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-eddy_correct.md)
 
