@@ -93,6 +93,8 @@ In this example, the function reads image files <i>my/input_dir/my_DWI_img.nii</
  * [FSL wiki for <i>eddy</i>](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddy)
 
 ## 6. Acknowledgements
-Grants:
+People: Kurt Schilling, Melissa Hooijmans
+
+Grant support: NIH/NIAMS R01 AR073831
 
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-eddy_correct.md)
