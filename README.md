@@ -8,8 +8,8 @@ The MuscleDTI_Toolbox consists of a series of custom-written MATLAB functions fo
   4) [A list of the conventions assumed regarding data acquisition](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#4-data-acquisition-conventions-assumed)
   5) [An overview of a typical workflow using the toolbox](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#5-overview-of-a-typical-workflow)
   6) [Installation instructions](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#6-installation-instructions)
-  7) [Becoming a MuscleDTI_Toolbox contributor]
-  8) [Links to other resources in the toolbox and online](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#7-other-resources)
+  7) [Becoming a MuscleDTI_Toolbox contributor](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#7-Becoming-a-MuscleDTI_Toolbox-contributor)
+  8) [Links to other resources in the toolbox and online](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#8-other-resources)
 
 ## 1. Acknowledgements
 The functions in this toolbox reflect the collective contributions of many individuals over many years, including: Adam Anderson, Amanda Buck, Crystal Coolbaugh, Bruce Damon, Zhaohua Ding, Hannah Kilpatrick, Anneriet Heemskerk, Melissa Hooijmans, Drew Lansdown, and Justin Montenegro. Details regarding authorship and individual contributions are noted in each function.
@@ -73,7 +73,7 @@ We assume that you have installed MATLAB v. 2019b or later, including the Image 
 4) Unzip the file folder, saving it in a directory of your own choosing.
 5) In MATLAB, add a search path to the folders with the toolbox's custom functions. There are separate folders for pre-processing and fiber tractography functions. You may wish to rename the folders or even combine all functions into a single folder.
 
-## 7. Becoming a MuscleDTI_Toolbox Contributor:
+## 7. Becoming a MuscleDTI_Toolbox Contributor
 We encourage users members to contribute to and improve the MuscleDTI_Toolbox, allowing the software to become a useful and robust tool for muscle research. Whether you are a coding wizard or someone who has never opened MATLAB before this project, we can use your help. Here are a few ways how you can get involved:
 
 ### A. Do you like to code?
