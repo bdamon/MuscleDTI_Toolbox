@@ -74,7 +74,7 @@ We assume that you have installed MATLAB v. 2019b or later, including the Image 
 5) In MATLAB, add a search path to the folders with the toolbox's custom functions. There are separate folders for pre-processing and fiber tractography functions. You may wish to rename the folders or even combine all functions into a single folder.
 
 ## 7. Becoming a MuscleDTI_Toolbox Contributor
-We encourage users members to contribute to and improve the MuscleDTI_Toolbox, allowing the software to become a useful and robust tool for muscle research. Whether you are a coding wizard or someone who has never opened MATLAB before this project, we can use your help. Here are a few ways how you can get involved:
+We encourage users  to contribute to and improve the MuscleDTI_Toolbox and become part of our community.  Together, we can make the software into a useful and robust tool for muscle research. Whether you are a coding wizard or someone who has never opened MATLAB before this project, we can use your help. Here are a few ways how you can get involved:
 
 ### A. Do you like to code?
 * Fork the repository through GitHub. 
@@ -82,7 +82,7 @@ We encourage users members to contribute to and improve the MuscleDTI_Toolbox, a
 * Send a pull request to share your change with the community - don't forget to include a detailed commit text!
 * Please try to follow existing conventions and style to keep the code readable. 
 
-By contributing your code, you agree to license your contribution under the terms of the GNU General Public License. 
+By contributing your code, you agree to license your contribution under the terms of the GNU General Public License.
 
 ### B. Do you like to write?
 * Write improvements to the project's documentation and wiki. 
@@ -92,6 +92,8 @@ By contributing your code, you agree to license your contribution under the term
 ### C. Do you like to help people?
 * Help answer questions for people on open Issues. 
 * Offer to help mentor another member of the community on how to use the MuscleDTI_Toolbox or contribute to the project. 
+
+Lastly, please be aware of and commit to following the [Code of Conduct](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/CODE%20OF%20CONDUCT.md).
 
 ## 8. Other Resources
 ### A. Within the toolbox:
