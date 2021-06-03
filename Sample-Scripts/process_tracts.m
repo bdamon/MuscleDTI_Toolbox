@@ -1,4 +1,4 @@
-%% process_tracts.m
+%% process_tracts.m 
 % This version of process_tracts produces the data published in the manuscript.
 % Completed on 17 Jan 2021, Bruce Damon
 
@@ -40,9 +40,9 @@ slices(2) = input('What is the last slice that you would like to analyze? ');
 % set visualization options
 fv_options.anat_dims = [anat_fov(1) anat_slcthick];                         %FOV and slice thickness of the images to be displayed, in mm
 fv_options.anat_slices = 5:9:44;                                            %display slices 14, 24, 34, and 44
-fv_options.plot_mesh = 0;                                                   %don’t plot an aponeurosis mesh
+fv_options.plot_mesh = 0;                                                   %donâ€™t plot an aponeurosis mesh
 fv_options.plot_mask = 1;                                                   %do plot the mask
-fv_options.plot_fibers = 0;                                                 %don’t plot any fiber tracts
+fv_options.plot_fibers = 0;                                                 %donâ€™t plot any fiber tracts
 fv_options.mask_size = [anat_numrows anat_numcols];                         %rows x columns of the images used to generate the mask
 fv_options.mask_dims = [anat_fov(1) anat_slcthick];                         %FOV and slice thickness of the images used to create the mask, in mm
 fv_options.mask_color = [1 0 0];                                            %make the mask a red, semi-transparent overlay
