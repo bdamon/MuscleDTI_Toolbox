@@ -93,6 +93,9 @@ By contributing your code, you agree to license your contribution under the term
 * Help answer questions for people on open Issues. 
 * Offer to help mentor another member of the community on how to use the MuscleDTI_Toolbox or contribute to the project. 
 
+### D. Bugs, Features, Etc.
+Experiencing a bug?  Have an idea? Please submit a bug report or feature request [here](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Issues). You can also see a list of our planned feature additions/upgrades [here](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Issues/Planned-Upgrades.md).
+
 Lastly, please be aware of and commit to following the [Code of Conduct](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/CODE%20OF%20CONDUCT.md).
 
 ## 8. Other Resources
@@ -103,7 +106,7 @@ Links to scripts, functions, and their help files:
 * [Here's a link to all of the tractography functions](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Tractography-Functions)
 * [Here's a link to all of the help files](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Help)
 
-Experiencing a bug?  Have an idea? Please submit a bug report or feature request [here](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Issues).
+
 
 ### B. External to the toolbox:
 This toolbox is described at:
