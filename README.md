@@ -7,7 +7,8 @@ The MuscleDTI_Toolbox consists of a series of custom-written MATLAB functions fo
   3) [A list of MATLAB requirements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#3-matlab-requirements)
   4) [A list of the conventions assumed regarding data acquisition](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#4-data-acquisition-conventions-assumed)
   5) [An overview of a typical workflow using the toolbox](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#5-overview-of-a-typical-workflow)
-  6) [Links to other resources in the toolbox and online](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#6-other-resources)
+  6) [Installation instructions]((https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#6-installation-instructions))
+  7) [Links to other resources in the toolbox and online](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#7-other-resources)
 
 ## 1. Acknowledgements
 The functions in this toolbox reflect the collective contributions of many individuals over many years, including: Adam Anderson, Amanda Buck, Crystal Coolbaugh, Bruce Damon, Zhaohua Ding, Hannah Kilpatrick, Anneriet Heemskerk, Melissa Hooijmans, Drew Lansdown, and Justin Montenegro. Details regarding authorship and individual contributions are noted in each function.
@@ -62,7 +63,16 @@ Switching of the phase-encoding gradients can induce distortions in the images. 
 
 Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Sample-Scripts/process_tracts.m) for a MATLAB script and [this link](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Tractography-Functions) for the custom-written MATLAB functions that perform these tasks. Other required functions are part of MATLAB's proprietary toolboxes and cannot be distributed here.
 
-## 6. Other Resources
+## 6. Installation Instructions
+We assume that you have installed MATLAB v. 2019b or later, including the Image Processing toolbox.
+
+1. From this page, lick the green Code button.
+2. Select Download Zip.
+3. On your system, navigate to your Downloads folder.  
+4. Unzip the file folder, saving it in a directory of your own choosing.
+5. In MATLAB, add a search path to the folders with the toolbox's custom functions. There are separate folders for pre-processing and fiber tractography functions. You may wish to rename the folders or even combine all functions into a single folder.
+
+## 7. Other Resources
 ### A. Within the toolbox:
 * [Here's a link to the sample scripts](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Sample-Scripts)
 * [Here's a link to all of the preprocessing functions](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Preprocessing-Functions)
