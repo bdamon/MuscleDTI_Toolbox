@@ -106,6 +106,7 @@ Experiencing a bug?  Have an idea? Please submit a bug report or feature request
 ### B. External to the toolbox:
 This toolbox is described at:
 * Damon BM, Ding Z, Hooijmans M, Anderson AW, Zhou X, Coolbaugh CL, Goerge MK, and Landman B. (2021). A MATLAB toolbox for muscle diffusion-tensor MRI tractography. <i>Journal of Biomechanics</i>, in press.
+
 Which should be cited in publications using this toolbox.
 
 Several recent reviews on muscle DTMRI include:
