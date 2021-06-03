@@ -12,7 +12,7 @@ The MuscleDTI_Toolbox consists of a series of custom-written MATLAB functions fo
 ## 1. Acknowledgements
 The functions in this toolbox reflect the collective contributions of many individuals over many years, including: Adam Anderson, Amanda Buck, Crystal Coolbaugh, Bruce Damon, Zhaohua Ding, Hannah Kilpatrick, Anneriet Heemskerk, Melissa Hooijmans, Drew Lansdown, and Justin Montenegro. Details regarding authorship and individual contributions are noted in each function.
 
-This work was supported by NIH grants NIH/NIAMS R01 AR050101 and NIH/NIAMS R01 AR073831. By using this software, users agree to acknowledge the active grant (NIH/NIAMS R01 AR073831) in presentations and publications and to adhere to NIH policies regarding open access to their publications. 
+This work was supported by NIH grants NIH/NIAMS R01 AR050101 and NIH/NIAMS R01 AR073831. By using this software, users agree to acknowledge the active grant (NIH/NIAMS R01 AR073831) in presentations and publications, cite the paper in which this toolbox is described (see [References](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#6-other-resources)), and adhere to NIH policies regarding open access to their publications. 
 
 ## 2. License Information
 This work is covered under a [GNU General Public License](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/LICENSE.md), v. 3 or later.
@@ -71,6 +71,9 @@ Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Sampl
 * [Here's a link to templates for submitting feature requests and bug reports](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Issues)
 
 ### B. External to the toolbox:
+This toolbox is described at:
+* Damon BD< Ding Z, Hooijmans M, Anderson AW, Zhou X, Coolbaugh CL, Goerge MK, and Landman B. (2021). A MATLAB toolbox for muscle diffusion-tensor MRI tractography. <i>Journal of Biomechanics</i>, in press.
+
 Several recent reviews on muscle DTMRI include:
 * [Skeletal muscle DT-MRI fiber tracking: Rationale, data acquisition and analysis methods, applications, and future directions](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5136336/)
 
