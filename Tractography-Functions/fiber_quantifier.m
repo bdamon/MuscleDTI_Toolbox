@@ -116,7 +116,7 @@ function [angle_list, distance_list, curvature_list, fiber_all_mm, n_points, apo
 %  For help visualizing fiber tracts and other structures, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %
 % VERSION INFORMATION
-%  v. 1.0 (initial release), 17 Jan 2021, Bruce Damon
+%  v. 1.0.0 (initial release), 17 Jan 2021, Bruce Damon
 % 
 % ACKNOWLEDGEMENTS
 %  People: Zhaohua Ding, Adam Anderson, Anneriet Heemskerk
