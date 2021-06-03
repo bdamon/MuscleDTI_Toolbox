@@ -8,7 +8,8 @@ The MuscleDTI_Toolbox consists of a series of custom-written MATLAB functions fo
   4) [A list of the conventions assumed regarding data acquisition](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#4-data-acquisition-conventions-assumed)
   5) [An overview of a typical workflow using the toolbox](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#5-overview-of-a-typical-workflow)
   6) [Installation instructions](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#6-installation-instructions)
-  7) [Links to other resources in the toolbox and online](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#7-other-resources)
+  7) [Becoming a MuscleDTI_Toolbox contributor]
+  8) [Links to other resources in the toolbox and online](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#7-other-resources)
 
 ## 1. Acknowledgements
 The functions in this toolbox reflect the collective contributions of many individuals over many years, including: Adam Anderson, Amanda Buck, Crystal Coolbaugh, Bruce Damon, Zhaohua Ding, Hannah Kilpatrick, Anneriet Heemskerk, Melissa Hooijmans, Drew Lansdown, and Justin Montenegro. Details regarding authorship and individual contributions are noted in each function.
@@ -66,13 +67,33 @@ Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Sampl
 ## 6. Installation Instructions
 We assume that you have installed MATLAB v. 2019b or later, including the Image Processing toolbox.
 
-1. From this page, lick the green Code button.
-2. Select Download Zip.
-3. On your system, navigate to your Downloads folder.  
-4. Unzip the file folder, saving it in a directory of your own choosing.
-5. In MATLAB, add a search path to the folders with the toolbox's custom functions. There are separate folders for pre-processing and fiber tractography functions. You may wish to rename the folders or even combine all functions into a single folder.
+1) From this page, lick the green Code button.
+2) Select Download Zip.
+3) On your system, navigate to your Downloads folder.  
+4) Unzip the file folder, saving it in a directory of your own choosing.
+5) In MATLAB, add a search path to the folders with the toolbox's custom functions. There are separate folders for pre-processing and fiber tractography functions. You may wish to rename the folders or even combine all functions into a single folder.
 
-## 7. Other Resources
+## 7. Becoming a MuscleDTI_Toolbox Contributor:
+We encourage users members to contribute to and improve the MuscleDTI_Toolbox, allowing the software to become a useful and robust tool for muscle research. Whether you are a coding wizard or someone who has never opened MATLAB before this project, we can use your help. Here are a few ways how you can get involved:
+
+### A. Do you like to code?
+* Fork the repository through GitHub. 
+* Make changes (e.g. bug fixes, feature enhancements) in MATLAB. 
+* Send a pull request to share your change with the community - don't forget to include a detailed commit text!
+* Please try to follow existing conventions and style to keep the code readable. 
+
+By contributing your code, you agree to license your contribution under the terms of the GNU General Public License. 
+
+### B. Do you like to write?
+* Write improvements to the project's documentation and wiki. 
+* Create tutorial videos or tips to make the project work with your ultrasound setup. 
+* Develop a folder of examples to show how the MuscleDTI_Toolbox was used in your research. 
+
+### C. Do you like to help people?
+* Help answer questions for people on open Issues. 
+* Offer to help mentor another member of the community on how to use the MuscleDTI_Toolbox or contribute to the project. 
+
+## 8. Other Resources
 ### A. Within the toolbox:
 Links to scripts, functions, and their help files:
 * [Here's a link to the sample scripts](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Sample-Scripts)
