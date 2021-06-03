@@ -3,9 +3,9 @@
 * Increasing the robustness of DT image mask generation and image registration routines 
 
 ## Fiber-tract Processing Steps
-Automating the definition of muscle boundaries in define_muscle
-Enacting algorithm changes to <i>define_roi</i> that improve the agreement between the initial and final aponeurosis segmentations
-Creating a graphical user interface. 
+* Automating the definition of muscle boundaries in define_muscle
+* Enacting algorithm changes to <i>define_roi</i> that improve the agreement between the initial and final aponeurosis segmentations
+* Creating a graphical user interface. 
 
 # New Features 
 ## Pre-processing Steps 
