@@ -7,7 +7,7 @@ The MuscleDTI_Toolbox consists of a series of custom-written MATLAB functions fo
   3) [A list of MATLAB requirements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#3-matlab-requirements)
   4) [A list of the conventions assumed regarding data acquisition](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#4-data-acquisition-conventions-assumed)
   5) [An overview of a typical workflow using the toolbox](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#5-overview-of-a-typical-workflow)
-  6) [Installation instructions]((https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#6-installation-instructions))
+  6) [Installation instructions](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#6-installation-instructions)
   7) [Links to other resources in the toolbox and online](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/README.md#7-other-resources)
 
 ## 1. Acknowledgements
