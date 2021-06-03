@@ -1,3 +1,6 @@
+# Instructions
+Please copy this template as a new .md file, giving it a unique filename. Then fill in the information requested below.
+
 # Title
 (Replace the word "Title" above with a short, informative title)
 
