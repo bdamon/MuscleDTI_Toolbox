@@ -74,11 +74,12 @@ We assume that you have installed MATLAB v. 2019b or later, including the Image 
 
 ## 7. Other Resources
 ### A. Within the toolbox:
+Links to scripts, functions, and their help files:
 * [Here's a link to the sample scripts](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Sample-Scripts)
 * [Here's a link to all of the preprocessing functions](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Preprocessing-Functions)
 * [Here's a link to all of the tractography functions](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Tractography-Functions)
 * [Here's a link to all of the help files](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Help)
-* [Here's a link to templates for submitting feature requests and bug reports](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Issues)
+Experiencing a bug?  Have an idea? Have a use question? Please submit a bug report, feature request, or question [here](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Issues).
 
 ### B. External to the toolbox:
 This toolbox is described at:
