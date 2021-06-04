@@ -28,7 +28,7 @@ d_m = signal2tensor2(signal_v, dir_m, b)
 
 * <i>dir_m</i>: A matrix containing the X, Y, and Z components of unit-length vectors describing the diffusion-sensitizing directions; it has dimensions of (Number of Directions x 3)
 
-* b: The diffusion-weighting (b-) value
+* <i>b</i>: The diffusion-weighting (b-) value
 
 ### The output argument is:
 * <i>d_m</i>: The diffusion tensor
