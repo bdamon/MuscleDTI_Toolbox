@@ -1,4 +1,4 @@
-# Help for the function <i>eddy_correct</i>, v. 0.1.x
+# Help for the function <i>eddy_correct</i>, v. 1.0.0
 
 ## Introduction
 
@@ -64,10 +64,10 @@ There is no return value from this function. For the directories where the image
     FSL_dir = '/usr/local/fsl';
 
     % Prepare parameter structure
-    study_info.subject     = 'Subj09';
-    study_info.status      = 'active';
-    study_info.stack       = 's1';
-    study_info.scan_label  = 'NSA4';
+    study_info.label1      = 'Subj09';
+    study_info.label2      = 'active';
+    study_info.label3      = 's1';
+    study_info.label4      = 'NSA4';
     study_info.PE          = [0, 1, 0];
     study_info.PE_aux      = [0, -1, 0];
     study_info.b0_idx      = 24;
@@ -84,7 +84,7 @@ There is no return value from this function. For the directories where the image
     % Perform eddy current correction
     eddy_correct(FSL_dir, study_info);
 
-In this example, the function reads image files <i>my/input_dir/my_DWI_img.nii</i> and <i>my/input_dir/my_DWI_img_b0.nii</i> and keeps a copy of unprocessed images in directory <i>my/output_dir/Subj09/active/s1/raw</i>. All processed data by <i>topup</i> and <i>eddy</i> are stored in directory <i>my/output_dir/Subj09/active/s1/eddy</i>
+In this example, the function reads image files <i>my/input_dir/my_DWI_img.nii</i> and <i>my/input_dir/my_DWI_img_b0.nii</i> and keeps a copy of unprocessed images in directory <i>my/output_dir/Subj09/active/s1/raw</i>. All data processed by <i>topup</i> and <i>eddy</i> are stored in directory <i>my/output_dir/Subj09/active/s1/eddy</i>
 
 [Back to the top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-eddy_correct.md)
 
