@@ -118,7 +118,7 @@ function fiber_figure = fiber_visualizer(anat_image, fv_options, roi_mesh, mask,
 %  For help visualizing fiber tracts and other structures, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %
 %VERSION INFORMATION
-%  v. 1.0 (initial release), 17 Jan 2021, Bruce Damon
+%  v. 1.0.0 (initial release), 17 Jan 2021, Bruce Damon
 %
 %ACKNOWLEDGEMENTS
 %  People: Zhaohua Ding, Hannah Kilpatrick
