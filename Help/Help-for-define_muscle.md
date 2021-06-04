@@ -18,6 +18,7 @@ The function <i>define_muscle</i> is used to define the boundary of a muscle and
 
 ## 2. Usage
 The user provides the anatomical images to be segmented and defines the slice numbers of interest.  After calling the function, a single figure window is opened. The initial slice of interest is displayed in the middle panel; the preceding two slices (if present) are displayed in the left-most column; and the next two slices (if present) are displayed in the column at the immediate left. For the center panel, the <i>zoom</i> tool is enabled; the user clicks and drags the left mouse button to zoom to the muscle of interest.  To close the zoom tool, the user selects Enter on their keyboard. All images are then zoomed to this level. See the figure below.
+
 <img src="https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/FigureS1.png" 
 alt="Figure S1" width="960" height="316" border="10" />
 <b>Example window from <i>define_muscle</i></b>, showing (from left) the two previous slices; the two upcoming slices; the current slice; a sagittal reconstruction of the segmentation; and a coronal reconstruction of the segmentation.
