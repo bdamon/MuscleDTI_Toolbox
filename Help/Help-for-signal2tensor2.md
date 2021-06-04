@@ -28,7 +28,7 @@ d_m = signal2tensor2(signal_v, dir_m, b)
 
 * <i>dir_m</i>: A matrix containing the X, Y, and Z components of unit-length vectors describing the diffusion-sensitizing directions; it has dimensions of (Number of Directions x 3)
 
-b: The diffusion-weighting (b-) value
+* b: The diffusion-weighting (b-) value
 
 ### The output argument is:
 * <i>d_m</i>: The diffusion tensor
@@ -39,19 +39,14 @@ b: The diffusion-weighting (b-) value
 
 Given 
 
-1.	A b-value of 450 s/mm<sup>2</sup>; 
-
-2.	A 24-direction diffusion-encoding scheme; and
-
-3.	A 4-dimensional set of DTI images (rows x columns x slices x diffusion-weighting directions, of which the first element is the non-diffusion weighted signal)
+1. Diffusion-weighted images stored in the variable dti_images (A 4-dimensional set of images (rows x columns x slices x diffusion-weighting directions, of which the first element of dimension 4 is the non-diffusion weighted signal and the remaining elements correspond to the diffusion-weighting directions specified in <i>dir_m</i>); 
+2. The row, column, and slice coordinates <i>dw_row</i>, <i>dw_col</i>, and <i>dw_sl</i>;
+3. The diffusion-encoding vectors stored in the variable <i>dir_m</i>; and
+4. A b-value of 450 s/mm<sup>2</sup>, specified in the variable <i>b</i>; 
 
 the code below will allow the user to:
 
-1.	Define the diffusion-encoding direction scheme;
-
-2.	Obtain the image signals at row 96, column 90, and slice 12; and
-
-3.	Calculate the diffusion-tensor.
+1. Calculate the diffusion-tensor.
 
 % Define diffusion-encoding variables:
 
@@ -109,7 +104,7 @@ dir_m = [
 
 % Get signals and call the function
 
-signal_v = squeeze(dti_images(96,90,12,:));
+signal_v = squeeze(dti_images(dw_row,dw_col,dw_slc,:));
 
 d_m = signal2tensor2(signal_v, dir_m, b);
 
