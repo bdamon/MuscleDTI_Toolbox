@@ -10,13 +10,14 @@ This help file contains information about
 5) [Useful Links](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-eddy_correct.md#5-Useful-Links)
 6) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-eddy_correct.md#6-Acknowledgements)
 
-
 ## 1. Purpose
 
-The function <i>eddy_correct</i> is used to perform the eddy current correction on DWI images by invoking FSL built-in tools [<i>topup</i>](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/topup) and [<i>eddy</i>](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddy).
+The function <i>eddy_correct</i> is used to perform the eddy current correction on DWI images by invoking [FSL](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation)'s built-in tools [<i>topup</i>](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/topup) and [<i>eddy</i>](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddy).
 
 ## 2. Usage
-This function must be run under Unix-based systems. To perform eddy current correction, the user should have all images to be processed in NIfTI format.
+The function operates from within MATLAB, but requires an installation of the FMRIB Software Library (FSL); and it operates only from within Unix-based and Apple-based systems. Also, the images must be stored in NIfTI format.
+
+The user provides the root directory of FSL and a structure containing all required parameters (see Syntax for detailed description). The function first corrects the susceptibility induced distortions by invoking topup from FSL, and then performs eddy current correction by invoking eddy.
 
 The user provides the root directory of FSL and a structure containing all required parameters (see [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-eddy_correct.md#3-Syntax) for detailed description). The function first corrects the susceptibility induced distortions by invoking [<i>topup</i>](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/topup) from FSL, and then performs eddy current correction by invoking [<i>eddy</i>](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddy).
 
