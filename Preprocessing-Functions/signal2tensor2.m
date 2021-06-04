@@ -37,7 +37,7 @@ function d_m = signal2tensor2(signal_v, dir_m, b)
 %
 % VERSION INFORMATION
 %  v. 1.0 2006/12/04 Adam Anderson
-%  v. 1.0.1 adds help infomration; 17 Jan 2021, Bruce Damon
+%  v. 1.0.1 adds help information; 17 Jan 2021, Bruce Damon
 
 
 
