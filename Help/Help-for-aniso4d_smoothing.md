@@ -17,7 +17,7 @@ The function <i>aniso4d_smoothing</i> is used to smooth diffusion-weighted image
 [Back to the Top](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Help-for-aniso4d_smoothing.md)
 
 ## 2. Usage
-The user provides the diffusion weighted images and options that control the degree of smoothing. The images are smoothed using the method described by Ding et al. and Xu et al., which is based on the following partial differential equation:
+The user provides the diffusion weighted images and options that control the degree of smoothing. The images are smoothed using the method described by Ding et al. and Xu et al., which first smooths the images by convolution with a Gaussian kernel with a variance σ. The images are then filtered according to the partial differential equation:
 
   δI/δt=div(T∙∇I)
 
@@ -29,7 +29,7 @@ where I is the image intensity, <b>T</b> is a structure tensor that provides smo
 
 The function <i>aniso4d_smoothing</i> is called using the following syntax:
 
-[image_smoothed = aniso4D_smoothing(image_unsmoothed, sigma, rho, delta_t, sr, type, isnormg, isfasteig);
+[image_smoothed] = aniso4D_smoothing(image_unsmoothed, sigma, rho, delta_t, sr, type, isnormg, isfasteig);
 
 The input arguments are:
 
