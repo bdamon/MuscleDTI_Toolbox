@@ -80,7 +80,7 @@ We encourage users  to contribute to and improve the MuscleDTI_Toolbox and becom
 * Fork the repository through GitHub. 
 * Make changes (e.g. bug fixes, feature enhancements) in MATLAB. 
 * Send a pull request to share your change with the community - don't forget to include a detailed commit text!
-* Please try to follow existing conventions and style to keep the code readable. 
+* Please existing conventions and styles for variable names, versioning, etc. to keep the code readable. 
 
 By contributing your code, you agree to license your contribution under the terms of the GNU General Public License.
 
