@@ -1,6 +1,11 @@
 function eddy_correct(FSL_dir, DTI_scan_info)
-%EDDY_CORRECT Perform eddy current correction through FSL
-%INPUT ARGUMENTS
+%
+% FUNCTION eddy_correct
+%
+% USAGE
+%   Perform eddy current correction through FSL
+%
+% INPUT ARGUMENTS
 %   FSL_dir          : FSL directory
 %   DTI_scan_info    : Structure specifying DTI image information
 %       -label1      : First label for the image file names, e.g. 'S09'
@@ -19,6 +24,9 @@ function eddy_correct(FSL_dir, DTI_scan_info)
 %       -dwi_tag     : Main DWI image file name prefix (w.o. '.nii')
 %       -dwi_tag_aux : Auxiliary (b=0) DWI image file name prefix
 %       -output_dir  : Root directory for all processed images
+%
+% VERSION INFOMRATION
+%   v. 1.0.0 Xingyu Zhou 
 
 %% 00 - Initialization
 FSL_env_setup(FSL_dir);
