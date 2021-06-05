@@ -31,7 +31,14 @@ The fiber tracts may be viewed using [<i>fiber_visualizer</i>](https://github.co
 ## 3. Tracking Algorithms
 
 ### Consideration for Laboratory Frame of Reference and Image Orientation
-When determining the direction of fiber tract propagation, the frame of reference for the diffusion-encoding directions, MATLAB’s use of row/column indexing, and the image orientation must be considered. For example, consider an image dataset that uses an LPS frame of reference (the left, posterior, and superior directions are the +X, +Y, and +Z directions of the laboratory frame of reference) and oriented such that the top edge of the image is the anatomical anterior direction and the right edge of the image is the anatomical left direction. The first eigenvector of the diffusion tensor is:
+When determining the direction of fiber tract propagation, the frame of reference for the diffusion-encoding directions, MATLAB’s use of row/column indexing, and the image orientation must be considered. The figure below provides an example of an image dataset acquired in the LPS frame of reference (the left, posterior, and superior directions are the +X, +Y, and +Z directions of the laboratory frame of reference). 
+
+<img src="https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/FigureS4.png" 
+alt="Figure S4" width="750" height="565" border="5" />
+
+<b><i>Relationships among the laboratory, image, and MATLAB frames of reference.</b> For this example, the +X direction in the MRI scanner (laboratory frame of reference) corresponds to the rightward direction in the image and +Columns direction in a MATLAB image matrix.</i>
+
+The image is oriented such that the top edge of the image is the anatomical anterior direction, the right edge of the image is the anatomical left direction, and the slice number increases out of the plane of the image toward the reader.  The first eigenvector of the diffusion tensor is:
 
 ε<sub>1</sub> =  |ε<sub>X</sub> ε<sub>Y</sub> ε<sub>Z</sub>|<sup>T</sup>,
     
@@ -98,7 +105,14 @@ Determine the initial fiber-tracking step, ∆S: Three options for determining �
 
    ε<sub>1,S'</sub>' = ε<sub>1,S</sub>' / (ΔZ/ΔX)
    
-   where ΔZ/ΔX is the ratio of the slice thickness to the in-plane resolution. Then, the fiber-tracking step ΔS<sub>n,</sub> is calculated as 
+   where ΔZ/ΔX is the ratio of the slice thickness to the in-plane resolution, or depth ratio. The need for depth ratio correction is illustrated in the figure below.  
+   
+   <img src="https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/FigureS5.png" 
+alt="Figure S5" width="750" height="494" border="5" />
+
+   <b><i>Correction for voxel depth ratio.</b> Consider muscle fibers with ε1’ = [0.0 0.7071 0.7071]<sup>T</sup>.  If observed with an image having voxels with a 1:1 depth ratio (image at upper left), a fiber tract originating at the lower left corner of the example image would be correctly propagated without additional modification to the slice-wise component (as shown by the red line in the image at the lower left). However, if observed with an image having voxels with a 3:1 aspect ratio (image at upper right), a fiber tract originating at the lower left corner of the example image would not be correctly propagated unless the slice-wise component of ε1’ is adjusted (image at lower left).</i>
+
+   Then, the fiber-tracking step ΔS<sub>n,</sub> is calculated as 
    
    ΔS<sub>n</sub> = h * ε<sub>1</sub>'
    
