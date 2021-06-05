@@ -105,7 +105,7 @@ Links to scripts, functions, and their help files:
 * [Here's a link to all of the preprocessing functions](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Preprocessing-Functions)
 * [Here's a link to all of the tractography functions](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Tractography-Functions)
 * [Here's a link to all of the help files](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Help)
-
+* [Here's a link to code to run the simulations described in the Damon et al (2021) paper](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Simulations)
 
 
 ### B. External to the toolbox:
