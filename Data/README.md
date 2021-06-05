@@ -2,7 +2,7 @@
 This file has information about the sample data files.
 
 ## File named data_for_fibertracking.mat
-This file has the selected outputs from pre_process.m.  When the file is loaded, type
+This file has the selected outputs from [pre_process.m](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Sample-Scripts/pre_process.m).  When the file is loaded, type
 
   whos
 
@@ -40,7 +40,7 @@ on the command line. The output is:
   
   tensor_m               5-D                 116785152  double              
 
-These variables are needed to perform the fiber-tract processing included in process_tracts.m.
+These variables are needed to perform the fiber-tract processing included in [process_tracts.m](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Sample-Scripts/process_tracts.m).
 
 ## File named ta_mask.mat
 
