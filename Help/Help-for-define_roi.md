@@ -25,7 +25,7 @@ The mesh is a required input to [<i>fiber_track</i>](https://github.com/bdamon/M
 
    <img src="https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/FigureS2.png" 
 alt="Figure S2" width="960" height="334" border="5" />
-   <b>Example window from <i>define_roi</i></b>, showing (from left) the previous slice; an overlay of the selected pixels in the current slice; the smoothed points (purple) and the smoothed, dilated points (cyan).
+   <b><i>Example window from <i>define_roi</i></b>, showing (from left) the previous slice; an overlay of the selected pixels in the current slice; the smoothed points (purple) and the smoothed, dilated points (cyan).</i>
 
 3) <i>From mask</i>: This is a special instance, applicable when the user has already defined the mesh and now wishes to redefine it, either with a different number of rows and columns or with a dilation step.
 
@@ -47,7 +47,7 @@ The algorithm is illustrated in the figure below. In the first slice analyzed, t
 <img src="https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/FigureS3.png" 
 alt="Figure S3" width="480" height="728" border="5" />
 
-<b>Flowchart of automated segmentation algorithm in <i>define_roi</i></b>.
+<b><i>Flowchart of automated segmentation algorithm in define_roi</i></b>
 
 In subsequent slices, the preceding aponeurosis segmentation is incorporated into the initial estimate.  These images are combined using the weights [1, 1, 1.5] for the k-means, edge, and preceding regions, respectively; voxels with sums greater than 2 are included in the initial estimate. A Savitsky-Golay filter is applied to the pixel positions and used to form a smoothed curve that indicates the location of the roi_mesh points for that slice.  The user can correct pixel locations, as described above; the roi_mesh points are automatically updated.
 
