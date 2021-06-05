@@ -46,6 +46,7 @@ The algorithm is illustrated in the figure below. In the first slice analyzed, t
 
 <img src="https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/FigureS3.png" 
 alt="Figure S3" width="480" height="728" border="5" />
+
 <b>Flowchart of automated segmentation algorithm in <i>define_roi</i></b>.
 
 In subsequent slices, the preceding aponeurosis segmentation is incorporated into the initial estimate.  These images are combined using the weights [1, 1, 1.5] for the k-means, edge, and preceding regions, respectively; voxels with sums greater than 2 are included in the initial estimate. A Savitsky-Golay filter is applied to the pixel positions and used to form a smoothed curve that indicates the location of the roi_mesh points for that slice.  The user can correct pixel locations, as described above; the roi_mesh points are automatically updated.
