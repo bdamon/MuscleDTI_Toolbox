@@ -25,7 +25,7 @@ Then the program advances to the next slice. In this slice and all subsequent sl
 
 <img src="https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/FigureS1.png" 
 alt="Figure S1" width="960" height="316" border="5" />
-<b>Example window from <i>define_muscle</i></b>, showing (from left) the two previous slices; the two upcoming slices; the current slice; a sagittal reconstruction of the segmentation; and a coronal reconstruction of the segmentation.
+<b><i>Example window from <i>define_muscle</i></b>, showing (from left) the two previous slices; the two upcoming slices; the current slice; a sagittal reconstruction of the segmentation; and a coronal reconstruction of the segmentation.</i>
 
 By default, the mask has the same dimensions as the input image. If the DTI images and structural images have different dimensions from each other, an alternatively sized mask may also be calculated.  A MATLAB data file named <i>mask_file.mat</i>, containing the mask and the alternatively sized mask (if present), is automatically saved in the working directory. The user is advised to rename this file promptly.
 
