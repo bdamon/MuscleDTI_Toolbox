@@ -30,7 +30,7 @@ function [roi_mesh, roi_mask, roi_mesh_dilated]=define_roi(anat_image, mask, dr_
 %
 %  -Automatic segmentation: A single figure window, containing three panels, 
 %   is displayed; each panel shows the current slice. An initial estimate of 
-%   the aponeurosis’s location is presented. This estimate is presented as 
+%   the aponeurosisâ€™s location is presented. This estimate is presented as 
 %   magenta points in the left-hand panel. In the center panel, the edge 
 %   locations of the mask are indicated and the initial segmentation results 
 %   are shown as semi-transparent red pixels. In the right-hand panel, the 
@@ -119,7 +119,7 @@ function [roi_mesh, roi_mask, roi_mesh_dilated]=define_roi(anat_image, mask, dr_
 %  For help visualizing fiber tracts and other structures, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %
 % VERSION INFORMATION
-%  v. 1.0 (initial release), 17 Jan 2021, Bruce Damon
+%  v. 1.0.0 (initial release), 17 Jan 2021, Bruce Damon
 %
 % ACKNOWLEDGMENTS
 %  People: Zhaohua Ding
