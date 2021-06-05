@@ -21,8 +21,12 @@ The mesh is a required input to [<i>fiber_track</i>](https://github.com/bdamon/M
 
 2) <i>Automatic selection</i>: A single figure window, containing three panels, is displayed; each panel shows the current slice. The algorithm described in Section 3, below, is used to present an initial estimate of the aponeurosis’s location. This estimate is presented as magenta points in the left-hand panel. In the center panel, the edge locations of the mask are indicated and the initial segmentation results are shown as semi-transparent red pixels. In the right-hand panel, the smoothed edge pixels are shown for the segmented region (magenta points) and the dilated region (cyan points). The dilation process is discussed below.
 
-The user interacts with the center panel. The user can correct erroneous assignments in the initial estimate by using the left mouse button to select voxels for removal from the initial assignment and the right mouse button to select voxels to add to the initial assignment. The user selects Enter to proceed. In subsequent slices, the finalized assignment from the preceding slice and the results of an edge detection algorithm are incorporated into the initial segmentation estimate and the process is repeated. The figure below illustrates this selection process.
+  The user interacts with the center panel. The user can correct erroneous assignments in the initial estimate by using the left mouse button to select voxels for removal from the initial assignment and the right mouse button to select voxels to add to the initial assignment. The user selects Enter to proceed. In subsequent slices, the finalized assignment from the preceding slice and the results of an edge detection algorithm are incorporated into the initial segmentation estimate and the process is repeated. The figure below illustrates this selection process.
 
+
+<img src="https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Images/FigureS2.png" 
+alt="Figure S1" width="960" height="334" border="5" />
+<b>Example window from <i>define_roi</i></b>, showing (from left) the previous slice; an overlay of the selected pixels in the current slice; the smoothed points (purple) and the smoothed, dilated points (cyan).
 
 3) <i>From mask</i>: This is a special instance, applicable when the user has already defined the mesh and now wishes to redefine it, either with a different number of rows and columns or with a dilation step.
 
