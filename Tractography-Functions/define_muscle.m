@@ -26,8 +26,8 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_
 %  Mask to complete ROI selection.
 %
 %  Then the program advances to the next slice. In this slice and all
-%  subsequent slices, the level of zoom is automatically set as ±20 pixels
-%  beyond the previous ROI’s row and column limits. In the lower left panel,
+%  subsequent slices, the level of zoom is automatically set as Â±20 pixels
+%  beyond the previous ROIâ€™s row and column limits. In the lower left panel,
 %  the preceding slice and its ROI are shown. Also shown are gold and
 %  red lines depicting the center row and column, respectively, of this ROI.
 %  In the column to the immediate right of the main panel, the projections of
@@ -82,7 +82,7 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_
 %  For help visualizing fiber tracts and other structures, see <a href="matlab: help fiber_visualizer">fiber_visualizer</a>.
 %
 % VERSION INFORMATION
-%  v. 1.0 (initial release), 17 Jan 2021, Bruce Damon
+%  v. 1.0.0 (initial release), 17 Jan 2021, Bruce Damon
 %
 % ACKNOWLEDGMENTS
 %  Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
