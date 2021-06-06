@@ -96,7 +96,7 @@ By contributing your code, you agree to license your contribution under the term
 ### D. Bugs, Features, Etc.
 Experiencing a bug?  Have an idea? Please submit a bug report or feature request [here](https://github.com/bdamon/MuscleDTI_Toolbox/tree/master/Issues). You can also see a list of our planned feature additions/upgrades [here](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Issues/Planned-Upgrades.md).
 
-Lastly, please be aware of and commit to following the [Code of Conduct](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/CODE%20OF%20CONDUCT.md).
+Lastly, please be aware of and commit to following the [Code of Conduct](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/General%20Documents/CODE%20OF%20CONDUCT.md).
 
 ## 8. Other Resources
 ### A. Within the toolbox:
