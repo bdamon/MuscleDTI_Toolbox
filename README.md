@@ -110,7 +110,7 @@ Links to scripts, functions, and their help files:
 
 ### B. External to the toolbox:
 Please cite the following publication when using this toolbox:
-* Damon BM, Ding Z, Hooijmans M, Anderson AW, Zhou X, Coolbaugh CL, Goerge MK, and Landman B. (2021). A MATLAB toolbox for muscle diffusion-tensor MRI tractography. <i>Journal of Biomechanics</i>, in press.
+* Damon BM, Ding Z, Hooijmans M, Anderson AW, Zhou X, Coolbaugh CL, Goerge MK, and Landman B. (2021). A MATLAB toolbox for muscle diffusion-tensor MRI tractography. <i>Journal of Biomechanics</i>, https://doi.org/10.1016/j.jbiomech.2021.110540.
 
 Several recent reviews on muscle DTMRI include:
 * [Skeletal muscle DT-MRI fiber tracking: Rationale, data acquisition and analysis methods, applications, and future directions](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5136336/)
