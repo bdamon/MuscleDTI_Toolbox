@@ -67,7 +67,7 @@ Follow [this link](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Sampl
 ## 6. Installation Instructions
 We assume that you have installed MATLAB v. 2019b or later, including the Image Processing toolbox.
 
-1) From this page, lick the green Code button.
+1) From this page, click the green Code button.
 2) Select Download Zip.
 3) On your system, navigate to your Downloads folder.  
 4) Unzip the file folder, saving it in a directory of your own choosing.
