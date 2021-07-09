@@ -1,4 +1,4 @@
-# Help for the function [<i>define_roi</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/define_roi.m), v. 1.0.0
+# Help for the function [<i>define_roi</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Tractography-Functions/define_roi.m), v. 1.1.0
 
 ## Introduction
 
