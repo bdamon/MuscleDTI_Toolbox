@@ -120,6 +120,7 @@ function [roi_mesh, roi_mask, roi_mesh_dilated]=define_roi(anat_image, mask, dr_
 %
 % VERSION INFORMATION
 %  v. 1.0.0 (initial release), 17 Jan 2021, Bruce Damon
+%  v. 1.1.0 (bug fix), 9 Jul 2021, Bruce Damon
 %
 % ACKNOWLEDGMENTS
 %  People: Zhaohua Ding
@@ -293,7 +294,7 @@ switch select_method
             axis off
             axis image
             hold on
-            plot(edge_xy(:,2), edge_xy(:,1), 'b');
+            plot(edge_xy(:,2), edge_xy(:,1), 'c');
             imcontrast
             
             if slc_cntr==frst_slice                                         %first time, user sets zoom
@@ -364,7 +365,7 @@ switch select_method
                 disp('Repeating current slice')
             end
             
-            if next_repeat(1)=='c' || next_repeat(1)=='C'
+            if next_repeat(1)=='a' || next_repeat(1)=='A'
                 roi_surfx(curr_slice, :) = interp1(roi_curx, 1:(length(roi_curx)-1)/50:length(roi_curx), 'pchip');
                 roi_surfy(curr_slice, :) = interp1(roi_cury, 1:(length(roi_cury)-1)/50:length(roi_cury), 'pchip');
                 roi_surfz(curr_slice, :) = interp1(roi_curz, 1:(length(roi_curz)-1)/50:length(roi_curz), 'pchip');
