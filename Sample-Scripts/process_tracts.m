@@ -215,7 +215,7 @@ fg_options.max_pennation = 40;
 fg_options.max_curvature = 40;                                              %acceptable curvatures are from 0-40 m^1
 
 [final_fibers, final_curvature, final_angle, final_distance, qual_mask, num_tracked, mean_fiber_props, mean_apo_props] = fiber_goodness ...
-    (smoothed_fiber_all, angle_list, distance_list, curvature_list, n_points, roi_flag, apo_area, roi_mesh_dilated_1, fg_options);
+    (smoothed_fiber_all, angle_list, distance_list, curvature_list, n_points, roi_flag, apo_area, fg_options);
 
 % view architectural properties of tracts - example is curvature
 fv_options.fiber_color = zeros(size(squeeze(roi_mesh_dilated_1(:,:,1:3))));
