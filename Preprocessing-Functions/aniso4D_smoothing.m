@@ -31,8 +31,8 @@ function img_U_s = aniso4D_smoothing(img_U,sigma,rho,delta_t,sr,type,isnormg,isf
 %  sr: The spatial resolution of the images, input as a two-element vector 
 %    containing the in-plane resolution and the slice thickness.
 %  type: The type of smoothing that is used, input as a string variable. The 
-%    options include ‘explicit’, ‘implicit_multisplitting’, ‘implicit_AOS’, 
-%    ‘implicit_ADI’, and ‘implicit_AOS_improved’
+%    options include â€˜explicitâ€™, â€˜implicit_multisplittingâ€™, â€˜implicit_AOSâ€™, 
+%    â€˜implicit_ADIâ€™, and â€˜implicit_AOS_improvedâ€™
 %  isnormg: determines whether the gradient in the partial differential 
 %    equation is normalized; set to either true or false
 %  isfasteig: determines whether the fast eigenvector solver is used; set 
@@ -53,6 +53,7 @@ function img_U_s = aniso4D_smoothing(img_U,sigma,rho,delta_t,sr,type,isnormg,isf
 %VERSION INFORMATION
 %  v. 1.0.0 Zhaohua Ding, 2005
 %  v. 1.0.1 Combines all functions into a single m-file; adds help comments. 17 Jan 2021, Bruce Damon
+%  v, 1.1.0 Corrects a bug (SolveTriangleTomasBatch function was missing). 10 Aug 2021, Bruce Damon, Zhaohua Ding, and Carly Lockard
 %
 %ACKNOWLEDGEMENTS
 %  People: Adam Anderson, John Gore
@@ -245,7 +246,7 @@ end
 % img_U_s(:,:,:,1) = tmpT2;
 img_U_s = img_U;
 
-end
+return;
 
 
 %% eigss_fast
@@ -342,7 +343,7 @@ if (sx==3)
         
     end
 end
-end
+return
 
 %% GaussianKernel
 
@@ -371,8 +372,35 @@ for i = 1 : length(sz)
 end
 H = H/sum(H(:));
 
-end
+return
 
+
+%% SolveTriangleTomasBatch
+
+function U_next = SolveTriangleTomasBatch(U,G,dt,h,dim);
+
+%Do the triangular batching job
+sz = size(U);
+U = shiftdim(U,dim-1);
+G = shiftdim(G,dim-1);
+sz = size(U);
+U = reshape(U,[sz(1) sz(2)*sz(3)]);
+G = reshape(G,[sz(1) sz(2)*sz(3)]);
+U = U';
+G = G';
+for i=1:sz(2)*sz(3)
+     U(i,:) = SolveTriangleTomas(squeeze(U(i,:)),squeeze(G(i,:)),dt,h);
+%    U(i,:) = SolveTriangleImplicit(squeeze(U(i,:)),squeeze(G(i,:)),dt,h);
+end
+U = U';
+G = G';
+U = reshape(U,[sz(1) sz(2) sz(3)]);
+G = reshape(G,[sz(1) sz(2) sz(3)]);
+U = shiftdim(U,4-dim);
+G = shiftdim(G,4-dim);
+U_next = U;
+
+return
 
 %% SolveTriangleTomas
 
@@ -423,6 +451,6 @@ end
 
 u_next = w;
 
-end
+return
 
 
