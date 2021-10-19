@@ -213,6 +213,11 @@ if fv_options.plot_mask==1
     mask_mesh(:,:,1) = mean(cat(3, mask_mesh1(:,:,1), mask_mesh2(:,:,1)), 3);   %average the x, y, and z positions from the original and dilated masks (moves boundary to center of pixel)
     mask_mesh(:,:,2) = mean(cat(3, mask_mesh1(:,:,2), mask_mesh2(:,:,2)), 3);
     mask_mesh(:,:,3) = mean(cat(3, mask_mesh1(:,:,3), mask_mesh2(:,:,3)), 3);
+
+    if mask_inplane_res ~= 1
+        mask_mesh( : , : , 1 : 2) = ...
+            mask_mesh( : , : , 1 : 2) .* mask_inplane_res;
+    end
 end
 
 if fv_options.plot_fibers==1                                                  %convert from pixels to desired units, as input by users
@@ -238,13 +243,19 @@ for s=1:length(anat_slices)
     end
     
     loop_image = 240*loop_image/max(max(loop_image));
-    surf(ones(anat_size(1), anat_size(2))*double(anat_slicethick)*double(anat_slices(s)), loop_image);
+%     surf(ones(anat_size(1), anat_size(2))*double(anat_slicethick)*double(anat_slices(s)), loop_image);
+    if anat_inplane_res ~= 1
+        loop_image = imresize(loop_image, anat_inplane_res);
+    end
+    surf(ones(size(loop_image)) * double(anat_slicethick) * double(anat_slices(s)), loop_image);
+
     colormap('gray')
     shading('Interp')
 end
 
 roi_mesh=double(roi_mesh);
 if fv_options.plot_mesh==1
+    roi_mesh( : , : , 1 : 2) = roi_mesh( : , : , 1 : 2) .* mesh_inplane_res;
     if numel(mesh_color)==3
         mesh_plot=surf((roi_mesh(:, :, 2) + mesh_dist*roi_mesh(:, :, 5))*mesh_inplane_ratio, ...
             (roi_mesh(:, :, 1) + mesh_dist*roi_mesh(:, :, 4))*mesh_inplane_ratio, ...
@@ -265,7 +276,7 @@ if fv_options.plot_mask==1
 end
 
 if fv_options.plot_fibers==1
-    
+    fiber_all( : , : , : , 1 : 2) = fiber_all( : , : , : , 1 : 2) .* mesh_inplane_res;
     if numel(fiber_color)==3
         
         for row_cntr = 1:fiber_skip:(length(roi_mesh(:,1,1)))
@@ -311,7 +322,7 @@ if fv_options.plot_fibers==1
     end
     
 elseif fv_options.plot_fibers==2
-    
+    fiber_all( : , : , : , 1 : 2, : ) = fiber_all( : , : , : , 1 : 2, : ) .* mesh_inplane_res;
     for f=1:2
         
         fiber_all_f = squeeze(fiber_all(:,:,:,:,f));
