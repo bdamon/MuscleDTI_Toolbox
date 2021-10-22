@@ -81,15 +81,13 @@ function [smoothed_fiber_all, fiber_all_mm, smoothed_fiber_all_mm, pcoeff_r, pco
 %    The fourth dimension contains the row, column, and slice polynomial fit
 %    residuals (i.e. residuals(row,col,:,1) is the row residuals, etc.), 
 %    the point number at which the polynomial was evaluated, and the 
-%    percent-of-tract-length at which the polynomial was
-%    evaluated.
+%    percent-of-tract-length at which the polynomial was evaluated.
 %
 %  residuals_mm: matrix of size rows (i.e. number of seedpoint rows) by 
 %    columns by the maximum-number-of-tract-points by 5.
 %    The fourth dimension contains the row, column, and slice polynomial fit
-%    residuals in units of mm, 
-%    the point number at which the polynomial was evaluated, and the 
-%    percent-of-tract-length at which the polynomial was
+%    residuals in units of mm, the point number at which the polynomial was 
+%    evaluated, and the percent-of-tract-length at which the polynomial was
 %    evaluated.
 %
 %OTHER FUNCTIONS IN THE MUSCLE DTI FIBER-TRACKING TOOLBOX
@@ -139,7 +137,7 @@ n_points_smoothed = zeros(length(fiber_all(:,1,1,1)), length(fiber_all(1,:,1,1))
 residuals = NaN(length(fiber_all(:,1,1,1)),length(fiber_all(1,:,1,1)),max_length,5);  
 residuals_mm = NaN(length(fiber_all(:,1,1,1)),length(fiber_all(1,:,1,1)),max_length,5); 
 
-%account for spatial resolution of the images
+% account for spatial resolution of the images
 dwi_slicethickness = dwi_res(3);
 dwi_fov = dwi_res(1);
 dwi_xsize = dwi_res(2);
@@ -202,7 +200,7 @@ for row_cntr = 1:length(fiber_all_mm(:,1,1,1))
             loop_fitted_fiber_s = loop_fitted_fiber_s - loop_fitted_fiber_s(1);                                             %subtract new fitting offset from all points 
             loop_fitted_fiber_s = loop_fitted_fiber_s + slc_init;                                                           %add back the initial value
             smoothed_fiber_all_mm(row_cntr,col_cntr,1:length(loop_fitted_fiber_s), 3) = loop_fitted_fiber_s;                %copy to output variable
-            
+
             n_points_smoothed(row_cntr,col_cntr) = length(loop_fitted_fiber_s);
             
             if interpolation_step == 1
