@@ -205,7 +205,7 @@ for row_cntr = 1:length(fiber_all_mm(:,1,1,1))
             
             n_points_smoothed(row_cntr,col_cntr) = length(loop_fitted_fiber_s);
             
-            if length(loop_fitted_fiber_s) == length(nonzeros(fiber_all_mm(row_cntr,col_cntr,:,3)))
+            if interpolation_step == 1
                 residuals_mm(row_cntr,col_cntr,1:loop_fiber_length_points,1) = squeeze(smoothed_fiber_all_mm(row_cntr,col_cntr,1:loop_fiber_length_points,1)-fiber_all_mm(row_cntr,col_cntr,1:loop_fiber_length_points,1));
                 residuals_mm(row_cntr,col_cntr,1:loop_fiber_length_points,2) = squeeze(smoothed_fiber_all_mm(row_cntr,col_cntr,1:loop_fiber_length_points,2)-fiber_all_mm(row_cntr,col_cntr,1:loop_fiber_length_points,2));
                 residuals_mm(row_cntr,col_cntr,1:loop_fiber_length_points,3) = squeeze(smoothed_fiber_all_mm(row_cntr,col_cntr,1:loop_fiber_length_points,3)-fiber_all_mm(row_cntr,col_cntr,1:loop_fiber_length_points,3));
@@ -248,7 +248,7 @@ for row_cntr = 1:length(fiber_all_mm(:,1,1,1))
     for col_cntr = 1:length(fiber_all_mm(1,:,1,1))
         loop_fiber_length_points = length(find(fiber_all_mm(row_cntr,col_cntr,:,1)));
         if loop_fiber_length_points > (2*(max(p_order))) 
-            if length(loop_fitted_fiber_s) == length(nonzeros(fiber_all_mm(row_cntr,col_cntr,:,3)))
+            if interpolation_step == 1
                 residuals(row_cntr,col_cntr,1:loop_fiber_length_points,1) = squeeze(smoothed_fiber_all(row_cntr,col_cntr,1:loop_fiber_length_points,1)-fiber_all(row_cntr,col_cntr,1:loop_fiber_length_points,1));
                 residuals(row_cntr,col_cntr,1:loop_fiber_length_points,2) = squeeze(smoothed_fiber_all(row_cntr,col_cntr,1:loop_fiber_length_points,2)-fiber_all(row_cntr,col_cntr,1:loop_fiber_length_points,2));
                 residuals(row_cntr,col_cntr,1:loop_fiber_length_points,3) = squeeze(smoothed_fiber_all(row_cntr,col_cntr,1:loop_fiber_length_points,3)-fiber_all(row_cntr,col_cntr,1:loop_fiber_length_points,3));
