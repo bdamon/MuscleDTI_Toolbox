@@ -1,7 +1,9 @@
 %% process_tracts.m 
 % This version of process_tracts produces the data published in the manuscript.
 % Completed on 17 Jan 2021, Bruce Damon
-
+%
+% updated 22 Oct 2021 - added additional fs_options and updated fiber_smoother call for
+% compatibility with fiber_smoother v.1.2.0
 
 %% File Input
 
@@ -153,10 +155,12 @@ fv_options.dti_dims = [dti_fov(1) dti_slcthick];                            %FOV
 %set fiber_smoother options
 fs_options.interpolation_step = 1;                                          %interpolate at 1 pixel widths (=1 mm)
 fs_options.p_order = [4 4 2];                                               %fit row, column, and slice positions to 4th, 4th,and 3rd order polynomials
-
+fs_options.tract_units = 'vx';                                              %units - 'vx' or 'mm'
+fs_options.dwi_res = [dti_fov(1) dti_numrows dti_slcthick];                 %DTI FOV, matrix size, slice thickness
+                
 % call the function:
-[smoothed_fiber_all, pcoeff_r, pcoeff_c, pcoeff_s, n_points_smoothed] = ...
-    fiber_smoother(fiber_all, fs_options);
+[smoothed_fiber_all, fiber_all_mm, smoothed_fiber_all_mm, pcoeff_r, pcoeff_c, pcoeff_s, n_points_smoothed, residuals, residuals_mm] = ...
+                    fiber_smoother_units_residuals_v3(fiber_all, fs_options);
 
 % pick some random fiber tracts to plot
 tracts_row = randperm(length(roi_mesh_dilated_1(:,1,1)));                   %choose a random set of tracts
