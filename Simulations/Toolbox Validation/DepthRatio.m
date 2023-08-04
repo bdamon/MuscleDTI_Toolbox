@@ -146,8 +146,8 @@ end
 plot_options_DR1.anat_dims = [35 1];                                            %FOV and slice thickness of the images to be displayed, in mm
 plot_options_DR1.anat_slices = 14:14:126;                                       %display slices [14 28 42...126]
 plot_options_DR1.plot_mesh = 1;                                                 %do plot an aponeurosis mesh
-plot_options_DR1.plot_mask = 0;                                                 %don’t plot the mask
-plot_options_DR1.plot_fibers = 0;                                               %don’t plot any fiber tracts
+plot_options_DR1.plot_mask = 0;                                                 %donâ€™t plot the mask
+plot_options_DR1.plot_fibers = 0;                                               %donâ€™t plot any fiber tracts
 plot_options_DR1.mesh_size = [35 35];                                           %rows x columns of the images used to generate the mesh
 plot_options_DR1.mesh_dims = [35 1];                                            %FOV and ST of the images used to create the mesh, in mm
 plot_options_DR1.mesh_color = [0.75 0.75 0.75];                                 %make the mesh light gray
@@ -159,8 +159,8 @@ plot_options_DR1.mesh_color = [0.75 0.75 0.75];                                 
 plot_options_DR7.anat_dims = [35 7];                                            %FOV and slice thickness of the images to be displayed, in mm
 plot_options_DR7.anat_slices = 1:3:18;                                          %display slices [1 4 7...16]
 plot_options_DR7.plot_mesh = 1;                                                 %do plot an aponeurosis mesh
-plot_options_DR7.plot_mask = 0;                                                 %don’t plot the mask
-plot_options_DR7.plot_fibers = 0;                                               %don’t plot any fiber tracts
+plot_options_DR7.plot_mask = 0;                                                 %donâ€™t plot the mask
+plot_options_DR7.plot_fibers = 0;                                               %donâ€™t plot any fiber tracts
 plot_options_DR7.mesh_size = [35 35];                                           %rows x columns of the images used to generate the mesh
 plot_options_DR7.mesh_dims = [35 7];                                            %FOV and ST of the images used to create the mesh, in mm
 plot_options_DR7.mesh_color = [0.75 0.75 0.75];                                 %make the mesh light gray
@@ -248,7 +248,7 @@ title('Aponeurosis Mesh')
 % Set fiber tracking options - DR of 1
 ft_options_DR1.ref_frame = 'LAS';                                            %left-anterior-superior directions are +X, +Y, +Z
 ft_options_DR1.image_orient = 'AL';                                          %image top is anterior, image right is left
-ft_options_DR1.mesh_dist = 0;                                                %don’t shift the mesh
+ft_options_DR1.mesh_dist = 0;                                                %donâ€™t shift the mesh
 ft_options_DR1.prop_algo = 'euler';                                          %Euler integration
 ft_options_DR1.step_size = 1;                                                %1 pixel width step
 ft_options_DR1.term_mthd = 'bin2';                                           %BIN2 stop algorithm
@@ -259,7 +259,7 @@ ft_options_DR1.depth_ratio = 1;                                              %ra
 % Set fiber tracking options - DR of 1
 ft_options_DR7.ref_frame = 'LAS';                                            %left-anterior-superior directions are +X, +Y, +Z
 ft_options_DR7.image_orient = 'AL';                                          %image top is anterior, image right is left
-ft_options_DR7.mesh_dist = 0;                                                %don’t shift the mesh
+ft_options_DR7.mesh_dist = 0;                                                %donâ€™t shift the mesh
 ft_options_DR7.prop_algo = 'euler';                                          %Euler integration
 ft_options_DR7.step_size = 1;                                                %1 pixel width step
 ft_options_DR7.term_mthd = 'bin2';                                           %BIN2 stop algorithm
