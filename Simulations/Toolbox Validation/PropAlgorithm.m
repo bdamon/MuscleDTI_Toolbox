@@ -130,8 +130,8 @@ end
 plot_options.anat_dims = [35 1];                                            %FOV and slice thickness of the images to be displayed, in mm
 plot_options.anat_slices = 14:14:126;                                       %display slices [14 28 42...126]
 plot_options.plot_mesh = 1;                                                 %do plot an aponeurosis mesh
-plot_options.plot_mask = 0;                                                 %don’t plot the mask
-plot_options.plot_fibers = 0;                                               %don’t plot any fiber tracts
+plot_options.plot_mask = 0;                                                 %donâ€™t plot the mask
+plot_options.plot_fibers = 0;                                               %donâ€™t plot any fiber tracts
 plot_options.mesh_size = [35 35];                                           %rows x columns of the images used to generate the mesh
 plot_options.mesh_dims = [35 1];                                            %FOV and ST of the images used to create the mesh, in mm
 plot_options.mesh_color = [0.75 0.75 0.75];                                 %make the mesh light gray
@@ -185,7 +185,7 @@ title('Aponeurosis Mesh')
 % Set fiber tracking options - Eul
 ft_options_Eul.ref_frame = 'LAS';                                           %left-anterior-superior directions are +X, +Y, +Z
 ft_options_Eul.image_orient = 'AL';                                         %image top is anterior, image right is left
-ft_options_Eul.mesh_dist = 0;                                               %don’t shift the mesh
+ft_options_Eul.mesh_dist = 0;                                               %donâ€™t shift the mesh
 ft_options_Eul.prop_algo = 'euler';                                         %Euler integration
 ft_options_Eul.step_size = 1;                                               %1 pixel width step
 ft_options_Eul.term_mthd = 'bin2';                                          %BIN2 stop algorithm
@@ -196,7 +196,7 @@ ft_options_Eul.depth_ratio = 1;                                             %rat
 % Set fiber tracking options - RK4
 ft_options_RK4.ref_frame = 'LAS';                                           %left-anterior-superior directions are +X, +Y, +Z
 ft_options_RK4.image_orient = 'AL';                                         %image top is anterior, image right is left
-ft_options_RK4.mesh_dist = 0;                                               %don’t shift the mesh
+ft_options_RK4.mesh_dist = 0;                                               %donâ€™t shift the mesh
 ft_options_RK4.prop_algo = 'rk4';                                           %4th order Runge Kutta integration
 ft_options_RK4.step_size = 1;                                               %1 pixel width step
 ft_options_RK4.term_mthd = 'bin2';                                          %BIN2 stop algorithm
@@ -207,7 +207,7 @@ ft_options_RK4.depth_ratio = 1;                                             %rat
 % Set fiber tracking options - FACT
 ft_options_FACT.ref_frame = 'LAS';                                          %left-anterior-superior directions are +X, +Y, +Z
 ft_options_FACT.image_orient = 'AL';                                        %image top is anterior, image right is left
-ft_options_FACT.mesh_dist = 0;                                              %don’t shift the mesh
+ft_options_FACT.mesh_dist = 0;                                              %donâ€™t shift the mesh
 ft_options_FACT.prop_algo = 'fact';                                         %Use FACT
 ft_options_FACT.r_crit = 0.95;                                              %critical R value
 ft_options_FACT.num_fact_voxels = 5;                                        %number of voxels over which to calculate R
