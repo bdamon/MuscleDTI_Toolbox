@@ -152,8 +152,8 @@ end
 plot_options.anat_dims = [35 1];                                            %FOV and slice thickness of the images to be displayed, in mm
 plot_options.anat_slices = 14:14:126;                                       %display slices [14 28 42...126]
 plot_options.plot_mesh = 1;                                                 %do plot an aponeurosis mesh
-plot_options.plot_mask = 0;                                                 %don’t plot the mask
-plot_options.plot_fibers = 0;                                               %don’t plot any fiber tracts
+plot_options.plot_mask = 0;                                                 %donâ€™t plot the mask
+plot_options.plot_fibers = 0;                                               %donâ€™t plot any fiber tracts
 plot_options.mesh_size = [35 35];                                           %rows x columns of the images used to generate the mesh
 plot_options.mesh_dims = [35 1];                                            %FOV and ST of the images used to create the mesh, in mm
 plot_options.mesh_color = [0.75 0.75 0.75];                                 %make the mesh light gray
@@ -247,7 +247,7 @@ title('Aponeurosis Mesh')
 % Set fiber tracking options - LAS
 ft_options.ref_frame = 'LAS';                                            %left-anterior-superior directions are +X, +Y, +Z
 ft_options.image_orient = 'AL';                                          %image top is anterior, image right is left
-ft_options.mesh_dist = 0;                                                %don’t shift the mesh
+ft_options.mesh_dist = 0;                                                %donâ€™t shift the mesh
 ft_options.prop_algo = 'euler';                                          %Euler integration
 ft_options.step_size = 1;                                                %1 pixel width step
 ft_options.term_mthd = 'bin2';                                           %BIN2 stop algorithm
