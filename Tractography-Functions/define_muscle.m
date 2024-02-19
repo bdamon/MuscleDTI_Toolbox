@@ -26,8 +26,8 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_
 %  Mask to complete ROI selection.
 %
 %  Then the program advances to the next slice. In this slice and all
-%  subsequent slices, the level of zoom is automatically set as ±20 pixels
-%  beyond the previous ROI’s row and column limits. In the lower left panel,
+%  subsequent slices, the level of zoom is automatically set as 20 pixels
+%  beyond the previous ROIs row and column limits. In the lower left panel,
 %  the preceding slice and its ROI are shown. Also shown are gold and
 %  red lines depicting the center row and column, respectively, of this ROI.
 %  In the column to the immediate right of the main panel, the projections of
@@ -83,6 +83,8 @@ function [mask, alt_mask] = define_muscle(anat_image, slices, alt_mask_size, fv_
 %
 % VERSION INFORMATION
 %  v. 1.0.0 (initial release), 17 Jan 2021, Bruce Damon
+%  v. 1.0.1 (bug fix) alt_mask created using "nearest" interpolation method, 20
+%  October 2023, Roberto Pineda Guzman. 
 %
 % ACKNOWLEDGMENTS
 %  Grant support: NIH/NIAMS R01 AR050101, NIH/NIAMS R01 AR073831
@@ -361,7 +363,7 @@ if form_alt_mask==1
     alt_mask = zeros(alt_mask_size(1), alt_mask_size(2), length(anat_image(1,1,:)));
     
     for s=1:length(anat_image(1,1,:))
-        alt_mask(:,:,s) = imresize(squeeze(mask(:,:,s)), alt_mask_size);
+        alt_mask(:,:,s) = imresize(squeeze(mask(:,:,s)), alt_mask_size,"nearest");
     end
     
 else                            % form a throwaway variable so that the program doesn't crash
