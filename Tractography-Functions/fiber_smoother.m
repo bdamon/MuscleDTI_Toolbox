@@ -19,18 +19,23 @@ function [smoothed_fiber_all, fiber_all_mm, smoothed_fiber_all_mm, pcoeff_r, pco
 % 
 %  To improve fitting and ensure that the fitted tract continues to originate 
 %  from the seed point, the seed point is subtracted from the fiber tract 
-%  prior to fitting. Then the polyfit function is used to fit the remaining
-%  row, column, and slice positions to polynomial functions. Finally, the
-%  polyval function is used to solve the polynomials at interpolation 
-%  distances of interpolation_step. Tracts with a number of points lower than
-%  2-times-the-maximum-polynomial-order are eliminated prior to smoothing.
+%  prior to fitting. Then the polyfitweighted function is used to fit the 
+%  remaining row, column, and slice positions to polynomial functions. A weight 
+%  can be added to the seed point to improve the accuracy of the smoothing 
+%  scheme. Finally, the polyval function is used to solve the polynomials at 
+%  interpolation distances of interpolation_step. Tracts with a number of 
+%  points lower than 2-times-the-maximum-polynomial-order are eliminated prior
+%  to smoothing.
 %
 %  This procedure is modified from Damon et al, Magn Reson Imaging, 2012 to: 
 %    1) Fit the tract positions as functions of distance rather than point
 %       number. This is required for tracking algorithms that use variable
 %       step sizes, such as FACT.
 %    2) Allow user selection of the polynomial order, including different 
-%       polynomial orders for the row/column/slice positions.  
+%       polynomial orders for the row/column/slice positions.
+%    3) Allows user to use a weighted polynomial fitting scheme by adding a
+%       weight to the seed point, improving the accuracy of the smoothing
+%       scheme
 %
 %INPUT ARGUMENTS 
 %  fiber_all: the original fiber tracts, output from fiber_track. The rows 
@@ -55,7 +60,12 @@ function [smoothed_fiber_all, fiber_all_mm, smoothed_fiber_all_mm, pcoeff_r, pco
 %      the fiber tracts are voxels and set to 'mm' if the fiber tracts have
 %      units of mm. If set to 'vx', the fiber tract coordinates are converted 
 %      to units of mm prior to quantification.
-%
+%        
+%    seed_point_weight: A scalar that specifies the weight given to the
+%      seed point in the polynomial fitting, default = 1 (no weights
+%      applied to the fitting scheme. A weight of 20 is recommended to
+%      improve the accuracy of the scheme when smoothing noisy fiber tracts.
+%          
 %OUTPUT ARGUMENTS
 %  smoothed_fiber_all: the fiber tracts following Nth order polynomial
 %    fitting
@@ -111,6 +121,9 @@ function [smoothed_fiber_all, fiber_all_mm, smoothed_fiber_all_mm, pcoeff_r, pco
 %            18 Oct 2021, Xingyu Zhou, 
 %            update - added return of residuals between tracked and smoothed fiber tracts (residuals and residuals_mm) and of fiber_all_mm)
 %            22 Oct 2021, Carly Lockard
+%  v. 1.3.0 added weighted polynomial fitting scheme to improve accuracy of
+%           smoothing
+%           16 Feb 2024, Roberto Pineda Guzman
 %
 %ACKNOWLEDGEMENTS
 %  People: Zhaohua Ding, Anneriet Heemskerk, Carly Lockard, Xingyu Zhou
@@ -122,6 +135,11 @@ interpolation_step=fs_options.interpolation_step;
 p_order=fs_options.p_order;
 if length(p_order)==1
     p_order=[p_order p_order p_order];
+end
+if isfield(fs_options,'seed_point_weight')
+    weight=fs_options.seed_point_weight;
+else
+    weight=1;
 end
 
 %initialize output variables as zeros matrices
@@ -174,17 +192,19 @@ for row_cntr = 1:length(fiber_all_mm(:,1,1,1))
             loop_fiber_r = squeeze(fiber_all_mm(row_cntr,col_cntr,1:loop_fiber_length_points, 1));                         	%get raw tract data in row direction
             row_init = loop_fiber_r(1);
             loop_fiber_r = loop_fiber_r - row_init;                                                                         %subtract initial value
-            pcoeff_r(row_cntr,col_cntr,:) = polyfit(fiber_distance, loop_fiber_r, p_order(1));                              %get polynomial coefficients
+            poly_weights=ones(size(fiber_distance));                                                                        %weight array
+            poly_weights(1)=weight;                                                                                         %weight to preserve seed point location
+            pcoeff_r(row_cntr,col_cntr,:)=polyfitweighted(fiber_distance, loop_fiber_r, p_order(1),poly_weights);           %fit polynomial function with weighted least squares approx                                                        %get polynomial coefficients
             loop_fitted_fiber_r = polyval(squeeze(pcoeff_r(row_cntr,col_cntr,:)), ...                                       %smoothing in row dir.
                 min(fiber_distance):fiber_step:max(fiber_distance));
             loop_fitted_fiber_r = loop_fitted_fiber_r - loop_fitted_fiber_r(1);                                             %subtract new fitting offset from all points 
             loop_fitted_fiber_r = loop_fitted_fiber_r + row_init;                                                           %add back the initial value
             smoothed_fiber_all_mm(row_cntr,col_cntr,1:length(loop_fitted_fiber_r),1) = loop_fitted_fiber_r;                 %copy to output variable
-            
+
             loop_fiber_c = squeeze(fiber_all_mm(row_cntr,col_cntr,1:loop_fiber_length_points, 2));                          %get raw tract data in column direction
             col_init = loop_fiber_c(1);
             loop_fiber_c = loop_fiber_c - col_init;                                                                         %subtract initial value
-            pcoeff_c(row_cntr,col_cntr,:) = polyfit(fiber_distance, loop_fiber_c, p_order(2));                              %get polynomial coefficients
+            pcoeff_c(row_cntr,col_cntr,:)=polyfitweighted(fiber_distance, loop_fiber_c, p_order(2),poly_weights);           %fit polynomial function with weighted least squares approx                                                          %get polynomial coefficients
             loop_fitted_fiber_c = polyval(squeeze(pcoeff_c(row_cntr,col_cntr,:)), ...                                       %smoothing in column dir.
                 min(fiber_distance):fiber_step:max(fiber_distance));  	
             loop_fitted_fiber_c = loop_fitted_fiber_c - loop_fitted_fiber_c(1);                                             %subtract new fitting offset from all points 
@@ -194,7 +214,7 @@ for row_cntr = 1:length(fiber_all_mm(:,1,1,1))
             loop_fiber_s = squeeze(fiber_all_mm(row_cntr,col_cntr,1:loop_fiber_length_points, 3));                          %get raw tract data in z direction
             slc_init = loop_fiber_s(1);
             loop_fiber_s = loop_fiber_s - slc_init;                                                                         %subtract initial value
-            pcoeff_s(row_cntr,col_cntr,:) = polyfit(fiber_distance, loop_fiber_s, p_order(3));                              %get polynomial coefficients
+            pcoeff_s(row_cntr,col_cntr,:)=polyfitweighted(fiber_distance, loop_fiber_s, p_order(3),poly_weights);           %fit polynomial function with weighted least squares approx
             loop_fitted_fiber_s = polyval(squeeze(pcoeff_s(row_cntr,col_cntr,:)), ...                                       %smoothing in slice dir
                 min(fiber_distance):fiber_step:max(fiber_distance));
             loop_fitted_fiber_s = loop_fitted_fiber_s - loop_fitted_fiber_s(1);                                             %subtract new fitting offset from all points 
@@ -267,3 +287,76 @@ end
 %% end function
 
 return;
+
+
+% polyfitweighted function from MATLAB's file exchange
+
+function p = polyfitweighted(x,y,n,w)
+% polyfitweighted.m 
+% -----------------
+%
+% Find a least-squares fit of 1D data y(x) with an nth order 
+% polynomial, weighted by w(x).
+%
+% By S.S. Rogers (2006), based on polyfit.m by The MathWorks, Inc. - see doc
+% polyfit for more details.
+%
+% Usage
+% -----
+%
+% P = polyfitweighted(X,Y,N,W) finds the coefficients of a polynomial 
+% P(X) of degree N that fits the data Y best in a least-squares sense. P 
+% is a row vector of length N+1 containing the polynomial coefficients in
+% descending powers, P(1)*X^N + P(2)*X^(N-1) +...+ P(N)*X + P(N+1). W is
+% a vector of weights. 
+%
+% Vectors X,Y,W must be the same length.
+%
+% Class support for inputs X,Y,W:
+%    float: double, single
+%
+% The regression problem is formulated in matrix format as:
+%
+%    yw = V*p    or
+%
+%          3    2
+%    yw = [x w  x w  xw  w] [p3
+%                            p2
+%                            p1
+%                            p0]
+%
+% where the vector p contains the coefficients to be found.  For a
+% 7th order polynomial, matrix V would be:
+%
+% V = [w.*x.^7 w.*x.^6 w.*x.^5 w.*x.^4 w.*x.^3 w.*x.^2 w.*x w];
+if ~isequal(size(x),size(y),size(w))
+    error('X and Y vectors must be the same size.')
+end
+x = x(:);
+y = y(:);
+w = w(:);
+% Construct weighted Vandermonde matrix.
+%V(:,n+1) = ones(length(x),1,class(x));
+V(:,n+1) = w;
+for j = n:-1:1
+   V(:,j) = x.*V(:,j+1);
+end
+% Solve least squares problem.
+[Q,R] = qr(V,0);
+ws = warning('off','all'); 
+p = R\(Q'*(w.*y));    % Same as p = V\(w.*y);
+warning(ws);
+if size(R,2) > size(R,1)
+   warning('polyfitweighted:PolyNotUnique', ...
+       'Polynomial is not unique; degree >= number of data points.')
+elseif condest(R) > 1.0e10
+    if nargout > 2
+        warning('polyfitweighted:RepeatedPoints', ...
+            'Polynomial is badly conditioned. Remove repeated data points.')
+    else
+        warning('polyfitweighted:RepeatedPointsOrRescale', ...
+            ['Polynomial is badly conditioned. Remove repeated data points\n' ...
+            '         or try centering and scaling as described in HELP POLYFIT.'])
+    end
+end
+p = p.';          % Polynomial coefficients are row vectors by convention.
