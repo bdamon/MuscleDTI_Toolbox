@@ -30,7 +30,7 @@ function [roi_mesh, roi_mask, roi_mesh_dilated,roi_mask_dilated]=define_roi(anat
 %
 %  -Automatic segmentation: A single figure window, containing three panels, 
 %   is displayed; each panel shows the current slice. An initial estimate of 
-%   the aponeurosiss location is presented. This estimate is presented as 
+%   the aponeurosis's location is presented. This estimate is presented as 
 %   magenta points in the left-hand panel. In the center panel, the edge 
 %   locations of the mask are indicated and the initial segmentation results 
 %   are shown as semi-transparent red pixels. In the right-hand panel, the 
