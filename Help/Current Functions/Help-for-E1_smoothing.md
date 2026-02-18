@@ -1,22 +1,22 @@
-# Help for [<i>smoothn</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Preprocessing-Functions/smoothn.m), v. 1.0.0.
+# Help for [<i>E1_smoothing</i>](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Preprocessing-Functions/E1_smoothing.m), v. 1.0.0.
 
 ## Introduction
 
 This help file contains information about
-1) [Purpose of the Program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Current%20Functions/Help-for-smoothn.md#1-Purpose)
-2) [Usage of the Program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Current%20Functions/Help-for-smoothn.md#2-Usage)
-3) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Current%20Functions/Help-for-smoothn.md#3-Syntax)
-4) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Current%20Functions/Help-for-smoothn.md#4-Example-Code)
-5) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Current%20Functions/Help-for-smoothn.md#5-Acknowledgements)
+1) [Purpose of the Program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Current%20Functions/Help-for-E1_smoothing.md#1-Purpose)
+2) [Usage of the Program](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Current%20Functions/Help-for-E1_smoothing.md#2-Usage)
+3) [Syntax](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Current%20Functions/Help-for-E1_smoothing.md#3-Syntax)
+4) [Example Code](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Current%20Functions/Help-for-E1_smoothing.md#4-Example-Code)
+5) [Acknowledgements](https://github.com/bdamon/MuscleDTI_Toolbox/blob/master/Help/Current%20Functions/Help-for-E1_smoothing.md#5-Acknowledgements)
 
 ## 1. Purpose 
 This function provides a fast, automated, and robust discretized spline smoothing for data of arbitrary dimension. For skeletal muscle DTI applications, the function is used to smooth the muscle's principal diffusion eigenvector field. 
 
 ## 2. Usage
-The user inputs the first eigenvector map of the muscle as an array with 3 entries. Each entry corresponds to the 3D distribution of each spatial coordinate of the principal diffusion eigenvector field. 
+The user inputs the first eigenvector map of the muscle as a 4D array with [x,y,z,3] entries. The array corresponds to the 3D distribution of each spatial coordinate of the principal diffusion eigenvector field. 
 
 ## 3. Syntax
-[E1map_smooth,smoothing_parameter] = smoothn({e1map(:,:,:,1),e1map(:,:,:,2),e1map(:,:,:,3)}, input_smoothing_parameter) 
+[E1map_smooth] = E1_smoothing(E1_map, input_smoothing_parameter) 
 
 The input arguments are:
 * <i>data:</i> [e1map] 4D volume containing the principal diffusion eigenvector field of the muscle (x,y,z,3)
@@ -24,12 +24,11 @@ The input arguments are:
   
 The output arguments are:
 * <i>E1_map_smooth:</i> (x,y,z,3) smoothed
-* <i>smoothing_parameter:</i> scalar describing the level of smoothing
 
 ## 4. Example code
 
 ## 5. Acknowledgements
-The function was created by Damien Garcia and is available in the MATLAB File exchange (https://www.mathworks.com/matlabcentral/fileexchange/25634-smoothn) and in the BiomeCardio website (https://www.biomecardio.com/matlab/smoothn_doc.html).
+This function depends on the smoothn function created by Damien Garcia and is available in the MATLAB File exchange (https://www.mathworks.com/matlabcentral/fileexchange/25634-smoothn) and in the BiomeCardio website (https://www.biomecardio.com/matlab/smoothn_doc.html).
 
 REFERENCES
 Pineda Guzman, Roberto A.; Lockard, Carly A.; Zhou, Xingyu; Damon, Bruce M. "Improved DTI-Based Skeletal Muscle Architecture Estimation via Diffusion Weighted Image Denoising and First Eigenvector Map Smoothing." NMR in Biomedicine, vol. 38, no. 9, pp. e70100, July 2025.  
