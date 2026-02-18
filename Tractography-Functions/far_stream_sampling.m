@@ -1,8 +1,9 @@
-function [sampled_fiber_all_mm, sampled_fiber_all_idx] = far_stream_sampling(fiber_all_mm, sample_size, resampled_points)
+function [sampled_fiber_all_mm,sampled_fiber_all,sampled_fiber_all_idx] = ...
+    far_stream_sampling(fiber_all_mm,fiber_all,sample_size,resampled_points)
 %
-%FUNCTION fiber_track
-%  [sampled_fiber_all_mm, sampled_fiber_all_idx] = ...
-%     far_stream_sampling(fiber_all_mm, sample_size, resampled_points)
+%FUNCTION far_stream_sampling
+%  sampled_fiber_all_mm = ...
+%     far_stream_sampling(fiber_all_mm,sample_size,resampled_points)
 %
 %USAGE
 %  The function far_stream_sampling is used to uniformly sample
@@ -11,10 +12,10 @@ function [sampled_fiber_all_mm, sampled_fiber_all_idx] = far_stream_sampling(fib
 %  each fiber tract to N points and then finds the set of N tracts that
 %  result in the largest distance between all pairs of tracts.
 %
-%  The user supplies the fiber_all_mm matrix, the desired final number of
-%  tracts K, and the desired number of points N to use when resampling the
-%  tracts. The resampled fiber_all_mm matrix and the indices into the
-%  fiber_all_mm matrix are returned.
+%  The user supplies the fiber_all_mm and fiber_all matrices, the desired
+%  final number of tracts K, and the desired number of points N to use when
+%  resampling the tracts. The resampled fiber_all_mm and fiber_all matrices
+%  and the indices into the fiber_all_mm and fiber_all matrices are returned.
 %
 %
 %INPUT ARGUMENTS
@@ -22,6 +23,11 @@ function [sampled_fiber_all_mm, sampled_fiber_all_idx] = far_stream_sampling(fib
 %    on the roi_mesh or the different seeding locations if dimension 2 is equal 
 %    to 1. Dimension 3 gives point numbers on the tract, and the fourth dimension
 %    has row, column, and slice coordinates, with units of mm.
+%
+%  fiber_all: The fiber tracts. The rows and columns correspond to locations
+%    on the roi_mesh or the different seeding locations if dimension 2 is equal 
+%    to 1. Dimension 3 gives point numbers on the tract, and the fourth dimension
+%    has row, column, and slice coordinates, with units of voxels.
 %
 %  sample_size: The number of fiber-tracts contained in the output fiber
 %    tract matrix
@@ -32,6 +38,9 @@ function [sampled_fiber_all_mm, sampled_fiber_all_idx] = far_stream_sampling(fib
 %
 %OUTPUT ARGUMENTS
 %  sampled_fiber_all_mm: The matrix including the sampled fiber tracts
+%
+%  sampled_fiber_all: The matrix including the sampled fiber tracts, with
+%  units of voxels.
 %
 %  sampled_fiber_all_idx: The indices of the sampled fiber-tracts, 1D array for
 %    voxel-seeded tracts, 2D array for roi mesh-seeded tracts
@@ -52,11 +61,14 @@ function [sampled_fiber_all_mm, sampled_fiber_all_idx] = far_stream_sampling(fib
 %
 %VERSION INFORMATION
 %  v. 1.0.0 (initial release), June 13, 2025, Roberto Pineda Guzman
+%  v. 1.1.0 October 19, 2025, added fiber_all input and sampled_fiber_all
+%  output, Roberto Pineda Guzman
 %
 %ACKNOWLEDGEMENTS
 %  Grant support: NIH/NIAMS R01 AR073831
 
-if nargin<3
+%% 
+if nargin<4
     resampled_points = 12;
 end
 
@@ -66,8 +78,11 @@ n_rows_fiber_all_mm = size(fiber_all_mm,1);
 n_cols_fiber_all_mm = size(fiber_all_mm,2);
 if n_cols_fiber_all_mm > 1
     fiber_all_mm_orig = fiber_all_mm; %Preserve original fiber_all array
+    fiber_all_orig = fiber_all; %Preserve original fiber_all array
     fiber_all_mm = reshape(fiber_all_mm,[size(fiber_all_mm,1)*size(fiber_all_mm,2) 1 ...
         size(fiber_all_mm,3) size(fiber_all_mm,4)]);
+    fiber_all = reshape(fiber_all,[size(fiber_all,1)*size(fiber_all,2) 1 ...
+        size(fiber_all,3) size(fiber_all,4)]);
 end
 
 % Resample all fiber-tracts to the specified number of resampled_points
@@ -131,9 +146,11 @@ for t = 2:sample_size
 end
 
 sampled_fiber_all_mm = zeros([sample_size size(fiber_all_mm,2) size(fiber_all_mm,3) 3]);
+sampled_fiber_all = zeros([sample_size size(fiber_all,2) size(fiber_all,3) 3]);
 
 for t = 1:sample_size
     sampled_fiber_all_mm(t,1,:,:) = squeeze(fiber_all_mm(s(t),1,:,:));
+    sampled_fiber_all(t,1,:,:) = squeeze(fiber_all(s(t),1,:,:));
 end
 
 sampled_fiber_all_idx = s; %indices of sampled fiber-tracts
@@ -150,8 +167,10 @@ if n_cols_fiber_all_mm > 1
     sampled_fiber_all_idx = s_roi_mesh;
 
     sampled_fiber_all_mm = zeros(size(fiber_all_mm_orig));
+    sampled_fiber_all = zeros(size(fiber_all_orig));
     for k = 1:sample_size
         sampled_fiber_all_mm(sampled_fiber_all_idx(k,1),sampled_fiber_all_idx(k,2),:,:) = fiber_all_mm_orig(sampled_fiber_all_idx(k,1),sampled_fiber_all_idx(k,2),:,:);
+        sampled_fiber_all(sampled_fiber_all_idx(k,1),sampled_fiber_all_idx(k,2),:,:) = fiber_all_orig(sampled_fiber_all_idx(k,1),sampled_fiber_all_idx(k,2),:,:);
     end
 
 end
@@ -164,5 +183,4 @@ function distance = min_direct_flip(u, v ,n_points)
     v_flipped = flip(v,1);
     d_flipped = 1/n_points*sum(vecnorm((u-v_flipped)'));
     distance = min(d_direct,d_flipped);
-
 end
