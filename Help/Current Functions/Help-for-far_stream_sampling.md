@@ -16,11 +16,13 @@ The function <i>far_stream_sampling</i> is used to uniformly sample fiber-tracts
 The user calls <i>far_stream_sampling</i> from the command line. The user must supply a fiber tract matrix having units of mm and specifiy the final number of tracts they wish to preserve (K) and the number of points to use when resampling the tracts (N) during the sampling process. The function preserves the set of K tracts that have the maximum total inter-tract distance, thereby maximizing the sampling uniformity across the muscle.
 
 ## 3. Syntax 
-[sampled_fiber_all_mm, sampled_fiber_all_idx] = far_stream_sampling(fiber_all_mm, sample_size, resampled_points)
+[sampled_fiber_all_mm, sampled_fiber_all, sampled_fiber_all_idx] = far_stream_sampling(fiber_all_mm, fiber_all, sample_size, resampled_points)
 
 The input arguments are:
 
 <i>fiber_all_mm</i>: The fiber tracts. The rows and columns correspond to locations on the roi_mesh or the different seeding locations if dimension 2 is equal to 1. Dimension 3 gives point numbers on the tract, and the fourth dimension has row, column, and slice coordinates, with units of mm.
+
+<i>fiber_all</i>: The fiber tracts. The rows and columns correspond to locations on the roi_mesh or the different seeding locations if dimension 2 is equal to 1. Dimension 3 gives point numbers on the tract, and the fourth dimension has row, column, and slice coordinates, with units of voxels.
 
 <i>sample_size</i>: The number of fiber-tracts contained in the output fiber tract matrix
      
@@ -28,7 +30,9 @@ The input arguments are:
 
 The output arguments are:
 
- <i>sampled_fiber_all_mm</i>: The matrix including the K sampled fiber tracts.
+ <i>sampled_fiber_all_mm</i>: The matrix including the K sampled fiber tracts, with units of mm.
+
+  <i>sampled_fiber_all</i>: The matrix including the K sampled fiber tracts, with units of voxels.
 
  <i>sampled_fiber_all_idx</i>: The indices of the sampled fiber-tracts into the original fiber tract matrix.  This is a  1D array for voxel-seeded tracts or a 2D array for roi mesh-seeded tracts.
 
@@ -36,7 +40,7 @@ The output arguments are:
 
 Given:
 
-1.	A fiber tracking matrix, with point coordinates specified in mm
+1.	The fiber tracking matrices, with point coordinates specified in mm and voxels
 
 the following code will allow the user to 
 
@@ -52,7 +56,7 @@ sample_size = 500;
 
 resampled_points = 15;
 
-[sampled_fiber_all_mm, sampled_fiber_all_idx] = far_stream_sampling(fiber_all_mm, sample_size, resampled_points)
+[sampled_fiber_all_mm, sampled_fiber_all, sampled_fiber_all_idx] = far_stream_sampling(fiber_all_mm, fiber_all, sample_size, resampled_points)
  
 ## 5. Acknowledgements
 People: Roberto Pineda Guzman
