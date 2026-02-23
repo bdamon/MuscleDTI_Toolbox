@@ -95,20 +95,7 @@ figure
 imagesc(squeeze(e1fa(:,:,30,1:3)))
 
 % smooth first eigenvector field
-[E1map_smooth,smoothing_parameter] = smoothn(squeeze(e1fa(:,:,:,1:3)));
-for r=1:length(tensor_m(:,1,1,1,1))
-    for c=1:length(tensor_m(1,:,1,1,1))
-        for s=1:length(tensor_m(1,1,:,1,1))
-            if mask(r,c,s)
-                if norm(squeeze(E1map_smooth(r,c,s,:)))~=1
-                    zed=1+zed;
-                    E1map_smooth(r,c,s,:) = squeeze(E1map_smooth(r,c,s,:))/norm(squeeze(E1map_smooth(r,c,s,:)));
-                end
-            end
-        end
-    end
-end
-
+E1map_smooth = E1_smoothing(squeeze(e1fa(:,:,:,1:3)));
 
 figure
 imagesc(squeeze(E1map_smooth(:,:,30,:)))
@@ -197,6 +184,7 @@ fq_options.tract_units = 'vx';
 
 [angle_list, distance_list, curvature_list, fiber_all_mm, n_points, apo_area] = ...
      fiber_quantifier(fq_options, sampled_smoothed_fiber_all_vx, roi_mesh, mask);
+
 
 
 
