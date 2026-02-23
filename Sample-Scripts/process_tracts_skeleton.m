@@ -95,21 +95,7 @@ figure
 
 
 % smooth first eigenvector field
-[E1map_smooth,smoothing_parameter] = smoothn(squeeze(e1fa(:,:,:,1:3)));
-
-% ensure all the E1's have unit length
-for r=1:length(tensor_m(:,1,1,1,1))
-    for c=1:length(tensor_m(1,:,1,1,1))
-        for s=1:length(tensor_m(1,1,:,1,1))
-            if mask(r,c,s)
-                if %condition that must be true
-                    E1map_smooth(r,c,s,:) = 
-                end
-            end
-        end
-    end
-end
-
+E1map_smooth = E1_smoothing(squeeze(e1fa(:,:,:,1:3)));
 
 figure
 
@@ -204,5 +190,6 @@ fq_options.tract_units = 'vx';
 
 
 % find average properties for each tract, display a heat map with colorscale
+
 
 
