@@ -1,8 +1,8 @@
-function smooth_E1 = E1_smoothing(E1,smoothing_parameter)
+function smooth_E1 = E1_smoothing(E1,muscle_mask,smoothing_parameter)
 %
 %FUNCTION E1_smoothing
 %  smooth_E1 = ...
-%     E1_smoothing(E1,smoothing_parameter)
+%     E1_smoothing(E1,muscle_mask,smoothing_parameter)
 %
 %USAGE
 %  The function smooth_E1 is used to smooth the 1st diffusion eigenvector
@@ -17,6 +17,9 @@ function smooth_E1 = E1_smoothing(E1,smoothing_parameter)
 %   [row column slice] size of the DTI images and the fourth dimension
 %   holding the X, Y, and Z components of the first eigenvector
 %
+%  muscle_mask: a binary mask that specifies the muscle ROI, this input is
+%   recommended if your E1 map has already been masked (optional)
+%
 %  smoothing_parameter: The smoothing parameter manually input into the
 %   smoothn function if automatic smoothing is not desired (optional)
 %
@@ -27,6 +30,7 @@ function smooth_E1 = E1_smoothing(E1,smoothing_parameter)
 %
 %VERSION INFORMATION
 %  v. 1.0.0 October 29, 2025, Roberto Pineda Guzman
+%  v. 1.1.0 March 4, 2026, Roberto Pineda Guzman, added muscle_mask input 
 %
 %ACKNOWLEDGEMENTS
 %  Grant support: NIH/NIAMS R01 AR073831
@@ -37,8 +41,15 @@ function smooth_E1 = E1_smoothing(E1,smoothing_parameter)
 
 if nargin < 2
     smooth_E1=smoothn({E1(:,:,:,1),E1(:,:,:,2),E1(:,:,:,3)});
+    muscle_mask = ones(size(E1,1),size(E1,2),size(E1,3));
+elseif nargin < 3
+    smooth_E1=smoothn({E1(:,:,:,1),E1(:,:,:,2),E1(:,:,:,3)});
 else
     smooth_E1=smoothn({E1(:,:,:,1),E1(:,:,:,2),E1(:,:,:,3)},smoothing_parameter);
+end
+
+if isempty(muscle_mask)
+    muscle_mask = ones(size(E1,1),size(E1,2),size(E1,3));
 end
 
 smooth_E1=cat(4,smooth_E1{1},smooth_E1{2},smooth_E1{3});
@@ -57,6 +68,10 @@ for r_img=1:size(E1,1)
 end
 
 smooth_E1(isnan(smooth_E1)) = 0; % Convert NaN to 0 from zero length vectors
+
+for i = 1:3
+    smooth_E1(:,:,:,i)=squeeze(smooth_E1(:,:,:,i)).*muscle_mask;
+end
 
 end
 
@@ -903,3 +918,5 @@ W = (1-(u/4.685).^2).^2.*((u/4.685)<1);
 end
 
 %}
+
+
