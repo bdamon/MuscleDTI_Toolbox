@@ -16,10 +16,11 @@ This function provides a fast, automated, and robust discretized spline smoothin
 The user inputs the first eigenvector map of the muscle as a 4D array with [x,y,z,3] entries. The array corresponds to the 3D distribution of each spatial coordinate of the principal diffusion eigenvector field. 
 
 ## 3. Syntax
-[E1map_smooth] = E1_smoothing(E1_map, input_smoothing_parameter) 
+[E1map_smooth] = E1_smoothing(E1_map, muscle_mask, input_smoothing_parameter) 
 
 The input arguments are:
 * <i>data:</i> [e1map] 4D volume containing the principal diffusion eigenvector field of the muscle (x,y,z,3)
+* <i>data:</i> [muscle_mask] 3D volume containing the binary mask of the segmented muscle (x,y,z)
 * <i>data:</i> [input_smoothing_parameter] optional, level of smoothing can also be prespecified by the user (not defined by the algorithm), with a higher input smoothing parameter resulting in more smoothing. 
   
 The output arguments are:
