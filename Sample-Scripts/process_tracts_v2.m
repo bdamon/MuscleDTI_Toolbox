@@ -156,20 +156,7 @@ smoothed_fiber_fig = fiber_visualizer(anat_image, fv_options, roi_mesh, [], smoo
 
 %% select 500 tracts
 
-[sampled_fiber_all_mm, sampled_fiber_all_idx] = far_stream_sampling(smoothed_fiber_all_mm, 500);
-
-sampled_smoothed_fiber_all_vx = zeros(size(sampled_fiber_all_mm));
-for k=1:length(sampled_fiber_all_idx)
-
-    loop_sampled_fiber_all_vx = squeeze(sampled_fiber_all_mm(sampled_fiber_all_idx(k,1), sampled_fiber_all_idx(k,2), :, :));
-    loop_sampled_fiber_all_vx(:,1) = loop_sampled_fiber_all_vx(:,1)/(dti_fov(1)/dti_numrows);
-    loop_sampled_fiber_all_vx(:,2) = loop_sampled_fiber_all_vx(:,2)/(dti_fov(1)/dti_numrows);
-    loop_sampled_fiber_all_vx(:,3) = loop_sampled_fiber_all_vx(:,3)/dti_slcthick;
-
-
-    sampled_smoothed_fiber_all_vx(sampled_fiber_all_idx(k,1), sampled_fiber_all_idx(k,2), :, :) = loop_sampled_fiber_all_vx;
-
-end
+[sampled_fiber_all_mm, sampled_fiber_all_vx, sampled_fiber_all_idx] = far_stream_sampling(smoothed_fiber_all_mm, 500);
 
 %visualize fiber tracts
 sampled_smoothed_fiber_fig = fiber_visualizer(anat_image, fv_options, roi_mesh, [], sampled_smoothed_fiber_all_vx);
@@ -183,7 +170,8 @@ fq_options.mesh_units = 'vx';                                               %tra
 fq_options.tract_units = 'vx';
 
 [angle_list, distance_list, curvature_list, fiber_all_mm, n_points, apo_area] = ...
-     fiber_quantifier(fq_options, sampled_smoothed_fiber_all_vx, roi_mesh, mask);
+     fiber_quantifier(fq_options, sampled_fiber_all_vx, roi_mesh, mask);
+
 
 
 
