@@ -5,7 +5,7 @@ function [fiber_all, roi_flag, stop_list, fiber_len, seed_points] = ...
 %    fiber_track(ft_options, e1fa, mask, roi_mesh, fv_options, anat_image);
 %
 %USAGE
-%  The function fiber_track, v.2.0.0, is used to fiber-track a muscle DTI dataset.
+%  The function fiber_track, v.2.0.2, is used to fiber-track a muscle DTI dataset.
 %
 %  The required inputs include a structure defining the fiber-tracking
 %  options; a 4D matrix with [row column slice] dimensions matching those
@@ -173,6 +173,8 @@ function [fiber_all, roi_flag, stop_list, fiber_len, seed_points] = ...
 %   diffusion tensor matrix), 5 August 2025, Bruce Damon. Not backwards
 %   compatible to v. 1
 %  v. 2.0.1 (updated help section), 10 Oct 2025, Bruce Damon
+%  v. 2.0.2 (bug fixed for seeding-based algorithms, lines 1200-1208),     
+%   12 June 2026, Roberto Pineda Guzman
 %
 %ACKNOWLEDGEMENTS
 %  People: Zhaohua Ding, Adam Anderson, Amanda Buck, Anneriet Heemskerk,
@@ -1197,6 +1199,13 @@ if seed_method(1)~='a'
                 e1fa_r_1 = round(next_point_1(1));
                 e1fa_c_1 = round(next_point_1(2));
                 e1fa_s_1 = max([round(next_point_1(3)) 1]);
+
+                % first criterion - check slice position of point; terminate tract if out of bounds and record as stop criterion = 4.
+                if e1fa_s_1 > size(mask,3)   % correction 06/12/26
+                    stop_list_1(seed_cntr, plane_cntr) = 4;
+                    break;
+                end
+
                 e1fa_s_1 = min([length(e1fa(1,1,:,1,1)) e1fa_s_1]);
 
                 % first criterion - check mask; terminate tract if out of bounds and record as stop criterion = 4. intentionally uses the diffusion mask
