@@ -30,6 +30,8 @@ function [F_deform_grad,C_cauchy_strain,E_green_strain] = ...
 %
 %VERSION INFORMATION
 % v1.0.0, Roberto Pineda Guzman, October 7 2024.
+% v1.1.0, vectorized computations to improve speed, Roberto Pineda Guzman,
+% August 21, 2026
 %
 % ACKNOWLEDGMENTS
 % Grant support: NIH/NIAMS R01 AR073831
@@ -46,8 +48,6 @@ end
 [duz_dx,duz_dy,duz_dz] = gradient(uz,spacing(1),spacing(2),spacing(3));
 
 F_deform_grad=zeros(size(dux_dx,1),size(dux_dx,2),size(dux_dx,3),3,3);
-C_cauchy_strain=zeros(size(dux_dx,1),size(dux_dx,2),size(dux_dx,3),3,3);
-E_green_strain=zeros(size(dux_dx,1),size(dux_dx,2),size(dux_dx,3),3,3);
 
 %Compute deformation tensor F = grad(u) + I
 F_deform_grad(:,:,:,1,1)=dux_dx+1; % Add 1 to diagonal elements (Identity tensor addition)
@@ -60,15 +60,24 @@ F_deform_grad(:,:,:,3,1)=duz_dx;
 F_deform_grad(:,:,:,3,2)=duz_dy;
 F_deform_grad(:,:,:,3,3)=duz_dz+1;
 
-%Compute Cauchy C = F'F and Green-Strain Tensor E = 1/2(C-I)
-for r=1:size(dux_dx,1)
-    for c=1:size(dux_dx,2)
-        for s=1:size(dux_dx,3)
-                F=squeeze(F_deform_grad(r,c,s,:,:));
-                C=F'*F; 
-                E=(1/2)*(C-eye(3));
-                C_cauchy_strain(r,c,s,:,:)=C; 
-                E_green_strain(r,c,s,:,:)=E; 
-        end
-    end
+rows = size(F_deform_grad,1);
+cols = size(F_deform_grad,2);
+slcs = size(F_deform_grad,3);
+
+Nvox = rows*cols*slcs;
+
+F_page = reshape(F_deform_grad,Nvox,3,3); 
+F_page = permute(F_page,[2 3 1]); % Create paged array for all elements in F, 3 x 3 x Nvox
+
+C_page = pagemtimes(pagetranspose(F_page),F_page); % Compute Cauchy Green strain tensor, C = F'*F
+I_page = repmat(eye(3),1,1,Nvox); % Identity tensor
+
+E_page = (1/2).*(C_page-I_page); % Compute Green strain tensor  E = (1/2)*(C-I)
+
+C_cauchy_strain = reshape(C_page,3,3,rows,cols,slcs);    % Go back to r x c x s x 3 x 3 format
+C_cauchy_strain = permute(C_cauchy_strain,[3 4 5 1 2]);
+
+E_green_strain = reshape(E_page,3,3,rows,cols,slcs);    % Go back to r x c x s x 3 x 3 format
+E_green_strain = permute(E_green_strain,[3 4 5 1 2]);
+
 end
